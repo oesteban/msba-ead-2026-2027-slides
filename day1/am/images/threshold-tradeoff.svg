@@ -251,7 +251,7 @@ L 354.087273 12.272813
 L 358.314545 12.272813 
 L 362.541818 12.272813 
 L 366.769091 12.272813 
-" clip-path="url(#p4fa6ebaf5f)" style="fill: none; stroke: #1c487b; stroke-width: 2.2; stroke-linecap: square"/>
+" clip-path="url(#p4fa6ebaf5f)" style="fill: none; stroke: #25bcca; stroke-width: 2.2; stroke-linecap: square"/>
    </g>
    <g id="line2d_14">
     <path d="M 53.950909 12.272813 
@@ -351,7 +351,7 @@ L 447.087273 218.813989
 L 451.314545 218.813989 
 L 455.541818 218.813989 
 L 459.769091 218.813989 
-" clip-path="url(#p4fa6ebaf5f)" style="fill: none; stroke: #dc0069; stroke-width: 2.2; stroke-linecap: square"/>
+" clip-path="url(#p4fa6ebaf5f)" style="fill: none; stroke: #00609c; stroke-width: 2.2; stroke-linecap: square"/>
    </g>
    <g id="line2d_15">
     <path d="M 53.950909 123.487292 
@@ -473,7 +473,7 @@ L 480.06 218.813989
      <path d="M 372.235938 92.147676 
 L 386.235938 92.147676 
 L 400.235938 92.147676 
-" style="fill: none; stroke: #1c487b; stroke-width: 2.2; stroke-linecap: square"/>
+" style="fill: none; stroke: #25bcca; stroke-width: 2.2; stroke-linecap: square"/>
     </g>
     <g id="text_14">
      <text style="font: 14px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="411.435938" y="97.047676" transform="rotate(-0 411.435938 97.047676)">precision</text>
@@ -482,7 +482,7 @@ L 400.235938 92.147676
      <path d="M 372.235938 112.198301 
 L 386.235938 112.198301 
 L 400.235938 112.198301 
-" style="fill: none; stroke: #dc0069; stroke-width: 2.2; stroke-linecap: square"/>
+" style="fill: none; stroke: #00609c; stroke-width: 2.2; stroke-linecap: square"/>
     </g>
     <g id="text_15">
      <text style="font: 14px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="411.435938" y="117.098301" transform="rotate(-0 411.435938 117.098301)">recall</text>
