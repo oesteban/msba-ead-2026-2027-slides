@@ -25,6 +25,9 @@ concurrency:
 
 jobs:
   build:
+    # The repository stays private until the year's decks are accepted; Pages
+    # starts with the first push after it is made public.
+    if: ${{ !github.event.repository.private }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
