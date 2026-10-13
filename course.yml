@@ -1,0 +1,43 @@
+# ---------------------------------------------------------------------------
+# course.yml: single source of truth for everything YEAR-BOUND in these decks.
+#
+#   Workflow:  edit this file  ->  python3 tools/reyear.py  ->  review the diff
+#
+# reyear.py rewrites mechanical state only (dates, deck URLs, QR codes). It
+# never touches prose or titles: those are content decisions, kept in the
+# private planning notes (course-msba-ead/2026-2027/planning/).
+#
+# Idempotence: after a successful run each `replaces:` equals its `date:`.
+# Next year, change `date:` only.
+# ---------------------------------------------------------------------------
+
+cohort: "2026-2027"
+short_year: "26-27"
+
+base_url: "https://oesteban.github.io/msba-ead-2026-2027-slides"
+repo_url: "https://github.com/oesteban/msba-ead-2026-2027-slides"
+
+previous_base_url: "https://oesteban.github.io/msba-ead-2026-2027-slides"
+previous_repo_url: "https://github.com/oesteban/msba-ead-2026-2027-slides"
+
+lab_urls: []
+
+module_name: "EAD · Exploration avancée de données et intelligence décisionnelle"
+previous_module_name: "EAD · Exploration avancée de données et intelligence décisionnelle"
+
+timezone_offset: "+02:00"
+
+# Teaching half-days, in delivery order. `id` is the deck directory.
+# Source of record: Planning SA2627.xlsx (module responsible, HE-Arc).
+days:
+  - id: day1/am
+    date: 2026-10-16
+    replaces: 2026-10-16
+    start: "08:45"
+    title: "Measuring a classifier: metrics, thresholds and k-fold"
+
+  - id: day1/pm
+    date: 2026-10-16
+    replaces: 2026-10-16
+    start: "13:15"
+    title: "Beyond two classes, and into deep learning"
