@@ -1,0 +1,14 @@
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+
+# A real class roster, and any per-deck symlink to it. Never in git: the
+# repository is public and remark-engine's roulette.js serves whatever roster
+# file sits next to a deck. `git add roster.local.yml` is refused.
+roster.local.yml
+
+# Filled worksheets carry student names: only the blank PDFs are committed.
+*-filled.pdf
+
+# scratch renders
+_preview/
