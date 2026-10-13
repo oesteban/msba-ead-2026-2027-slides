@@ -23,7 +23,7 @@
 // mark when one is supplied, nothing else changes.
 // ---------------------------------------------------------------------------
 
-#let accent = rgb("#dc0069")   // matches remark/themes/hes-so.css
+#let accent = rgb("#00609c")   // matches remark/themes/hesso-master.css
 #let hair = 0.4pt + luma(190)
 
 #let institution = [HES-SO Master · MSc in Business Administration]
