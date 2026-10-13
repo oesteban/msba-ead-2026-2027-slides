@@ -43,11 +43,11 @@ ROOT = Path(__file__).resolve().parent.parent
 AM = ROOT / "day1" / "am" / "images"
 PM = ROOT / "day1" / "pm" / "images"
 
-ACCENT = "#dc0069"
+ACCENT = "#00609c"
 DARK = "#1a1a1a"
 GRAY = "#8a8a8a"
 LIGHT = "#d9d9d9"
-BLUE = "#1c487b"
+CYAN = "#25bcca"
 SEED = 1337
 
 plt.rcParams.update({
@@ -126,7 +126,7 @@ def credit(path: Path) -> None:
 
     # 2. precision / recall / F1 against the threshold
     fig, ax = plt.subplots(figsize=(8, 3.8))
-    ax.plot(ts, prec, color=BLUE, lw=2.2, label="precision")
+    ax.plot(ts, prec, color=CYAN, lw=2.2, label="precision")
     ax.plot(ts, rec, color=ACCENT, lw=2.2, label="recall")
     ax.plot(ts, f1, color=GRAY, lw=1.6, ls="--", label="F1")
     ax.axvline(0.5, color=DARK, lw=1, ls=":")
@@ -159,7 +159,7 @@ def credit(path: Path) -> None:
     a1.set_xlabel("false-positive rate\n(good applicants refused)")
     a1.set_ylabel("true-positive rate\n(bad applicants caught)")
     a1.set_title(f"ROC · AUC {roc_auc_score(y, p):.2f}", color=DARK)
-    a2.plot(rc, pr, color=BLUE, lw=2.4)
+    a2.plot(rc, pr, color=CYAN, lw=2.4)
     a2.axhline(y.mean(), color=GRAY, ls="--", lw=1)
     a2.text(0.02, y.mean() + 0.02, "share of bad = 0.30", color=GRAY, fontsize=11)
     a2.set_xlabel("recall")
@@ -206,7 +206,7 @@ def credit(path: Path) -> None:
         ax.axvline(a, color=ACCENT, lw=2)
     ax.set_xlabel("test AUC")
     ax.set_ylabel("random splits")
-    ax.text(0.99, 0.95, "grey: 200 random 50/50 splits\nmagenta: the 5 folds of one 5-fold run",
+    ax.text(0.99, 0.95, "grey: 200 random 50/50 splits\nblue: the 5 folds of one 5-fold run",
             transform=ax.transAxes, ha="right", va="top", fontsize=11, color=DARK)
     save(fig, AM / "split-variability.svg")
 
@@ -334,7 +334,7 @@ def network_diagram() -> None:
                 ax.plot([x0, x1], [y0, y1], color=LIGHT, lw=0.7, zorder=1)
     for li, layer in enumerate(pos):
         for (x, yy) in layer:
-            ax.add_patch(plt.Circle((x, yy), 0.17, color=ACCENT if li == 3 else (BLUE if li == 0 else GRAY),
+            ax.add_patch(plt.Circle((x, yy), 0.17, color=ACCENT if li == 3 else (CYAN if li == 0 else GRAY),
                                     zorder=2))
     for (x, yy), lab, pr in zip(pos[3], ["cat", "tiger", "lion"], [0.04, 0.15, 0.81]):
         ax.text(x + 0.35, yy, f"{lab}  {pr:.2f}", va="center", fontsize=14, color=DARK)

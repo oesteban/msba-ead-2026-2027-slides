@@ -393,27 +393,27 @@ L -3.5 0
    <g id="line2d_15">
     <path d="M 246.421654 195.696 
 L 246.421654 7.2 
-" clip-path="url(#p5e068594c7)" style="fill: none; stroke: #dc0069; stroke-width: 2; stroke-linecap: square"/>
+" clip-path="url(#p5e068594c7)" style="fill: none; stroke: #00609c; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="line2d_16">
     <path d="M 434.981241 195.696 
 L 434.981241 7.2 
-" clip-path="url(#p5e068594c7)" style="fill: none; stroke: #dc0069; stroke-width: 2; stroke-linecap: square"/>
+" clip-path="url(#p5e068594c7)" style="fill: none; stroke: #00609c; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="line2d_17">
     <path d="M 472.930341 195.696 
 L 472.930341 7.2 
-" clip-path="url(#p5e068594c7)" style="fill: none; stroke: #dc0069; stroke-width: 2; stroke-linecap: square"/>
+" clip-path="url(#p5e068594c7)" style="fill: none; stroke: #00609c; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="line2d_18">
     <path d="M 217.959829 195.696 
 L 217.959829 7.2 
-" clip-path="url(#p5e068594c7)" style="fill: none; stroke: #dc0069; stroke-width: 2; stroke-linecap: square"/>
+" clip-path="url(#p5e068594c7)" style="fill: none; stroke: #00609c; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="line2d_19">
     <path d="M 161.629135 195.696 
 L 161.629135 7.2 
-" clip-path="url(#p5e068594c7)" style="fill: none; stroke: #dc0069; stroke-width: 2; stroke-linecap: square"/>
+" clip-path="url(#p5e068594c7)" style="fill: none; stroke: #00609c; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="patch_27">
     <path d="M 46.82125 195.696 
@@ -427,7 +427,7 @@ L 493.22125 195.696
    </g>
    <g id="text_17">
     <text style="fill: #1a1a1a; font: 11px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(343.851156 24.596362)">grey: 200 random 50/50 splits</text>
-    <text style="fill: #1a1a1a; font: 11px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(305.930375 36.444738)">magenta: the 5 folds of one 5-fold run</text>
+    <text style="fill: #1a1a1a; font: 11px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(305.930375 36.444738)">blue: the 5 folds of one 5-fold run</text>
    </g>
   </g>
  </g>

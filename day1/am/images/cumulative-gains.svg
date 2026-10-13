@@ -491,7 +491,7 @@ L 448.377017 17.952
 L 448.757472 17.28 
 L 454.083835 17.28 
 L 454.083835 17.28 
-" clip-path="url(#p5917a00ca3)" style="fill: none; stroke: #dc0069; stroke-width: 2.4; stroke-linecap: square"/>
+" clip-path="url(#p5917a00ca3)" style="fill: none; stroke: #00609c; stroke-width: 2.4; stroke-linecap: square"/>
    </g>
    <g id="line2d_14">
     <path d="M 73.62929 218.88 
@@ -534,7 +534,7 @@ L 473.106562 228.96
      <path d="M 337.27375 188.504375 
 L 351.27375 188.504375 
 L 365.27375 188.504375 
-" style="fill: none; stroke: #dc0069; stroke-width: 2.4; stroke-linecap: square"/>
+" style="fill: none; stroke: #00609c; stroke-width: 2.4; stroke-linecap: square"/>
     </g>
     <g id="text_16">
      <text style="font: 14px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="376.47375" y="193.404375" transform="rotate(-0 376.47375 193.404375)">model</text>
