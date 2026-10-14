@@ -40,7 +40,7 @@ days:
     date: 2026-10-16
     replaces: 2026-10-16
     start: "08:45"
-    title: "Measuring a classifier: metrics, thresholds and k-fold"
+    title: "Measuring a classifier: metrics, thresholds and cross-validation"
 
   - id: day1/pm
     date: 2026-10-16

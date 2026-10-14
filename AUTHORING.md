@@ -40,9 +40,13 @@ slide; cut text rather than shrink type. Presenter notes (`???`) are empty by
 default: a note is only a fact said out loud that does not fit on the slide,
 never a stage direction or a design rationale.
 
+Say **cross-validation**, never k-fold, on slides and on paper; define it on a
+slide before any slide uses it (C2/C3). DSS's own setting "K-fold cross-test"
+appears only inside a screen path, as its label. The linters enforce the word.
+
 ## Material from the previous edition
 
 The 2025-26 decks of this slot are the content source, not a template.
-Nothing is copied verbatim, and no figure is reused unless its licence allows
-publication under CC BY 4.0: this repository is public. Figures are redrawn or
-regenerated from open data.
+Nothing is copied verbatim: this repository is public. Figures are redrawn or
+regenerated from open data. A figure by someone else appears only under an open
+licence (CC BY, CC BY-SA, BSD), credited with that licence on its slide.

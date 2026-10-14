@@ -153,7 +153,7 @@ starts from your notes.
 
 #checkpoint(
   msg: [Reached this line? Stop here: the Referee reports in the debrief.],
-  note: [Panels 4 to 6 are for block 2, after the slides on costs, ROC and k-fold.],
+  note: [Panels 4 to 6 are for block 2, after the slides on costs, ROC and cross-validation.],
 )
 
 #v(6pt)
@@ -172,7 +172,7 @@ starts from your notes.
 #v(5pt)
 
 #panel("5 · Replace one split by five folds")[
-  #step(1, "Switch to k-fold")[#dss("Design", "Train/Test set"): *K-fold cross-test*, 5 folds, stratified. Keep two algorithms: Logistic Regression and Random Forest. Train.]
+  #step(1, "Switch to cross-validation")[#dss("Design", "Train/Test set"): *K-fold cross-test*, 5 folds, stratified. Keep two algorithms: Logistic Regression and Random Forest. Train.]
   #v(3pt)
   #table(
     columns: (1.6fr, 1fr, 1fr), inset: 4pt, stroke: hair,

@@ -290,6 +290,12 @@ def check(path, errors, warnings):
                 warn(line, f'panel title "{title}": {why} (AUTHORING.md A1/A2)')
                 break
 
+    # -- vocabulary: cross-validation, never k-fold (AUTHORING.md) -------
+    for m in re.finditer(r"\bk-fold\b(?! cross-test)", src, re.I):
+        err(lineno(src, m.start()),
+            "say 'cross-validation', not 'k-fold'; DSS's 'K-fold cross-test' "
+            "is the only exception (AUTHORING.md, On slides)")
+
     # -- 3. stale PDF ------------------------------------------------------
     pdf = path[:-4] + ".pdf"
     if not os.path.exists(pdf):
