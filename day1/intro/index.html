@@ -42,6 +42,10 @@
 .footnote { right: 5.5em; }
 .canvasgrid { font-size: 0.92em; margin-top: 0.6em; }
 .canvasgrid > div { min-height: 5.2em; }
+/* the five points where people decide: clear of the title and of the right edge */
+.data-table.people table { width: 90%; margin: 1.6em auto 0; font-size: 0.9em; }
+.data-table.people th:nth-child(2), .data-table.people td:nth-child(2) { text-align: left; }
+.data-table.people th:last-child, .data-table.people td:last-child { white-space: nowrap; width: 7em; text-align: right; color: var(--accent); }
 </style>
 <script src="https://kit.fontawesome.com/015d4b01de.js" crossorigin="anonymous"></script>
 
@@ -96,7 +100,7 @@ The process, the data, a hands-on.
 
 ### Measuring a classifier
 
-Metrics, thresholds, k-fold.
+Metrics, thresholds, cross-validation.
 ]
 .card.muted[
 .kicker[16.10 · afternoon]
@@ -122,7 +126,7 @@ class: stepwise-svg
 # A firm is steered through its information system
 
 .boxed-content.center[
-<object type="image/svg+xml" data="images/systemic-model.svg" style="width: 74%; pointer-events: none;"></object>
+<object type="image/svg+xml" data="images/systemic-model.svg" style="width: 70%; margin-top: 28pt; pointer-events: none;"></object>
 ]
 
 .footnote[Recap of week 1. J.-L. Le Moigne (1977), *La théorie du système général*; drawing after J. Bucki and Y. Pesqueux (1994), Fig. 2.]
@@ -142,11 +146,11 @@ class: stepwise-svg
 .pull-right[
 <br />
 
+**CRISP-DM**: the *Cross-Industry Standard Process for Data Mining*.
+
 The **inner arrows** are the most frequent moves between phases, not a fixed order.
 
 The **outer circle**: a deployed model raises new business questions, and the cycle starts again.
-
-Recapped from week 1.
 ]
 
 .footnote[Diagram: Kenneth Jensen, based on IBM SPSS Modeler CRISP-DM documentation, .lic[CC BY-SA 3.0, via Wikimedia Commons]. Model: P. Chapman et al. (2000), *CRISP-DM 1.0*, Fig. 2, p. 13. <br /> .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), Fig. 2-2, p. 27]]
@@ -162,7 +166,7 @@ class: stepwise-svg
 <object type="image/svg+xml" data="images/kdd-to-crisp.svg" style="width: 100%; padding-top: 30pt; pointer-events: none;"></object>
 ]
 
-.footnote[KDD: after U. Fayyad, G. Piatetsky-Shapiro and P. Smyth (1996), Fig. 1. Their text lists nine steps, the two ends included (pp. 41 to 42).]
+.footnote[KDD, knowledge discovery in databases: after U. Fayyad, G. Piatetsky-Shapiro and P. Smyth (1996), Fig. 1. Their text lists nine steps, the two ends included (pp. 41 to 42).]
 
 ???
 
@@ -202,10 +206,10 @@ class: stepwise-svg
 
 .pull-right[
 <br />
-<object type="image/svg+xml" data="images/ml-canvas-schematic.svg" style="width: 88%; pointer-events: none;"></object>
+<object type="image/svg+xml" data="images/ml-canvas-course.svg" style="width: 100%; pointer-events: none;"></object>
 ]
 
-.footnote[Canvas: after L. Dorard, *The Machine Learning Canvas* v1.1 (ownml.co); schematic .lic[CC BY-SA 4.0]. Which boxes each phase fills is this course's reading, not Dorard's.]
+.footnote[Canvas: L. Dorard, *The Machine Learning Canvas* v1.1 (ownml.co), .lic[CC BY-SA 4.0], with the regions drawn on it in week 1 (cropped). Flowchart colours: those regions. Which boxes each phase fills is this course's reading, not Dorard's.]
 
 ???
 
@@ -242,49 +246,23 @@ The second takes about half the time of the first, the third about a quarter.
 ???
 
 ---
+class: stepwise-svg
 
-# SENSIMED took years of turns to add to a diagnosis
+# SENSIMED took years of turns to aid diagnosis
 
-.cards.cols-4.vcenter[
-.card[
-.kicker[2003]
-
-### A device
-
-An EPFL spin-off makes a contact lens whose sensor records changes in the eye's volume over 24 hours.
-]
-.card[
-.kicker[2014 to 2016]
-
-### A platform
-
-HES-SO Valais-Wallis builds a machine learning platform for those 24-hour profiles (CTI project 17325.1).
-]
-.card.muted[
-.kicker[2016]
-
-### A narrower use
-
-US marketing is allowed to time eye-pressure checks; the lens is not a diagnostic tool.
-]
-.card.accent[
-.kicker[2018]
-
-### An evaluation
-
-Glaucoma against healthy eyes, AUC: lens 0.61, eye pressure 0.68, **both 0.76**.
-]
+.boxed-content.center[
+<object type="image/svg+xml" data="images/sensimed-timeline.svg" style="width: 100%; padding-top: 16pt; pointer-events: none;"></object>
 ]
 
-.footnote[The work of D. Genoud's team, HES-SO Valais-Wallis. CTI 17325.1 project record; FDA, 4 March 2016; K. Martin et al. (2018), *American Journal of Ophthalmology* 194:46 to 53.]
+.footnote[Above the arrow, the record: CTI project 17325.1; FDA, 4 March 2016; K. Martin et al. (2018), *Am. J. Ophthalmol.* 194:46 to 53. Below it, the stages as D. Genoud's team presented them (EAD, 2025).]
 
 ???
 
 ---
 
-# People, not tools, decide at five points of the cycle
+# People, not tools, decide at five points
 
-.data-table[
+.data-table.people[
 | Phase | What a person has to do | |
 |---|---|---|
 | Business understanding | Formulate the problem: what to predict, for which decision | p. 28 |
@@ -423,15 +401,14 @@ Grömping traced the data back to the bank's sample and fixed the code table. To
 ]
 
 ---
-class: stepwise-svg
 
 # The scikit-learn map leads to classification
 
 .boxed-content.center[
-<object type="image/svg+xml" data="images/sklearn-ml-map.svg" style="width: 86%; pointer-events: none;"></object>
+<img src="images/sklearn-ml-map.png" style="width: 84%;" alt="The scikit-learn algorithm cheat sheet: from START, questions on the data lead to classification, regression, clustering or dimensionality reduction" />
 ]
 
-.footnote[*Choosing the right estimator*, scikit-learn documentation, © the scikit-learn developers, .lic[BSD 3-Clause]; first drawn by A. Mueller (2013). Highlights added.]
+.footnote[*Choosing the right estimator* (ml_map.png), scikit-learn 1.5.0 documentation, © 2007-2024 the scikit-learn developers, .lic[BSD 3-Clause]; first drawn by A. Mueller (2013).]
 
 ???
 
@@ -631,14 +608,15 @@ Costs, the confusion matrix: the next deck.
 .refs[
 - Bucki, J. and Pesqueux, Y. (1994). Pour un renouveau du concept de système d'information. Working paper, HAL hal-00494174.
 - Chapman, P. et al. (2000). *CRISP-DM 1.0: Step-by-step data mining guide*. SPSS.
-- Dorard, L. *The Machine Learning Canvas*, v1.1. ownml.co. CC BY-SA 4.0.
+- Dorard, L. *The Machine Learning Canvas*, v1.1. ownml.co. CC BY-SA 4.0. Regions as drawn in *Data science 1*, slides of the EAD module, week 1.
 - Fayyad, U., Piatetsky-Shapiro, G. and Smyth, P. (1996). From data mining to knowledge discovery in databases. *AI Magazine* 17(3):37 to 54.
+- Genoud, D. (2025). Warm-up, slides of the EAD module, HES-SO Master. Example: SENSIMED projects.
 - Grömping, U. (2019). South German Credit Data: Correcting a Widely Used Data Set. Report 4/2019, Beuth Hochschule für Technik Berlin. Data: UCI Machine Learning Repository, dataset 573, doi:10.24432/C5QG88, CC BY 4.0.
 - Jensen, K. (2012). CRISP-DM Process Diagram. Wikimedia Commons, CC BY-SA 3.0.
 - Le Moigne, J.-L. (1977). *La théorie du système général. Théorie de la modélisation*. PUF.
 - Martin, K. et al. (2018). Use of machine learning on contact lens sensor-derived parameters for the diagnosis of primary open-angle glaucoma. *American Journal of Ophthalmology* 194:46 to 53.
 - Provost, F. and Fawcett, T. (2013). *Data Science for Business*. O'Reilly.
-- scikit-learn developers. *Choosing the right estimator*. scikit-learn documentation, BSD 3-Clause.
+- scikit-learn developers. *Choosing the right estimator* (ml_map.png). scikit-learn 1.5.0 documentation, BSD 3-Clause.
 - Wirth, R. and Hipp, J. (2000). CRISP-DM: Towards a standard process model for data mining. *Proc. PADD 2000*.
 ]
 

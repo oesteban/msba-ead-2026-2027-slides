@@ -1,3 +1,7 @@
+sklearn-ml-map.png is doc/images/ml_map.png of scikit-learn, unmodified, as shipped
+in releases 1.4.2 to 1.5.0 (the scikit-learn algorithm cheat sheet, first drawn by
+Andreas Mueller). It is distributed under the scikit-learn licence:
+
 BSD 3-Clause License
 
 Copyright (c) 2007-2026 The scikit-learn developers.
