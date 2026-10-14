@@ -216,7 +216,7 @@ def credit(path: Path) -> None:
     save(fig, AM / "split-variability.svg")
 
 
-def kfold_diagram() -> None:
+def cv_diagram() -> None:
     fig, ax = plt.subplots(figsize=(9, 3.6))
     k = 5
     for i in range(k):
@@ -231,7 +231,7 @@ def kfold_diagram() -> None:
     ax.set_xlim(-1.2, k + 1.4)
     ax.set_ylim(-0.7, k)
     ax.axis("off")
-    save(fig, AM / "kfold.svg")
+    save(fig, AM / "cross-validation.svg")
 
 
 def zalaxus(path: Path) -> None:
@@ -361,7 +361,7 @@ def main() -> int:
     a = ap.parse_args()
     out = ROOT / "day1" / "figures-numbers.json"
     credit(a.credit)
-    kfold_diagram()
+    cv_diagram()
     if a.wine is None:                      # credit only: keep the other keys
         NUMBERS.update({k: v for k, v in json.loads(out.read_text()).items() if k != "credit"})
     else:

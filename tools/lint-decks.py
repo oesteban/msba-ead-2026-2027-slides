@@ -77,6 +77,9 @@ NEEDS_EXT = (
      'ext/timer.js', 'countdown timers'),
 )
 TAG = re.compile(r'<[^>]+>')
+# AUTHORING.md, On slides: cross-validation, never k-fold; DSS's own label
+# "K-fold cross-test" is the one exception.
+KFOLD = re.compile(r'\bk-fold\b(?! cross-test)', re.IGNORECASE)
 
 
 def submodule_paths() -> list[str]:
@@ -177,6 +180,11 @@ def lint(deck: Path, tracked: set[str], subs: list[str]) -> list[str]:
         # property block, which is how a step carries `count: false`.
         if j >= 0 and lines[j].strip() not in ('---', '--'):
             say(i, f"property line outside a property block: {line.strip()!r}")
+
+    # 8. vocabulary
+    for i, line in enumerate(lines):
+        if KFOLD.search(line):
+            say(i, "say 'cross-validation', not 'k-fold' (AUTHORING.md, On slides)")
 
     # 6 and 7. assets
     text = deck.read_text()

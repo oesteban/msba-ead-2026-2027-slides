@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Measuring a classifier: metrics, thresholds and k-fold | 16.10.2026</title>
+    <title>Measuring a classifier: metrics, thresholds and cross-validation | 16.10.2026</title>
     <meta charset="utf-8">
     <meta name="grammarly" content="false">
     <meta name="google" content="notranslate">
@@ -29,7 +29,7 @@ count: false
 .section-mark.center[
 ## Measuring a classifier
 
-### Metrics, thresholds and k-fold
+### Metrics, thresholds and cross-validation
 
 <br />
 
@@ -63,7 +63,7 @@ layout: true
 
 ### Measuring a classifier
 
-Metrics, thresholds, k-fold.
+Metrics, thresholds, cross-validation.
 ]
 .card[
 .kicker[16.10 · afternoon]
@@ -120,7 +120,7 @@ By noon you can answer, for any classifier:
 <img src="images/score-distributions.svg" style="width: 82%;" />
 ]
 
-.footnote[German credit (Statlog, UCI): 1,000 applicants, 700 good, 300 bad. Random forest, 5-fold, scikit-learn: Dataiku's numbers will be close, not identical.]
+.footnote[German credit (Statlog, UCI): 1,000 applicants, 700 good, 300 bad. Random forest, cross-validated on 5 folds, scikit-learn: Dataiku's numbers will be close, not identical.]
 
 ???
 
@@ -399,10 +399,10 @@ Scoring the creditworthiness of people is a high-risk AI system: documentation, 
 
 ---
 
-# k-fold tests every row exactly once
+# Cross-validation tests every row exactly once
 
 .boxed-content.center[
-<img src="images/kfold.svg" style="width: 74%;" />
+<img src="images/cross-validation.svg" style="width: 74%;" />
 ]
 
 .large.center[*Stratified*: every fold keeps the 70/30 mix. Report the mean **and** the spread.]
@@ -498,7 +498,7 @@ Choosing the model and threshold on the folds flatters the score. Keep a test se
 - <i class="fa-regular fa-square"></i> Every metric sits next to its baseline.
 - <i class="fa-regular fa-square"></i> The metric follows from what each error costs.
 - <i class="fa-regular fa-square"></i> The threshold is chosen and justified.
-- <i class="fa-regular fa-square"></i> Scores come from stratified k-fold, with their spread.
+- <i class="fa-regular fa-square"></i> Scores come from stratified cross-validation, with their spread.
 - <i class="fa-regular fa-square"></i> A held-out check was never used for tuning.
 - <i class="fa-regular fa-square"></i> You hunted for leaks, and say how.
 ]
