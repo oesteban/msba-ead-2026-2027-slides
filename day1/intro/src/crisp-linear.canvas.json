@@ -1,0 +1,110 @@
+{
+  "comment": "Oscar Esteban, CC BY 4.0. CRISP-DM phases after Chapman et al. (2000), CRISP-DM 1.0; gates named after its generic tasks 2.4, 4.4 and 5.3. Colours: the region of the Machine Learning Canvas (Dorard, v1.1) each phase fills; a reading, not Dorard's.",
+  "nodes": {
+    "BU": {
+      "class": "accent-fill",
+      "fill": "#00609c",
+      "text_fill": "#ffffff",
+      "sub": {
+        "fill": "#d9e6f0"
+      },
+      "step": 1
+    },
+    "DU": {
+      "class": "accent-b-fill",
+      "fill": "#25bcca",
+      "step": 2,
+      "sub": {
+        "fill": "#1c2e36"
+      }
+    },
+    "DP": {
+      "class": "accent-b-fill",
+      "fill": "#25bcca",
+      "step": 3,
+      "sub": {
+        "fill": "#1c2e36"
+      }
+    },
+    "MO": {
+      "class": "accent-b-fill",
+      "fill": "#25bcca",
+      "step": 4,
+      "sub": {
+        "fill": "#1c2e36"
+      }
+    },
+    "EV": {
+      "class": "accent-a-light-fill",
+      "fill": "#8cb3cf",
+      "step": 5,
+      "sub": {
+        "fill": "#1c2e36"
+      }
+    },
+    "DE": {
+      "class": "accent-b-light-fill",
+      "fill": "#a8e4ea",
+      "step": 6,
+      "sub": {
+        "fill": "#1c2e36"
+      }
+    },
+    "G1": {
+      "step": 2
+    },
+    "G2": {
+      "step": 4
+    },
+    "G3": {
+      "step": 5
+    },
+    "STOP": {
+      "step": 2
+    },
+    "END": {
+      "step": 5
+    }
+  },
+  "edges": {
+    "BU-to-DU": {
+      "step": 2
+    },
+    "DU-to-G1": {
+      "step": 2
+    },
+    "G1-to-DP": {
+      "step": 3
+    },
+    "DP-to-MO": {
+      "step": 4
+    },
+    "MO-to-G2": {
+      "step": 4
+    },
+    "G2-to-EV": {
+      "step": 5
+    },
+    "EV-to-G3": {
+      "step": 5
+    },
+    "G3-to-DE": {
+      "step": 6
+    },
+    "STOP-backto-G1": {
+      "step": 2
+    },
+    "END-backto-G3": {
+      "step": 5
+    },
+    "G2-to-DP": {
+      "step": 4
+    },
+    "G3-to-BU": {
+      "step": 5
+    },
+    "DU-to-BU": {
+      "step": 2
+    }
+  }
+}

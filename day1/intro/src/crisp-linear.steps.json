@@ -1,0 +1,97 @@
+{
+  "comment": "Oscar Esteban, CC BY 4.0. CRISP-DM phases after Chapman et al. (2000), CRISP-DM 1.0; gates named after its generic tasks 2.4, 4.4 and 5.3.",
+  "nodes": {
+    "BU": {
+      "step": 1,
+      "sub": {
+        "step": 4
+      }
+    },
+    "DU": {
+      "step": 1,
+      "sub": {
+        "step": 4
+      }
+    },
+    "DP": {
+      "step": 1,
+      "sub": {
+        "step": 4
+      }
+    },
+    "MO": {
+      "step": 1,
+      "sub": {
+        "step": 4
+      }
+    },
+    "EV": {
+      "step": 1,
+      "sub": {
+        "step": 4
+      }
+    },
+    "DE": {
+      "step": 1,
+      "sub": {
+        "step": 4
+      }
+    },
+    "G1": {
+      "step": 1
+    },
+    "G2": {
+      "step": 1
+    },
+    "G3": {
+      "step": 1
+    },
+    "STOP": {
+      "step": 2
+    },
+    "END": {
+      "step": 2
+    }
+  },
+  "edges": {
+    "BU-to-DU": {
+      "step": 1
+    },
+    "DU-to-G1": {
+      "step": 1
+    },
+    "G1-to-DP": {
+      "step": 1
+    },
+    "DP-to-MO": {
+      "step": 1
+    },
+    "MO-to-G2": {
+      "step": 1
+    },
+    "G2-to-EV": {
+      "step": 1
+    },
+    "EV-to-G3": {
+      "step": 1
+    },
+    "G3-to-DE": {
+      "step": 1
+    },
+    "STOP-backto-G1": {
+      "step": 2
+    },
+    "END-backto-G3": {
+      "step": 2
+    },
+    "G2-to-DP": {
+      "step": 3
+    },
+    "G3-to-BU": {
+      "step": 3
+    },
+    "DU-to-BU": {
+      "step": 3
+    }
+  }
+}

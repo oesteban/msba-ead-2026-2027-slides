@@ -30,6 +30,12 @@ timezone_offset: "+02:00"
 # Teaching half-days, in delivery order. `id` is the deck directory.
 # Source of record: Planning SA2627.xlsx (module responsible, HE-Arc).
 days:
+  - id: day1/intro
+    date: 2026-10-16
+    replaces: 2026-10-16
+    start: "08:45"
+    title: "From a business question to a first model"
+
   - id: day1/am
     date: 2026-10-16
     replaces: 2026-10-16
