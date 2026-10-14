@@ -19,8 +19,9 @@
 //   typst compile --root ../.. <file>.typ
 //
 // Fonts: Arimo (text) and Fira Code (raw), both SIL OFL. The logo is the
-// generic HES-SO mark; replace assets/hes-so-logo.svg with the HES-SO Master
-// mark when one is supplied, nothing else changes.
+// HES-SO Master mark as composed by tools/master-logo.py (the HES-SO wordmark
+// with "Master" below it); replace assets/hes-so-logo.svg with the official
+// file when HES-SO supplies one, nothing else changes.
 // ---------------------------------------------------------------------------
 
 #let accent = rgb("#00609c")   // matches remark/themes/hesso-master.css
@@ -53,7 +54,7 @@
     header: context {
       grid(
         columns: (auto, 1fr), align: (left + horizon, right + horizon),
-        image(logo, height: 0.75cm),
+        image(logo, height: 1.05cm),
         text(size: 7pt, fill: luma(90))[#institution \ #module-name],
       )
       v(-4pt)
