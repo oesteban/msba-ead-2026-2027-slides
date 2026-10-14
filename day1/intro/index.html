@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>From a business question to a first model | 16.10.2026</title>
+    <meta charset="utf-8">
+    <meta name="grammarly" content="false">
+    <meta name="google" content="notranslate">
+    <link rel="stylesheet" type="text/css" href="../../remark/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../remark/themes/hesso-master.css" />
+    <link rel="stylesheet" type="text/css" href="../../remark/ext/nav-controls.css" />
+  </head>
+  <body>
+<style>
+:root { --logo-url: url("../../assets/hes-so-logo.svg"); }
+.large.center { display: block; clear: both; }
+/* the CRISP-DM map that opens each section: one phase lit */
+.phasemap { display: flex; gap: 8px; margin: 0 auto 1.2em; width: 92%; }
+.phasemap span { flex: 1; text-align: center; font-size: 0.6em; font-weight: 600; line-height: 1.2;
+  padding: 0.5em 0.3em; border-radius: 7px; border: 2px solid var(--accent); color: var(--heading-color); background: #fff; }
+.phasemap span.on { background: var(--accent); color: #fff; }
+.section-mark .phasemap { margin-bottom: 1.6em; }
+/* the textbook marker, on every slide that draws on Provost & Fawcett */
+.book { color: var(--accent); font-weight: 600; }
+.footnote .lic { color: #556268; }
+/* the bank's canvas, laid out as Dorard's v1.1 */
+.canvasgrid { display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: auto auto auto;
+  gap: 0; width: 92%; margin: 0 auto; font-size: 0.62em; }
+.canvasgrid > div { border: 1.5px solid var(--heading-color); padding: 0.4em 0.6em; min-height: 6.2em; margin: -0.75px; }
+.canvasgrid h4 { margin: 0 0 0.3em; font-size: 0.95em; letter-spacing: 0.04em; }
+.canvasgrid .vp { grid-row: span 2; }
+.canvasgrid .mon { grid-column: 2 / span 3; min-height: 2.6em; }
+.canvasgrid .filled { background: var(--accent-tint, #e6eff5); }
+.canvasgrid .later { border-style: dashed; color: var(--accent); }
+.canvasgrid .empty { color: #8a8a8a; }
+/* the instance/attribute/target table */
+.terms table { font-size: 0.95em; margin: 0.8em auto 0; border-collapse: collapse; }
+.terms th, .terms td { padding: 0.25em 0.6em; border-bottom: 1px solid #d9d9d9; text-align: left; }
+.terms th.tgt, .terms td.tgt { background: var(--accent-tint, #e6eff5); font-weight: 700; }
+.tasks ol { font-size: 1.15em; line-height: 1.55; }
+.tasks li.on { color: var(--accent); font-weight: 700; }
+.refs li { font-size: 0.62em; margin-bottom: 0.35em; }
+.footnote { right: 5.5em; }
+.canvasgrid { font-size: 0.92em; margin-top: 0.6em; }
+.canvasgrid > div { min-height: 5.2em; }
+</style>
+<script src="https://kit.fontawesome.com/015d4b01de.js" crossorigin="anonymous"></script>
+
+<textarea id="source">
+name: title
+layout: true
+class: cover
+---
+count: false
+
+.section-mark.center[
+## From a business question to a first model
+
+### CRISP-DM, the data, and a first model of credit risk
+
+<br />
+
+Oscar Esteban &lt;<code>oscar.esteban@hevs.ch</code>>
+
+<br />
+
+EAD · Exploration avancée de données et intelligence décisionnelle · 16.10.2026
+]
+
+???
+
+---
+name: newsection
+layout: true
+
+.perma-sidebar[
+<p class="rotate">
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0; height: 20px; padding-top: 6px;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+  <span style="padding-left: 10px; font-weight: 600;">From a business question to a first model (16.10.2026)</span>
+</p>
+]
+
+---
+
+# This morning builds a first model, then judges it
+
+.cards.cols-4.vcenter[
+.card.accent[
+.kicker[16.10 · morning, first]
+
+### A first model
+
+The process, the data, a hands-on.
+]
+.card[
+.kicker[16.10 · morning, then]
+
+### Measuring a classifier
+
+Metrics, thresholds, k-fold.
+]
+.card.muted[
+.kicker[16.10 · afternoon]
+
+### Beyond two classes
+
+Multi-class, deep learning.
+]
+.card.muted[
+.kicker[23.10]
+
+### Text and time
+
+Text mining, time series.
+]
+]
+
+???
+
+---
+class: stepwise-svg
+
+# A firm is steered through its information system
+
+.boxed-content.center[
+<object type="image/svg+xml" data="images/systemic-model.svg" style="width: 74%; pointer-events: none;"></object>
+]
+
+.footnote[Recap of week 1. J.-L. Le Moigne (1977), *La théorie du système général*; drawing after J. Bucki and Y. Pesqueux (1994), Fig. 2.]
+
+???
+
+- For a bank, what enters the operations system is itself information: Le Moigne classes every processed flow as matter, energy or information.
+
+---
+
+# CRISP-DM organises a project in six phases
+
+.pull-left[
+<img src="images/crisp-dm-cycle.png" style="width: 92%;" alt="The CRISP-DM cycle: six phases around the data, inside a circle of arrows" />
+]
+
+.pull-right[
+<br />
+
+The **inner arrows** are the most frequent moves between phases, not a fixed order.
+
+The **outer circle**: a deployed model raises new business questions, and the cycle starts again.
+
+Recapped from week 1.
+]
+
+.footnote[Diagram: Kenneth Jensen, based on IBM SPSS Modeler CRISP-DM documentation, .lic[CC BY-SA 3.0, via Wikimedia Commons]. Model: P. Chapman et al. (2000), *CRISP-DM 1.0*, Fig. 2, p. 13. <br /> .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), Fig. 2-2, p. 27]]
+
+???
+
+---
+class: stepwise-svg
+
+# CRISP-DM added the business ends to KDD
+
+.boxed-content.center[
+<object type="image/svg+xml" data="images/kdd-to-crisp.svg" style="width: 100%; padding-top: 30pt; pointer-events: none;"></object>
+]
+
+.footnote[KDD: after U. Fayyad, G. Piatetsky-Shapiro and P. Smyth (1996), Fig. 1. Their text lists nine steps, the two ends included (pp. 41 to 42).]
+
+???
+
+---
+class: stepwise-svg
+
+# Drawn as a line, the cycle shows where to stop
+
+.pull-left[
+<object type="image/svg+xml" data="images/crisp-linear.svg" style="height: 540px; pointer-events: none;"></object>
+]
+
+.pull-right[
+<br />
+
+Three gates, each a task of CRISP-DM 1.0:
+
+- **Verify data quality** (task 2.4): can these data answer the question?
+- **Assess model** (task 4.4): is it worth preparing the data again?
+- **Determine next steps** (task 5.3): deploy, turn again, or stop.
+
+The last step of the build names the Dataiku screen of each phase.
+]
+
+.footnote[Phases and tasks: P. Chapman et al. (2000), *CRISP-DM 1.0*, pp. 13 to 31. Gates adapted from D. Genoud's 2025 flowchart.]
+
+???
+
+---
+class: stepwise-svg
+
+# Each phase fills part of the canvas from week 1
+
+.pull-left[
+<object type="image/svg+xml" data="images/crisp-linear-canvas.svg" style="height: 540px; pointer-events: none;"></object>
+]
+
+.pull-right[
+<br />
+<object type="image/svg+xml" data="images/ml-canvas-schematic.svg" style="width: 100%; pointer-events: none;"></object>
+]
+
+.footnote[Canvas: after L. Dorard, *The Machine Learning Canvas* v1.1 (ownml.co); schematic .lic[CC BY-SA 4.0]. Which boxes each phase fills is this course's reading, not Dorard's.]
+
+???
+
+---
+
+# Expect several turns of the cycle
+
+.cards.cols-3.vcenter[
+.card.accent[
+.kicker[the rule]
+
+### Iterate
+
+A first pass that does not solve the problem is not a failure: it is information for the next one.
+]
+.card[
+.kicker[inside the cycle]
+
+### Loops within the loop
+
+Business and data understanding go back and forth before any model is trained.
+]
+.card[
+.kicker[a plan from practice]
+
+### Three turns
+
+The second takes about half the time of the first, the third about a quarter.
+]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 27 to 28 and 34.] Three turns: R. Wirth and J. Hipp (2000), response modelling at DaimlerChrysler.]
+
+???
+
+---
+
+# SENSIMED took several turns to reach a diagnosis
+
+.cards.cols-4.vcenter[
+.card[
+.kicker[2003]
+
+### A device
+
+An EPFL spin-off builds a contact lens whose sensor records the eye's changes of shape over 24 hours.
+]
+.card[
+.kicker[2014 to 2016]
+
+### A platform
+
+HES-SO Valais-Wallis and SENSIMED build a machine learning platform for those 24-hour profiles (CTI project 17325.1).
+]
+.card[
+.kicker[2016]
+
+### A market
+
+The lens receives its US marketing authorisation.
+]
+.card.accent[
+.kicker[2018]
+
+### A diagnosis
+
+A model on the lens's signal parameters helps diagnose glaucoma.
+]
+]
+
+.footnote[The project of D. Genoud's team, HES-SO Valais-Wallis. K. Martin et al. (2018), *American Journal of Ophthalmology* 194:46 to 53.]
+
+???
+
+---
+
+# People, not tools, decide at five points of the cycle
+
+.data-table[
+| Phase | What a person has to do | |
+|---|---|---|
+| Business understanding | Formulate the problem: what to predict, for which decision | p. 28 |
+| Data understanding | Judge what each data source costs and what it is worth | pp. 28 to 29 |
+| Data preparation | Define the variables, and spot the ones that leak the answer | p. 30 |
+| Evaluation | Check the business goal, not only the model; get the stakeholders to sign off | pp. 31 to 32 |
+| Deployment | Have the model rebuilt for production by engineers | p. 33 |
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 19 and 28 to 33.]]
+
+???
+
+---
+
+.section-mark[
+<div class="phasemap"><span class="on">Business understanding</span><span>Data understanding</span><span>Data preparation</span><span>Modeling</span><span>Evaluation</span><span>Deployment</span></div>
+
+# A bank says yes or no
+]
+
+---
+
+# The bank's canvas states the decision first
+
+<div class="canvasgrid">
+<div class="filled"><h4>PREDICTION TASK</h4>Will this credit go bad? Two classes, one prediction per application.</div>
+<div class="filled"><h4>DECISIONS</h4>Grant or refuse the application.</div>
+<div class="filled vp"><h4>VALUE PROPOSITION</h4>The credit committee refuses fewer good customers and grants fewer credits that go bad.</div>
+<div class="empty"><h4>DATA COLLECTION</h4></div>
+<div class="filled"><h4>DATA SOURCES</h4>The bank's past credits, with how each one ended.</div>
+<div class="later"><h4>IMPACT SIMULATION</h4>After the hands-on.</div>
+<div class="empty"><h4>MAKING PREDICTIONS</h4></div>
+<div class="empty"><h4>BUILDING MODELS</h4></div>
+<div class="empty"><h4>FEATURES</h4></div>
+<div class="empty mon"><h4>MONITORING</h4></div>
+</div>
+
+.admonition.warning[
+<i class="fa-solid fa-scale-unbalanced"></i> The two errors do not cost the same: granting a credit that goes bad costs more than refusing a good one. How much more is a business figure, not a data figure.
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 195.] Canvas boxes after L. Dorard, v1.1, .lic[CC BY-SA 4.0].]
+
+???
+
+---
+
+.section-mark[
+<div class="phasemap"><span>Business understanding</span><span class="on">Data understanding</span><span>Data preparation</span><span>Modeling</span><span>Evaluation</span><span>Deployment</span></div>
+
+# 1,000 credits, 300 of them bad
+]
+
+---
+
+# The data: 1,000 credits from a bank, 1973 to 1975
+
+.cards.cols-4.vcenter[
+.card[
+.kicker[credits]
+
+.metric[1,000]
+
+Each row is one credit a south German bank granted, with how it ended.
+]
+.card.accent[
+.kicker[bad credits]
+
+.metric[300]
+
+`credit_risk` is `bad`: the contract was not complied with. 700 are `good`.
+]
+.card.alert[
+.kicker[by design]
+
+.metric[30%]
+
+Bad credits were over-sampled: in the bank's portfolio, about 5% went bad.
+]
+.card[
+.kicker[attributes]
+
+.metric[20]
+
+Account, history, purpose, amount, savings, job, age, ... Refused applicants are absent.
+]
+]
+
+.footnote[U. Grömping (2019), *South German Credit Data: Correcting a Widely Used Data Set*, Report 4/2019, Beuth Hochschule für Technik Berlin. UCI Machine Learning Repository, dataset 573, .lic[CC BY 4.0].]
+
+???
+
+---
+
+# A famous dataset was miscoded for 25 years
+
+.cards.cols-3.vcenter[
+.card[
+.kicker[1994]
+
+### Published
+
+As "Statlog German Credit", with a code table that swapped the categories of 8 of its 20 columns.
+]
+.card.alert[
+.kicker[the symptoms]
+
+### Implausible
+
+963 debtors out of 1,000 were foreign workers (really 37); no single women; having no checking account looked like a good sign.
+]
+.card.accent[
+.kicker[2019]
+
+### Corrected
+
+Grömping traced the data back to the bank's sample and fixed the code table. Today's file is the corrected one.
+]
+]
+
+.admonition.question[
+<i class="fa-solid fa-circle-question"></i> Data understanding is a phase of the project, not a formality before it.
+]
+
+.footnote[U. Grömping (2019), Report 4/2019, Beuth Hochschule für Technik Berlin, pp. 2 to 7.]
+
+???
+
+---
+
+.section-mark[
+<div class="phasemap"><span>Business understanding</span><span>Data understanding</span><span>Data preparation</span><span class="on">Modeling</span><span>Evaluation</span><span>Deployment</span></div>
+
+# Which task is credit scoring?
+]
+
+---
+class: stepwise-svg
+
+# The scikit-learn map leads to classification
+
+.boxed-content.center[
+<object type="image/svg+xml" data="images/sklearn-ml-map.svg" style="width: 86%; pointer-events: none;"></object>
+]
+
+.footnote[*Choosing the right estimator*, scikit-learn documentation, © the scikit-learn developers, .lic[BSD 3-Clause]; first drawn by A. Mueller (2013). Highlights added.]
+
+???
+
+---
+
+# Credit scoring is classification, with a probability
+
+.pull-left.tasks[
+<ol>
+<li class="on">Classification and class probability estimation</li>
+<li>Regression</li>
+<li>Similarity matching</li>
+<li>Clustering</li>
+<li>Co-occurrence grouping</li>
+<li>Profiling</li>
+<li>Link prediction</li>
+<li>Data reduction</li>
+<li>Causal modeling</li>
+</ol>
+]
+
+.pull-right[
+<br />
+
+**Supervised**: a target exists, and past cases carry its value. Here, `credit_risk`.
+
+**Classification**: the target is a category, `good` or `bad`.
+
+**With a probability**: the bank needs how likely `bad` is, not only a label.
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), the nine tasks pp. 19 to 22; supervised and unsupervised pp. 24 to 25.]]
+
+???
+
+---
+class: stepwise-svg
+
+# Rows are instances, one column is the target
+
+.terms[
+<table>
+<tr><th>status</th><th>duration</th><th>purpose</th><th>amount</th><th>savings</th><th>age</th><th>...</th><th class="tgt">credit_risk</th></tr>
+<tr><td>no checking account</td><td>18</td><td>car (used)</td><td>1049</td><td>unknown or none</td><td>21</td><td>...</td><td class="tgt">good</td></tr>
+<tr><td>no checking account</td><td>9</td><td>others</td><td>2799</td><td>unknown or none</td><td>36</td><td>...</td><td class="tgt">good</td></tr>
+<tr><td>below 0 DM</td><td>12</td><td>retraining</td><td>841</td><td>below 100 DM</td><td>23</td><td>...</td><td class="tgt">good</td></tr>
+<tr><td>below 0 DM</td><td>36</td><td>domestic appliances</td><td>2384</td><td>unknown or none</td><td>33</td><td>...</td><td class="tgt">bad</td></tr>
+<tr><td>no checking account</td><td>18</td><td>others</td><td>1216</td><td>unknown or none</td><td>23</td><td>...</td><td class="tgt">bad</td></tr>
+</table>
+]
+
+<br />
+
+.cards.cols-3[
+.card.step-1[
+.kicker[a row]
+
+### Instance
+
+One past credit.
+]
+.card.step-2[
+.kicker[a column]
+
+### Attribute
+
+What the bank knew when it decided.
+]
+.card.accent.step-3[
+.kicker[the column to predict]
+
+### Target
+
+Known for past credits only.
+]
+]
+
+.footnote[Rows 1, 2, 3, 23 and 46 of the course file. .book[<i class="fa-solid fa-book-open"></i> After Provost & Fawcett (2013), Fig. 3-1, p. 45, a credit write-off example.]]
+
+???
+
+---
+class: stepwise-svg
+
+# A model is mined from the past, then applied
+
+.boxed-content.center[
+<object type="image/svg+xml" data="images/mining-vs-using.svg" style="width: 92%; padding-top: 20pt; pointer-events: none;"></object>
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> After Provost & Fawcett (2013), Fig. 2-1, p. 26.] The probability shown is an example.]
+
+???
+
+---
+
+# Hands-on 1: explore, train, look, note
+
+.boxed-content.large[
+**The need.** The bank asks whether a model could help it decide. Before anyone explains how to judge a model, look at one.
+
+**What you do.** Explore the credits, train a first model with Dataiku's defaults, open its results, and write three notes on what you see or cannot explain yet.
+
+**How.** Sheet *Hands-on 1*, panels 1 to 3. Groups of three. 40 minutes.
+]
+
+.cards.cols-3[
+.card[
+.kicker[keyboard]
+
+### Driver
+
+Works Dataiku; says what each screen shows before clicking on.
+]
+.card[
+.kicker[sheet]
+
+### Mapper
+
+Writes the answers and places each note on a phase of the map.
+]
+.card.accent[
+.kicker[voice]
+
+### Referee
+
+Checks each step, challenges each conclusion, speaks for the group.
+]
+]
+
+???
+
+---
+
+# Each group brings back three notes
+
+<br />
+
+<div class="phasemap"><span>Business understanding</span><span>Data understanding</span><span>Data preparation</span><span>Modeling</span><span>Evaluation</span><span>Deployment</span></div>
+
+.boxed-content.large[
+- The Mapper tags each note with the phase it belongs to.
+- The Referee reads one note; the notes are sorted onto the map.
+- The next deck answers them, phase by phase.
+]
+
+???
+
+---
+
+.section-mark[
+<div class="phasemap"><span>Business understanding</span><span>Data understanding</span><span>Data preparation</span><span>Modeling</span><span class="on">Evaluation</span><span>Deployment</span></div>
+
+# Is the model good enough for the bank?
+
+### Next: measuring a classifier
+]
+
+---
+
+# Read the book this deck draws on
+
+.cards.cols-3.vcenter[
+.card.accent[
+.kicker[chapter 2]
+
+### The process
+
+Business problems, the canonical tasks, CRISP-DM.
+]
+.card[
+.kicker[chapter 3]
+
+### Predictive modelling
+
+Instances, attributes, targets; trees.
+]
+.card[
+.kicker[chapter 7]
+
+### Decision analytic thinking
+
+Costs, the confusion matrix: the next deck.
+]
+]
+
+.admonition[
+<i class="fa-solid fa-book-open"></i> F. Provost and T. Fawcett (2013), *Data Science for Business*, O'Reilly. Available to HES-SO students through the school's O'Reilly access.
+]
+
+???
+
+---
+
+# References
+
+.refs[
+- Bucki, J. and Pesqueux, Y. (1994). Pour un renouveau du concept de système d'information. Working paper, HAL hal-00494174.
+- Chapman, P. et al. (2000). *CRISP-DM 1.0: Step-by-step data mining guide*. SPSS.
+- Dorard, L. *The Machine Learning Canvas*, v1.1. ownml.co. CC BY-SA 4.0.
+- Fayyad, U., Piatetsky-Shapiro, G. and Smyth, P. (1996). From data mining to knowledge discovery in databases. *AI Magazine* 17(3):37 to 54.
+- Grömping, U. (2019). South German Credit Data: Correcting a Widely Used Data Set. Report 4/2019, Beuth Hochschule für Technik Berlin. Data: UCI Machine Learning Repository, dataset 573, doi:10.24432/C5QG88, CC BY 4.0.
+- Jensen, K. (2012). CRISP-DM Process Diagram. Wikimedia Commons, CC BY-SA 3.0.
+- Le Moigne, J.-L. (1977). *La théorie du système général. Théorie de la modélisation*. PUF.
+- Martin, K. et al. (2018). Use of machine learning on contact lens sensor-derived parameters for the diagnosis of primary open-angle glaucoma. *American Journal of Ophthalmology* 194:46 to 53.
+- Provost, F. and Fawcett, T. (2013). *Data Science for Business*. O'Reilly.
+- scikit-learn developers. *Choosing the right estimator*. scikit-learn documentation, BSD 3-Clause.
+- Wirth, R. and Hipp, J. (2000). CRISP-DM: Towards a standard process model for data mining. *Proc. PADD 2000*.
+]
+
+???
+
+</textarea>
+
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script src="../../remark/core/engine.js"></script>
+    <script src="../../remark/ext/svg-preload.js"></script>
+    <script src="../../remark/ext/svg-theme.js"></script>
+    <script src="../../remark/ext/stepwise-svg.js"></script>
+    <script src="../../remark/ext/nav-controls.js"></script>
+  </body>
+</html>

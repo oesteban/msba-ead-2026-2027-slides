@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 602 392" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- After L. Dorard, The Machine Learning Canvas v1.1 (ownml.co), CC BY-SA 4.0. Schematic and phase colours: Oscar Esteban, CC BY-SA 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<text x="0" y="16" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">Machine Learning Canvas v1.1 (Dorard), schematic</text>
+<rect x="1" y="30" width="120" height="130" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<g data-step="1">
+<rect class="accent-a-light-fill" x="1" y="30" width="120" height="130" rx="0" fill="#8cb3cf" fill-opacity="0.35"/>
+<rect class="accent-a-light-fill" x="1" y="30" width="120" height="8" rx="0" fill="#8cb3cf"/>
+</g>
+<text x="9" y="58" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">PREDICTION</text>
+<text x="9" y="74" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">TASK</text>
+<rect x="121" y="30" width="120" height="130" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<g data-step="1">
+<rect class="accent-a-light-fill" x="121" y="30" width="120" height="130" rx="0" fill="#8cb3cf" fill-opacity="0.35"/>
+<rect class="accent-a-light-fill" x="121" y="30" width="120" height="8" rx="0" fill="#8cb3cf"/>
+</g>
+<text x="129" y="58" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">DECISIONS</text>
+<rect x="241" y="30" width="120" height="260" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<g data-step="1">
+<rect class="accent-fill" x="241" y="30" width="120" height="260" rx="0" fill="#00609c" fill-opacity="0.35"/>
+<rect class="accent-fill" x="241" y="30" width="120" height="8" rx="0" fill="#00609c"/>
+</g>
+<text x="249" y="58" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">VALUE</text>
+<text x="249" y="74" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">PROPOSITION</text>
+<rect x="361" y="30" width="120" height="130" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<g data-step="2">
+<rect class="accent-b-fill" x="361" y="30" width="120" height="130" rx="0" fill="#25bcca" fill-opacity="0.35"/>
+<rect class="accent-b-fill" x="361" y="30" width="120" height="8" rx="0" fill="#25bcca"/>
+</g>
+<text x="369" y="58" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">DATA</text>
+<text x="369" y="74" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">COLLECTION</text>
+<rect x="481" y="30" width="120" height="130" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<g data-step="2">
+<rect class="accent-b-fill" x="481" y="30" width="120" height="130" rx="0" fill="#25bcca" fill-opacity="0.35"/>
+<rect class="accent-b-fill" x="481" y="30" width="120" height="8" rx="0" fill="#25bcca"/>
+</g>
+<text x="489" y="58" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">DATA</text>
+<text x="489" y="74" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">SOURCES</text>
+<rect x="1" y="160" width="120" height="130" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<g data-step="5">
+<rect class="accent-a-light-fill" x="1" y="160" width="120" height="130" rx="0" fill="#8cb3cf" fill-opacity="0.35"/>
+<rect class="accent-a-light-fill" x="1" y="160" width="120" height="8" rx="0" fill="#8cb3cf"/>
+</g>
+<text x="9" y="188" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">IMPACT</text>
+<text x="9" y="204" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">SIMULATION</text>
+<rect x="121" y="160" width="120" height="130" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<g data-step="6">
+<rect class="accent-a-light-fill" x="121" y="160" width="120" height="130" rx="0" fill="#8cb3cf" fill-opacity="0.35"/>
+<rect class="accent-a-light-fill" x="121" y="160" width="120" height="8" rx="0" fill="#8cb3cf"/>
+</g>
+<text x="129" y="188" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">MAKING</text>
+<text x="129" y="204" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">PREDICTIONS</text>
+<rect x="361" y="160" width="120" height="130" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<g data-step="4">
+<rect class="accent-b-fill" x="361" y="160" width="120" height="130" rx="0" fill="#25bcca" fill-opacity="0.35"/>
+<rect class="accent-b-fill" x="361" y="160" width="120" height="8" rx="0" fill="#25bcca"/>
+</g>
+<text x="369" y="188" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">BUILDING</text>
+<text x="369" y="204" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">MODELS</text>
+<rect x="481" y="160" width="120" height="130" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<g data-step="3">
+<rect class="accent-b-fill" x="481" y="160" width="120" height="130" rx="0" fill="#25bcca" fill-opacity="0.35"/>
+<rect class="accent-b-fill" x="481" y="160" width="120" height="8" rx="0" fill="#25bcca"/>
+</g>
+<text x="489" y="188" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">FEATURES</text>
+<rect x="121" y="290" width="360" height="60" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<g data-step="6">
+<rect class="accent-b-light-fill" x="121" y="290" width="360" height="60" rx="0" fill="#a8e4ea" fill-opacity="0.35"/>
+<rect class="accent-b-light-fill" x="121" y="290" width="360" height="8" rx="0" fill="#a8e4ea"/>
+</g>
+<text x="129" y="318" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">MONITORING</text>
+<rect class="accent-fill" x="1" y="368" width="16" height="16" rx="2" fill="#00609c"/>
+<text x="24" y="381" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">GOAL</text>
+<rect class="accent-a-light-fill" x="131" y="368" width="16" height="16" rx="2" fill="#8cb3cf"/>
+<text x="154" y="381" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">PREDICT</text>
+<rect class="accent-b-fill" x="261" y="368" width="16" height="16" rx="2" fill="#25bcca"/>
+<text x="284" y="381" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">LEARN</text>
+<rect class="accent-b-light-fill" x="391" y="368" width="16" height="16" rx="2" fill="#a8e4ea"/>
+<text x="414" y="381" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1c2e36">EVALUATE</text>
+</svg>

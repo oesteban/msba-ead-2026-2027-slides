@@ -15,6 +15,7 @@ Dates and titles come from [`course.yml`](course.yml).
 
 | Session | Date | Directory |
 |---|---|---|
+| From a business question to a first model | Fri 16 Oct 2026, morning, first | `day1/intro/` |
 | Measuring a classifier: metrics, thresholds and k-fold | Fri 16 Oct 2026, morning | `day1/am/` |
 | Beyond two classes, and into deep learning | Fri 16 Oct 2026, afternoon | `day1/pm/` |
 
