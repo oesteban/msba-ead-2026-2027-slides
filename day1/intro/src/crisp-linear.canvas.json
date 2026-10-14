@@ -1,54 +1,59 @@
 {
-  "comment": "Oscar Esteban, CC BY 4.0. CRISP-DM phases after Chapman et al. (2000), CRISP-DM 1.0; gates named after its generic tasks 2.4, 4.4 and 5.3. Colours: the region of the Machine Learning Canvas (Dorard, v1.1) each phase fills; a reading, not Dorard's.",
+  "comment": "Oscar Esteban, CC BY 4.0. CRISP-DM phases after Chapman et al. (2000), CRISP-DM 1.0; gates named after its generic tasks 2.4, 4.4 and 5.3. Colours: the region of the Machine Learning Canvas (Dorard, v1.1) each phase fills, in the hues of the canvas as annotated in the module's week 1; fixed, not themed. Which region each phase fills is a reading, not Dorard's.",
   "nodes": {
     "BU": {
-      "class": "accent-fill",
-      "fill": "#00609c",
-      "text_fill": "#ffffff",
+      "fill": "#ffffff",
       "sub": {
-        "fill": "#d9e6f0"
+        "fill": "#1c2e36"
       },
-      "step": 1
+      "step": 1,
+      "stroke": "#292929",
+      "stroke_width": 4
     },
     "DU": {
-      "class": "accent-b-fill",
-      "fill": "#25bcca",
+      "fill": "#fbffe5",
       "step": 2,
       "sub": {
         "fill": "#1c2e36"
-      }
+      },
+      "stroke": "#bad80a",
+      "stroke_width": 4
     },
     "DP": {
-      "class": "accent-b-fill",
-      "fill": "#25bcca",
+      "fill": "#fbffe5",
       "step": 3,
       "sub": {
         "fill": "#1c2e36"
-      }
+      },
+      "stroke": "#bad80a",
+      "stroke_width": 4
     },
     "MO": {
-      "class": "accent-b-fill",
-      "fill": "#25bcca",
+      "fill": "#fbffe5",
       "step": 4,
       "sub": {
         "fill": "#1c2e36"
-      }
+      },
+      "stroke": "#bad80a",
+      "stroke_width": 4
     },
     "EV": {
-      "class": "accent-a-light-fill",
-      "fill": "#8cb3cf",
+      "fill": "#e5e5f4",
       "step": 5,
       "sub": {
         "fill": "#1c2e36"
-      }
+      },
+      "stroke": "#00187a",
+      "stroke_width": 4
     },
     "DE": {
-      "class": "accent-b-light-fill",
-      "fill": "#a8e4ea",
+      "fill": "#f2e4da",
       "step": 6,
       "sub": {
         "fill": "#1c2e36"
-      }
+      },
+      "stroke": "#ff8c00",
+      "stroke_width": 4
     },
     "G1": {
       "step": 2

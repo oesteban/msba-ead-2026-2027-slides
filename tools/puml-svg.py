@@ -24,7 +24,9 @@ with PlantUML, then writes that markup from a sidecar JSON:
   `<from>-to-<to>` (stable across edits, unlike PlantUML's `entNNNN` ids).
 - `step` and `hide` go on the group. `class` and `fill` go on the shape itself
   (its own `fill` attribute beats one inherited from the group); `fill` is the
-  colour shown when no script runs, `class` the one the theme applies.
+  colour shown when no script runs, `class` the one the theme applies. A node
+  with `fill` and no `class` keeps its colour whatever the theme. `stroke` (and
+  `stroke_width`, default 3) outline the shape.
 - `text_fill` recolours every text line of a node; `sub` addresses its second
   line (a `\\n` in the label), which can then step on its own.
 
@@ -91,13 +93,20 @@ def process(svg: bytes, side: dict) -> bytes:
         g = g[0]
         set_steps(g, spec)
         shape = g.xpath("s:rect|s:polygon|s:path|s:ellipse", namespaces=NS)
-        if (spec.get("class") or spec.get("fill")) and not shape:
+        if (spec.get("class") or spec.get("fill") or spec.get("stroke")) and not shape:
             missing.append(f"shape of node {name}")
             continue
         if spec.get("class"):
             add_class(shape[0], spec["class"])
         if spec.get("fill"):
             shape[0].set("fill", spec["fill"])
+        if spec.get("stroke"):
+            # PlantUML writes the stroke into `style`, which beats an attribute
+            style = [d for d in (shape[0].get("style") or "").split(";")
+                     if d.strip() and d.split(":")[0].strip() not in ("stroke", "stroke-width")]
+            shape[0].set("style", ";".join(style))
+            shape[0].set("stroke", spec["stroke"])
+            shape[0].set("stroke-width", str(spec.get("stroke_width", 3)))
         texts = g.xpath("s:text", namespaces=NS)
         if spec.get("text_fill"):
             for t in texts:

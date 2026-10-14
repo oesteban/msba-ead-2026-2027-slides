@@ -6,7 +6,8 @@
 Shapes that follow the theme carry the remark engine's `accent-*` classes
 (`ext/svg-theme.js`) and a literal fill, shown when no script runs. Groups
 carry `data-step` for `ext/stepwise-svg.js`. The last step of every figure
-shows everything, because a printed deck shows only the final step.
+shows everything, because a printed deck shows only the final step; the frames
+over the week-1 canvas are the exception, cleared at their last step.
 
 Palette (remark/themes/hesso-master.css): accent #00609c, accent-a-light
 #8cb3cf, accent-b #25bcca, accent-b-light #a8e4ea; slate #1c2e36 and #556268.
@@ -21,13 +22,16 @@ INK, MUTED, WHITE = "#1c2e36", "#556268", "#ffffff"
 ACCENT, A_LIGHT, B, B_LIGHT = "#00609c", "#8cb3cf", "#25bcca", "#a8e4ea"
 FONT = "Inter, Arimo, Helvetica, sans-serif"
 
-# Machine Learning Canvas regions, as the week-1 annotation names them.
-REGION = {
-    "goal": ("accent-fill", ACCENT),
-    "predict": ("accent-a-light-fill", A_LIGHT),
-    "learn": ("accent-b-fill", B),
-    "evaluate": ("accent-b-light-fill", B_LIGHT),
-}
+# The week-1 canvas (Data science 1, p. 7): Dorard's v1.1 with four regions drawn on it. The crop is
+# images/ml-canvas-week1.png, 1840 x 1458 px; boxes in its pixels, and the CRISP-DM phase that fills each
+# (a reading, not Dorard's).
+WEEK1 = ("ml-canvas-week1.png", 1840, 1458)
+CANVAS = [  # key, x0, y0, x1, y1, step
+    ("pt", 11, 90, 384, 614, 1), ("dec", 384, 90, 745, 614, 1), ("vp", 745, 90, 1106, 1145, 1),
+    ("col", 1106, 90, 1464, 614, 2), ("src", 1464, 90, 1827, 614, 2), ("fea", 1464, 614, 1827, 1369, 3),
+    ("bld", 1106, 614, 1464, 1145, 4), ("imp", 11, 614, 384, 1369, 5), ("mak", 384, 614, 745, 1145, 6),
+    ("mon", 384, 1145, 1464, 1369, 6),
+]
 
 
 def svg(w: int, h: int, body: list[str], comment: str) -> str:
@@ -125,38 +129,17 @@ def systemic_model() -> str:
 
 
 # ---------------------------------------------------------------------------
-CANVAS = [  # key, x, y, w, h, label lines, region, step (the CRISP-DM phase that fills it)
-    ("pt", 0, 30, 120, 130, ["PREDICTION", "TASK"], "predict", 1),
-    ("dec", 120, 30, 120, 130, ["DECISIONS"], "predict", 1),
-    ("vp", 240, 30, 120, 260, ["VALUE", "PROPOSITION"], "goal", 1),
-    ("col", 360, 30, 120, 130, ["DATA", "COLLECTION"], "learn", 2),
-    ("src", 480, 30, 120, 130, ["DATA", "SOURCES"], "learn", 2),
-    ("imp", 0, 160, 120, 130, ["IMPACT", "SIMULATION"], "predict", 5),
-    ("mak", 120, 160, 120, 130, ["MAKING", "PREDICTIONS"], "predict", 6),
-    ("bld", 360, 160, 120, 130, ["BUILDING", "MODELS"], "learn", 4),
-    ("fea", 480, 160, 120, 130, ["FEATURES"], "learn", 3),
-    ("mon", 120, 290, 360, 60, ["MONITORING"], "evaluate", 6),
-]
-
-
-def canvas_schematic() -> str:
-    """Dorard's Machine Learning Canvas v1.1 as ten boxes, lit by CRISP-DM phase."""
-    body = [text(0, 16, "Machine Learning Canvas v1.1 (Dorard), schematic", size=13, fill=MUTED, anchor="start")]
-    for key, x, y, w, h, lines, region, k in CANVAS:
-        cls, hexa = REGION[region]
-        body.append(rect(x + 1, y, w, h, stroke=INK, rx=0, sw=1.2))
-        body.append(step(k, [rect(x + 1, y, w, h, fill=hexa, stroke=None, cls=cls, rx=0, extra=' fill-opacity="0.35"'),
-                             rect(x + 1, y, w, 8, fill=hexa, stroke=None, cls=cls, rx=0)]))
-        for i, s in enumerate(lines):
-            body.append(text(x + 9, y + 28 + 16 * i, s, size=12.5, weight="bold", anchor="start"))
-    x = 0
-    for region in ("goal", "predict", "learn", "evaluate"):
-        cls, hexa = REGION[region]
-        body.append(rect(x + 1, 368, 16, 16, fill=hexa, stroke=None, cls=cls, rx=2))
-        body.append(text(x + 24, 381, region.upper(), size=12.5, weight="bold", anchor="start"))
-        x += 130
-    return svg(602, 392, body, "After L. Dorard, The Machine Learning Canvas v1.1 (ownml.co), CC BY-SA 4.0. "
-               "Schematic and phase colours: Oscar Esteban, CC BY-SA 4.0.")
+def canvas_course() -> str:
+    """The week-1 canvas, untouched, with a frame on the boxes of the phase lit on the flowchart."""
+    src, w, h = WEEK1
+    body = [f'<image href="{src}" x="0" y="0" width="{w}" height="{h}"/>']
+    for k in range(1, 7):
+        frames = [rect(x0 + 9, y0 + 9, x1 - x0 - 18, y1 - y0 - 18, fill="none", stroke=ACCENT, cls="accent-stroke",
+                       rx=4, sw=18) for _, x0, y0, x1, y1, step_ in CANVAS if step_ == k]
+        body.append(step(k, frames, hide=f"{k + 1}-end"))
+    body.append('<g data-step="7"></g>')  # the last step clears the frames
+    return svg(w, h, body, "L. Dorard, The Machine Learning Canvas v1.1 (ownml.co), CC BY-SA 4.0, with the regions "
+               "drawn on it in week 1 of the EAD module; cropped. Frames: Oscar Esteban, CC BY-SA 4.0.")
 
 
 # ---------------------------------------------------------------------------
@@ -164,7 +147,7 @@ def kdd_to_crisp() -> str:
     """KDD's drawn steps (after Fayyad et al. 1996, Fig. 1) above the CRISP-DM phases."""
     kdd = [("Selection", 180), ("Preprocessing", 338), ("Transformation", 496),
            ("Data mining", 654), ("Interpretation /", 812)]
-    top = [text(20, 24, "KDD, the figure (Fayyad et al. 1996)", size=15, fill=MUTED, anchor="start", weight="bold"),
+    top = [text(20, 24, "Knowledge Discovery in Databases (KDD), the figure (Fayyad et al. 1996)", size=15, fill=MUTED, anchor="start", weight="bold"),
            rect(80, 50, 72, 44, fill="#f3f3f3", stroke=MUTED, rx=22), text(116, 78, "Data", size=14),
            rect(970, 50, 96, 44, fill="#f3f3f3", stroke=MUTED, rx=22), text(1018, 78, "Knowledge", size=14)]
     for name, x in kdd:
@@ -243,10 +226,60 @@ def mining_vs_using() -> str:
                "credit data; the probability is illustrative. Oscar Esteban, CC BY 4.0.")
 
 
+# ---------------------------------------------------------------------------
+def sensimed_timeline() -> str:
+    """SENSIMED: the record above the arrow, D. Genoud's 2025 stages below it."""
+    x = {"2003": 60, "2010": 200, "2011": 310, "2012": 420, "2013": 530, "2014": 640, "2016": 760, "2018": 1000}
+    y0, y1 = 233, 267                                       # the arrow's body
+
+    def block(cx, y, lines, anchor="middle", conn=None):
+        """A heading and its lines; `conn` draws a line from (cx, conn[0]) to the arrow."""
+        out = [text(cx, y, lines[0], size=17, weight="bold", anchor=anchor, cls="accent-fill", fill=ACCENT)]
+        out += [text(cx, y + 21 * (i + 1), s_, size=16, anchor=anchor) for i, s_ in enumerate(lines[1:])]
+        if conn:
+            out.insert(0, line(conn[1], conn[0], conn[1], y0 - 2, color=MUTED, w=1.4, marker="", dash="3 3"))
+        return out
+
+    def genoud(cx, lines):
+        out = [line(cx, y1 + 2, cx, y1 + 16, color=MUTED, w=1.4, marker="")]
+        out += [text(cx, y1 + 38 + 20 * i, s_, size=16, fill=MUTED, style="italic") for i, s_ in enumerate(lines)]
+        return out
+
+    arrow = [f'<polygon class="accent-fill" points="30,{y0} 1088,{y0} 1088,{y0 - 15} 1116,250 1088,{y1 + 15} '
+             f'1088,{y1} 30,{y1}" fill="{ACCENT}"/>',
+             f'<path d="M122,{y1 + 4} L134,{y0 - 4} M134,{y1 + 4} L146,{y0 - 4}" stroke="{WHITE}" stroke-width="5"/>']
+    arrow += [text(v, 256, k, size=15, weight="bold", fill=WHITE) for k, v in x.items()]
+    arrow += [text(1062, 256, "now", size=15, weight="bold", fill=WHITE),
+              text(22, 40, "The record", size=16, weight="bold", fill=MUTED, anchor="start"),
+              text(22, y1 + 38, "As D. Genoud's", size=15, fill=MUTED, anchor="start", weight="bold"),
+              text(22, y1 + 58, "team told it", size=15, fill=MUTED, anchor="start", weight="bold")]
+    s1 = arrow + block(22, 140, ["A device", "EPFL spin-off: a contact", "lens records the eye's",
+                                 "volume over 24 hours"], anchor="start", conn=(212, x["2003"]))
+    s2 = genoud(x["2010"], ["Device"]) + genoud(x["2011"], ["Signal", "processing"]) + \
+        genoud(x["2012"], ["Information", "system"])
+    s3 = ([rect(x["2014"] - 22, y0, x["2016"] - x["2014"] + 44, y1 - y0, fill=B, stroke=None, cls="accent-b-fill", rx=0,
+                extra=' fill-opacity="0.85"'),
+           text(x["2014"], 256, "2014", size=15, weight="bold", fill=WHITE),
+           text(x["2016"], 256, "2016", size=15, weight="bold", fill=WHITE)]
+          + block(700, 40, ["A platform", "HES-SO Valais-Wallis:", "machine learning on", "the 24-hour profiles"],
+                  conn=(108, 700))
+          + block(772, 140, ["A narrower use", "US marketing to time", "eye-pressure checks;",
+                             "not a diagnostic tool"], anchor="start", conn=(124, x["2016"]))
+          + genoud(585, ["Machine learning,", "data mining,", "new features"])
+          + genoud(x["2016"], ["Speed of disease", "prediction"]))
+    s4 = (block(1000, 40, ["An evaluation", "glaucoma or healthy, AUC:", "lens 0.61, pressure 0.68,", "both 0.76"],
+                conn=(108, x["2018"]))
+          + genoud(1050, ["Improvement,", "deep learning"]))
+    return svg(1120, 380, [step(1, s1), step(2, s2), step(3, s3), step(4, s4)],
+               "SENSIMED, above the arrow from its record (CTI 17325.1; FDA 2016; Martin et al. 2018), below it "
+               "after D. Genoud's 2025 slide. Oscar Esteban, CC BY 4.0.")
+
+
 def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
-    for name, fn in (("systemic-model.svg", systemic_model), ("ml-canvas-schematic.svg", canvas_schematic),
-                     ("kdd-to-crisp.svg", kdd_to_crisp), ("mining-vs-using.svg", mining_vs_using)):
+    for name, fn in (("systemic-model.svg", systemic_model), ("ml-canvas-course.svg", canvas_course),
+                     ("kdd-to-crisp.svg", kdd_to_crisp), ("mining-vs-using.svg", mining_vs_using),
+                     ("sensimed-timeline.svg", sensimed_timeline)):
         (out / name).write_text(fn(), encoding="utf-8")
         print(out / name)
     return 0
