@@ -2,16 +2,20 @@
 """Render the data figures of the day-1 decks.
 
 Every chart in day1/am/images and day1/pm/images is drawn here from the data,
-so the decks carry no third-party figures and every number on a slide can be
-traced to a computation.
+so every number on a slide can be traced to a computation. (Figures drawn by
+others appear only in day1/intro, each with its licence on the slide.)
 
-    python3 tools/figures.py --credit german_credit.csv --wine winequality_all.csv \
+    python3 tools/figures.py --credit south_german_credit.csv --wine winequality_all.csv \
         [--zalaxus Zalaxus.zip]
+    python3 tools/figures.py --credit south_german_credit.csv     # credit only
 
-The datasets are not in this repository. german_credit.csv is the Statlog
-German Credit data (UCI, CC BY 4.0) with descriptive column values and a
-`Score` column (good/bad); winequality_all.csv is UCI Wine Quality (CC BY 4.0),
-red and white together with a `color` column. Zalaxus is the module's teaching
+The datasets are not in this repository. south_german_credit.csv is the
+corrected South German Credit data (Groemping 2019; UCI dataset 573, CC BY 4.0)
+with English column names and labels and a `credit_risk` column (good/bad),
+built by build-datasets.py in the private wrapper; the 2025-26 Statlog file
+with its `Score` column is still read. winequality_all.csv is UCI Wine Quality
+(CC BY 4.0), red and white together with a `color` column. Without --wine, the
+credit numbers are merged into the existing figures-numbers.json. Zalaxus is the module's teaching
 dataset and is only read to measure the leakage example (two numbers).
 
 Models are scikit-learn, cross-validated with 5 stratified folds and a fixed
@@ -85,8 +89,9 @@ def rf(n=500, **kw):
 # --------------------------------------------------------------------------
 def credit(path: Path) -> None:
     d = pd.read_csv(path)
-    y = (d["Score"] == "bad").astype(int).to_numpy()
-    X = pd.get_dummies(d.drop(columns=["row ID", "Score"]))
+    target = "credit_risk" if "credit_risk" in d else "Score"
+    y = (d[target] == "bad").astype(int).to_numpy()
+    X = pd.get_dummies(d.drop(columns=["row ID", target], errors="ignore"))
     cv = StratifiedKFold(5, shuffle=True, random_state=SEED)
     p = cross_val_predict(rf(), X, y, cv=cv, method="predict_proba")[:, 1]
     ts = np.round(np.arange(0.02, 0.981, 0.01), 2)
@@ -115,8 +120,8 @@ def credit(path: Path) -> None:
     # 1. score distributions by actual class
     fig, ax = plt.subplots(figsize=(8, 3.6))
     bins = np.linspace(0, 1, 26)
-    ax.hist(p[y == 0], bins=bins, color=LIGHT, label="actually good (700)")
-    ax.hist(p[y == 1], bins=bins, color=ACCENT, alpha=0.75, label="actually bad (300)")
+    ax.hist(p[y == 0], bins=bins, color=LIGHT, label=f"actually good ({(y == 0).sum()})")
+    ax.hist(p[y == 1], bins=bins, color=ACCENT, alpha=0.75, label=f"actually bad ({y.sum()})")
     ax.axvline(0.5, color=DARK, lw=1.5, ls="--")
     ax.text(0.51, ax.get_ylim()[1] * 0.55, "threshold 0.5", color=DARK, fontsize=12)
     ax.set_xlabel("predicted probability of “bad”")
@@ -161,7 +166,7 @@ def credit(path: Path) -> None:
     a1.set_title(f"ROC · AUC {roc_auc_score(y, p):.2f}", color=DARK)
     a2.plot(rc, pr, color=CYAN, lw=2.4)
     a2.axhline(y.mean(), color=GRAY, ls="--", lw=1)
-    a2.text(0.02, y.mean() + 0.02, "share of bad = 0.30", color=GRAY, fontsize=11)
+    a2.text(0.02, y.mean() + 0.02, f"share of bad = {y.mean():.2f}", color=GRAY, fontsize=11)
     a2.set_xlabel("recall")
     a2.set_ylabel("precision")
     a2.set_ylim(0, 1.02)
@@ -351,16 +356,19 @@ def network_diagram() -> None:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--credit", type=Path, required=True)
-    ap.add_argument("--wine", type=Path, required=True)
+    ap.add_argument("--wine", type=Path)
     ap.add_argument("--zalaxus", type=Path)
     a = ap.parse_args()
+    out = ROOT / "day1" / "figures-numbers.json"
     credit(a.credit)
     kfold_diagram()
-    network_diagram()
+    if a.wine is None:                      # credit only: keep the other keys
+        NUMBERS.update({k: v for k, v in json.loads(out.read_text()).items() if k != "credit"})
+    else:
+        network_diagram()
+        wine(a.wine)
     if a.zalaxus:
         zalaxus(a.zalaxus)
-    wine(a.wine)
-    out = ROOT / "day1" / "figures-numbers.json"
     out.write_text(json.dumps(NUMBERS, indent=2) + "\n")
     print(f"wrote {out.relative_to(ROOT)}")
     return 0
