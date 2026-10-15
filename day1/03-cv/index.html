@@ -108,11 +108,11 @@ class: stepwise-svg
 .step-3.large.center[How far can 0.702 be trusted?]
 ]
 
-.footnote[Screen capture: Dataiku DSS, course server, 14 October 2026, cropped. The deck's own numbers come from another run (scikit-learn, all 20 attributes) and differ.]
+.footnote[Screen capture: Dataiku DSS 15.0, course server, 14 October 2026, cropped. In this run Dataiku had left out five attributes it read as text; the deck's own numbers use all 20 (scikit-learn).]
 
 ???
 
-The screen capture shows Dataiku's Results screen after training several models on the credit data. Three elements are marked. ROC AUC, the metric selected here, measures how often the model's scores rank a bad credit above a good one; the previous deck defines it on slides 12 and 13. Provost and Fawcett present it as a good overall summary of how well a classifier ranks (Provost & Fawcett, 2013, p. 219). Because the AUC does not depend on class proportions or costs (Provost & Fawcett, 2013, p. 218), it serves to rank models before either is fixed. The score of 0.702 placed the logistic regression first. The margin of ± 0.049 is twice the standard deviation of the scores from cross-validation, the method slide 4 defines (Dataiku, 2024, *Prediction settings*); slide 5 reads it in detail. The closing question, how far 0.702 can be trusted, frames what follows: slide 3 shows how much the score moves when the split changes. The capture comes from the course server; the deck's own figures, from a different run in scikit-learn, differ.
+The screen capture shows Dataiku's Results screen after training several models on the credit data. Three elements are marked. ROC AUC, the metric selected here, measures how often the model's scores rank a bad credit above a good one; the previous deck defines it on slides 12 and 13. Provost and Fawcett present it as a good overall summary of how well a classifier ranks (Provost & Fawcett, 2013, p. 219). Because the AUC does not depend on class proportions or costs (Provost & Fawcett, 2013, p. 218), it serves to rank models before either is fixed. The score of 0.702 placed the logistic regression first. The margin of ± 0.049 is twice the standard deviation of the scores from cross-validation, the method slide 4 defines (Dataiku, 2024, *Prediction settings*); slide 5 reads it in detail. The closing question, how far 0.702 can be trusted, frames what follows: slide 3 shows how much the score moves when the split changes. The capture comes from a run on the course server in which Dataiku had left out five attributes, `status` and `credit_history` among them, because it took their long labels for free text; panel 2 of the group sheet now puts them back before training. With all 20 attributes, the deck's own random forest reaches a mean of 0.78 over five folds in scikit-learn (slide 5), so the 0.702 shown here understates what the data allow.
 
 ---
 
@@ -242,7 +242,7 @@ class: stepwise-svg
 </div>
 ]
 
-.footnote[Screen capture: Dataiku DSS, course server, 14 October 2026; a support vector machine, five folds, the costs of panel 5. **Performance → Decision chart**.]
+.footnote[Screen capture: Dataiku DSS 15.0, course server, 14 October 2026; a support vector machine, five folds, the costs of panel 5. **Performance → Decision chart**.]
 
 ???
 

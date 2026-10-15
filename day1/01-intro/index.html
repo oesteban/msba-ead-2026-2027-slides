@@ -507,7 +507,7 @@ A probability is not yet a decision. On slide 3 a threshold of 171 cm turned hei
 
 <div class="moves">
 <div><b>1. Explore</b>The credits, and how many went bad.<br /><code>Dataset → Explore, Charts</code></div>
-<div><b>2. Train</b>A first model, with Dataiku's defaults.<br /><code>Lab → AutoML Prediction</code></div>
+<div><b>2. Train</b>A first model: all 20 columns in, then Dataiku's defaults.<br /><code>Lab → AutoML Prediction</code></div>
 <div><b>3. Look</b>Its results: what does each screen show?<br /><code>Results → model</code></div>
 <div><b>4. Note</b>Three things you see, or cannot explain yet.<br />On the sheet</div>
 </div>
@@ -527,7 +527,7 @@ The bank asks whether a model could help it decide. Before any slide on how to j
 
 Explore is data understanding: the share of bad credits and one column set against the target are what CRISP-DM's task *Explore data* asks for, the distribution of the target and the relations between attributes (Chapman et al., 2000, p. 21).
 
-Train, with Dataiku's defaults and nothing changed, gives a known starting point for every later change.
+Train keeps Dataiku's defaults but one, so that every later change starts from a known point. The exception: Dataiku leaves out five columns whose long labels it takes for free text (`status`, `credit_history`, `savings`, `personal_status_sex`, `property`), and the sheet sets them back as categories before training. `status` and `credit_history` are the two columns most associated with the outcome, so the model would otherwise lose its best evidence. Which attributes enter the model is data preparation, CRISP-DM's task *Select data*, whose output is a rationale for each inclusion or exclusion (Chapman et al., 2000, p. 24); here the tool had made that choice silently, which is the Referee's question in practice.
 
 Look reads the result screens: how the models are ranked, the confusion matrix, the threshold, the columns that weigh most. Ranking models against evaluation criteria is CRISP-DM's task *Assess model* (Chapman et al., 2000, p. 29); here the criteria are Dataiku's defaults, not the bank's.
 
