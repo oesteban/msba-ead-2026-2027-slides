@@ -451,7 +451,9 @@ def nested_cycles() -> str:
 
 # ---------------------------------------------------------------------------
 def expected_value() -> str:
-    """The expected value of a credit model: rates from the data, values from the business (after P&F Fig. 7-2)."""
+    """The expected cost of a credit model: rates from the data, costs from the business (after P&F Fig. 7-2).
+
+    Only the two errors carry a cost, so no sum of money is counted twice (Provost & Fawcett 2013, p. 203)."""
     def grid(x, y, cw, ch, cells, cls="", fill=WHITE, header=True):
         out = []
         if header:
@@ -485,10 +487,10 @@ def expected_value() -> str:
         *grid(470, 200, 76, 44, [[["rate"], ["rate"]], [["rate"], ["rate"]]], fill="#e9edf0", header=False),
         text(546, 310, "rates", size=13, fill=MUTED),
         text(390, 352, "from the data", size=15, weight="bold", fill=MUTED)]
-    s2 = [*grid(760, 60, 104, 50, [[["loss", "avoided"], ["capital", "lost"]],
-                                   [["interest", "forgone"], ["interest", "earned"]]],
+    s2 = [*grid(760, 60, 104, 50, [[["no cost"], ["capital", "lost"]],
+                                   [["interest", "forgone"], ["no cost"]]],
                 fill=B_LIGHT, cls="accent-b-light-fill"),
-          text(864, 186, "values per credit", size=13, fill=MUTED),
+          text(864, 186, "cost per credit", size=13, fill=MUTED),
           text(864, 26, "from the business", size=15, weight="bold", cls="accent-fill", fill=ACCENT)]
     s3 = [line(622, 244, 664, 244),
           f'<circle cx="690" cy="244" r="22" fill="{WHITE}" stroke="{INK}" stroke-width="1.6"/>',
@@ -499,9 +501,9 @@ def expected_value() -> str:
           text(762, 252, "Σ", size=20, weight="bold"),
           line(784, 244, 806, 244),
           rect(810, 218, 180, 54, fill=ACCENT, stroke=None, cls="accent-fill"),
-          text(900, 241, "expected value", size=14, weight="bold", fill=WHITE),
+          text(900, 241, "expected cost", size=14, weight="bold", fill=WHITE),
           text(900, 259, "per application", size=13, fill=WHITE),
-          text(800, 300, "multiply each rate by its value, then add", size=13, fill=MUTED, anchor="middle")]
+          text(800, 300, "multiply each rate by its cost, then add", size=13, fill=MUTED, anchor="middle")]
     return svg(1000, 362, [step(1, s1), step(2, s2), step(3, s3)],
                "After Provost and Fawcett (2013), Data Science for Business, Fig. 7-2, p. 197, redrawn for a credit "
                "decision; rows are the outcome and columns the decision, the transpose of the book's layout. "
