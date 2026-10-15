@@ -59,6 +59,8 @@
 .need { font-size: 0.86em; margin: 0.2em 0 0; }
 .points li { margin-bottom: 0.5em; }
 .refs li { font-size: 0.72em; margin-bottom: 0.4em; }
+/* three big numbers side by side: smaller than the engine's two-card size, so they fit their cards */
+.cards.cols-3 .card .metric { font-size: 3.2em; }
 /* room between cards and what follows them */
 .beside-thumb .cards { gap: 1.1em; margin-bottom: 1.4em; }
 /* the four outcomes: the confusion matrix with its names, in the same colours as every matrix here */
@@ -106,7 +108,7 @@ EAD · Exploration avancée de données et intelligence décisionnelle · 16.10.
 
 ???
 
-This deck moves from a model's probability output to the bank's grant-or-refuse decision. After training a first model on credit data in Hands-on 1 (deck 1, slide 16), each group brought back three observations (deck 1, slide 17). This deck starts from those observations and works through the steps that connect a score to a choice: the decision rule, the positive class, the confusion matrix, precision, recall and other metrics, the threshold, the cost of each error, and the threshold that minimises that cost. The last slides introduce threshold-free curves, ROC, precision-recall and cumulative gains, that summarise a model's ranking ability without fixing a single threshold. The ideas come from chapters 7 and 8 of Provost and Fawcett's *Data Science for Business* (2013), listed on slide 19, and from the CRISP-DM 1.0 guide (Chapman et al., 2000).
+This deck moves from a model's probability output to the bank's grant-or-refuse decision. It begins with classification itself: one attribute on slide 2, two on slide 3, then all twenty on slide 4. Slides 5 and 6 name the positive class, bad, and define the four outcomes that arise when a prediction is compared with the truth. Slides 7 to 9 fill the confusion matrix, establish the baseline, and define the metrics that summarise it: precision, recall, F1 and the false-positive rate. Slide 10 shows the trade-off between precision and recall as the threshold moves, and slide 11 asks which metric should steer the model. Slides 12 and 13 introduce the ROC curve and its area (AUC), a ranking measure that does not depend on the class proportions or the costs, while slide 14 shows that precision does change with the class mix, a problem when bad credits are rare. Slides 15 to 20 return to the threshold: the hands-on panels, the cost matrix, the cost-optimal threshold, and three different thresholds for the same model. Slide 21 adds cumulative gains, and slide 22 enters costs in Dataiku. The ideas come from chapters 7 and 8 of Provost and Fawcett (2013), listed on slide 23, and from the CRISP-DM 1.0 guide (Chapman et al., 2000).
 
 ---
 name: newsection
@@ -141,7 +143,7 @@ class: stepwise-svg
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
 .beside-thumb[
-<object type="image/svg+xml" data="images/classification-duration.svg" style="width: 100%; padding-top: 4pt; pointer-events: none;"></object>
+<div class="step-1"><object type="image/svg+xml" data="images/classification-duration.svg" style="width: 100%; padding-top: 4pt; pointer-events: none;"></object></div>
 
 .large.center[From cases whose class is known, learn a model; then predict the class of new cases.]
 ]
@@ -149,6 +151,8 @@ class: stepwise-svg
 .footnote[.book[<i class="fa-solid fa-book-open"></i> After Provost & Fawcett (2013), Fig. 2-1, p. 26], as in the intro deck (slide 3), on the course file with one attribute. Curves: the number of good and bad credits per duration, smoothed.]
 
 ???
+
+Deck 1 (slide 3) used Provost and Fawcett's Figure 2-1 (2013, p. 26) with height and sex. This slide redraws the same picture on the credit data with a single attribute, duration. In the upper half, past credits whose outcome is known are mined into a model. The model records how many good and how many bad credits fall at each duration, smoothed from the 1,000 credits and scaled to 700 good and 300 bad. Where the two curves cross, at about 45 months, a credit is as likely bad as good; beyond that point, 70 credits have bad as the more probable class. In the lower half, a new application of 24 months, whose outcome is unknown, enters the same model and receives class good with P(bad) = 0.30. Classification "determines which class that individual belongs to" (Provost & Fawcett, 2013, p. 21, verbatim); when the output includes a probability, the task is class probability estimation (p. 25). Supervised learning requires data on the target (Provost & Fawcett, 2013, pp. 24 to 25). With 300 bad against 700 good, the bad curve stays below the good one almost everywhere, a first sight of class imbalance that slides 8 and 11 revisit.
 
 ---
 class: stepwise-svg
@@ -159,7 +163,7 @@ class: stepwise-svg
 
 .beside-thumb[
 .col-wide[
-<object type="image/svg+xml" data="images/boundary.svg" style="width: 100%; pointer-events: none;"></object>
+<div class="step-1"><object type="image/svg+xml" data="images/boundary.svg" style="width: 100%; pointer-events: none;"></object></div>
 ]
 
 .col-narrow.eqcol[
@@ -179,7 +183,7 @@ With **two** attributes, a **logistic regression** adds them up with weights:
 
 ???
 
-The slide shows the credit data plotted in a two-dimensional space of duration and amount, with a decision boundary drawn by a logistic regression. Decision boundaries in the instance space separate regions assigned to different classes (Provost & Fawcett, 2013, pp. 83 to 85). A linear classifier computes "essentially a weighted sum of the values for the various attributes" (Provost & Fawcett, 2013, p. 84, verbatim), and its boundary is where that sum reaches a fixed value. Logistic regression models the log-odds of the positive class as such a weighted sum, then converts them to a probability (Provost & Fawcett, 2013, pp. 97 to 98). Here only two of the twenty attributes are used, and the model is fitted on all 1,000 credits to show the shape of the boundary, not to score unseen cases. Where P(bad) = 0.5, a line splits the applicants: 66 fall on the refused side. Lowering the threshold to 0.3 moves the line and refuses 421 instead of 66. With all twenty attributes the boundary cannot be drawn in two dimensions, but the threshold on the score still places it. This is the same idea as deck 1's height threshold of about 171 cm between the two curves (deck 1, slide 3): moving the threshold moves the boundary between the regions assigned to each class.
+Slide 2 showed one attribute; this slide adds a second. With duration and amount, a logistic regression computes a score, −1.67 + 0.034 per month of duration + 0.024 per thousand DM of the credit amount, then maps it to a probability through the logistic function (Provost & Fawcett, 2013, pp. 97 to 98). A linear classifier computes "a weighted sum of the attribute values" (Provost & Fawcett, 2013, p. 85, verbatim), and its boundary falls where that sum reaches a fixed value. In the instance space, decision boundaries separate regions assigned to different classes (Provost & Fawcett, 2013, pp. 83 to 85). Where P(bad) = 0.5, the score is zero and a line splits the applicants: 66 fall on the refused side. Where P(bad) = 0.3, the score is −0.85 and the line moves: 421 are refused instead. Each month adds 0.034 to the score; each thousand DM adds 0.024, so longer and larger credits push towards bad. The model is fitted on all 1,000 credits to show the shape of the boundary, not to score unseen cases. With all twenty attributes the boundary cannot be drawn in two dimensions, but the threshold on the score still places it, as slide 4 shows.
 
 ---
 class: stepwise-svg
@@ -191,7 +195,7 @@ class: stepwise-svg
 .beside-thumb[
 With all twenty attributes, the model gives each application one number, P(bad):
 
-<object type="image/svg+xml" data="images/decision-rule.svg" style="width: 100%; padding-top: 10pt; pointer-events: none;"></object>
+<div class="step-1"><object type="image/svg+xml" data="images/decision-rule.svg" style="width: 100%; padding-top: 10pt; pointer-events: none;"></object></div>
 
 .step-4.large[In Dataiku, **Results → model → Predicted data** shows both probabilities and the class, row by row.]
 ]
@@ -200,7 +204,7 @@ With all twenty attributes, the model gives each application one number, P(bad):
 
 ???
 
-A classifier takes an instance whose class is unknown and predicts its class (Provost & Fawcett, 2013, p. 188). The slide breaks this into steps. The model receives the attributes of a credit application and returns two probabilities that add up to one: P(bad) and P(good). A decision rule compares P(bad) to a threshold *t*: if P(bad) exceeds *t*, the application is classified as bad and the credit is refused. With *t* = 0.5, the example probability of 0.34 falls below the threshold, so the credit is granted. The 0.34 is an example, not a computed result. A model may give "a score that ranks cases by their likelihood" (Provost & Fawcett, 2013, p. 210, verbatim) without that score being a true probability; a threshold still turns such scores into decisions (Provost & Fawcett, 2013, pp. 209 to 210). With two classes, one threshold on the positive class suffices. With more classes, the predicted class is the one with the highest probability, a setup the afternoon deck covers. In Dataiku, Results, then the model, then Predicted data shows the probability columns and the predicted class, row by row. Deck 1, slides 3 and 15 drew the same two-step picture for height and sex, after the textbook's Figure 2-1 (Provost & Fawcett, 2013, p. 26).
+Slides 2 and 3 showed classification with one and then two attributes. This slide completes the chain with all twenty: the model gives each application one number, P(bad), and a decision rule compares it to a threshold t. If P(bad) exceeds t, the application is classified as bad and the credit is refused. With t = 0.5, the example probability of 0.34 falls below the threshold, so the credit is granted. The 0.34 is an example, not a computed result. A model may produce "a score that ranks cases by their likelihood" (Provost & Fawcett, 2013, p. 210, verbatim) without that score being a true probability; a threshold still turns such scores into decisions (Provost & Fawcett, 2013, pp. 209 to 210). With two classes, one threshold on the positive class suffices; with more classes, the predicted class is the one with the highest probability, a setup the afternoon deck covers. In Dataiku, Results, then the model, then Predicted data shows both probability columns and the predicted class, row by row. The next slide names which class is positive and why it matters.
 
 ---
 
@@ -266,6 +270,8 @@ class: stepwise-svg
 
 ???
 
+Slide 5 named the positive class, bad. This slide defines the four outcomes that arise when a prediction meets the truth. A true positive is a bad credit correctly refused; a false negative is a bad credit wrongly granted. A false positive is a good customer wrongly refused; a true negative is a good customer correctly granted. The first word, true or false, says whether the decision was right; the second, positive or negative, says what the model predicted (Provost & Fawcett, 2013, pp. 189 to 190). Every credit falls in exactly one cell. The table is the confusion matrix, the central tool of evaluation: every metric on the slides that follow is a ratio of these four counts. Two of the four cells are errors. False negatives cost the bank the capital lent to a credit that goes bad; false positives cost it a good customer turned away. Which error is worse depends on the business, a question slides 17 to 20 answer with numbers. The convention matters: swapping which class is called positive changes which error is called a false positive and which a false negative, so checking the positive class (slide 5) comes before reading any metric.
+
 ---
 class: stepwise-svg
 
@@ -275,7 +281,7 @@ class: stepwise-svg
 
 .beside-thumb[
 .col-wide[
-<object type="image/svg+xml" data="images/threshold-regions.svg" style="width: 100%; pointer-events: none;"></object>
+<div class="step-1"><object type="image/svg+xml" data="images/threshold-regions.svg" style="width: 100%; pointer-events: none;"></object></div>
 ]
 
 .col-narrow.cm[
@@ -394,6 +400,7 @@ class: stepwise-svg
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
 .beside-thumb.grid6[
+<div class="step-1">
 <table>
 <thead><tr><th>class weights</th><th>smallest leaf</th><th>accuracy</th><th>recall</th><th>F1</th><th>ROC AUC <small>(next slides)</small></th></tr></thead>
 <tbody>
@@ -405,6 +412,7 @@ class: stepwise-svg
 <tr><td>balanced</td><td>40</td><td>70.4%</td><td class="win">73.3%</td><td class="win">0.598</td><td>0.772</td></tr>
 </tbody>
 </table>
+</div>
 
 .step-2[Six forests, one data set: each metric crowns a different one. Dataiku's metric under **Design → Metrics** drives this search over settings, and ranks the models.]
 
@@ -415,6 +423,8 @@ class: stepwise-svg
 
 ???
 
+Six random forests, varying class weights (none or balanced) and smallest leaf size (1, 10 or 40), are scored on credits each forest did not learn from. Each metric crowns a different winner. Accuracy ties the two forests with leaf 1, at 75.9%, whose recall is only 37% and 33%. ROC AUC picks the balanced forest with leaf 10, whose recall reaches 68%, and F1 ties it with the balanced forest with leaf 40. Recall picks the balanced forest with leaf 40, at 73% with a precision of 50%. The unweighted forest with leaf 40 is the starkest case: it is right 70.2% of the time yet catches only 0.7% of the bad credits, because 70% of the credits are good. Provost and Fawcett warn that "as the class distribution becomes more skewed, evaluation based on accuracy breaks down" (Provost & Fawcett, 2013, p. 190, verbatim), and the baseline of slide 8 shows why (pp. 189 to 191). In Dataiku, the metric chosen in Design, then Metrics drives the hyperparameter search and ranks the models (Dataiku, 2024). Class weights, enabled by default, make the minority class count as much as the majority during training without changing the evaluation metrics (Dataiku, 2024). A metric that does not move with the class mix or the threshold is needed to compare models fairly; the next two slides introduce it.
+
 ---
 class: stepwise-svg
 
@@ -424,7 +434,7 @@ class: stepwise-svg
 
 .beside-thumb[
 .col-wide[
-<object type="image/svg+xml" data="images/roc-build.svg" style="width: 84%; display: block; margin: 0 auto; pointer-events: none;"></object>
+<div class="step-1"><object type="image/svg+xml" data="images/roc-build.svg" style="width: 84%; display: block; margin: 0 auto; pointer-events: none;"></object></div>
 ]
 
 .col-narrow[
@@ -445,6 +455,8 @@ class: stepwise-svg
 
 ???
 
+ROC stands for receiver operating characteristic. The vertical axis is the true-positive rate (recall): the share of bad credits the model refuses. The horizontal axis is the false-positive rate (slide 9): the share of good customers it wrongly refuses. At a threshold of 0.6 the model refuses 12% of the bad credits and 1% of the good ones; at 0.4, 56% and 17%; at 0.2, 91% and 58%. Each threshold is one point; joining every threshold traces the curve. The diagonal from (0, 0) to (1, 1) is guessing: a classifier that draws at random catches equal shares of both classes. The top-left corner, (0, 1), is perfect: every bad credit refused and no good customer touched. Provost and Fawcett show that ROC curves "are independent of the class proportions as well as the costs and benefits" (Provost & Fawcett, 2013, p. 218, verbatim), so a data scientist can compare models before either is fixed (pp. 214 to 217). Fawcett (2006) gives a full tutorial on their construction. Sheet panel 4 asks each group to plot the same three points from their own model's confusion matrix at thresholds 0.6, 0.4 and 0.2 (slide 15).
+
 ---
 class: stepwise-svg
 
@@ -458,7 +470,7 @@ class: stepwise-svg
 ]
 
 .col-narrow[
-**AUC**, the area under the ROC curve: 0.78.
+.step-1[**AUC**, the area under the ROC curve: 0.78.]
 
 .step-2[Pick a bad credit and a good one at random: the model scores the bad one higher 78 times in 100. Guessing: 50; a perfect ranking: 100.]
 
@@ -472,6 +484,8 @@ class: stepwise-svg
 
 ???
 
+The area under the ROC curve, AUC, is 0.78 for this model. It equals the probability that a randomly chosen bad credit receives a higher score than a randomly chosen good one (Provost & Fawcett, 2013, p. 219; Fawcett, 2006): pick one of each at random, and the model ranks the bad one higher 78 times in 100. A random classifier scores 0.5; a perfect ranking scores 1. Because the true-positive rate and the false-positive rate are each computed within one class, the AUC does not change with the share of bad credits or with the costs (Provost & Fawcett, 2013, p. 218), so models can be compared before either is known. Provost and Fawcett note that "the AUC is useful when a single number is needed to summarize performance" (Provost & Fawcett, 2013, p. 219, verbatim). It ranks models but does not choose a threshold; slides 17 to 20 show that the threshold comes from the costs of the two errors. In Dataiku, the ROC curve and its area appear under Performance, then ROC and PR curves, and ROC AUC is listed among the metrics in Design, then Metrics.
+
 ---
 class: stepwise-svg
 
@@ -480,7 +494,7 @@ class: stepwise-svg
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
 .beside-thumb[
-<object type="image/svg+xml" data="images/pr-imbalance.svg" style="width: 96%; display: block; margin: 0 auto; pointer-events: none;"></object>
+<div class="step-1"><object type="image/svg+xml" data="images/pr-imbalance.svg" style="width: 96%; display: block; margin: 0 auto; pointer-events: none;"></object></div>
 
 .step-2[At the bank's 5% of bad credits, the same model at 0.5 is right on 23% of the credits it refuses, against 70% in the sample; its ROC curve does not move. With rare positives, read precision against its floor, the share of bad credits.]
 ]
@@ -488,6 +502,8 @@ class: stepwise-svg
 .footnote[T. Fawcett (2006); J. Davis and M. Goadrich (2006); T. Saito and M. Rehmsmeier (2015). Precision at 5% computed from the same ROC points.]
 
 ???
+
+In the sample, 30% of credits are bad; at the bank, about 5% (deck 1, slide 14; Grömping, 2019). The ROC curve does not move when the class mix changes, because the true-positive rate and the false-positive rate are each computed within one class (Provost & Fawcett, 2013, p. 218; Fawcett, 2006). Precision does move: at a threshold of 0.5, precision is 70% in the sample but falls to about 23% at the bank's 5%. Both values come from the same true-positive and false-positive rates through the formula precision = share × TPR / (share × TPR + (1 − share) × FPR). The precision-recall curve's floor is the share of positives, 0.30 in the sample and 0.05 at the bank (Saito & Rehmsmeier, 2015). With rare positives, the precision-recall curve shows what the ROC curve hides: even a model with a good ranking floods the refused pile with good customers (Davis & Goadrich, 2006). Reading precision against its floor, not against zero, tells how far above chance the model reaches at a given threshold.
 
 ---
 
@@ -541,7 +557,7 @@ class: stepwise-svg
 <img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
 
 .beside-thumb[
-<object type="image/svg+xml" data="images/expected-value-numbers.svg" style="width: 100%; padding-top: 8pt; pointer-events: none;"></object>
+<div class="step-1"><object type="image/svg+xml" data="images/expected-value-numbers.svg" style="width: 100%; padding-top: 8pt; pointer-events: none;"></object></div>
 
 The intro deck left the two prices open. The bank's data came with them: granting a credit that goes bad costs **five times** more than refusing a good customer.
 ]
