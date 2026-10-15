@@ -41,6 +41,10 @@
 .board .rowcard::before { content: ""; position: absolute; left: -132px; top: 50%; width: 124px; border-top: 1.5px dashed #9aa4a8; }
 .board .side { position: absolute; left: 560px; right: 2.4em; top: 60px; font-size: 0.95em; line-height: 1.45; }
 .board .side li { margin-bottom: 0.8em; }
+.board object { position: absolute; left: 0; top: 0; }
+/* the decision cards of the linear flowchart: each dashed line starts at its hexagon's tip (--tip, in board pixels) */
+.board .gate { --hue: var(--accent); }
+.board .gate::before { left: calc(var(--tip) - 567px); width: calc(559px - var(--tip)); }
 .board .next { position: absolute; left: 440px; transform: translateY(-50%); font-weight: 700; color: #c26a00; font-size: 0.8em; }
 /* the bank's canvas, laid out as Dorard's v1.1, in the region tints of week 1 */
 .ml-canvas { display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: 1fr 1fr 0.5fr; height: 468px;
@@ -48,6 +52,8 @@
 .ml-canvas > div { border: 1.5px solid #8a969c; margin: -0.75px; padding: 0.45em 0.65em; background: var(--tint); }
 .ml-canvas h4 { margin: 0 0 0.35em; font-size: 0.92em; letter-spacing: 0.05em; color: var(--hue); }
 .ml-canvas p { margin: 0; }
+/* the canvas alone on its slide, without the phase thumbnail: the full width, clear of the right edge */
+.ml-canvas.full { margin: 0.6em 2.4em 0 0; font-size: 0.8em; }
 .ml-canvas .pt { grid-area: 1 / 1; } .ml-canvas .dec { grid-area: 1 / 2; } .ml-canvas .vp { grid-area: 1 / 3 / 3 / 4; }
 .ml-canvas .col { grid-area: 1 / 4; } .ml-canvas .src { grid-area: 1 / 5; }
 .ml-canvas .imp { grid-area: 2 / 1 / 4 / 2; } .ml-canvas .mak { grid-area: 2 / 2; } .ml-canvas .bld { grid-area: 2 / 4; }
@@ -55,6 +61,10 @@
 /* the data slide: five rows, the target lit, and what a row and a column are */
 .terms table { font-size: 0.82em; margin: 0.2em 0 0; border-collapse: collapse; }
 .terms th, .terms td { padding: 0.25em 0.55em; border-bottom: 1px solid #d9d9d9; text-align: left; }
+/* the data slide's lead line, the table's caption: centred over it, the target in the table's target tint */
+.data-lead { font-size: 1.4em; font-weight: 600; color: var(--heading-color); text-align: center; padding-bottom: 0.4em; }
+.data-lead .tgt-mark { background: var(--accent-tint, #e6eff5); padding: 0.05em 0.35em; border-radius: 3px; }
+.data-lead .tgt-mark code { background: none; padding: 0; }
 .terms th.tgt, .terms td.tgt { background: var(--accent-tint, #e6eff5); font-weight: 700; }
 .legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; margin-top: 0.8em; font-size: 0.72em; }
 .legend > div { border-top: 3px solid var(--accent); padding-top: 0.3em; }
@@ -91,6 +101,8 @@
 .roles b { color: var(--accent); }
 .need { font-size: 0.86em; margin: 0.2em 0 0; }
 .refs li { font-size: 0.6em; margin-bottom: 0.3em; }
+/* About me sits uncounted before the outline: no slide number */
+.no-number .remark-slide-number { display: none; }
 .col-wide { float: left; width: 57%; }
 .col-narrow { float: right; width: 38%; }
 </style>
@@ -133,37 +145,76 @@ layout: true
 ]
 
 ---
+count: false
+class: no-number
 
-# This morning builds a first model, then judges it
+# About me
+
+<br />
+
+.right-column3.center[
+<a href="https://oesteban.github.io/msba-ead-2026-2027-slides/day1/01-intro/index.html">
+  <object type="image/svg+xml" data="images/qr-talk-url.svg" style="width: 80%"></object>
+  <br />
+  Link to slides
+</a>
+]
+
+.people-table.larger[
+
+| | |
+|---:|---|
+| ![oscar-esteban](https://www.axonlab.org/images/teampic/Oscar_HQD-1-square.jpg) | **Oscar Esteban** <br /> Associate Professor & Head of [AxonLab](https://www.axonlab.org) <br /> School of Engineering <br /> HES-SO Valais-Wallis |
+]
+
+
+.boxed-content.large[
+**Biomedical engineer** &amp; **open science advocate** who plays with brain data.
+]
+
+.larger[
+* Research & Teaching FNS Fellow (2025) @ CHUV
+* Postdoc (2020) @ Stanford University
+* Ph.D. (2015) @ Universidad Politécnica de Madrid <br />ESKAS (2012) @ EPFL
+]
+
+
+???
+
+Oscar Esteban is an associate professor at the School of Engineering of HES-SO Valais-Wallis, where he heads the AxonLab (www.axonlab.org). His field is neuroimaging: the methods that turn brain MRI scans into data that can be analysed and trusted. From 2020 to 2025 he was a research and teaching fellow of the Swiss National Science Foundation (FNS) at the Department of Radiology of the Lausanne University Hospital (CHUV) and the University of Lausanne. From 2015 to 2020 he was a postdoctoral fellow in the Department of Psychology at Stanford University, where he developed fMRIPrep and MRIQC, two open-source tools that prepare brain MRI data for analysis and check its quality. He received his PhD in electronics and digital signal processing from the Universidad Politécnica de Madrid in 2015, after a year at the Signal Processing Laboratory of EPFL in 2011 and 2012 with an ESKAS fellowship of the Swiss Federal Commission for Foreign Students. Before research, he worked four years as a developer and systems administrator. The third deck, *Model selection and cross-validation*, returns to one of his studies, MRIQC, to show how a score can mislead when the rows come from a few groups. The QR code opens these slides on the web.
+
+---
+
+# Outline
 
 .cards.cols-3.vcenter[
 .card.accent[
-.kicker[16.10 · morning, first]
+.kicker[16.10 · morning]
 
-### A first model
+### Introduction
 
-The process, the data, a hands-on.
+Data mining and business
 ]
 .card[
-.kicker[16.10 · morning, then]
+.kicker[16.10 · morning]
 
 ### Evaluating a classifier
 
 Metrics, thresholds, costs.
 ]
 .card[
-.kicker[16.10 · 11:30 and 13:15]
+.kicker[16.10 · afternoon]
 
 ### Model selection
 
 Cross-validation, four algorithms.
 ]
 .card.muted[
-.kicker[16.10 · 15:10]
+.kicker[16.10 · afternoon]
 
-### Beyond binary classification
+### Beyond binary decisions
 
-Several classes, wine quality.
+Multi-class classification.
 ]
 .card.muted[
 .kicker[23.10]
@@ -203,9 +254,10 @@ This slide recalls a model of the firm met in week 1. Le Moigne (1977) describes
 ---
 class: stepwise-svg
 
-# Supervised learning mines the past to predict
+# Supervised learning
 
-The focus of 16.10 and 23.10: models learned from past cases whose outcome is known.
+<br />
+<br />
 
 .boxed-content.center[
 <object type="image/svg+xml" data="images/mining-vs-using.svg" style="width: 92%; padding-top: 12pt; pointer-events: none;"></object>
@@ -222,7 +274,9 @@ class: stepwise-svg
 
 # Data mining & statistical learning
 
-.dm-quote[
+<br />
+
+.boxed-content.dm-quote[
 > Data mining is the process of extracting and finding patterns in massive data sets involving methods at the intersection of machine learning, statistics, and database systems.<sup>[1]</sup>
 
 .src[[1] SIGKDD (2006-04-30). "[Data Mining Curriculum: A Proposal](https://www.kdd.org/curriculum/index.html)". kdd.org (Association for Computing Machinery). Archived from the original on 2013-10-14. Retrieved 2014-01-27.]
@@ -267,22 +321,13 @@ CRISP-DM, the Cross-Industry Standard Process for Data Mining, was conceived in 
 ---
 class: stepwise-svg
 
-# Drawn as a line, the cycle shows where to stop
+# Developing the CRISP-DM business flow
 
-.pull-left[
+.board[
 <object type="image/svg+xml" data="images/crisp-linear.svg" style="height: 540px; pointer-events: none;"></object>
-]
-
-.pull-right[
-<br />
-
-Three gates, each a task of CRISP-DM 1.0:
-
-- **Verify data quality** (task 2.4): can these data answer the question?
-- **Assess model** (task 4.4): is it worth preparing the data again?
-- **Determine next steps** (task 5.3): deploy, turn again, or stop.
-
-The last step of the build names the Dataiku screen of each phase.
+<div class="rowcard gate" style="top: 161px; --tip: 441px;"><b>Verify data quality</b> (CRISP-DM task 2.4): can these data answer the question?</div>
+<div class="rowcard gate" style="top: 340px; --tip: 417px;"><b>Assess model</b> (CRISP-DM task 4.4): is it worth preparing the data again?</div>
+<div class="rowcard gate" style="top: 447px; --tip: 459px;"><b>Determine next steps</b> (CRISP-DM task 5.3): deploy, turn again, or stop.</div>
 ]
 
 .footnote[Phases and tasks: P. Chapman et al. (2000), *CRISP-DM 1.0*, pp. 13 to 31. Gates adapted from D. Genoud's 2025 flowchart.]
@@ -336,25 +381,33 @@ class: stepwise-svg
 
 # CRISP-DM: nested iterative cycles
 
-.col-wide[
-<object type="image/svg+xml" data="images/nested-cycles.svg" style="width: 100%; pointer-events: none;"></object>
-]
-
-.col-narrow[
-<br /><br />
-
-.step-4[
+.boxed-content[
 > iteration is the rule rather than the exception
 
+.align-right.small[
 .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 27]
+]
 
+]
+.col-narrow[
+<br />
+<img src="images/crisp-dm-cycle.png" style="width: 82%;" alt="The CRISP-DM cycle: six phases around the data, inside a circle of arrows" />
+]
+
+.col-wide[
+<br />
+
+.step-4[
+.cards.cols-1.larger[
+.card[
 A first turn that does not solve the problem is not a failure: the next one knows more.
-
-A data-mining project is closer to research than to engineering (p. 34). SENSIMED took years of turns.
+]
+.card[
+*A data-mining project is closer to research than to engineering*.
 ]
 ]
-
-.footnote[.book[<i class="fa-solid fa-book-open"></i> After Provost & Fawcett (2013), pp. 27, 28 and 34.] Cycle and inner loops: P. Chapman et al. (2000), *CRISP-DM 1.0*, Fig. 2, p. 13.]
+]
+]
 
 ???
 
@@ -365,13 +418,13 @@ For management, data mining is "an exploratory undertaking closer to research an
 ---
 class: stepwise-svg
 
-# SENSIMED took years of turns to aid diagnosis
+# The SENSIMED case
 
 .boxed-content.center[
 <object type="image/svg+xml" data="images/sensimed-timeline.svg" style="width: 100%; padding-top: 6pt; pointer-events: none;"></object>
 ]
 
-.footnote[Above the arrow, the record: CTI project 17325.1; FDA, 4 March 2016; K. Martin et al. (2018), *Am. J. Ophthalmol.* 194:46 to 53. Below it, the stages and pictures as D. Genoud's team presented them (*Warm-up*, EAD, 2025, p. 7).]
+.footnote[Above the arrow, the record: CTI project 17325.1; FDA, 4 March 2016; K. Martin et al. (2018), *Am. J. Ophthalmol.* 194:46 to 53. <br /> Below it, the steps as presented by the team.]
 
 ???
 
@@ -398,14 +451,20 @@ class: stepwise-svg
 The coloured flowchart of slide 7 returns, with a card beside each phase where people, not tools, make the call. Some steps of the process are automated, while "others mostly require an analyst’s creativity, business knowledge, and common sense" (Provost & Fawcett, 2013, p. 19, verbatim). Business understanding casts the business problem as one or more data-mining problems and works out how the model will be used (p. 28). Data understanding weighs what each data source costs against what it is worth (p. 28). Data preparation defines the variables and looks for leaks, variables recorded in the history but unknown when the decision is made (p. 30). Evaluation checks the business goal, not only the model, and the stakeholders sign off (pp. 31 to 32). Deployment usually means recoding the model for production by a development team, best involved early: "Your model is not what the data scientists design, it’s what the engineers build." (Provost & Fawcett, 2013, p. 33, verbatim). Modeling has no card: it is where most science and technology apply (p. 31), and the hands-on of slide 18 runs it on Dataiku's defaults. Slide 12 makes the first of these calls for the bank.
 
 ---
+
+.section-mark[
+# Hands-on example
+
+.large[The South German Credit dataset]
+
+]
+
+---
 class: stepwise-svg
 
-# The bank's canvas: the decision before the data
-
-<img class="phase-thumb" src="images/phase-bu.svg" alt="The CRISP-DM phases, business understanding lit" />
-
-.beside-thumb[
-<div class="ml-canvas">
+# Example: South German Credit dataset
+<br />
+<div class="ml-canvas full">
 <div class="pt predict"><h4>PREDICTION TASK</h4><p class="step-4">Will this credit go bad? Two classes, and a probability for each application.</p></div>
 <div class="dec predict"><h4>DECISIONS</h4><p class="step-4">Grant or refuse the application.</p></div>
 <div class="vp goal"><h4>VALUE PROPOSITION</h4><p class="step-1">The credit committee refuses fewer good customers and grants fewer credits that go bad.</p></div>
@@ -417,9 +476,6 @@ class: stepwise-svg
 <div class="fea learn"><h4>FEATURES</h4><p class="step-3">What the bank knows at the application: accounts, duration, purpose, amount, savings, age, ...</p></div>
 <div class="mon evaluate"><h4>MONITORING</h4><p class="step-5">Count the granted credits that go bad, as they end; whether a refused applicant would have repaid is never seen.</p></div>
 </div>
-]
-
-.footnote[Canvas: after L. Dorard, *The Machine Learning Canvas* v1.1 (ownml.co), .lic[CC BY-SA 4.0], filled for the bank in the order of the phases on slide 7.]
 
 ???
 
@@ -438,7 +494,7 @@ class: stepwise-svg
 Granting a credit that goes bad costs more than refusing a good customer. How much more is a business figure, not a data figure.
 ]
 
-.footnote[.book[<i class="fa-solid fa-book-open"></i> After Provost & Fawcett (2013), Fig. 7-2, p. 197], redrawn for a credit decision, with rows and columns swapped to match the next deck; costs: pp. 194 to 203.]
+.footnote[.book[<i class="fa-solid fa-book-open"></i> After Provost & Fawcett (2013), Fig. 7-2, p. 197], redrawn for a credit decision.]
 
 ???
 
@@ -453,12 +509,15 @@ Rates times costs, added up, give the expected cost per application; the book co
 ---
 class: stepwise-svg
 
-# The data: what one row knows
+# The dataset
 
-<img class="phase-thumb" src="images/phase-du.svg" alt="The CRISP-DM phases, data understanding lit" />
+<br />
+
+<img class="phase-thumb" src="images/phase-du.svg" style="top: 170px;" alt="The CRISP-DM phases, data understanding lit" />
 
 .beside-thumb.terms[
 <table>
+<caption class="data-lead"><b>Features</b> (columns) and <span class="tgt-mark"><b>target</b> (column <code>credit_risk</code>)</span></caption>
 <tr><th>status</th><th>duration</th><th>purpose</th><th>amount</th><th>savings</th><th>age</th><th>...</th><th class="tgt">credit_risk</th></tr>
 <tr><td>no checking account</td><td>18</td><td>car (used)</td><td>1049</td><td>unknown or none</td><td>21</td><td>...</td><td class="tgt">good</td></tr>
 <tr><td>no checking account</td><td>9</td><td>others</td><td>2799</td><td>unknown or none</td><td>36</td><td>...</td><td class="tgt">good</td></tr>
@@ -467,9 +526,11 @@ class: stepwise-svg
 <tr><td>no checking account</td><td>18</td><td>others</td><td>1216</td><td>unknown or none</td><td>23</td><td>...</td><td class="tgt">bad</td></tr>
 </table>
 
+<br />
+
 <div class="legend step-1">
-<div><b>A row, an instance</b>: one credit the bank granted.</div>
-<div><b>A column, an attribute</b>: what the bank knew when it decided.</div>
+<div><b>Rows are samples</b>: one credit the bank granted.</div>
+<div><b>Columns are features</b>: what the bank knew when it decided.</div>
 <div><b>The target</b>: <code>credit_risk</code>, known only once the credit ended.</div>
 </div>
 
@@ -480,7 +541,7 @@ class: stepwise-svg
 </div>
 ]
 
-.footnote[Rows 1, 2, 3, 23 and 46 of the course file. U. Grömping (2019), *South German Credit Data: Correcting a Widely Used Data Set*, Report 4/2019, Beuth Hochschule für Technik Berlin; UCI Machine Learning Repository, dataset 573, .lic[CC BY 4.0]. .book[<i class="fa-solid fa-book-open"></i> Terms: Provost & Fawcett (2013), pp. 45 to 46.]]
+.footnote[U. Grömping (2019), *South German Credit Data: Correcting a Widely Used Data Set*, Report 4/2019, Beuth Hochschule für Technik Berlin; UCI Machine Learning Repository, dataset 573, .lic[CC BY 4.0].]
 
 ???
 
@@ -493,7 +554,8 @@ Published in 1994 as "Statlog German Credit", the file came with a code table th
 ---
 class: stepwise-svg
 
-# Each column has a type
+# Each column has a data type
+
 
 <img class="phase-thumb" src="images/phase-du.svg" alt="The CRISP-DM phases, data understanding lit" />
 
@@ -515,7 +577,7 @@ class: stepwise-svg
 
 <p class="types-after step-1">The target, <code>credit_risk</code>, is a category with two values: the task is classification (slide 17).</p>
 
-<p class="types-after step-2"><b>What Dataiku read.</b> It guesses each type from the values, not from their meaning: five columns with long labels looked like free text, which its default leaves out. <b>16 / 21 features</b>, without <code>status</code>, the column most associated with the outcome. And <code>number_credits</code> passed for a number, though "2 to 3" is not one.</p>
+<p class="types-after step-2"><b>Dataiku guesses types</b> from the values, not from their meaning: five columns with long labels looked like free text, which its default leaves out. <b>16 / 21 features</b>, without <code>status</code>, the column most associated with the outcome. And <code>number_credits</code> passed for a number, though "2 to 3" is not one.</p>
 ]
 
 .footnote[Types: U. Grömping (2019), p. 4 and Appendix D, pp. 13 to 14. Describing the data: P. Chapman et al. (2000), *CRISP-DM 1.0*, p. 21. Dataiku DSS 15.0, course server, **Design → Features handling** and **Predicted data**, 15 October 2026.]

@@ -512,11 +512,11 @@ Moves 5 to 8, on sheet panels 4 and 5, extend the exercise past the checkpoint. 
 .lead.big[This is <b>leakage</b>: an input that holds what the model will not know when it is used.]
 ]
 
-.footnote[S. Kaufman, S. Rosset, C. Perlich and O. Stitelman (2012), *Leakage in data mining*. Deck 1, slide 16: select the columns that carry signal.]
+.footnote[S. Kaufman, S. Rosset, C. Perlich and O. Stitelman (2012), *Leakage in data mining*. Deck 1, slide 17: select the columns that carry signal.]
 
 ???
 
-The perfect score happens because `quality` is still a column in the dataset, and Dataiku takes every column that is not the target as an input by default. The Formula that computes `grade` from `quality` is a deterministic mapping: knowing `quality` gives `grade` with certainty, so the model memorises the rule rather than learning anything about wine chemistry. This is leakage, the use of information about the target that would not be available when the model is deployed (Kaufman et al., 2012). In deployment, a new wine has no `quality` value, because that is what the model is meant to replace. Provost and Fawcett place the danger in data preparation, which "is performed after the fact" on historical records where every column is already filled (Provost & Fawcett, 2013, p. 30, verbatim). The fix is in Design, Features handling: reject `quality`, then retrain. Deck 1, slide 16 introduced the same principle as CRISP-DM's Select Data task, which covers "selection of attributes (columns) as well as selection of records (rows)" (Chapman et al., 2000, p. 24, verbatim).
+The perfect score happens because `quality` is still a column in the dataset, and Dataiku takes every column that is not the target as an input by default. The Formula that computes `grade` from `quality` is a deterministic mapping: knowing `quality` gives `grade` with certainty, so the model memorises the rule rather than learning anything about wine chemistry. This is leakage, the use of information about the target that would not be available when the model is deployed (Kaufman et al., 2012). In deployment, a new wine has no `quality` value, because that is what the model is meant to replace. Provost and Fawcett place the danger in data preparation, which "is performed after the fact" on historical records where every column is already filled (Provost & Fawcett, 2013, p. 30, verbatim). The fix is in Design, Features handling: reject `quality`, then retrain. Deck 1, slide 17 introduced the same principle as CRISP-DM's Select Data task, which covers "selection of attributes (columns) as well as selection of records (rows)" (Chapman et al., 2000, p. 24, verbatim).
 
 ---
 
