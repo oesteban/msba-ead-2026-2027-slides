@@ -6,8 +6,9 @@
 // before any theory: the group explores South German Credit, trains a first
 // model with the defaults, looks at its result pages and writes three notes,
 // each placed on a phase of the CRISP-DM map. The evaluation deck starts from
-// those notes. Below the checkpoint bar (block 2, about 25 minutes) the group
-// enters the cost matrix, switches to 5-fold and reads the gains chart.
+// those notes. Below the checkpoint bar (block 2) the group moves the threshold,
+// enters the cost matrix and reads the gains chart (Evaluating a classifier),
+// then switches to five folds (Model selection and cross-validation).
 //
 // The data: south_german_credit.csv, built by ../../tools/build-datasets.py in
 // the private wrapper from UCI dataset 573 (CC BY 4.0), English names and labels.
@@ -153,12 +154,29 @@ starts from your notes.
 
 #checkpoint(
   msg: [Reached this line? Stop here: the Referee reports in the debrief.],
-  note: [Panels 4 to 6 are for block 2, after the slides on costs, ROC and cross-validation.],
+  note: [Panels 4 to 7 are for block 2, each after its slides: 4 to 6 in *Evaluating a classifier*, 7 in *Model selection and cross-validation*.],
 )
 
 #v(6pt)
 
-#panel("4 · Enter what each error costs")[
+#panel("4 · Move the threshold")[
+  TP: bad, refused. FP: good, refused. FN: bad, granted. TN: good, granted.
+
+  #step(1, "Reopen the model of panel 3")[#dss("Results", "model", "Performance", "Confusion matrix"). Set the cut-off with the slider above the table to each value below, and copy the counts.]
+  #v(2pt)
+  #table(
+    columns: (auto, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr), inset: 4pt, stroke: hair,
+    [*cut-off*], [*TP*], [*FP*], [*FN*], [*TN*], [*precision*], [*recall*],
+    [0.2], [], [], [], [], [], [],
+    [0.5], [], [], [], [], [], [],
+    [0.8], [], [], [], [], [], [],
+  )
+  Which cut-off would you put in production, and why? #rule(7cm)
+]
+
+#v(5pt)
+
+#panel("5 · Enter what each error costs")[
   The committee fixes the costs: granting a credit that goes *bad* costs 5,
   refusing a *good* one costs 1, a right decision costs 0.
 
@@ -171,7 +189,15 @@ starts from your notes.
 
 #v(5pt)
 
-#panel("5 · Replace one split by five folds")[
+#panel("6 · Read the gains chart")[
+  On the best model: #dss("Performance", "Lift charts"). If analysts can only
+  review the 20% of applicants the model finds riskiest, what share of the bad
+  credits will they see? #h(4pt) #rule(2.2cm)
+]
+
+#v(5pt)
+
+#panel("7 · Replace one split by five folds")[
   #step(1, "Switch to cross-validation")[#dss("Design", "Train/Test set"): *K-fold cross-test*, 5 folds, stratified. Keep two algorithms: Logistic Regression and Random Forest. Train.]
   #v(3pt)
   #table(
@@ -182,12 +208,4 @@ starts from your notes.
   )
   Does the ± let you say one algorithm is better? What would you need to see?
   #writing(1)
-]
-
-#v(5pt)
-
-#panel("6 · Read the gains chart")[
-  On the best model: #dss("Performance", "Lift charts"). If analysts can only
-  review the 20% of applicants the model finds riskiest, what share of the bad
-  credits will they see? #h(4pt) #rule(2.2cm)
 ]
