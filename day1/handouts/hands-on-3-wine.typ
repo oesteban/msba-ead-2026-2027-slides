@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
 // hands-on-3-wine.typ: the group's sheet for Hands-on 3, 16.10.2026 PM.
 //
-// One sheet per group of three (Driver, Mapper, Referee), both sides. Page 1 is
+// One sheet per group of three, both sides. Page 1 is
 // the data card. The core (panels 1 to 3, about 25 minutes) follows slide 13 of
 // "Beyond binary classification": the group explores the wines, removes the
 // copies, trains a multiclass model on the seven grades and reads it class by
@@ -56,7 +56,7 @@ such a model can be trusted, class by class.
       *Its history.* The authors modelled red and white apart, as a
       regression of the grade. The course file joins their two files and adds
       `color`. 1,177 rows (18%) are exact copies of another row; the paper
-      does not mention them. Panel 1 removes them.
+      does not mention them. Step 1 removes them.
 
       *Source and licence.* P. Cortez, A. Cerdeira, F. Almeida, T. Matos and
       J. Reis (2009), Modeling wine preferences by data mining from
@@ -80,18 +80,6 @@ such a model can be trusted, class by class.
   )
 ]
 
-#v(5pt)
-
-#block(width: 100%, inset: (x: 6pt, y: 5pt), radius: 2pt, stroke: hair)[
-  #lbl("Three roles, one screen")
-  #v(3pt)
-  #grid(
-    columns: (1fr, 1fr, 1fr), column-gutter: 10pt,
-    [*Driver.* Works Dataiku, and only Dataiku: says aloud what each screen shows before clicking on.],
-    [*Mapper.* Keeps this sheet: writes the counts, the scores and the answers.],
-    [*Referee.* Checks every step against this sheet and challenges every conclusion: is it true of the wines, or of the tool? Speaks for the group in the debrief.],
-  )
-]
 
 #v(5pt)
 
@@ -105,7 +93,7 @@ such a model can be trusted, class by class.
   Rows after *Distinct*: #rule(1.6cm) #h(10pt) copies removed: #rule(1.6cm)
 ]
 
-#pagebreak()
+#v(5pt)
 
 #panel("Step 2 · Train on the seven grades")[
   #step(1, "Create the analysis")[Select the *distinct* dataset, then #dss("Lab", "AutoML Prediction"). Target `quality`. Keep *Quick prototypes*, then *Create*.]
@@ -131,18 +119,17 @@ such a model can be trusted, class by class.
 #v(6pt)
 
 #checkpoint(
-  msg: [Reached this line? Stop here: the Referee reports in the debrief.],
+  msg: [Reached this line? Stop here: the group reports in the debrief.],
   note: [Panels 4 and 5 follow slide 14 of *Beyond binary classification*.],
 )
 
 #v(6pt)
 
 #panel("4 · Three lines instead of seven grades")[
-  #step(1, "Regroup the grades")[On the distinct dataset: #dss("+ Recipe", "Prepare"), add a *Formula* step with output column `grade`:]
+  #step(1, "Regroup the grades")[On the distinct dataset: #dss("+ Recipe", "Prepare"), add a *Formula* step with output column `grade`, then run the recipe:]
   #align(center)[`if(quality <= 5, "low", if(quality == 6, "medium", "high"))`]
-  Run the recipe.
   #v(2pt)
-  #step(2, "Train on the lines")[On the prepared dataset: a new #dss("Lab", "AutoML Prediction"), target `grade`, the settings of panel 2. *Train*.]
+  #step(2, "Train on the lines")[On the prepared dataset: a new #dss("Lab", "AutoML Prediction"), target `grade`, the settings of Step 2. *Train*.]
   Best score: #rule(1.6cm) #h(6pt) All at 1.000? #dss("Design", "Features handling"): which column gives `grade` away? #rule(2.2cm)
   #v(2pt)
   #step(3, "Remove the leak")[Reject that column, and *Train* again.]
@@ -152,16 +139,24 @@ such a model can be trusted, class by class.
 #v(5pt)
 
 #panel("5 · Decide for the winery")[
+  #step(1, "Put the two models side by side")[Step 2 predicts seven grades, panel 4 three lines. For the best model of each: #dss("Performance", "Detailed metrics"), and #dss("Confusion matrix") for the last row.]
+  #v(2pt)
   #table(
-    columns: (1.6fr, 1fr, 1fr, 1fr), inset: 4pt, stroke: hair,
-    [*target*], [*accuracy*], [*F1 (Dataiku's average)*], [*recall, from the matrix*],
-    [seven grades, panel 2], [], [], [of 8:],
-    [three lines, panel 4], [], [], [of high:],
+    columns: (2.3fr, 1fr, 1fr), inset: 3.5pt, stroke: hair,
+    [], [*Seven grades* (Step 2)], [*Three lines* (panel 4)],
+    [*Accuracy*: wines in the right class (slide 6: micro)], [], [],
+    [*F1*: one per class, averaged by Dataiku], [], [],
+    [*Top wines found*: % of actual 8s (highs) predicted 8 (high)], [], [],
   )
-  #dss("Design", "Metrics"): does Dataiku average the classes weighted by their size, or not? #rule(3cm)
   #v(2pt)
-  Which version would the winery deploy, and which score should it watch?
+  #step(2, "Find how Dataiku averages the F1")[#dss("Design", "Metrics"). Weighted by class size, grades 5 and 6 (three wines in four) decide the average; unweighted, grade 8 counts as much as grade 6.]
+  #tick #h(2pt) weighted by class size (slide 6: weighted) #h(14pt) #tick #h(2pt) every class the same (slide 6: macro)
+  #v(2pt)
+  #step(3, "Decide")[The winery wants each new wine placed in a line before the tasting panel. Which model would it deploy, and which number of the table should it watch? Why that one?]
   #writing(2)
-  #v(2pt)
-  #text(size: 8pt)[*Extensions.* (a) Merge only the rare grades, 3 into 4 and 9 into 8: Formula `if(quality == 3, 4, if(quality == 9, 8, quality))`, multiclass again, `quality` rejected. Does the F1 rise? (b) #dss("Design", "Train/Test set"), *Sampling method*: *Class rebalance*. What happens to the rare grades' recall, and to accuracy? Which mix of wines does the score then describe?]
+  #v(3pt)
+  #text(size: 8pt)[
+    *If time allows.* (a) Merge only the rare grades, 3 into 4 and 9 into 8: Formula `if(quality == 3, 4, if(quality == 9, 8, quality))`, Multiclass again, `quality` rejected. Does the F1 rise? \
+    (b) #dss("Design", "Train/Test set"), *Sampling method*: *Class rebalance*, train again. The rare grades' recall, and accuracy? Does the score still describe the wines the winery makes?
+  ]
 ]
