@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- After Provost and Fawcett (2013), Data Science for Business, Fig. 7-2, p. 197, with the credit model's decisions at threshold 0.5 (South German Credit, scores of credits the model did not learn from) and the Statlog cost matrix; rows are the outcome and columns the decision. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="150" y="30" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">the 1,000 credits, cut at 0.5</text>
+<text x="110.0" y="52" font-size="13" font-weight="bold" text-anchor="middle" fill="#556268">refuse</text>
+<text x="190.0" y="52" font-size="13" font-weight="bold" text-anchor="middle" fill="#556268">grant</text>
+<text x="62" y="89.0" font-size="13" font-weight="bold" text-anchor="end" fill="#556268">bad</text>
+<text x="62" y="137.0" font-size="13" font-weight="bold" text-anchor="end" fill="#556268">good</text>
+<rect x="70" y="60" width="80" height="48" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="110.0" y="90.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">95</text>
+<rect x="150" y="60" width="80" height="48" rx="0" fill="#f7d3d6" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="190.0" y="90.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">205</text>
+<rect x="70" y="108" width="80" height="48" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="110.0" y="138.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">40</text>
+<rect x="150" y="108" width="80" height="48" rx="0" fill="#ffffff" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="190.0" y="138.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">660</text>
+<line x1="240" y1="108" x2="290" y2="108" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="265" y="98" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">÷ 1,000</text>
+<rect x="300" y="60" width="80" height="48" rx="0" fill="#e9edf0" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="340.0" y="90.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.095</text>
+<rect x="380" y="60" width="80" height="48" rx="0" fill="#e9edf0" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="420.0" y="90.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.205</text>
+<rect x="300" y="108" width="80" height="48" rx="0" fill="#e9edf0" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="340.0" y="138.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.040</text>
+<rect x="380" y="108" width="80" height="48" rx="0" fill="#e9edf0" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="420.0" y="138.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.660</text>
+<text x="380" y="30" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">rates</text>
+<text x="230" y="200" font-size="15" font-weight="bold" text-anchor="middle" fill="#556268">from the data</text>
+</g>
+<g data-step="2">
+<text x="620" y="30" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">cost per credit</text>
+<text x="580.0" y="52" font-size="13" font-weight="bold" text-anchor="middle" fill="#556268">refuse</text>
+<text x="660.0" y="52" font-size="13" font-weight="bold" text-anchor="middle" fill="#556268">grant</text>
+<text x="532" y="89.0" font-size="13" font-weight="bold" text-anchor="end" fill="#556268">bad</text>
+<text x="532" y="137.0" font-size="13" font-weight="bold" text-anchor="end" fill="#556268">good</text>
+<rect class="accent-b-light-fill" x="540" y="60" width="80" height="48" rx="0" fill="#a8e4ea" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="580.0" y="90.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<rect class="accent-b-light-fill" x="620" y="60" width="80" height="48" rx="0" fill="#a8e4ea" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="660.0" y="90.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">5</text>
+<rect class="accent-b-light-fill" x="540" y="108" width="80" height="48" rx="0" fill="#a8e4ea" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="580.0" y="138.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<rect class="accent-b-light-fill" x="620" y="108" width="80" height="48" rx="0" fill="#a8e4ea" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="660.0" y="138.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text class="accent-fill" x="620" y="200" font-size="15" font-weight="bold" text-anchor="middle" fill="#00609c">from the business</text>
+<text x="620" y="222" font-size="12" font-weight="normal" text-anchor="middle" fill="#556268">a bad credit granted costs 5, a good customer refused costs 1</text>
+</g>
+<g data-step="3">
+<line x1="470" y1="108" x2="500" y2="108" stroke="#1c2e36" stroke-width="1.6"/>
+<text x="485" y="100" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">×</text>
+<line x1="710" y1="108" x2="760" y2="108" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-fill" x="770" y="70" width="210" height="76" rx="8" fill="#00609c"/>
+<text x="875" y="102" font-size="24" font-weight="bold" text-anchor="middle" fill="#ffffff">1.065</text>
+<text x="875" y="128" font-size="12" font-weight="normal" text-anchor="middle" fill="#ffffff">expected cost per application</text>
+<text x="500" y="280" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.205 × 5  +  0.040 × 1  =  1.065</text>
+<text x="500" y="306" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">multiply each rate by its cost, then add; the right decisions cost nothing</text>
+</g>
+</svg>

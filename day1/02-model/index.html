@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Measuring a classifier: metrics, thresholds and cross-validation | 16.10.2026</title>
+    <title>Evaluating a classifier | 16.10.2026</title>
     <meta charset="utf-8">
     <meta name="grammarly" content="false">
     <meta name="google" content="notranslate">
@@ -13,9 +13,50 @@
 <style>
 :root { --logo-url: url("../../assets/hes-so-logo.svg"); }
 .large.center { display: block; clear: both; }
-.data-table table, .cm table { font-size: 1.35em; }
-.cm td.hit { background: #00609c18; font-weight: 700; }
-.cm td.miss { background: #f3f3f3; }
+/* the textbook marker, on every slide that draws on Provost & Fawcett */
+.book { color: var(--accent); font-weight: 600; }
+.footnote .lic { color: #556268; }
+.footnote { right: 5.5em; }
+/* the case slides: a small copy of the coloured flowchart, its phase lit, left of the content */
+.phase-thumb { position: absolute; left: 80px; top: 112px; width: 100px; }
+.beside-thumb { margin-left: 132px; }
+.pull-right, .beside-thumb, .col-narrow { padding-right: 2.4em; box-sizing: border-box; }
+.col-wide { float: left; width: 60%; }
+.col-narrow { float: right; width: 38%; font-size: 0.9em; line-height: 1.4; }
+/* the four outcomes, coloured alike on every slide and figure: right decisions in the accent,
+   errors in the warning hue, the costly one (a bad credit granted) the darkest */
+.cm table { border-collapse: collapse; font-size: 0.86em; margin-top: 0.6em; }
+.cm th, .cm td { padding: 0.35em 0.6em; text-align: center; border: 1px solid #d9dee1; }
+.cm th { color: var(--heading-color); font-weight: 700; background: #f4f6f7; }
+.cm td small { display: block; font-size: 0.72em; font-weight: 400; }
+.cm .tp { background: #00609c; color: #fff; } .cm .tn { background: #8cb3cf; }
+.cm .fn { background: #da232f; color: #fff; } .cm .fp { background: #f0a3a8; }
+.cm td.hit { background: #e6eff5; font-weight: 700; }
+/* the numbered frames of a screen capture, explained beside it */
+.marks { margin: 0.3em 0 0.8em; padding-left: 1.4em; }
+.marks li { margin-bottom: 0.55em; }
+.marks li::marker { color: var(--accent); font-weight: 700; }
+/* the check in Dataiku: a block the eye cannot miss */
+.check { margin-top: 0.9em; padding: 0.6em 1em 0.5em; border-left: 7px solid var(--warning, #da232f);
+  background: #fbeaec; border-radius: 6px; font-size: 0.86em; line-height: 1.4; }
+.check ol { margin: 0.3em 0 0.2em; padding-left: 1.3em; }
+.check li { margin-bottom: 0.3em; }
+/* the metrics: one row per step, each with the cells it counts (dark: above the line; light: below) */
+.metrics table { border-collapse: collapse; font-size: 0.8em; width: 100%; }
+.metrics th, .metrics td { padding: 0.45em 0.5em; border-bottom: 1px solid #d9dee1; text-align: left; vertical-align: middle; }
+.metrics th { color: var(--heading-color); }
+.metrics td.num { font-weight: 700; color: var(--accent); white-space: nowrap; }
+.mini { display: inline-grid; grid-template-columns: 13px 13px; gap: 2px; vertical-align: middle; }
+.mini i { width: 13px; height: 13px; background: #e9edf0; display: block; }
+.mini i.n { background: #00609c; } .mini i.d { background: #8cb3cf; }
+/* the hands-on: moves, then the time */
+.moves { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6em; margin-top: 0.9em; }
+.moves > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.5em 0.7em 0.7em; font-size: 0.8em; line-height: 1.4; }
+.moves b { display: block; font-size: 1.25em; color: var(--heading-color); }
+.moves code { font-size: 0.85em; }
+.need { font-size: 0.86em; margin: 0.2em 0 0; }
+.points li { margin-bottom: 0.5em; }
+.refs li { font-size: 0.6em; margin-bottom: 0.3em; }
 </style>
 <script src="https://kit.fontawesome.com/015d4b01de.js" crossorigin="anonymous"></script>
 
@@ -27,9 +68,9 @@ class: cover
 count: false
 
 .section-mark.center[
-## Measuring a classifier
+## Evaluating a classifier
 
-### Metrics, thresholds and cross-validation
+### Metrics, thresholds and costs on credit risk
 
 <br />
 
@@ -49,78 +90,96 @@ layout: true
 .perma-sidebar[
 <p class="rotate">
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0; height: 20px; padding-top: 6px;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
-  <span style="padding-left: 10px; font-weight: 600;">Measuring a classifier (16.10.2026)</span>
+  <span style="padding-left: 10px; font-weight: 600;">Evaluating a classifier (16.10.2026)</span>
 </p>
 ]
 
 ---
 
-# Two Fridays, four half-days
-
-.cards.cols-4.vcenter[
-.card.accent[
-.kicker[16.10 · morning]
-
-### Measuring a classifier
-
-Metrics, thresholds, cross-validation.
-]
-.card[
-.kicker[16.10 · afternoon]
-
-### Beyond two classes
-
-Multi-class, deep learning.
-]
-.card.muted[
-.kicker[23.10 · morning]
-
-### Text
-
-Text mining, sentiment.
-]
-.card.muted[
-.kicker[23.10 · afternoon]
-
-### Time
-
-Time series.
-]
-]
-
-???
-
----
-
-# Today's question decides your Projet EAD grade
-
-.boxed-content.large[
-Your final deliverable is a model **and the evidence that it works**.
-
-By noon you can answer, for any classifier:
-
-* What does it get wrong, and what does each mistake cost?
-* Where should the threshold be?
-* How much of the score is luck, and how much is leakage?
-]
-
-???
-
----
-
 .section-mark[
-# From a score to a decision
+# What is a good model?
+
+.large[Good for the decision it serves, not only good on the data.]
+
+.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), chapter 7, p. 187]
 ]
+
+???
 
 ---
+class: stepwise-svg
 
-# A classifier outputs a probability, not a decision
+# Dataiku ranks the models by one number
 
-.boxed-content.center[
-<img src="images/score-distributions.svg" style="width: 82%;" />
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+.col-wide[
+<object type="image/svg+xml" data="images/results-capture.svg" style="width: 100%; margin-top: 0.4em; pointer-events: none;"></object>
 ]
 
-.footnote[German credit (Statlog, UCI): 1,000 applicants, 700 good, 300 bad. Random forest, cross-validated on 5 folds, scikit-learn: Dataiku's numbers will be close, not identical.]
+.col-narrow[
+<ol class="marks">
+<li class="step-1"><b>ROC AUC</b>: how well the scores rank the bad credits above the good ones; 0.5 is chance (slide 16).</li>
+<li class="step-2"><b>0.702</b>: the score that put this model first.</li>
+<li class="step-3"><b>± 0.049</b>: how much that score moves from one test set to another (next deck).</li>
+</ol>
+]
+
+<div style="clear: both;"></div>
+
+.step-3[
+Three questions for this deck and the next: what does a score say about the bank's decision? Which model, at which threshold? How far can the number be trusted?
+]
+]
+
+.footnote[Screen capture: Dataiku DSS, course server, 14 October 2026, cropped. The questions after D. Genoud (2025), *Hands-on ML*, p. 3. The numbers on the next slides come from another run (scikit-learn, all 20 attributes) and differ.]
+
+???
+
+---
+class: stepwise-svg
+
+# A classifier ends in a decision rule
+
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+<object type="image/svg+xml" data="images/decision-rule.svg" style="width: 100%; padding-top: 10pt; pointer-events: none;"></object>
+
+.step-4[In Dataiku, **Results → model → Predicted data** shows both probabilities and the class, row by row.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 26, 188 and 209 to 210.] The attributes are row 1 of the course file; the probability is an example.]
+
+???
+
+---
+class: stepwise-svg
+
+# In the inputs, a threshold draws a boundary
+
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+.col-wide[
+<object type="image/svg+xml" data="images/boundary.svg" style="width: 100%; pointer-events: none;"></object>
+]
+
+.col-narrow[
+<br />
+
+A **logistic regression** turns the attributes into P(bad) through one weighted sum. This one uses two of the twenty: duration and amount.
+
+.step-2[Where P(bad) = 0.5, a line splits the applicants: refused to its right.]
+
+.step-3[A lower threshold moves the line: 421 refused instead of 66.]
+
+With twenty attributes the line cannot be drawn; the threshold on the score still places it.
+]
+]
+
+.footnote[Fitted on all 1,000 credits of the course file, to show a boundary, not to score. .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 83 to 85 and 97 to 98.]]
 
 ???
 
@@ -128,77 +187,100 @@ By noon you can answer, for any classifier:
 
 # Name the positive class first
 
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
 .cards.cols-2[
 .card.accent[
 .kicker[positive]
 
 ### bad
 
-The class you **act on**: refuse the loan.
-
-.foot[Recall and precision are always *about* this class.]
+The class worth attention: the bank acts on it, by refusing. Precision and recall are always *about* this class.
 ]
 .card.muted[
 .kicker[negative]
 
 ### good
 
-The class you leave alone: grant the loan.
+The benign class: the credit is granted.
 ]
 ]
 
-.admonition.warning[
-<i class="fa-solid fa-triangle-exclamation"></i> Dataiku picks one of the two values as positive. Check which before you read any metric.
+<div class="check">
+<i class="fa-solid fa-triangle-exclamation"></i> <b>Check it in Dataiku before reading any number.</b> The <b>cut-off</b>, Dataiku's word for the threshold, applies to the probability of the class Dataiku takes as positive.
+<ol>
+<li><b>Results → model → Predicted data</b>: the columns <code>proba_bad</code> and <code>proba_good</code> hold the two probabilities, <code>prediction</code> the class.</li>
+<li>Find a row whose <code>proba_bad</code> is just above the cut-off. If it is predicted <code>bad</code>, <i>bad</i> is the positive class.</li>
+</ol>
+</div>
 ]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 188.] Screen path: Dataiku DSS, course server.]
 
 ???
 
 ---
+class: stepwise-svg
 
-# A threshold turns each probability into a decision
+# A threshold turns probabilities into decisions
 
-.cm.data-table.center[
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+.col-wide[
+<object type="image/svg+xml" data="images/threshold-regions.svg" style="width: 100%; pointer-events: none;"></object>
+]
+
+.col-narrow.cm[
+<div class="step-4">
 <table>
-<thead><tr><th>threshold 0.5</th><th>refused (predicted bad)</th><th>granted (predicted good)</th></tr></thead>
+<thead><tr><th>at 0.5</th><th>refused</th><th>granted</th></tr></thead>
 <tbody>
-<tr><td>actually bad (300)</td><td class="hit">108 · true positives</td><td class="miss">192 · false negatives</td></tr>
-<tr><td>actually good (700)</td><td class="miss">42 · false positives</td><td class="hit">658 · true negatives</td></tr>
+<tr><th>was bad (300)</th><td class="tp">95<small>true positives</small></td><td class="fn">205<small>false negatives</small></td></tr>
+<tr><th>was good (700)</th><td class="fp">40<small>false positives</small></td><td class="tn">660<small>true negatives</small></td></tr>
 </tbody>
 </table>
+
+<p>The confusion matrix: each credit counted once, by what it was and what the bank decided.</p>
+
+<p>At 0.5, bad is the more probable class.</p>
+</div>
+]
 ]
 
-.large.center[192 bad loans granted, 42 good customers turned away.]
+.footnote[Scores of credits the model did not learn from (a random forest, scikit-learn, South German Credit). .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 189 to 190 and 210.]]
 
 ???
-
----
-
-.section-mark[
-# Reading the matrix
-]
 
 ---
 
 # Start with the baseline
 
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
 .cards.cols-2[
 .card.muted[
-.kicker[grant every loan]
+.kicker[grant every credit]
 
 .metric[70.0%]
 
-accurate, with no model at all.
+right, with no model at all: 700 of the 1,000 credits were good.
 ]
 .card[
-.kicker[random forest, threshold 0.5]
+.kicker[the model, threshold 0.5]
 
-.metric[76.6%]
+.metric[75.5%]
 
-accurate.
+right: (95 + 660) / 1,000.
 ]
 ]
 
-.large.center[Accuracy rewards the majority class. Report it **next to the baseline**, or not at all.]
+**Accuracy** = (TP + TN) / all credits: the share of right decisions. It rewards the majority class, so report it **next to the baseline**, or not at all.
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 189 to 191 and 204 to 205.]]
 
 ???
 
@@ -206,14 +288,23 @@ accurate.
 
 # Each metric answers one business question
 
-.data-table.center[
-| metric | question | at 0.5 |
-|---|---|---|
-| **precision** | Of the applicants we refuse, how many were really bad? | 108 / 150 = **72%** |
-| **recall** | Of the bad applicants, how many do we refuse? | 108 / 300 = **36%** |
-| **F1** | One number balancing the two (harmonic mean) | **0.48** |
-| **accuracy** | How many decisions are right? | 766 / 1000 = **76.6%** |
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb.metrics[
+<table>
+<thead><tr><th></th><th>metric</th><th>business question</th><th>formula</th><th>at 0.5</th></tr></thead>
+<tbody>
+<tr class="step-1"><td><span class="mini"><i class="n"></i><i></i><i class="d"></i><i></i></span></td><td><b>precision</b></td><td>Of the applicants refused, how many were bad?</td><td>TP / (TP + FP)</td><td class="num">95 / 135 = 70%</td></tr>
+<tr class="step-2"><td><span class="mini"><i class="n"></i><i class="d"></i><i></i><i></i></span></td><td><b>recall</b></td><td>Of the bad applicants, how many were refused?</td><td>TP / (TP + FN)</td><td class="num">95 / 300 = 32%</td></tr>
+<tr class="step-3"><td><span class="mini"><i class="n"></i><i class="d"></i><i class="d"></i><i></i></span></td><td><b>F1</b></td><td>One number for the two above, their harmonic mean</td><td>2 P R / (P + R)</td><td class="num">0.44</td></tr>
+<tr class="step-4"><td><span class="mini"><i></i><i></i><i class="n"></i><i class="d"></i></span></td><td><b>false-positive rate</b></td><td>Of the good applicants, how many were refused?</td><td>FP / (FP + TN)</td><td class="num">40 / 700 = 5.7%</td></tr>
+</tbody>
+</table>
+
+.step-4[Each square is the matrix of the previous slide: dark, the cells counted; light, the cells added below the line.]
 ]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 203 to 204.] TP, FP, FN, TN: true positives, false positives, false negatives, true negatives.]
 
 ???
 
@@ -221,22 +312,34 @@ accurate.
 
 # Moving the threshold trades precision for recall
 
-.boxed-content.center[
-<img src="images/threshold-tradeoff.svg" style="width: 80%;" />
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+<img src="images/threshold-tradeoff.svg" style="width: 82%; display: block; margin: 0.2em auto 0;" alt="Precision rises and recall falls as the threshold on P(bad) rises" />
+
+Dataiku moves its cut-off to the value that maximises one metric, chosen in **Design → Metrics** (*Optimize threshold for*). That is why the cut-off of panel 3 was not 0.5.
 ]
+
+.footnote[The same scores as slide 6, at every threshold from 0.02 to 0.98. Dataiku draws the same curves under **Performance → Decision chart**.]
 
 ???
 
 ---
 
-# Hands-on 1: watch the threshold at work
+# Hands-on 1, continued: move the threshold
 
-.boxed-content.large[
-**The need.** The bank's risk committee will ask what the model does at different thresholds before it approves any of them.
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
-**What you do.** Train a model on `german_credit`, open its confusion matrix, move the threshold and record what changes.
+.beside-thumb[
+.need[**The need.** Before it approves any threshold, the bank's risk committee wants to see what the model does at others.]
 
-**How.** Worksheet *Hands-on 1*, steps 1 to 3. Pairs. 30 minutes.
+<div class="moves">
+<div><b>1. Reopen</b>The best model of panel 3.<br /><code>Results → model → Performance → Confusion matrix</code></div>
+<div><b>2. Move</b>The cut-off to 0.2, then 0.5, then 0.8.<br />The slider above the table</div>
+<div><b>3. Record</b>The four counts, precision and recall, for each.<br />Sheet, panel 4</div>
+</div>
+
+.need[Groups of three, same roles. 10 minutes.]
 ]
 
 ???
@@ -245,35 +348,36 @@ accurate.
 
 # Which threshold would you put in production?
 
+<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
+
+.beside-thumb[
+<br />
+
+.large[Each group: one threshold from panel 4, and one reason.]
+
+<br />
+
 .admonition.question[
 <i class="fa-solid fa-circle-question"></i> And why can't the model tell you?
+]
 ]
 
 ???
 
 ---
+class: stepwise-svg
 
-.section-mark[
-# Costs decide the threshold
+# Two errors, two prices, now with numbers
+
+<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
+
+.beside-thumb[
+<object type="image/svg+xml" data="images/expected-value-numbers.svg" style="width: 100%; padding-top: 8pt; pointer-events: none;"></object>
+
+The intro deck left the two prices open. The bank's data came with them: granting a credit that goes bad costs **five times** more than refusing a good customer.
 ]
 
----
-
-# Errors do not cost the same
-
-.cm.data-table.center[
-<table>
-<thead><tr><th>cost of a decision</th><th>refuse</th><th>grant</th></tr></thead>
-<tbody>
-<tr><td>actually bad</td><td>0</td><td class="hit">5</td></tr>
-<tr><td>actually good</td><td class="hit">1</td><td>0</td></tr>
-</tbody>
-</table>
-]
-
-.large.center[Granting a loan that defaults costs **five times** more than refusing a good customer.]
-
-.footnote[The cost matrix published with the Statlog German credit data.]
+.footnote[.book[<i class="fa-solid fa-book-open"></i> After Provost & Fawcett (2013), Fig. 7-2, p. 197; pp. 194 to 200.] Costs: the matrix published with the Statlog German credit data (H. Hofmann, 1994, UCI dataset 144, .lic[CC BY 4.0]).]
 
 ???
 
@@ -281,17 +385,23 @@ accurate.
 
 # The costs give the threshold
 
+<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
+
+.beside-thumb[
 .boxed-content.center.large[
 Refuse when granting is expected to cost more than refusing:
 
 .formula[
 P(bad) × 5 &gt; (1 − P(bad)) × 1 &nbsp;⟺&nbsp; P(bad) &gt; 1 / (1 + 5) ≈ **0.17**
 ]
-
-<br />
-
-Valid when the probabilities are well calibrated. Otherwise, search for the threshold that minimises the cost.
 ]
+
+<div style="clear: both;"></div>
+
+A **calibrated** score means what it says: of the credits scored 0.2, about one in five goes bad. The rule assumes calibrated scores. A random forest's are not, and Dataiku's *class weights*, on by default, shift them too.
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 195 to 196.] C. Elkan (2001), *The foundations of cost-sensitive learning*. Dataiku DSS 13, *Prediction settings*, weighting strategy.]
 
 ???
 
@@ -299,9 +409,24 @@ Valid when the probabilities are well calibrated. Otherwise, search for the thre
 
 # The cost-optimal threshold halves the bill
 
-.boxed-content.center[
-<img src="images/cost-vs-threshold.svg" style="width: 78%;" />
+<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
+
+.beside-thumb[
+.col-wide[
+<img src="images/cost-vs-threshold.svg" style="width: 100%;" alt="Total cost against the threshold: high at 0.5, lowest near 0.2" />
 ]
+
+.col-narrow[
+<ul class="points">
+<li>At 0.5: <b>1,065</b>.</li>
+<li>At 0.21, the cheapest: <b>525</b>.</li>
+<li>At 0.17, the rule's threshold: 569, because these scores are not calibrated.</li>
+<li>Refuse everyone: 700, already cheaper than the model at 0.5. Lend to everyone: 1,500.</li>
+</ul>
+]
+]
+
+.footnote[Total cost over the 1,000 credits, at 5 per bad credit granted and 1 per good customer refused. .book[<i class="fa-solid fa-book-open"></i> After Provost & Fawcett's profit curves (2013), pp. 212 to 213.]]
 
 ???
 
@@ -309,61 +434,38 @@ Valid when the probabilities are well calibrated. Otherwise, search for the thre
 
 # Same model, three thresholds, three businesses
 
-.cm.data-table.center[
-<table>
+<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
+
+.beside-thumb.cm[
+<table style="width: 100%;">
 <thead><tr><th>threshold chosen for</th><th>t</th><th>bad refused</th><th>good refused</th><th>bad granted</th><th>cost</th></tr></thead>
 <tbody>
-<tr><td>the default</td><td>0.50</td><td>108</td><td>42</td><td>192</td><td>1,002</td></tr>
-<tr><td>F1</td><td>0.32</td><td>224</td><td>210</td><td>76</td><td>590</td></tr>
-<tr><td class="hit">cost</td><td class="hit">0.16</td><td>288</td><td>464</td><td>12</td><td class="hit">524</td></tr>
+<tr><th>the more probable class</th><td>0.50</td><td>95</td><td>40</td><td>205</td><td>1,065</td></tr>
+<tr><th>the best F1</th><td>0.29</td><td>232</td><td>257</td><td>68</td><td>597</td></tr>
+<tr><th>the lowest cost</th><td class="hit">0.21</td><td>272</td><td>385</td><td>28</td><td class="hit">525</td></tr>
 </tbody>
 </table>
-]
 
-.large.center[F1 ignores the costs. Choose the metric **from** the costs.]
+<br />
+
+.large.center[F1 weighs the two errors alike; the bank does not. Choose the metric **from** the costs.]
+]
 
 ???
-
----
-
-# A cheap threshold can still be an unfair one
-
-.cards.cols-2[
-.card[
-.kicker[in this dataset]
-
-### Protected attributes
-
-Sex and marital status, age, foreign-worker status are columns the model can use.
-]
-.card.alert[
-.kicker[EU AI Act, Annex III]
-
-### High-risk use
-
-Scoring the creditworthiness of people is a high-risk AI system: documentation, oversight and bias checks are required.
-]
-]
-
-.large.center[Dataiku's *model fairness report* compares error rates across groups.]
-
-???
-
----
-
-.section-mark[
-# Views that need no threshold
-]
 
 ---
 
 # ROC and PR curves summarise every threshold
 
-.boxed-content.center[
-<img src="images/roc-pr.svg" style="width: 88%;" />
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+<img src="images/roc-pr.svg" style="width: 78%; display: block; margin: 0 auto;" alt="The ROC curve, AUC 0.78, and the precision-recall curve of the credit model" />
+
+**ROC**, receiver operating characteristic: recall against the false-positive rate, one point per threshold. **AUC**, the area under it: the chance that a random bad credit scores above a random good one, 0.5 for guessing. **PR**: precision against recall; its floor is the share of bad credits, 0.30.
 ]
 
-.footnote[AUC: the chance that a random bad applicant scores above a random good one. Precision-recall's baseline is the share of positives.]
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 214 to 219.] In Dataiku: **Performance → ROC & PR curves**. The ROC AUC is the number of slide 2.]
 
 ???
 
@@ -371,136 +473,77 @@ Scoring the creditworthiness of people is a high-risk AI system: documentation, 
 
 # Gains answer "how many can we review?"
 
-.boxed-content.center[
-<img src="images/cumulative-gains.svg" style="width: 62%;" />
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
-.large[If analysts can check 200 files, the model's top 200 hold 45% of the bad loans.]
+.beside-thumb[
+<img src="images/cumulative-gains.svg" style="width: 62%; display: block; margin: 0 auto;" alt="Cumulative gains: the riskiest 20% of applicants hold 44% of the bad credits" />
+
+.large.center[If analysts can check 200 files, the model's riskiest 200 hold 44% of the bad credits; in random order, 20%.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 219 to 222.] In Dataiku: **Performance → Lift charts**.]
+
+???
+
+---
+
+# Hands-on 1, continued: costs and gains
+
+<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
+
+.beside-thumb[
+.need[**The need.** The committee approved the two prices. It wants the threshold they imply, and what a review of the riskiest fifth would catch.]
+
+<div class="moves">
+<div><b>1. Price</b>Enter the costs as gains: −5, −1, 0, 0. Train again.<br /><code>Design → Metrics → Cost matrix gain</code></div>
+<div><b>2. Read</b>The cut-off Dataiku now picks, against the rule's 0.17.<br />Sheet, panel 5</div>
+<div><b>3. Review</b>The share of bad credits in the riskiest 20%.<br /><code>Performance → Lift charts</code>, panel 6</div>
+</div>
+
+.need[Groups of three, same roles. 15 minutes.]
 ]
 
 ???
 
 ---
 
-.section-mark[
-# How sure are we?
-]
+# Read the book this deck draws on
 
----
+.cards.cols-2.vcenter[
+.card.accent[
+.kicker[chapter 7, from p. 187]
 
-# One split is one draw
+### What is a good model?
 
-.boxed-content.center[
-<img src="images/split-variability.svg" style="width: 80%;" />
-]
-
-.large.center[Same data, same model: the test AUC ranges from 0.75 to 0.82 depending on the split alone.]
-
-???
-
----
-
-# Cross-validation tests every row exactly once
-
-.boxed-content.center[
-<img src="images/cross-validation.svg" style="width: 74%;" />
-]
-
-.large.center[*Stratified*: every fold keeps the 70/30 mix. Report the mean **and** the spread.]
-
-???
-
----
-
-# Read the ± as spread, and compare fold by fold
-
-.cards.cols-3[
-.card[
-.kicker[the ±]
-
-### Spread of the folds
-
-How much the score moves between folds. Not a confidence interval.
+The confusion matrix, unbalanced classes, unequal costs, expected value, baselines.
 ]
 .card[
-.kicker[two models]
+.kicker[chapter 8, from p. 209]
 
-### Same folds, paired
+### Visualizing model performance
 
-Count the folds where A beats B. Overlapping ± says little.
+Ranking instead of classifying; profit, ROC, cumulative response and lift curves.
 ]
-.card.alert[
-.kicker[the trap]
-
-### Tuned on the folds
-
-Choosing the model and threshold on the folds flatters the score. Keep a test set you never tune on.
 ]
+
+.admonition[
+<i class="fa-solid fa-book-open"></i> F. Provost and T. Fawcett (2013), *Data Science for Business*, O'Reilly. Available to HES-SO students through the school's O'Reilly access.
 ]
 
 ???
 
 ---
 
-# Hands-on 1, continued: costs and folds
+# References
 
-.boxed-content.large[
-**The need.** The committee approved the cost matrix. It now wants the threshold it implies, and how stable the model's score is.
-
-**What you do.** Enter the costs, read the optimal threshold, switch to 5-fold and compare two algorithms fold by fold.
-
-**How.** Worksheet *Hands-on 1*, below the checkpoint bar. 25 minutes.
-]
-
-???
-
----
-
-.section-mark[
-# Too good to be true
-]
-
----
-
-# One column took Zalaxus from chance to 0.89
-
-.boxed-content.center[
-<img src="images/zalaxus-leak.svg" style="width: 66%;" />
-]
-
-.large.center[`BikeBuyer` is computed from the orders: a customer with a bike among them. Counting orders hands the answer to the model.]
-
-???
-
----
-
-# Leaks to hunt before you trust a score
-
-.boxed-content.large[
-* A column recorded **after** the outcome (orders, payments, follow-ups).
-* A column that **re-encodes** the target, or the target itself under another name.
-* **Duplicates** across training and test rows.
-* Preparation **fitted on all the data** before the split.
-* Time ignored: training on the future, testing on the past.
-]
-
-<div class="clear"></div>
-
-.large.center[An AUC near 1.0 on a business problem is a bug report.]
-
-???
-
----
-
-# Your Projet EAD evaluation, as a checklist
-
-.boxed-content.large.no-bullet[
-- <i class="fa-regular fa-square"></i> The positive class is named.
-- <i class="fa-regular fa-square"></i> Every metric sits next to its baseline.
-- <i class="fa-regular fa-square"></i> The metric follows from what each error costs.
-- <i class="fa-regular fa-square"></i> The threshold is chosen and justified.
-- <i class="fa-regular fa-square"></i> Scores come from stratified cross-validation, with their spread.
-- <i class="fa-regular fa-square"></i> A held-out check was never used for tuning.
-- <i class="fa-regular fa-square"></i> You hunted for leaks, and say how.
+.refs[
+- Chapman, P. et al. (2000). *CRISP-DM 1.0: Step-by-step data mining guide*. SPSS.
+- Dataiku (2024). *Prediction settings*, Dataiku DSS 13 reference documentation.
+- Elkan, C. (2001). The foundations of cost-sensitive learning. *Proceedings of IJCAI 2001*, 973 to 978.
+- Genoud, D. (2025). Hands-on Machine Learning, slides of the EAD module, HES-SO Master.
+- Grömping, U. (2019). South German Credit Data: Correcting a Widely Used Data Set. Report 4/2019, Beuth Hochschule für Technik Berlin. Data: UCI Machine Learning Repository, dataset 573, doi:10.24432/C5QG88, CC BY 4.0.
+- Hofmann, H. (1994). Statlog (German Credit Data). UCI Machine Learning Repository, dataset 144, doi:10.24432/C5NC77, CC BY 4.0.
+- Provost, F. and Fawcett, T. (2013). *Data Science for Business*. O'Reilly.
 ]
 
 ???
@@ -508,7 +551,15 @@ Choosing the model and threshold on the folds flatters the score. Keep a test se
 ---
 
 .section-mark[
-# After lunch: more than two classes
+# End
+
+.large[
+Next: *Model selection and cross-validation*
+
+[<i class="fa-solid fa-circle-left"></i>](../01-intro/index.html)
+[<i class="fa-solid fa-home"></i>](#1)
+[<i class="fa-solid fa-circle-right"></i>](../03-cv/index.html)
+]
 ]
 
 ???
@@ -519,6 +570,7 @@ Choosing the model and threshold on the folds flatters the score. Keep a test se
     <script src="../../remark/core/engine.js"></script>
     <script src="../../remark/ext/svg-preload.js"></script>
     <script src="../../remark/ext/svg-theme.js"></script>
+    <script src="../../remark/ext/stepwise-svg.js"></script>
     <script src="../../remark/ext/nav-controls.js"></script>
   </body>
 </html>

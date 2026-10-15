@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A binary classifier ends in a decision rule: a threshold on the probability of the positive class. Attributes from row 1 of the course file (South German Credit, UCI 573, CC BY 4.0); the probability is an example. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="20" y="40" width="300" height="236" rx="6" fill="#f4f6f7" stroke="#556268" stroke-width="1.2"/>
+<text x="170" y="28" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">a new application</text>
+<text x="36" y="72" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">status</text>
+<text x="150" y="72" font-size="13" font-weight="normal" text-anchor="start" fill="#1c2e36">no checking account</text>
+<text x="36" y="98" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">duration</text>
+<text x="150" y="98" font-size="13" font-weight="normal" text-anchor="start" fill="#1c2e36">18 months</text>
+<text x="36" y="124" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">purpose</text>
+<text x="150" y="124" font-size="13" font-weight="normal" text-anchor="start" fill="#1c2e36">car (used)</text>
+<text x="36" y="150" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">amount</text>
+<text x="150" y="150" font-size="13" font-weight="normal" text-anchor="start" fill="#1c2e36">1,049 DM</text>
+<text x="36" y="176" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">savings</text>
+<text x="150" y="176" font-size="13" font-weight="normal" text-anchor="start" fill="#1c2e36">unknown or none</text>
+<text x="36" y="202" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">age</text>
+<text x="150" y="202" font-size="13" font-weight="normal" text-anchor="start" fill="#1c2e36">21</text>
+<text x="36" y="228" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">…</text>
+<text x="150" y="228" font-size="13" font-weight="normal" text-anchor="start" fill="#1c2e36">…</text>
+<line x1="30" y1="252" x2="310" y2="252" stroke="#c9cfd2" stroke-width="1"/>
+<text x="36" y="268" font-size="13" font-weight="bold" text-anchor="start" fill="#556268">credit_risk</text>
+<text class="accent-fill" x="150" y="268" font-size="13" font-weight="bold" text-anchor="start" fill="#00609c">?  not known yet</text>
+<line x1="320" y1="158" x2="356" y2="158" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-fill" x="360" y="128" width="110" height="60" rx="8" fill="#00609c"/>
+<text x="415" y="164" font-size="17" font-weight="bold" text-anchor="middle" fill="#ffffff">model</text>
+</g>
+<g data-step="2">
+<line x1="470" y1="158" x2="506" y2="158" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="510" y="100" width="170" height="50" rx="6" fill="#f0a3a8"/>
+<text x="595" y="131" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">P(bad) = 0.34</text>
+<rect class="accent-a-light-fill" x="510" y="166" width="170" height="50" rx="6" fill="#8cb3cf"/>
+<text x="595" y="197" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">P(good) = 0.66</text>
+<text x="595" y="240" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">the two add up to 1</text>
+</g>
+<g data-step="3">
+<path d="M680,125 L716,125" fill="none" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="720" y="92" width="260" height="66" rx="6" fill="#ffffff" stroke="#1c2e36" stroke-width="1.4"/>
+<text x="850" y="118" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">the decision rule</text>
+<text x="850" y="144" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">bad if P(bad) &gt; t</text>
+<text x="850" y="186" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">with t = 0.5: 0.34 is not above 0.5</text>
+<line x1="850" y1="194" x2="850" y2="214" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill" x="745" y="218" width="210" height="48" rx="6" fill="#8cb3cf"/>
+<text x="850" y="248" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">class: good → grant</text>
+</g>
+<g data-step="4">
+<text x="500" y="312" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">Two classes: one threshold, on the probability of the positive class. More classes: the most probable class wins.</text>
+</g>
+</svg>

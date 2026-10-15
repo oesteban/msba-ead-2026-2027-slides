@@ -40,7 +40,13 @@ days:
     date: 2026-10-16
     replaces: 2026-10-16
     start: "08:45"
-    title: "Measuring a classifier: metrics, thresholds and cross-validation"
+    title: "Evaluating a classifier"
+
+  - id: day1/03-cv
+    date: 2026-10-16
+    replaces: 2026-10-16
+    start: "10:30"
+    title: "Model selection and cross-validation"
 
   - id: day1/04-multiclass
     date: 2026-10-16

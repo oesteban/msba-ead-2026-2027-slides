@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 214" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Screen capture of Dataiku DSS (Results, sessions view), course server, 14 October 2026, cropped and joined; frames by Oscar Esteban. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<image href="dataiku/results-session5.png" x="0" y="0" width="650" height="214"/>
+<g data-step="1">
+<rect class="accent-stroke" x="378" y="54" width="250" height="30" rx="5" fill="none" stroke="#00609c" stroke-width="2.6"/>
+<circle class="accent-fill" cx="378" cy="54" r="12" fill="#00609c"/><text x="378" y="59" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">1</text>
+</g>
+<g data-step="2">
+<rect class="accent-stroke" x="331" y="179" width="38" height="26" rx="5" fill="none" stroke="#00609c" stroke-width="2.6"/>
+<circle class="accent-fill" cx="331" cy="179" r="12" fill="#00609c"/><text x="331" y="184" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">2</text>
+</g>
+<g data-step="3">
+<rect class="accent-stroke" x="370" y="179" width="50" height="26" rx="5" fill="none" stroke="#00609c" stroke-width="2.6"/>
+<circle class="accent-fill" cx="420" cy="179" r="12" fill="#00609c"/><text x="420" y="184" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">3</text>
+</g>
+</svg>
