@@ -1,0 +1,77 @@
+{
+  "credit": {
+    "n": 1000,
+    "bad": 300,
+    "good": 700,
+    "auc": 0.782,
+    "ap": 0.625,
+    "acc_05": 0.755,
+    "baseline": 0.7,
+    "t_f1": 0.29,
+    "t_cost": 0.21,
+    "cost_05": 1065,
+    "cost_best": 525,
+    "cost_lend_all": 1500,
+    "cm_05": {
+      "tp": 95,
+      "fp": 40,
+      "fn": 205,
+      "tn": 660
+    },
+    "cm_f1": {
+      "tp": 232,
+      "fp": 257,
+      "fn": 68,
+      "tn": 443
+    },
+    "cm_cost": {
+      "tp": 272,
+      "fp": 385,
+      "fn": 28,
+      "tn": 315
+    },
+    "gain_top20": 0.44,
+    "split_auc_min": 0.744,
+    "split_auc_max": 0.821,
+    "fold_aucs": [
+      0.803,
+      0.792,
+      0.801,
+      0.764,
+      0.755
+    ]
+  },
+  "zalaxus": {
+    "auc_customer": 0.537,
+    "auc_with_orders": 0.888
+  },
+  "wine": {
+    "n_all": 6497,
+    "duplicates": 1177,
+    "n_dedup": 5320,
+    "accuracy_with_duplicates": 0.667,
+    "counts_dedup": {
+      "3": 30,
+      "4": 206,
+      "5": 1752,
+      "6": 2323,
+      "7": 856,
+      "8": 148,
+      "9": 5
+    },
+    "accuracy": 0.577,
+    "f1_macro": 0.241,
+    "f1_micro": 0.577,
+    "f1_weighted": 0.547,
+    "recall_per_class": {
+      "3": 0.0,
+      "4": 0.02,
+      "5": 0.63,
+      "6": 0.73,
+      "7": 0.31,
+      "8": 0.0,
+      "9": 0.0
+    },
+    "majority_share": 0.437
+  }
+}

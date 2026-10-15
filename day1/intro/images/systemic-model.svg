@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 505" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- The firm as three systems: Le Moigne (1977), drawing after Bucki and Pesqueux (1994), Fig. 2. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect class="accent-stroke" x="200" y="20" width="400" height="76" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="400" y="54" font-size="22" font-weight="bold" text-anchor="middle" fill="#1c2e36">Steering system</text>
+<text x="400" y="79" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">système de pilotage</text>
+<rect class="accent-stroke" x="200" y="206" width="400" height="76" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="370" y="240" font-size="22" font-weight="bold" text-anchor="middle" fill="#1c2e36">Information system</text>
+<text x="370" y="265" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">système d'information</text>
+<rect class="accent-stroke" x="200" y="392" width="400" height="76" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="400" y="426" font-size="22" font-weight="bold" text-anchor="middle" fill="#1c2e36">Operations system</text>
+<text x="400" y="451" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">système opérant</text>
+</g>
+<g data-step="2">
+<polygon class="accent-a-light-fill" points="40,418 168,418 168,406 198,430 168,454 168,442 40,442" fill="#8cb3cf"/>
+<polygon class="accent-a-light-fill" points="602,418 732,418 732,406 762,430 732,454 732,442 602,442" fill="#8cb3cf"/>
+<text x="104" y="400" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">inputs</text>
+<text x="682" y="400" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">outputs</text>
+</g>
+<g data-step="3">
+<line x1="300" y1="98" x2="300" y2="204" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="290" y="156" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">decisions</text>
+<line x1="300" y1="284" x2="300" y2="390" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="290" y="342" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">instructions</text>
+</g>
+<g data-step="4">
+<line x1="500" y1="390" x2="500" y2="286" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="510" y="342" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">activity recorded</text>
+<line x1="500" y1="204" x2="500" y2="98" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="510" y="156" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">indicators</text>
+</g>
+<g data-step="5">
+<line x1="40" y1="244" x2="198" y2="244" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="118" y="234" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">from outside</text>
+<text x="118" y="262" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">the firm</text>
+</g>
+<g data-step="6">
+<ellipse class="accent-b-light-fill" cx="545" cy="226" rx="34" ry="9" fill="#a8e4ea" stroke="#1c2e36" stroke-width="1.2"/>
+<path class="accent-b-light-fill" d="M511,226 L511,262 A34,9 0 0 0 579,262 L579,226 A34,9 0 0 1 511,226 z" fill="#a8e4ea" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="545" y="252" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">data</text>
+</g>
+<g data-step="7">
+<rect class="accent-fill" x="640" y="120" width="130" height="52" rx="8" fill="#00609c"/>
+<text x="705" y="152" font-size="17" font-weight="bold" text-anchor="middle" fill="#ffffff">model</text>
+<path class="accent-stroke" d="M581,250 L705,250 L705,174" fill="none" stroke="#00609c" stroke-width="1.6" marker-end="url(#ahA)"/>
+<path class="accent-stroke" d="M705,118 L705,58 L603,58" fill="none" stroke="#00609c" stroke-width="1.6" marker-end="url(#ahA)"/>
+<text class="accent-fill" x="714" y="96" font-size="15" font-weight="bold" text-anchor="start" fill="#00609c">a score</text>
+</g>
+<g data-step="8">
+<text class="accent-fill" x="104" y="478" font-size="14" font-weight="bold" text-anchor="middle" fill="#00609c">credit applications:</text>
+<text class="accent-fill" x="104" y="496" font-size="14" font-weight="normal" text-anchor="middle" fill="#00609c">the flow is information</text>
+<text class="accent-fill" x="682" y="478" font-size="14" font-weight="bold" text-anchor="middle" fill="#00609c">credits granted</text>
+<text class="accent-fill" x="682" y="496" font-size="14" font-weight="normal" text-anchor="middle" fill="#00609c">or refused</text>
+</g>
+<g data-step="9">
+<text x="712" y="274" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">learned from past cases:</text>
+<text class="accent-fill" x="712" y="293" font-size="15" font-weight="bold" text-anchor="middle" fill="#00609c">supervised learning,</text>
+<text class="accent-fill" x="712" y="311" font-size="14" font-weight="normal" text-anchor="middle" fill="#00609c">16.10 and 23.10</text>
+</g>
+</svg>

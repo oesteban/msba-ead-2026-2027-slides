@@ -1,0 +1,115 @@
+{
+  "comment": "Oscar Esteban, CC BY 4.0. CRISP-DM phases after Chapman et al. (2000), CRISP-DM 1.0; gates named after its generic tasks 2.4, 4.4 and 5.3. Colours: the region of the Machine Learning Canvas (Dorard, v1.1) each phase fills, in the hues of the canvas as annotated in the module's week 1; fixed, not themed. Which region each phase fills is a reading, not Dorard's: business understanding and deployment the goal, data understanding and preparation learn, modeling predict, evaluation evaluate.",
+  "nodes": {
+    "BU": {
+      "fill": "#ffffff",
+      "sub": {
+        "fill": "#1c2e36"
+      },
+      "step": 1,
+      "stroke": "#292929",
+      "stroke_width": 4
+    },
+    "DU": {
+      "fill": "#fbffe5",
+      "step": 2,
+      "sub": {
+        "fill": "#1c2e36"
+      },
+      "stroke": "#bad80a",
+      "stroke_width": 4
+    },
+    "DP": {
+      "fill": "#fbffe5",
+      "step": 3,
+      "sub": {
+        "fill": "#1c2e36"
+      },
+      "stroke": "#bad80a",
+      "stroke_width": 4
+    },
+    "MO": {
+      "fill": "#e5e5f4",
+      "step": 4,
+      "sub": {
+        "fill": "#1c2e36"
+      },
+      "stroke": "#00187a",
+      "stroke_width": 4
+    },
+    "EV": {
+      "fill": "#f2e4da",
+      "step": 5,
+      "sub": {
+        "fill": "#1c2e36"
+      },
+      "stroke": "#ff8c00",
+      "stroke_width": 4
+    },
+    "DE": {
+      "fill": "#ffffff",
+      "step": 6,
+      "sub": {
+        "fill": "#1c2e36"
+      },
+      "stroke": "#292929",
+      "stroke_width": 4
+    },
+    "G1": {
+      "step": 2
+    },
+    "G2": {
+      "step": 4
+    },
+    "G3": {
+      "step": 5
+    },
+    "STOP": {
+      "step": 2
+    },
+    "END": {
+      "step": 5
+    }
+  },
+  "edges": {
+    "BU-to-DU": {
+      "step": 2
+    },
+    "DU-to-G1": {
+      "step": 2
+    },
+    "G1-to-DP": {
+      "step": 3
+    },
+    "DP-to-MO": {
+      "step": 4
+    },
+    "MO-to-G2": {
+      "step": 4
+    },
+    "G2-to-EV": {
+      "step": 5
+    },
+    "EV-to-G3": {
+      "step": 5
+    },
+    "G3-to-DE": {
+      "step": 6
+    },
+    "STOP-backto-G1": {
+      "step": 2
+    },
+    "END-backto-G3": {
+      "step": 5
+    },
+    "G2-to-DP": {
+      "step": 4
+    },
+    "G3-to-BU": {
+      "step": 5
+    },
+    "DU-to-BU": {
+      "step": 2
+    }
+  }
+}

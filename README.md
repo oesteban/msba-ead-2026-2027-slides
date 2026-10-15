@@ -15,7 +15,8 @@ Dates and titles come from [`course.yml`](course.yml).
 
 | Session | Date | Directory |
 |---|---|---|
-| Measuring a classifier: metrics, thresholds and k-fold | Fri 16 Oct 2026, morning | `day1/am/` |
+| From a business question to a first model | Fri 16 Oct 2026, morning, first | `day1/intro/` |
+| Measuring a classifier: metrics, thresholds and cross-validation | Fri 16 Oct 2026, morning | `day1/am/` |
 | Beyond two classes, and into deep learning | Fri 16 Oct 2026, afternoon | `day1/pm/` |
 
 Navigation: arrow keys, `P` for presenter view, `C` to clone the window onto a
@@ -58,5 +59,7 @@ which checks out the engine submodule only and deploys to Pages.
 
 ## License
 
-Slide and handout content is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Slide and handout content is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/),
+except figures by others (CC BY, CC BY-SA or BSD), each credited with its licence
+on its slide.
 The engine submodule is MIT.

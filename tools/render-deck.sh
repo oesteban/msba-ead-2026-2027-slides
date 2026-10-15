@@ -23,7 +23,9 @@ trap 'kill $server 2>/dev/null' EXIT
 sleep 1
 
 rm -rf "$out"; mkdir -p "$out/_preview"
-npx --yes decktape remark --chrome-path "$chrome" --chrome-arg=--no-sandbox -s 1280x720 \
+# -s is the remark slide's own size (1210x681 at 16:9): at 1280x720 the print
+# cuts the right edge of every slide (logo, cover angle, page number).
+npx --yes decktape remark --chrome-path "$chrome" --chrome-arg=--no-sandbox -s 1210x681 \
   --screenshots --screenshots-directory "$out" --screenshots-size 640x360 \
   "http://127.0.0.1:$port/$id/index.html" "$out.pdf" 2>&1 | grep -E 'Printed|rror' || true
 

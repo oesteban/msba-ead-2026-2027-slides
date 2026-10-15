@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 476" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- SENSIMED, above the arrow from its record (CTI 17325.1; FDA 2016; Martin et al. 2018), below it after D. Genoud's 2025 slide, with his team's pictures (not openly licensed; see sensimed/LICENSE.txt). Oscar Esteban, CC BY 4.0 for the drawing. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<polygon class="accent-fill" points="30,233 1088,233 1088,218 1116,250 1088,282 1088,267 30,267" fill="#00609c"/>
+<path d="M122,271 L134,229 M134,271 L146,229" stroke="#ffffff" stroke-width="5"/>
+<text x="60" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2003</text>
+<text x="200" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2010</text>
+<text x="310" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2011</text>
+<text x="420" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2012</text>
+<text x="530" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2013</text>
+<text x="640" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2014</text>
+<text x="760" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2016</text>
+<text x="1000" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2018</text>
+<text x="1062" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">now</text>
+<text x="22" y="40" font-size="16" font-weight="bold" text-anchor="start" fill="#556268">The record</text>
+<text x="22" y="305" font-size="15" font-weight="bold" text-anchor="start" fill="#556268">As D. Genoud's</text>
+<text x="22" y="325" font-size="15" font-weight="bold" text-anchor="start" fill="#556268">team told it</text>
+<line x1="60" y1="212" x2="60" y2="231" stroke="#556268" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text class="accent-fill" x="22" y="140" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">A device</text>
+<text x="22" y="161" font-size="16" font-weight="normal" text-anchor="start" fill="#1c2e36">EPFL spin-off: a contact</text>
+<text x="22" y="182" font-size="16" font-weight="normal" text-anchor="start" fill="#1c2e36">lens records the eye's</text>
+<text x="22" y="203" font-size="16" font-weight="normal" text-anchor="start" fill="#1c2e36">volume over 24 hours</text>
+</g>
+<g data-step="2">
+<line x1="200" y1="269" x2="200" y2="283" stroke="#556268" stroke-width="1.4"/>
+<text x="200" y="305" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">Device</text>
+<line x1="310" y1="269" x2="310" y2="283" stroke="#556268" stroke-width="1.4"/>
+<text x="310" y="305" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">Signal</text>
+<text x="310" y="325" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">processing</text>
+<line x1="420" y1="269" x2="420" y2="283" stroke="#556268" stroke-width="1.4"/>
+<text x="420" y="305" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">Information</text>
+<text x="420" y="325" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">system</text>
+<line x1="200" y1="313" x2="99.78313253012048" y2="370" stroke="#556268" stroke-width="1" stroke-dasharray="2 3"/>
+<image href="sensimed/lens.jpg" x="22.0" y="374" width="155.6" height="96"/>
+<rect x="22" y="374" width="155.56626506024097" height="96" rx="0" fill="none" stroke="#c9cfd2" stroke-width="1"/>
+<line x1="310" y1="333" x2="250.6738347813565" y2="370" stroke="#556268" stroke-width="1" stroke-dasharray="2 3"/>
+<image href="sensimed/signal.jpg" x="187.6" y="374" width="126.2" height="96"/>
+<rect x="187.56626506024097" y="374" width="126.21513944223108" height="96" rx="0" fill="none" stroke="#c9cfd2" stroke-width="1"/>
+<line x1="420" y1="333" x2="403.461404502472" y2="370" stroke="#556268" stroke-width="1" stroke-dasharray="2 3"/>
+<image href="sensimed/information-system.jpg" x="323.8" y="374" width="159.4" height="96"/>
+<rect x="323.781404502472" y="374" width="159.36" height="96" rx="0" fill="none" stroke="#c9cfd2" stroke-width="1"/>
+</g>
+<g data-step="3">
+<rect class="accent-b-fill" x="618" y="233" width="164" height="34" rx="0" fill="#25bcca" fill-opacity="0.85"/>
+<text x="640" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2014</text>
+<text x="760" y="256" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2016</text>
+<line x1="700" y1="108" x2="700" y2="231" stroke="#556268" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text class="accent-fill" x="700" y="40" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">A platform</text>
+<text x="700" y="61" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">HES-SO Valais-Wallis:</text>
+<text x="700" y="82" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">machine learning on</text>
+<text x="700" y="103" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">the 24-hour profiles</text>
+<line x1="760" y1="124" x2="760" y2="231" stroke="#556268" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text class="accent-fill" x="772" y="140" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">A narrower use</text>
+<text x="772" y="161" font-size="16" font-weight="normal" text-anchor="start" fill="#1c2e36">US marketing to time</text>
+<text x="772" y="182" font-size="16" font-weight="normal" text-anchor="start" fill="#1c2e36">eye-pressure checks;</text>
+<text x="772" y="203" font-size="16" font-weight="normal" text-anchor="start" fill="#1c2e36">not a diagnostic tool</text>
+<line x1="585" y1="269" x2="585" y2="283" stroke="#556268" stroke-width="1.4"/>
+<text x="585" y="305" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">Machine learning,</text>
+<text x="585" y="325" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">data mining,</text>
+<text x="585" y="345" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">new features</text>
+<line x1="760" y1="269" x2="760" y2="283" stroke="#556268" stroke-width="1.4"/>
+<text x="760" y="305" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">Speed of disease</text>
+<text x="760" y="325" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">prediction</text>
+<line x1="585" y1="353" x2="569.9000251921273" y2="370" stroke="#556268" stroke-width="1" stroke-dasharray="2 3"/>
+<image href="sensimed/features.jpg" x="493.1" y="374" width="153.5" height="96"/>
+<rect x="493.141404502472" y="374" width="153.51724137931035" height="96" rx="0" fill="none" stroke="#c9cfd2" stroke-width="1"/>
+<line x1="585" y1="353" x2="731.5157887389253" y2="370" stroke="#556268" stroke-width="1" stroke-dasharray="2 3"/>
+<image href="sensimed/workflow.jpg" x="656.7" y="374" width="149.7" height="96"/>
+<rect x="656.6586458817824" y="374" width="149.71428571428572" height="96" rx="0" fill="none" stroke="#c9cfd2" stroke-width="1"/>
+<line x1="760" y1="333" x2="847.4572689454658" y2="370" stroke="#556268" stroke-width="1" stroke-dasharray="2 3"/>
+<image href="sensimed/diagnostic-helper.jpg" x="816.4" y="374" width="62.2" height="96"/>
+<rect x="816.3729315960682" y="374" width="62.16867469879518" height="96" rx="0" fill="none" stroke="#c9cfd2" stroke-width="1"/>
+</g>
+<g data-step="4">
+<line x1="1000" y1="108" x2="1000" y2="231" stroke="#556268" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text class="accent-fill" x="1000" y="40" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">An evaluation</text>
+<text x="1000" y="61" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">glaucoma or healthy, AUC:</text>
+<text x="1000" y="82" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">lens 0.61, pressure 0.68,</text>
+<text x="1000" y="103" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">both 0.76</text>
+<line x1="1050" y1="269" x2="1050" y2="283" stroke="#556268" stroke-width="1.4"/>
+<text x="1050" y="305" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">Improvement,</text>
+<text x="1050" y="325" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">deep learning</text>
+</g>
+</svg>

@@ -1,0 +1,63 @@
+' The CRISP-DM phases drawn as a line, with three gates named after
+' CRISP-DM 1.0 generic tasks (Chapman et al. 2000): 2.4 Verify data quality,
+' 4.4 Assess model, 5.3 Determine next steps. Rendered by tools/puml-svg.py;
+' the sidecar JSON beside this file sets classes and reveal steps.
+@startuml
+skinparam svgDimensionStyle false
+skinparam shadowing false
+hide stereotype
+skinparam defaultFontName Inter
+skinparam defaultFontSize 19
+skinparam ArrowColor #1c2e36
+skinparam ArrowThickness 1.4
+skinparam ArrowFontSize 15
+skinparam ArrowFontColor #556268
+skinparam rectangle {
+  RoundCorner 10
+  BorderColor #00609c
+  BackgroundColor #ffffff
+  FontColor #1c2e36
+}
+skinparam hexagon {
+  BorderColor #1c2e36
+  BackgroundColor #ffffff
+  FontColor #1c2e36
+  FontSize 16
+}
+<style>
+rectangle {
+  MinimumWidth 260
+}
+.exit {
+  MinimumWidth 60
+}
+</style>
+skinparam nodesep 40
+skinparam ranksep 16
+
+rectangle "Business understanding\n<size:14><color:#556268>Project → Wiki</color></size>" as BU
+rectangle "Data understanding\n<size:14><color:#556268>Dataset → Explore, Charts</color></size>" as DU
+hexagon "Verify data quality" as G1
+rectangle "Data preparation\n<size:14><color:#556268>Flow → Prepare recipe</color></size>" as DP
+rectangle "Modeling\n<size:14><color:#556268>Lab → Visual ML</color></size>" as MO
+hexagon "Assess model" as G2
+rectangle "Evaluation\n<size:14><color:#556268>Visual ML → Results</color></size>" as EV
+hexagon "Determine next steps" as G3
+rectangle "Deployment\n<size:14><color:#556268>Deploy → Score recipe</color></size>" as DE
+rectangle "Stop:\ndata unusable" as STOP <<exit>> #f3f3f3
+rectangle "End:\nno value" as END <<exit>> #f3f3f3
+
+BU -down-> DU
+DU -down-> G1
+G1 -down-> DP
+DP -down-> MO
+MO -down-> G2
+G2 -down-> EV
+EV -down-> G3
+G3 -down-> DE
+G1 -left-> STOP
+G3 -left-> END
+G3 -[norank]-> BU : another turn
+G2 -[norank]-> DP : improvable
+DU -[norank]-> BU : reframe
+@enduml

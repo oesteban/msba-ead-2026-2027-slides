@@ -34,4 +34,4 @@ stage the PDF with its source.
 |---|---|
 | Anything year-bound | `course.yml`, propagated by `tools/reyear.py` |
 | Handout layout | `templates/ead-worksheet.typ` (HES-SO Master frame, not the ISC template) |
-| Slide engine | `remark/` submodule, `oesteban/remark-engine`, theme `hes-so.css` |
+| Slide engine | `remark/` submodule, `oesteban/remark-engine`, theme `hesso-master.css` |
