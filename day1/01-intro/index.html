@@ -117,7 +117,7 @@ layout: true
 
 # This morning builds a first model, then judges it
 
-.cards.cols-4.vcenter[
+.cards.cols-3.vcenter[
 .card.accent[
 .kicker[16.10 · morning, first]
 
@@ -128,16 +128,30 @@ The process, the data, a hands-on.
 .card[
 .kicker[16.10 · morning, then]
 
-### Measuring a classifier
+### Evaluating a classifier
 
-Metrics, thresholds, cross-validation.
+Metrics, thresholds, costs.
+]
+.card[
+.kicker[16.10 · morning, last]
+
+### Model selection
+
+Cross-validation, leaks.
 ]
 .card.muted[
 .kicker[16.10 · afternoon]
 
 ### Beyond two classes
 
-Multi-class, deep learning.
+Several classes, wine quality.
+]
+.card.muted[
+.kicker[16.10 · afternoon]
+
+### Deep learning
+
+Images, pretrained networks.
 ]
 .card.muted[
 .kicker[23.10]
@@ -150,7 +164,7 @@ Text mining, time series.
 
 ???
 
-The day of 16.10 has three parts and 23.10 adds a fourth, all about supervised learning, the kind of model that slides 2 and 3 introduce. This deck comes first: the process, the data, and a hands-on in which groups train a first model with Dataiku's default settings and note what its result screens show. The second deck of the morning measures that classifier: the metrics that count its errors, the threshold that turns a probability into a decision, and cross-validation, which estimates how a model does on new cases by holding out each part of the data in turn while the model learns from the rest (James et al., 2021, p. 203). It starts from the three notes brought back at the end of this deck (slide 17). The afternoon goes beyond two classes, to targets with several categories, and into deep learning. On 23.10 the same reasoning is applied to text and to time series.
+The day of 16.10 runs five decks and 23.10 continues, all about supervised learning, the kind of model that slides 2 and 3 introduce. This deck comes first: the process, the data, and a hands-on in which groups train a first model with Dataiku's default settings and note what its result screens show. The second deck, *Evaluating a classifier*, starts from the three notes brought back at the end of this deck (slide 17): the metrics that count a classifier's errors, the threshold that turns a probability into a decision, and the costs that choose it. The third, *Model selection and cross-validation*, asks how far a score can be trusted. Cross-validation estimates how a model does on new cases by holding out each part of the data in turn while the model learns from the rest (James et al., 2021, p. 203). The afternoon goes beyond two classes, to targets with several categories, then into deep learning. On 23.10 the same reasoning is applied to text and to time series.
 
 ---
 class: stepwise-svg
@@ -296,7 +310,7 @@ A key activity of modeling: CRISP-DM task 4.1, *Select modeling technique* (Chap
 
 CRISP-DM opens the modeling phase with task 4.1: select the specific technique, such as a decision tree or a neural network, and record the assumptions it makes about the data (Chapman et al., 2000, pp. 27 to 28). The scikit-learn map starts from the task: a category or a quantity to predict, with labelled data or without (scikit-learn developers, *Choosing the right estimator*). The textbook draws the same line: "Regression involves a numeric target while classification involves a categorical (often binary) target" (Provost & Fawcett, 2013, p. 25, verbatim).
 
-On 16.10, credit risk (South German Credit) is a labelled category, good or bad: binary classification, the path slide 15 follows. The map's "NOT WORKING" arrows assume a way to tell whether a model works: measuring and thresholding a classifier, the next deck. The wine quality grade is ordered, so it can be treated as classes (multi-class classification) or as a number (regression); the original study chose regression to keep the order (Cortez et al., 2009). Image classification follows the classification path, but the map holds no deep learning. On 23.10, sentiment is classification on the map's text-data branch. Forecasting a time series predicts a quantity, but the map asks nothing about time and offers no forecasting method.
+On 16.10, credit risk (South German Credit) is a labelled category, good or bad: binary classification, the path slide 15 follows. The map's "NOT WORKING" arrows assume a way to tell whether a model works: evaluating a classifier and selecting among models, the next two decks. The wine quality grade is ordered, so it can be treated as classes (multi-class classification) or as a number (regression); the original study chose regression to keep the order (Cortez et al., 2009). Image classification follows the classification path, but the map holds no deep learning. On 23.10, sentiment is classification on the map's text-data branch. Forecasting a time series predicts a quantity, but the map asks nothing about time and offers no forecasting method.
 
 ---
 class: stepwise-svg
@@ -539,7 +553,7 @@ The Driver says what a screen shows before clicking on; the Mapper writes the no
 
 The flowchart of slide 11 becomes a board. The Mapper has tagged each note with a phase; the Referee reads one, and it goes on that phase. A note on the data, such as the share of bad credits, sits in data understanding; one on what a result screen shows, in modeling; one asking whether the model is good enough for the bank, in evaluation.
 
-The arrow marks where the next deck, *Measuring a classifier: metrics, thresholds and cross-validation*, starts. Evaluation in CRISP-DM asks whether the model meets the business objectives, beyond its accuracy (Chapman et al., 2000, p. 30). Chapter 7 of the book opens on this: data scientists and those they work with often neglect "connecting the results of mining data back to the goal of the undertaking" (Provost & Fawcett, 2013, p. 187, verbatim). Plain accuracy is "too simplistic for applications of data mining techniques to real business problems" (Provost & Fawcett, 2013, p. 189, verbatim), in part because it weighs the two errors of slide 13 alike (p. 193). The notes not yet explained are the questions the next deck answers.
+The arrow marks where the next deck, *Evaluating a classifier*, starts. Evaluation in CRISP-DM asks whether the model meets the business objectives, beyond its accuracy (Chapman et al., 2000, p. 30). Chapter 7 of the book opens on this: data scientists and those they work with often neglect "connecting the results of mining data back to the goal of the undertaking" (Provost & Fawcett, 2013, p. 187, verbatim). Plain accuracy is "too simplistic for applications of data mining techniques to real business problems" (Provost & Fawcett, 2013, p. 189, verbatim), in part because it weighs the two errors of slide 13 alike (p. 193). The notes not yet explained are the questions the next deck answers.
 
 ---
 
@@ -615,6 +629,25 @@ The book is available to HES-SO students through the school's O'Reilly access.
 The list is alphabetical. The primary sources are the original works behind each element of the deck: Le Moigne (1977) for the three-layer system, Fayyad et al. (1996) for the KDD process, Chapman et al. (2000) for CRISP-DM, Dorard for the Machine Learning Canvas, Grömping (2019) for the corrected credit data, Martin et al. (2018) for the published result of the SENSIMED case. The definition of data mining is quoted from Wikipedia, which cites the ACM SIGKDD proposal (2006). Provost and Fawcett (2013) is the course book, cited by page.
 
 Work by others appears under open licences: the CRISP-DM diagram by K. Jensen (CC BY-SA 3.0), the scikit-learn map (BSD 3-Clause), the canvas and the Wikipedia definition (CC BY-SA 4.0), the credit data (CC BY 4.0). The drawings after Bucki and Pesqueux, Fayyad et al. and Provost and Fawcett are the deck's own, under the sidebar's CC BY 4.0 licence. The SENSIMED pictures belong to their authors and are shown with their credit, not under an open licence.
+
+---
+
+.section-mark[
+# End
+
+.large[
+Next: *Evaluating a classifier*
+
+<i class="fa-solid fa-circle-left" style="opacity: 20%"></i>
+[<i class="fa-solid fa-home"></i>](#1)
+[<i class="fa-solid fa-circle-right"></i>](../02-model/index.html)
+]
+]
+
+???
+
+The morning continues with *Evaluating a classifier*, which starts from the notes brought back on slide 17. The arrows lead to the previous and the next deck of the day; the house returns to the first slide of this one. This deck is the first of the day, so it has no previous deck.
+
 </textarea>
 
     <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
