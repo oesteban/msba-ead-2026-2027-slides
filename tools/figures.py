@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Render the data figures of the day-1 decks.
 
-Every chart in day1/0[2-5]-*/images is drawn here from the data,
+Every chart in day1/0[2-4]-*/images and day2/05-dl/images is drawn here from the data,
 so every number on a slide can be traced to a computation. (Figures drawn by
 others appear only in day1/01-intro, each with its licence on the slide.)
 
@@ -55,7 +55,7 @@ ROOT = Path(__file__).resolve().parent.parent
 AM = ROOT / "day1" / "02-model" / "images"
 CV = ROOT / "day1" / "03-cv" / "images"
 WINE = ROOT / "day1" / "04-multiclass" / "images"
-DL = ROOT / "day1" / "05-dl" / "images"
+DL = ROOT / "day2" / "05-dl" / "images"
 
 ACCENT = "#00609c"
 DARK = "#1a1a1a"
@@ -580,12 +580,14 @@ def wine(path: Path) -> None:
     w = pd.read_csv(path)
     n_all, n_dup = len(w), int(w.duplicated().sum())
     counts = w["quality"].value_counts().sort_index()
-    fig, ax = plt.subplots(figsize=(8, 3.4))
+    fig, ax = plt.subplots(figsize=(8, 3.6))
     ax.bar(counts.index.astype(str), counts.values, color=[ACCENT if q in (5, 6) else LIGHT for q in counts.index])
     for q, n in counts.items():
-        ax.text(str(q), n + 40, str(n), ha="center", fontsize=12)
-    ax.set_xlabel("quality score (as rated by tasters)")
-    ax.set_ylabel("wines")
+        ax.text(str(q), n + 50, f"{n:,}", ha="center", fontsize=16)
+    ax.set_xlabel("grade (median of the tasters' scores)", fontsize=16)
+    ax.set_ylabel("wines", fontsize=16)
+    ax.tick_params(labelsize=16)
+    ax.set_ylim(0, counts.max() * 1.12)
     save(fig, WINE / "wine-classes.svg")
 
     cv = StratifiedKFold(5, shuffle=True, random_state=SEED)
@@ -597,7 +599,7 @@ def wine(path: Path) -> None:
     w = w.drop_duplicates()
     y = w["quality"].to_numpy()
     X = pd.get_dummies(w.drop(columns=["quality"]))
-    # class 9 has 5 rows (5 after dedup?): stratified 5-fold needs >= 5 per class
+    # grade 9 keeps its 5 rows after deduplication: just enough for 5 stratified folds
     pred = cross_val_predict(rf(), X, y, cv=cv)
     labels = sorted(np.unique(y))
     cmn = confusion_matrix(y, pred, labels=labels, normalize="true")
@@ -628,6 +630,65 @@ def wine(path: Path) -> None:
         f1_weighted=round(f1_score(y, pred, average="weighted"), 3),
         recall_per_class={int(k): v for k, v in per_class.items()},
         majority_share=round(float(pd.Series(y).value_counts(normalize=True).max()), 3),
+    )
+    wine_lines(w, X, cv)
+
+
+LINES = ["low", "medium", "high"]
+
+
+def wine_lines(w: pd.DataFrame, X: pd.DataFrame, cv) -> None:
+    """The deck's running example: three lines, low (grade 5 or less), medium (6), high (7 or more).
+
+    Deduplicated wines, `quality` left out of the inputs, the same forest and folds as above.
+    """
+    q = w["quality"].to_numpy()
+    y = np.where(q <= 5, "low", np.where(q == 6, "medium", "high"))
+    proba = cross_val_predict(rf(), X, y, cv=cv, method="predict_proba")
+    classes = sorted(np.unique(y))                       # the column order of predict_proba
+    proba = proba[:, [classes.index(c) for c in LINES]]
+    pred = np.array(LINES)[proba.argmax(axis=1)]
+    cm = confusion_matrix(y, pred, labels=LINES)
+    p, r, f = (precision_score(y, pred, labels=LINES, average=None),
+               recall_score(y, pred, labels=LINES, average=None),
+               f1_score(y, pred, labels=LINES, average=None))
+    support = cm.sum(axis=1)
+    # one wine to show three probabilities: the first in the file with all three above 0.15
+    # and two-decimal values that still add up to 1
+    ok = (proba > 0.15).all(axis=1) & np.isclose(proba.round(2).sum(axis=1), 1)
+    i = int(np.flatnonzero(ok)[0])
+    aucs = {}
+    fig, ax = plt.subplots(figsize=(5.6, 5.2))
+    ax.plot([0, 1], [0, 1], color=LIGHT, lw=1.5, ls="--")
+    for c, col in zip(LINES, ["#8cb3cf", GRAY, ACCENT]):
+        k = LINES.index(c)
+        fpr, tpr, _ = roc_curve(y == c, proba[:, k])
+        aucs[c] = round(float(roc_auc_score(y == c, proba[:, k])), 3)
+        ax.plot(fpr, tpr, color=col, lw=3, label=f"{c} vs the rest: {aucs[c]:.2f}")
+    ax.set_xlabel("false-positive rate", fontsize=15)
+    ax.set_ylabel("recall (true-positive rate)", fontsize=15)
+    ax.tick_params(labelsize=14)
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1.01)
+    ax.set_aspect("equal")
+    ax.legend(loc="lower right", fontsize=14, title="class: AUC", title_fontsize=14)
+    save(fig, WINE / "roc-ovr.svg")
+    NUMBERS["wine"]["three"] = dict(
+        labels=LINES,
+        confusion=cm.tolist(),
+        support=[int(n) for n in support],
+        precision=[round(float(v), 2) for v in p],
+        recall=[round(float(v), 2) for v in r],
+        f1=[round(float(v), 2) for v in f],
+        accuracy=round(float((pred == y).mean()), 3),
+        f1_micro=round(f1_score(y, pred, average="micro"), 3),
+        f1_weighted=round(f1_score(y, pred, average="weighted"), 3),
+        f1_macro=round(f1_score(y, pred, average="macro"), 3),
+        baseline_medium=round(float((y == "medium").mean()), 3),
+        auc=aucs,
+        auc_mean=round(float(np.mean(list(aucs.values()))), 3),
+        example=dict(row=int(w.index[i]) + 2, grade=int(q[i]), color=str(w["color"].iloc[i]),
+                     line=str(y[i]), proba=[round(float(v), 2) for v in proba[i]]),
     )
 
 

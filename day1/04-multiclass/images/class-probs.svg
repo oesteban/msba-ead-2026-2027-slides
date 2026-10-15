@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 360" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- One credit (deck 1's example, P(bad) = 0.34) against one wine of the course file (line 12, a white wine of grade 5): its three probabilities from a random forest under 5-fold cross-validation (tools/figures.py). Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<g transform="translate(44 0)">
+<line x1="0" y1="268" x2="420" y2="268" stroke="#556268" stroke-width="1.4"/>
+<rect class="accent-fill" x="90" y="190.5" width="78" height="77.5" rx="3" fill="#00609c"/>
+<text x="129.0" y="180.5" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.34</text>
+<text x="129.0" y="294" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">bad</text>
+<rect class="accent-a-light-fill" x="250" y="117.5" width="78" height="150.5" rx="3" fill="#8cb3cf"/>
+<text x="289.0" y="107.5" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.66</text>
+<text x="289.0" y="294" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">good</text>
+<line x1="76" y1="229.24" x2="182" y2="229.24" stroke="#da232f" stroke-width="2.4" stroke-dasharray="7 5"/>
+<text x="70" y="235.24" font-size="16" font-weight="normal" text-anchor="end" fill="#da232f">threshold</text>
+<text x="225" y="330" font-size="18" font-weight="normal" text-anchor="middle" fill="#556268">one credit: P(bad), and a threshold</text>
+<text x="225" y="26" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">two classes (deck 2)</text>
+</g>
+</g>
+<g data-step="2">
+<line x1="570" y1="268" x2="1010" y2="268" stroke="#556268" stroke-width="1.4"/>
+<rect class="accent-a-light-fill" x="600" y="224.7" width="78" height="43.3" rx="3" fill="#8cb3cf"/>
+<text x="639.0" y="214.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.19</text>
+<text x="639.0" y="294" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">low</text>
+<rect x="740" y="133.5" width="78" height="134.5" rx="3" fill="#b9c2c6"/>
+<text x="779.0" y="123.5" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.59</text>
+<text x="779.0" y="294" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">medium</text>
+<rect class="accent-fill" x="880" y="217.8" width="78" height="50.2" rx="3" fill="#00609c"/>
+<text x="919.0" y="207.8" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.22</text>
+<text x="919.0" y="294" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">high</text>
+<rect class="accent-stroke" x="728" y="42" width="102" height="268" rx="6" fill="none" stroke="#00609c" stroke-width="2.4"/>
+<text x="790" y="330" font-size="18" font-weight="normal" text-anchor="middle" fill="#556268">one wine: three probabilities, the largest wins</text>
+<text x="790" y="26" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">three classes</text>
+</g>
+</svg>

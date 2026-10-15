@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- The Formula of Hands-on 3 turns quality into grade; left in as an input, quality gives the target away. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<text x="124" y="24" font-size="22" font-weight="bold" text-anchor="middle" fill="#1c2e36">quality (an input)</text>
+<text x="594" y="24" font-size="22" font-weight="bold" text-anchor="middle" fill="#1c2e36">grade (the target)</text>
+<rect x="94" y="40" width="60" height="36" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="124" y="65" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">3</text>
+<line x1="158" y1="58" x2="510" y2="103" stroke="#556268" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="94" y="88" width="60" height="36" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="124" y="113" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">4</text>
+<line x1="158" y1="106" x2="510" y2="103" stroke="#556268" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="94" y="136" width="60" height="36" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="124" y="161" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">5</text>
+<line x1="158" y1="154" x2="510" y2="103" stroke="#556268" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="94" y="184" width="60" height="36" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="124" y="209" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">6</text>
+<line x1="158" y1="202" x2="510" y2="199" stroke="#556268" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="94" y="232" width="60" height="36" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="124" y="257" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">7</text>
+<line x1="158" y1="250" x2="510" y2="295" stroke="#556268" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="94" y="280" width="60" height="36" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="124" y="305" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">8</text>
+<line x1="158" y1="298" x2="510" y2="295" stroke="#556268" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="94" y="328" width="60" height="36" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="124" y="353" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">9</text>
+<line x1="158" y1="346" x2="510" y2="295" stroke="#556268" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill" x="516" y="80" width="156" height="46" rx="6" fill="#8cb3cf"/>
+<text x="594" y="111" font-size="23" font-weight="bold" text-anchor="middle" fill="#1c2e36">low</text>
+<rect x="516" y="176" width="156" height="46" rx="6" fill="#b9c2c6"/>
+<text x="594" y="207" font-size="23" font-weight="bold" text-anchor="middle" fill="#1c2e36">medium</text>
+<rect class="accent-fill" x="516" y="272" width="156" height="46" rx="6" fill="#00609c"/>
+<text x="594" y="303" font-size="23" font-weight="bold" text-anchor="middle" fill="#ffffff">high</text>
+<text x="350" y="412" font-size="20" font-weight="normal" text-anchor="middle" fill="#556268">one rule, no exceptions: whoever reads quality never misses</text>
+</svg>
