@@ -122,7 +122,7 @@ starts from your notes.
 #panel("Step 2 · Train a first model on all 20 columns")[
   #step(1, "Create the analysis")[Select the dataset, then #dss("Lab", "AutoML Prediction"). Target `credit_risk`. Keep *Quick prototypes*, then *Create*.]
   #v(2pt)
-  #step(2, "Bring back five columns")[#dss("Design", "Features handling"): five rows read *Rejected, text feature* (`status`, `credit_history`, `savings`, `personal_status_sex`, `property`). Dataiku took their long labels for free text. Tick the five, set their type to *Categorical*, and switch them on.]
+  #step(2, "Bring back five columns")[#dss("Design", "Features handling"): five rows read *Rejected, text feature* (`status`, `credit_history`, `savings`, `personal_status_sex`, `property`). Dataiku took their long labels for free text (intro deck, slide 15). Tick the five, set their type to *Categorical*, and switch them on.]
   #v(2pt)
   #step(3, "Train")[Change nothing else in #dss("Design"). Click *Train* and wait for every model to finish.]
   #v(2pt)

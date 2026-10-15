@@ -552,7 +552,8 @@ def main(out: Path) -> int:
                "mining-vs-using-credit.svg": lambda: mining_vs_using("credit"),
                "nested-cycles.svg": nested_cycles, "sensimed-timeline.svg": sensimed_timeline,
                "expected-value.svg": expected_value}
-    for name, lit in (("bu", {"BU"}), ("du", {"DU"}), ("mo", {"MO"}), ("du-mo", {"DU", "DP", "MO"})):
+    for name, lit in (("bu", {"BU"}), ("du", {"DU"}), ("dp", {"DP"}), ("mo", {"MO"}),
+                      ("du-mo", {"DU", "DP", "MO"})):
         figures[f"phase-{name}.svg"] = lambda lit=lit: phase_thumb(lit)
     for name, fn in figures.items():
         (out / name).write_text(fn(), encoding="utf-8")
