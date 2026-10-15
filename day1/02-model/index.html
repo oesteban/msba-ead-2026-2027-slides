@@ -32,17 +32,18 @@
 .cm .tp { background: #00609c; color: #fff; } .cm .tn { background: #8cb3cf; }
 .cm .fn { background: #da232f; color: #fff; } .cm .fp { background: #f0a3a8; }
 .cm td.hit { background: #e6eff5; font-weight: 700; }
-/* the numbered frames of a screen capture, explained beside it */
-.marks { margin: 0.3em 0 0.8em; padding-left: 1.4em; }
-.marks li { margin-bottom: 0.55em; }
-.marks li::marker { color: var(--accent); font-weight: 700; }
+/* the numbered frames of a screen capture, explained under it */
+.marks3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; margin-top: 0.6em; font-size: 0.8em; line-height: 1.35; }
+.marks3 > div { border-top: 4px solid var(--accent); padding-top: 0.3em; }
+.marks3 b { color: var(--accent); }
 /* the check in Dataiku: a block the eye cannot miss */
-.check { margin-top: 0.9em; padding: 0.6em 1em 0.5em; border-left: 7px solid var(--warning, #da232f);
-  background: #fbeaec; border-radius: 6px; font-size: 0.86em; line-height: 1.4; }
+.check { clear: both; margin-top: 1.1em; padding: 0.7em 1.1em 0.6em; border-left: 8px solid var(--warning, #da232f);
+  background: #fbeaec; border-radius: 6px; font-size: 0.98em; line-height: 1.45; }
+.check i.fa-solid { float: none; color: var(--warning, #da232f); margin-right: 0.3em; }
 .check ol { margin: 0.3em 0 0.2em; padding-left: 1.3em; }
 .check li { margin-bottom: 0.3em; }
 /* the metrics: one row per step, each with the cells it counts (dark: above the line; light: below) */
-.metrics table { border-collapse: collapse; font-size: 0.8em; width: 100%; }
+.metrics table { border-collapse: collapse; font-size: 0.92em; width: 100%; }
 .metrics th, .metrics td { padding: 0.45em 0.5em; border-bottom: 1px solid #d9dee1; text-align: left; vertical-align: middle; }
 .metrics th { color: var(--heading-color); }
 .metrics td.num { font-weight: 700; color: var(--accent); white-space: nowrap; }
@@ -56,7 +57,7 @@
 .moves code { font-size: 0.85em; }
 .need { font-size: 0.86em; margin: 0.2em 0 0; }
 .points li { margin-bottom: 0.5em; }
-.refs li { font-size: 0.6em; margin-bottom: 0.3em; }
+.refs li { font-size: 0.72em; margin-bottom: 0.4em; }
 </style>
 <script src="https://kit.fontawesome.com/015d4b01de.js" crossorigin="anonymous"></script>
 
@@ -114,19 +115,13 @@ class: stepwise-svg
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
 .beside-thumb[
-.col-wide[
-<object type="image/svg+xml" data="images/results-capture.svg" style="width: 100%; margin-top: 0.4em; pointer-events: none;"></object>
-]
+<object type="image/svg+xml" data="images/results-capture.svg" style="width: 74%; display: block; margin: 0.2em auto 0; pointer-events: none;"></object>
 
-.col-narrow[
-<ol class="marks">
-<li class="step-1"><b>ROC AUC</b>: how well the scores rank the bad credits above the good ones; 0.5 is chance (slide 16).</li>
-<li class="step-2"><b>0.702</b>: the score that put this model first.</li>
-<li class="step-3"><b>± 0.049</b>: how much that score moves from one test set to another (next deck).</li>
-</ol>
-]
-
-<div style="clear: both;"></div>
+<div class="marks3">
+<div class="step-1"><b>1 ROC AUC</b>: how well the scores rank the bad credits above the good ones; 0.5 is chance (slide 16).</div>
+<div class="step-2"><b>2 0.702</b>: the score that put this model first.</div>
+<div class="step-3"><b>3 ± 0.049</b>: how much that score moves from one test set to another (next deck).</div>
+</div>
 
 .step-3[
 Three questions for this deck and the next: what does a score say about the bank's decision? Which model, at which threshold? How far can the number be trusted?
@@ -208,7 +203,7 @@ The benign class: the credit is granted.
 ]
 
 <div class="check">
-<i class="fa-solid fa-triangle-exclamation"></i> <b>Check it in Dataiku before reading any number.</b> The <b>cut-off</b>, Dataiku's word for the threshold, applies to the probability of the class Dataiku takes as positive.
+<b><i class="fa-solid fa-triangle-exclamation"></i>Check it in Dataiku before reading any number.</b> The <b>cut-off</b>, Dataiku's word for the threshold, applies to the probability of the class Dataiku takes as positive.
 <ol>
 <li><b>Results → model → Predicted data</b>: the columns <code>proba_bad</code> and <code>proba_good</code> hold the two probabilities, <code>prediction</code> the class.</li>
 <li>Find a row whose <code>proba_bad</code> is just above the cut-off. If it is predicted <code>bad</code>, <i>bad</i> is the positive class.</li>

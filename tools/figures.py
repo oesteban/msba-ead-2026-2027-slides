@@ -274,7 +274,7 @@ def credit(path: Path) -> None:
             note += "\nblue: the 5 test folds of one cross-validation"
         ax.set_xlabel("test AUC")
         ax.set_ylabel("random splits")
-        ax.text(0.99, 0.95, note, transform=ax.transAxes, ha="right", va="top", fontsize=11, color=DARK)
+        ax.text(0.01, 0.97, note, transform=ax.transAxes, ha="left", va="top", fontsize=11, color=DARK)
         save(fig, CV / name)
 
 

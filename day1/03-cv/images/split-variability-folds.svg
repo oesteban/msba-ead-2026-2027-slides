@@ -426,8 +426,8 @@ L 493.22125 195.696
 " style="fill: none; stroke: #8a8a8a; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_17">
-    <text style="fill: #1a1a1a; font: 11px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(343.851156 24.596362)">grey: 200 random 50/50 splits</text>
-    <text style="fill: #1a1a1a; font: 11px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(277.204906 36.444738)">blue: the 5 test folds of one cross-validation</text>
+    <text style="fill: #1a1a1a; font: 11px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(51.28525 20.826442)">grey: 200 random 50/50 splits</text>
+    <text style="fill: #1a1a1a; font: 11px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(51.28525 32.674817)">blue: the 5 test folds of one cross-validation</text>
    </g>
   </g>
  </g>
