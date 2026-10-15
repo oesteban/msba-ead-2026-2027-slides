@@ -90,6 +90,11 @@
 .grid6 th, .grid6 td { padding: 0.4em 0.6em; border-bottom: 1px solid #d9dee1; text-align: center; }
 .grid6 th small { font-weight: 400; color: #556268; }
 .grid6 td.win { background: #e6eff5; color: var(--accent); font-weight: 700; }
+/* the outlook: one row per part of the deck */
+.cards.steps .card p { font-size: 0.9em; line-height: 1.3; }
+.cards.steps .card .part { color: var(--accent); font-weight: 700; }
+.lead-q { font-size: 1em; margin: 0.2em 0 0.6em; color: #3d4b51; }
+.lead-q .book { font-size: 0.8em; margin-left: 0.6em; }
 </style>
 <script src="https://kit.fontawesome.com/015d4b01de.js" crossorigin="anonymous"></script>
 
@@ -130,18 +135,45 @@ layout: true
 ]
 
 ---
+class: vcenter
 
-.section-mark[
-# What is a good model?
+# This deck: from a score to a decision
 
-.large[Good for the decision it serves, not only good on the data.]
+.lead-q[A good model is good for the decision it serves, not only good on the data. .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 187]]
 
-.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), chapter 7, p. 187]
+.cards.steps[
+.card[
+.enum[1]
+
+<span class="part">What a classifier returns.</span> A probability, a threshold, four outcomes. Slides 2 to 7.
+]
+.card[
+.enum[2]
+
+<span class="part">Each metric answers one question.</span> The baseline, precision and recall, ROC and AUC. Slides 8 to 14.
+]
+.card[
+.enum[3]
+
+<span class="part">Hands-on 1, continued.</span> Move the threshold; which one for production? Slides 15 and 16.
+]
+.card[
+.enum[4]
+
+<span class="part">Costs choose the threshold.</span> Two errors, two prices, three businesses. Slides 17 to 20.
+]
+.card[
+.enum[5]
+
+<span class="part">Gains.</span> How many applicants can the analysts review? Slides 21 and 22.
+]
 ]
 
 ???
 
-Chapter 7 of the textbook opens with this question. Provost and Fawcett observe that data scientists and stakeholders often neglect "connecting the results of mining data back to the goal of the undertaking" (Provost & Fawcett, 2013, p. 187, verbatim). A model is not good or bad in itself; it is good for the decision it serves (Provost & Fawcett, 2013, pp. 187 to 188). The subtitle on the slide states the same point: good for the decision, not only good on the data. In CRISP-DM, the evaluation phase (task 5.1) asks whether the model meets the business objectives, beyond its accuracy and generality (Chapman et al., 2000, p. 30). This is distinct from the technical assessment of task 4.4 in the modeling phase, which ranks models by their data-mining success criteria and iterates until the best is found (Chapman et al., 2000, p. 29). Task 4.4 judges models technically; task 5.1 brings the stakeholders in to check the business goal. The next slides build the tools for both: technical metrics first, then costs that tie them to the bank's decision.
+The deck has five parts. The first (slides 2 to 7) shows what a classifier returns, a probability that a threshold turns into a decision, and names the four outcomes. The second (slides 8 to 14) measures those outcomes, each metric answering one business question, up to the ROC curve and its AUC. The third (slides 15 and 16) returns to the group sheet to move the threshold. The fourth (slides 17 to 20) prices the two errors and lets the costs choose the threshold. The fifth (slides 21 and 22) reads the gains chart.
+
+Chapter 7 of the textbook opens with the question behind them all, what makes a model good. Provost and Fawcett observe that data scientists and stakeholders often neglect "connecting the results of mining data back to the goal of the undertaking" (Provost & Fawcett, 2013, p. 187, verbatim). A model is not good or bad in itself; it is good for the decision it serves (Provost & Fawcett, 2013, pp. 187 to 188). The subtitle on the slide states the same point: good for the decision, not only good on the data. In CRISP-DM, the evaluation phase (task 5.1) asks whether the model meets the business objectives, beyond its accuracy and generality (Chapman et al., 2000, p. 30). This is distinct from the technical assessment of task 4.4 in the modeling phase, which ranks models by their data-mining success criteria and iterates until the best is found (Chapman et al., 2000, p. 29). Task 4.4 judges models technically; task 5.1 brings the stakeholders in to check the business goal. The next slides build the tools for both: technical metrics first, then costs that tie them to the bank's decision.
 
 ---
 class: stepwise-svg
@@ -383,11 +415,13 @@ class: stepwise-svg
 .step-4[Each square is the matrix of slide 7: dark, the cells counted; light, the cells added below the line.]
 ]
 
-.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 203 to 204.] TP, FP, FN, TN: true positives, false positives, false negatives, true negatives.]
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 203 to 204.] M. Sokolova and G. Lapalme (2009), Table 2, p. 430. TP, FP, FN, TN: true positives, false positives, false negatives, true negatives.]
 
 ???
 
 The table gives four metrics at the threshold of 0.5. Precision, 95 / 135 = 70%, answers: of the applicants refused, how many were truly bad. Recall, 95 / 300 = 32%, answers: of the bad applicants, how many were refused. F1, 0.44, is the harmonic mean of precision and recall, a single number for both (Provost & Fawcett, 2013, p. 204). The false-positive rate, 40 / 700 = 5.7%, answers: of the good applicants, how many were wrongly refused. Provost and Fawcett define these in a sidebar on evaluation metrics, all of which are summaries of the confusion matrix (Provost & Fawcett, 2013, pp. 203 to 204). Each metric counts different cells: the small squares beside each row show which cells go above the fraction line (dark) and which go below (light). Because the sample was built with 30% bad credits while the bank's real portfolio had about 5%, a metric that depends on the class mix, such as precision, changes on the real population. A precision of 70% on this sample does not mean 70% in operation. Provost and Fawcett conclude that "evaluation should use the original, realistic population" (Provost & Fawcett, 2013, p. 207, verbatim), so that results reflect what will actually be achieved (Provost & Fawcett, 2013, p. 191).
+
+Sokolova and Lapalme (2009, Table 2, p. 430) list the measures most used for two classes with their formulas: accuracy, precision, recall (also called sensitivity), the F-score, specificity, the share of negatives recognised, which equals one minus the false-positive rate, and an AUC. Their AUC is not the one of slide 13: it captures a single point of the ROC curve, the mean of sensitivity and specificity at one threshold, also called balanced accuracy (Sokolova & Lapalme, 2009, p. 429). The area under the whole ROC curve, slide 13, summarises every threshold at once. Their Table 3 extends the measures to several classes, the subject of *Beyond binary classification*.
 
 ---
 
@@ -752,11 +786,12 @@ Chapter 7, from page 187, asks what makes a good model. It covers the confusion 
 - Hofmann, H. (1994). Statlog (German Credit Data). UCI Machine Learning Repository, dataset 144, doi:10.24432/C5NC77, CC BY 4.0.
 - Provost, F. and Fawcett, T. (2013). *Data Science for Business*. O'Reilly.
 - Saito, T. and Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. *PLOS ONE* 10(3):e0118432.
+- Sokolova, M. and Lapalme, G. (2009). A systematic analysis of performance measures for classification tasks. *Information Processing & Management* 45(4):427 to 437. doi:10.1016/j.ipm.2009.03.002.
 ]
 
 ???
 
-The list names the sources behind the deck's claims and figures. Chapman et al. (2000) is the CRISP-DM process model, whose phases label the small flowchart at the left of the case slides. Hofmann (1994) donated the Statlog German credit data and its cost matrix; Grömping (2019) corrected the code table and published the South German Credit file used here, both under CC BY 4.0 from the UCI repository. Elkan (2001) derives the threshold rule from costs. Provost and Fawcett (2013) is the course textbook, cited by page throughout. Fawcett (2006), Davis and Goadrich (2006) and Saito and Rehmsmeier (2015) ground the ROC and precision-recall slides (12 to 14). Dataiku (2024) documents the prediction settings of DSS 13; the course server runs DSS 15.0.
+The list names the sources behind the deck's claims and figures. Chapman et al. (2000) is the CRISP-DM process model, whose phases label the small flowchart at the left of the case slides. Hofmann (1994) donated the Statlog German credit data and its cost matrix; Grömping (2019) corrected the code table and published the South German Credit file used here, both under CC BY 4.0 from the UCI repository. Elkan (2001) derives the threshold rule from costs. Provost and Fawcett (2013) is the course textbook, cited by page throughout. Fawcett (2006), Davis and Goadrich (2006) and Saito and Rehmsmeier (2015) ground the ROC and precision-recall slides (12 to 14); Sokolova and Lapalme (2009) tabulate the measures of slide 9. Dataiku (2024) documents the prediction settings of DSS 13; the course server runs DSS 15.0.
 
 ---
 
