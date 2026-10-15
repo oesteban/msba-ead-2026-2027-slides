@@ -1,5 +1,5 @@
 {
-  "comment": "Oscar Esteban, CC BY 4.0. CRISP-DM phases after Chapman et al. (2000), CRISP-DM 1.0; gates named after its generic tasks 2.4, 4.4 and 5.3. Colours: the region of the Machine Learning Canvas (Dorard, v1.1) each phase fills, in the hues of the canvas as annotated in the module's week 1; fixed, not themed. Which region each phase fills is a reading, not Dorard's.",
+  "comment": "Oscar Esteban, CC BY 4.0. CRISP-DM phases after Chapman et al. (2000), CRISP-DM 1.0; gates named after its generic tasks 2.4, 4.4 and 5.3. Colours: the region of the Machine Learning Canvas (Dorard, v1.1) each phase fills, in the hues of the canvas as annotated in the module's week 1; fixed, not themed. Which region each phase fills is a reading, not Dorard's: business understanding and deployment the goal, data understanding and preparation learn, modeling predict, evaluation evaluate.",
   "nodes": {
     "BU": {
       "fill": "#ffffff",
@@ -29,30 +29,30 @@
       "stroke_width": 4
     },
     "MO": {
-      "fill": "#fbffe5",
-      "step": 4,
-      "sub": {
-        "fill": "#1c2e36"
-      },
-      "stroke": "#bad80a",
-      "stroke_width": 4
-    },
-    "EV": {
       "fill": "#e5e5f4",
-      "step": 5,
+      "step": 4,
       "sub": {
         "fill": "#1c2e36"
       },
       "stroke": "#00187a",
       "stroke_width": 4
     },
-    "DE": {
+    "EV": {
       "fill": "#f2e4da",
-      "step": 6,
+      "step": 5,
       "sub": {
         "fill": "#1c2e36"
       },
       "stroke": "#ff8c00",
+      "stroke_width": 4
+    },
+    "DE": {
+      "fill": "#ffffff",
+      "step": 6,
+      "sub": {
+        "fill": "#1c2e36"
+      },
+      "stroke": "#292929",
       "stroke_width": 4
     },
     "G1": {

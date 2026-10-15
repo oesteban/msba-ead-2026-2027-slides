@@ -36,9 +36,17 @@ applies to screens and clicks instead.
 ## On slides
 
 Less is better: a slide is a visual aid for a person speaking. One idea per
-slide; cut text rather than shrink type. Presenter notes (`???`) are empty by
-default: a note is only a fact said out loud that does not fit on the slide,
-never a stage direction or a design rationale.
+slide; cut text rather than shrink type.
+
+Every slide carries notes (`???`), written for the student who reads the deck
+afterwards: what the slide shows and why it matters, in full sentences, with
+its sources cited inline, and how it connects to the slides around it. Never a
+stage direction, a question to the room or a design rationale. Notes cite the
+textbook (Provost & Fawcett) with its page wherever a slide draws on it, and
+quote it in short pieces: up to two verbatim quotes per slide, each under 15
+words, in quotation marks and marked `(Provost & Fawcett, 2013, p. N,
+verbatim)`; the rest is paraphrased, with its page. The slides themselves
+quote the book rarely.
 
 Say **cross-validation**, never k-fold, on slides and on paper; define it on a
 slide before any slide uses it (C2/C3). DSS's own setting "K-fold cross-test"
@@ -50,3 +58,7 @@ The 2025-26 decks of this slot are the content source, not a template.
 Nothing is copied verbatim: this repository is public. Figures are redrawn or
 regenerated from open data. A figure by someone else appears only under an open
 licence (CC BY, CC BY-SA, BSD), credited with that licence on its slide.
+One exception holds while the repository is private: the intro deck's SENSIMED
+slide shows pictures by D. Genoud's team, not openly licensed
+(`day1/intro/images/sensimed/LICENSE.txt`). They are cleared with him or
+replaced before the repository goes public.

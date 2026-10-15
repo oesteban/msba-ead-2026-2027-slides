@@ -56,4 +56,9 @@
 <text class="accent-fill" x="682" y="478" font-size="14" font-weight="bold" text-anchor="middle" fill="#00609c">credits granted</text>
 <text class="accent-fill" x="682" y="496" font-size="14" font-weight="normal" text-anchor="middle" fill="#00609c">or refused</text>
 </g>
+<g data-step="9">
+<text x="712" y="274" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">learned from past cases:</text>
+<text class="accent-fill" x="712" y="293" font-size="15" font-weight="bold" text-anchor="middle" fill="#00609c">supervised learning,</text>
+<text class="accent-fill" x="712" y="311" font-size="14" font-weight="normal" text-anchor="middle" fill="#00609c">16.10 and 23.10</text>
+</g>
 </svg>
