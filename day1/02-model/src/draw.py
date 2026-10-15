@@ -26,17 +26,6 @@ WARN, WARN_LIGHT = "#da232f", "#f0a3a8"
 NUMBERS = json.loads((HERE.parents[1] / "figures-numbers.json").read_text())["credit"]
 
 
-def badge(x, y, n):
-    return (f'<circle class="accent-fill" cx="{x}" cy="{y}" r="12" fill="{ACCENT}"/>'
-            + text(x, y + 5, str(n), size=14, weight="bold", fill=WHITE))
-
-
-def mark(x, y, w, h, n, bx=None, by=None):
-    """A frame around part of a screen capture, with its number."""
-    return step(n, [rect(x, y, w, h, fill="none", stroke=ACCENT, cls="accent-stroke", rx=5, sw=2.6),
-                    badge(x if bx is None else bx, y if by is None else by, n)])
-
-
 # ---------------------------------------------------------------------------
 def decision_rule() -> str:
     """One application through a binary classifier: attributes, two probabilities, one threshold, one class."""
@@ -72,6 +61,75 @@ def decision_rule() -> str:
                "A binary classifier ends in a decision rule: a threshold on the probability of the positive class. "
                "Attributes from row 1 of the course file (South German Credit, UCI 573, CC BY 4.0); the probability "
                "is an example. Oscar Esteban, CC BY 4.0.")
+
+
+# ---------------------------------------------------------------------------
+def classification_duration() -> str:
+    """The intro deck's mining-versus-using figure (after P&F Fig. 2-1), on credit, with one attribute.
+
+    The model holds the number of good and bad credits per duration (curves from tools/figures.py);
+    where they cross, a credit is as likely bad as good: the threshold. A new application is placed
+    on the same curves."""
+    m = NUMBERS["duration_model"]
+    months, good, bad = m["months"], m["good"], m["bad"]
+    tint = {"good": (A_LIGHT, "accent-a-light-fill"), "bad": (WARN_LIGHT, "")}
+
+    def table(x, y, rows, caption):
+        out = [text(x, y - 8, "duration (months)", size=13, fill=MUTED, anchor="start"),
+               text(x + 150, y - 8, "credit_risk", size=13, fill=MUTED, weight="bold")]
+        for r, (dur, risk) in enumerate(rows):
+            yy = y + r * 24
+            out.append(rect(x, yy, 96, 18, fill="#e9edf0", stroke=None, rx=3))
+            out.append(text(x + 48, yy + 14, dur, size=13))
+            fill, cls = tint.get(risk, ("#f3f3f3", ""))
+            out.append(rect(x + 112, yy, 76, 18, fill=fill, stroke=None, rx=3, cls=cls))
+            out.append(text(x + 150, yy + 14, risk, size=13, weight="bold"))
+        out.append(text(x, y + len(rows) * 24 + 12, caption, size=13, fill=MUTED, anchor="start", style="italic"))
+        return out
+
+    def model(x, y, w=270, h=110, mark=None):
+        x0, x1, base, top = x + 12, x + w - 12, y + h - 22, y + 18
+        peak = max(max(good), max(bad))
+        px = lambda v: x0 + (v - months[0]) / (months[-1] - months[0]) * (x1 - x0)
+        py = lambda c: base - c / peak * (base - top)
+        out = [rect(x, y, w, h, fill=WHITE, stroke=ACCENT, cls="accent-stroke", sw=2)]
+        for name, ys, (fill, cls), lab_at in (("good", good, tint["good"], 14), ("bad", bad, tint["bad"], 48)):
+            pts = [(px(a), py(b)) for a, b in zip(months, ys)]
+            d = f"M{pts[0][0]:.1f},{base} " + " ".join(f"L{a:.1f},{b:.1f}" for a, b in pts) + f" L{pts[-1][0]:.1f},{base} z"
+            out.append(f'<path class="{cls}" d="{d}" fill="{fill}" fill-opacity="0.75" stroke="{INK}" stroke-width="1"/>')
+            k = min(range(len(months)), key=lambda i: abs(months[i] - lab_at))
+            out.append(text(px(lab_at), py(ys[k]) - 4, name, size=12, weight="bold"))
+        t = m["threshold"]
+        out += [line(x0, base, x1, base, w=1.2, marker=""),
+                line(px(t), top - 8, px(t), base, color=INK, w=1.6, dash="5 3", marker=""),
+                text(px(t), base + 15, f"threshold {t:.0f} months", size=11, fill=MUTED)]
+        if mark is not None:
+            out += [line(px(mark), top + 4, px(mark), base, color=ACCENT, w=3, marker="", cls="accent-stroke"),
+                    text(px(mark), y - 7, f"new application: {mark} months", size=13, weight="bold",
+                         cls="accent-fill", fill=ACCENT)]
+        return out
+
+    new, pbad = m["new_case"], m["p_bad_new"]
+    top = [text(0, 22, "Mining: learn from past credits whose outcome is known", size=15, weight="bold", anchor="start"),
+           *table(0, 52, [("18", "good"), ("36", "bad"), ("12", "good"), ("18", "bad"), ("...", "...")],
+                  "every outcome known"),
+           line(196, 106, 232, 106),
+           rect(236, 80, 150, 52, stroke=INK, sw=1.3),
+           text(311, 111, "data mining", size=15, weight="bold"),
+           line(386, 106, 426, 106), *model(430, 50)]
+    bottom = [text(0, 228, "Use: predict the outcome of a new application", size=15, weight="bold", anchor="start"),
+              *table(0, 262, [(str(new), "?")], "outcome unknown"),
+              line(196, 271, 426, 271), *model(430, 220, mark=new),
+              line(452, 161, 452, 218, color=MUTED, w=1.2, dash="4 4", marker=""),
+              text(444, 196, "the same model", size=13, fill=MUTED, anchor="end"),
+              line(700, 271, 728, 271),
+              rect(732, 242, 188, 58, fill=A_LIGHT, stroke=None, cls="accent-a-light-fill"),
+              text(826, 266, "class: good", size=15, weight="bold"),
+              text(826, 288, f"P(bad) = {pbad:.2f}", size=15, weight="bold")]
+    return svg(925, 340, [step(1, top), step(2, bottom)],
+               "After Provost and Fawcett (2013), Data Science for Business, Fig. 2-1, p. 26, redrawn on South German "
+               "Credit (UCI 573, CC BY 4.0) with one attribute: the number of good and bad credits per duration, "
+               "smoothed. Oscar Esteban, CC BY 4.0.")
 
 
 # ---------------------------------------------------------------------------
@@ -124,22 +182,10 @@ def expected_value_numbers() -> str:
                "Oscar Esteban, CC BY 4.0.")
 
 
-# ---------------------------------------------------------------------------
-def results_capture() -> str:
-    """Dataiku's Results list, cropped to the metric and two models, with three numbered frames."""
-    w, h = 650, 214
-    body = [f'<image href="dataiku/results-session5.png" x="0" y="0" width="{w}" height="{h}"/>',
-            mark(378, 54, 250, 30, 1),
-            mark(331, 179, 38, 26, 2, bx=331, by=179),
-            mark(370, 179, 50, 26, 3, bx=420, by=179)]
-    return svg(w, h, body, "Screen capture of Dataiku DSS (Results, sessions view), course server, 14 October 2026, "
-               "cropped and joined; frames by Oscar Esteban.")
-
-
 def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
-    figures = {"decision-rule.svg": decision_rule, "expected-value-numbers.svg": expected_value_numbers,
-               "results-capture.svg": results_capture}
+    figures = {"classification-duration.svg": classification_duration, "decision-rule.svg": decision_rule,
+               "expected-value-numbers.svg": expected_value_numbers}
     for name, lit in (("mo", {"MO"}), ("ev", {"EV"})):
         figures[f"phase-{name}.svg"] = lambda lit=lit: d.phase_thumb(lit)
     for name, fn in figures.items():
