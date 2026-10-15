@@ -42,6 +42,14 @@
 .check i.fa-solid { float: none; color: var(--warning, #da232f); margin-right: 0.3em; }
 .check ol { margin: 0.3em 0 0.2em; padding-left: 1.3em; }
 .check li { margin-bottom: 0.3em; }
+.check-cols { display: grid; grid-template-columns: 0.8fr 1.35fr; gap: 1em; align-items: start; }
+.check-cols ol { font-size: 0.9em; }
+/* the positive-class slide: compact cards, so the check and its capture fit above the footnote */
+.poscls .card { padding-top: 0.45em; padding-bottom: 0.45em; }
+.poscls .card h3 { margin: 0.05em 0 0.15em; }
+.poscls .card p { margin: 0; }
+.poscls .check { margin-top: 0.7em; padding-bottom: 0.5em; }
+.check .cap { margin: 0.3em 0 0; font-size: 0.82em; line-height: 1.35; }
 /* the metrics: one row per step, each with the cells it counts (dark: above the line; light: below) */
 .metrics table { border-collapse: collapse; font-size: 1.02em; width: 100%; margin-top: 0.4em; }
 .metrics th, .metrics td { padding: 0.7em 0.5em; border-bottom: 1px solid #d9dee1; text-align: left; vertical-align: middle; }
@@ -207,12 +215,13 @@ With all twenty attributes, the model gives each application one number, P(bad):
 Slides 2 and 3 showed classification with one and then two attributes. This slide completes the chain with all twenty: the model gives each application one number, P(bad), and a decision rule compares it to a threshold t. If P(bad) exceeds t, the application is classified as bad and the credit is refused. With t = 0.5, the example probability of 0.34 falls below the threshold, so the credit is granted. The 0.34 is an example, not a computed result. A model may produce "a score that ranks cases by their likelihood" (Provost & Fawcett, 2013, p. 210, verbatim) without that score being a true probability; a threshold still turns such scores into decisions (Provost & Fawcett, 2013, pp. 209 to 210). With two classes, one threshold on the positive class suffices; with more classes, the predicted class is the one with the highest probability, a setup the afternoon deck covers. In Dataiku, Results, then the model, then Predicted data shows both probability columns and the predicted class, row by row. The next slide names which class is positive and why it matters.
 
 ---
+class: stepwise-svg
 
 # Name the positive class first
 
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
-.beside-thumb[
+.beside-thumb.poscls[
 .cards.cols-2[
 .card.accent[
 .kicker[positive]
@@ -230,20 +239,26 @@ The benign class: the credit is granted.
 ]
 ]
 
-<div class="check">
+<div class="check step-1">
 <b><i class="fa-solid fa-triangle-exclamation"></i>Check it in Dataiku before reading any number.</b> The <b>cut-off</b>, Dataiku's word for the threshold, applies to the probability of the class Dataiku takes as positive.
+<div class="check-cols">
 <ol>
 <li><b>Results → model → Predicted data</b>: the columns <code>proba_bad</code> and <code>proba_good</code> hold the two probabilities, <code>prediction</code> the class.</li>
 <li>Find a row whose <code>proba_bad</code> is just above the cut-off. If it is predicted <code>bad</code>, <i>bad</i> is the positive class.</li>
 </ol>
+<div class="step-2"><object type="image/svg+xml" data="images/predicted-capture.svg" style="width: 100%; pointer-events: none;"></object>
+<p class="cap">Cut-off 0.35: <code>proba_bad</code> 0.400 is predicted <code>bad</code>, 0.341 <code>good</code>. Here, <i>bad</i> is positive.</p></div>
+</div>
 </div>
 ]
 
-.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 188.] Screen path: Dataiku DSS, course server.]
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 188.] Screen capture: Dataiku DSS 15.0, course server, 15 October 2026, an XGBoost model; four rows kept; cut-off from **Performance → Confusion matrix**.]
 
 ???
 
 Provost and Fawcett explain the convention in a sidebar: a classifier sifts a population looking for "a positive example as one worthy of attention or alarm" (Provost & Fawcett, 2013, p. 188, verbatim). For the bank, bad is positive because the bank acts on it by refusing the application, and good is negative, the benign outcome. Precision and recall are always defined in terms of the positive class (Provost & Fawcett, 2013, pp. 203 to 204), so swapping the labels does not change the model but does change which errors are called false positives and which false negatives. Before reading any metric in Dataiku, the slide asks the student to check which class Dataiku treats as positive. The check box describes how: in Results, then the model, then Predicted data, find a row whose `proba_bad` is just above the cut-off; if that row is predicted as bad, then bad is the positive class. The cut-off is Dataiku's word for the threshold. The DSS documentation describes the model's output as a continuous "score of being positive" with a threshold above which a sample is considered positive (Dataiku, 2024), which confirms that the cut-off applies to the probability of the class Dataiku takes as positive.
+
+On the course server two screens settle it (Dataiku DSS 15.0, 15 October 2026). The help panel of **Performance → Confusion matrix** calls the threshold "the number beyond which the prediction is considered positive", with `credit_risk` being bad as its example, and its table puts *Actually bad* and *Predicted bad* first. Step 2 of the slide is **Predicted data** for an XGBoost model whose cut-off is 0.35: the rows with `proba_bad` 0.446 and 0.400 are predicted bad, those with 0.341 and 0.330 good. So bad is the positive class, and `proba_bad` is the score the cut-off reads. **Design → Metrics** words its cost matrix in *true* and *false*: there, true is bad.
 
 ---
 class: stepwise-svg
@@ -383,7 +398,7 @@ The table gives four metrics at the threshold of 0.5. Precision, 95 / 135 = 70%,
 .beside-thumb[
 <img src="images/threshold-tradeoff.svg" style="width: 82%; display: block; margin: 0.2em auto 0;" alt="Precision rises and recall falls as the threshold on P(bad) rises" />
 
-Dataiku moves its cut-off to the value that maximises one metric, chosen in **Design → Metrics** (*Optimize threshold for*). That is why the cut-off of panel 3 was not 0.5.
+Dataiku moves its cut-off to the value that maximises one metric, chosen in **Design → Metrics** (*Optimize threshold for*: accuracy, F1-score or the cost matrix). That is why the cut-off of panel 3 was not 0.5.
 ]
 
 .footnote[The same scores as slide 7, at every threshold from 0.02 to 0.98. Dataiku draws the same curves under **Performance → Decision chart**.]
@@ -419,11 +434,13 @@ class: stepwise-svg
 .step-3[With 30% bad credits, the forest that refuses almost no one is still right 70.2% of the time, and catches 0.7% of the bad credits. **Class weights**, on by default in Dataiku, make the 300 bad credits count as much as the 700 good ones in training.]
 ]
 
-.footnote[Random forests (scikit-learn) on South German Credit, threshold 0.5, scores of credits each forest did not learn from; highlighted: the best value of each column. Dataiku DSS 13, *Prediction settings*: metrics, weighting strategy.]
+.footnote[Random forests (scikit-learn) on South German Credit, threshold 0.5, scores of credits each forest did not learn from; highlighted: the best value of each column. Dataiku DSS 13, *Prediction settings*: metrics, weighting strategy; both checked on DSS 15.0, course server.]
 
 ???
 
 Six random forests, varying class weights (none or balanced) and smallest leaf size (1, 10 or 40), are scored on credits each forest did not learn from. Each metric crowns a different winner. Accuracy ties the two forests with leaf 1, at 75.9%, whose recall is only 37% and 33%. ROC AUC picks the balanced forest with leaf 10, whose recall reaches 68%, and F1 ties it with the balanced forest with leaf 40. Recall picks the balanced forest with leaf 40, at 73% with a precision of 50%. The unweighted forest with leaf 40 is the starkest case: it is right 70.2% of the time yet catches only 0.7% of the bad credits, because 70% of the credits are good. Provost and Fawcett warn that "as the class distribution becomes more skewed, evaluation based on accuracy breaks down" (Provost & Fawcett, 2013, p. 190, verbatim), and the baseline of slide 8 shows why (pp. 189 to 191). In Dataiku, the metric chosen in Design, then Metrics drives the hyperparameter search and ranks the models (Dataiku, 2024). Class weights, enabled by default, make the minority class count as much as the majority during training without changing the evaluation metrics (Dataiku, 2024). A metric that does not move with the class mix or the threshold is needed to compare models fairly; the next two slides introduce it.
+
+Both settings were checked on the course server (Dataiku DSS 15.0, 15 October 2026). **Design → Metrics**, *Optimize model hyperparameters for*, offers accuracy, precision, recall, F1-score, the cost matrix, ROC AUC, lift, average precision and log loss. **Design → Weighting strategy** shows *Class weights* as the default method for classification, each row weighted in inverse proportion to the size of its class, so that both classes count equally despite the imbalance.
 
 ---
 class: stepwise-svg
@@ -486,6 +503,8 @@ class: stepwise-svg
 
 The area under the ROC curve, AUC, is 0.78 for this model. It equals the probability that a randomly chosen bad credit receives a higher score than a randomly chosen good one (Provost & Fawcett, 2013, p. 219; Fawcett, 2006): pick one of each at random, and the model ranks the bad one higher 78 times in 100. A random classifier scores 0.5; a perfect ranking scores 1. Because the true-positive rate and the false-positive rate are each computed within one class, the AUC does not change with the share of bad credits or with the costs (Provost & Fawcett, 2013, p. 218), so models can be compared before either is known. Provost and Fawcett note that "the AUC is useful when a single number is needed to summarize performance" (Provost & Fawcett, 2013, p. 219, verbatim). It ranks models but does not choose a threshold; slides 17 to 20 show that the threshold comes from the costs of the two errors. In Dataiku, the ROC curve and its area appear under Performance, then ROC and PR curves, and ROC AUC is listed among the metrics in Design, then Metrics.
 
+In Dataiku, **Performance → ROC & PR curves** draws the ROC curve and prints its AUC with a verdict: 0.756 (± 0.029), "good", for an XGBoost model on the course server (15 October 2026). With cross-validation it draws one curve per fold; the next deck reads that spread.
+
 ---
 class: stepwise-svg
 
@@ -504,6 +523,8 @@ class: stepwise-svg
 ???
 
 In the sample, 30% of credits are bad; at the bank, about 5% (deck 1, slide 14; Grömping, 2019). The ROC curve does not move when the class mix changes, because the true-positive rate and the false-positive rate are each computed within one class (Provost & Fawcett, 2013, p. 218; Fawcett, 2006). Precision does move: at a threshold of 0.5, precision is 70% in the sample but falls to about 23% at the bank's 5%. Both values come from the same true-positive and false-positive rates through the formula precision = share × TPR / (share × TPR + (1 − share) × FPR). The precision-recall curve's floor is the share of positives, 0.30 in the sample and 0.05 at the bank (Saito & Rehmsmeier, 2015). With rare positives, the precision-recall curve shows what the ROC curve hides: even a model with a good ranking floods the refused pile with good customers (Davis & Goadrich, 2006). Reading precision against its floor, not against zero, tells how far above chance the model reaches at a given threshold.
+
+Dataiku's *PR curve* tab, beside the ROC curve, draws the baseline at the positive rate, 30% in this sample, and reports the average precision, which approximates the area under the precision-recall curve: 0.571 (± 0.117) for the same XGBoost model (Dataiku DSS 15.0, course server, 15 October 2026). At the bank's 5%, that baseline would sit at 5%.
 
 ---
 
@@ -526,6 +547,8 @@ In the sample, 30% of credits are bad; at the bank, about 5% (deck 1, slide 14; 
 ???
 
 The bank's risk committee wants to see what the model does at several thresholds before it approves any one of them. The task, on sheet panel 4, is to reopen the best model from panel 3 and move the cut-off to 0.6, then 0.4, then 0.2. At each threshold the group records the four counts of the confusion matrix, precision, recall and the false-positive rate, so that each row is one point of the ROC curve of slide 12. The Driver works Dataiku: the confusion matrix is at Results, then the model, then Performance, then Confusion matrix, with a slider above it for the cut-off. The Mapper writes the seven numbers for each threshold on the sheet. The Referee checks whether the numbers are consistent: for example, TP + FN must equal the total number of bad credits, and FP + TN the total of good ones. After this exercise each group holds three matrices, and the next slide asks which threshold the group would put into production and why. The point, developed on the slides that follow, is that a model alone does not choose its threshold. A business reason does, and the prices of the two errors fix which threshold is best (Provost & Fawcett, 2013, pp. 194 to 196).
+
+Dataiku's confusion matrix counts the 200 credits held out for testing, not the 1,000 scored on the slides, so the groups' counts are about a fifth of the deck's. With cross-validation, it shows the first fold only, while the metrics beside it average all folds (**Performance → Confusion matrix**, Dataiku DSS 15.0).
 
 ---
 
@@ -684,7 +707,7 @@ The cumulative response curve (Provost & Fawcett, 2013, pp. 219 to 222) reads th
 
 ???
 
-The committee has approved the two prices. The three steps ask the groups to enter them in Dataiku and read what changes. In panel 5, the cost matrix is entered as gains in Design, Metrics, Cost matrix gain: -5 for a bad credit granted, -1 for a good customer refused, and 0 for each correct decision. After retraining, Dataiku picks the threshold that maximises the sum of gains. That threshold may differ from the rule's 0.17 for several reasons: the model is different, possibly with different scores; Dataiku's class weights shift the scores during training (Dataiku, 2024); and the scores of a random forest are not calibrated, so the probability threshold from the cost ratio does not land on the same score (Provost & Fawcett, 2013, p. 210). In panel 6, the Lift charts at a depth of 20% show how many bad credits the model's riskiest fifth catches, the same question as slide 21. The numbers may differ because each training run produces a different model.
+The committee has approved the two prices. The three steps ask the groups to enter them in Dataiku and read what changes. In panel 5, *Optimize threshold for* is set to *Cost Matrix* in Design, Metrics, and the costs are entered as gains under *Cost matrix*, which Dataiku words in true and false, true being bad: -5 when the model predicts false (good) but the credit is actually bad, -1 when it predicts true (bad) for a good customer, and 0 for each correct decision. After retraining, Dataiku picks the threshold that maximises the sum of gains. That threshold may differ from the rule's 0.17 for several reasons: the model is different, possibly with different scores; Dataiku's class weights shift the scores during training (Dataiku, 2024); and the scores of a random forest are not calibrated, so the probability threshold from the cost ratio does not land on the same score (Provost & Fawcett, 2013, p. 210). In panel 6, the Lift charts at a depth of 20% show how many bad credits the model's riskiest fifth catches, the same question as slide 21. The numbers may differ because each training run produces a different model.
 
 ---
 

@@ -182,10 +182,31 @@ def expected_value_numbers() -> str:
                "Oscar Esteban, CC BY 4.0.")
 
 
+def badge(x, y, n):
+    return (f'<circle class="accent-fill" cx="{x}" cy="{y}" r="12" fill="{ACCENT}"/>'
+            + text(x, y + 5, str(n), size=14, weight="bold", fill=WHITE))
+
+
+def frame(x, y, w, h):
+    return rect(x, y, w, h, fill="none", stroke=ACCENT, cls="accent-stroke", rx=5, sw=2.6)
+
+
+def predicted_capture() -> str:
+    """Dataiku's Predicted data, four rows either side of the 0.35 cut-off, framed: the column, then one row each side."""
+    w, h = 598, 173
+    body = [f'<image href="dataiku/predicted-data.png" x="0" y="0" width="{w}" height="{h}"/>',
+            step(2, [frame(250, 4, 146, 47), badge(250, 4, 1)]),
+            step(3, [frame(250, 83, 346, 25), badge(250, 95, 2), frame(250, 120, 346, 25), badge(250, 132, 3)])]
+    return svg(w, h, body, "Screen capture of Dataiku DSS 15.0 (an XGBoost model, Results, Predicted data), course "
+               "server, 15 October 2026: the header and four rows, two either side of the 0.35 cut-off; "
+               "frames by Oscar Esteban.")
+
+
 def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
     figures = {"classification-duration.svg": classification_duration, "decision-rule.svg": decision_rule,
-               "expected-value-numbers.svg": expected_value_numbers}
+               "expected-value-numbers.svg": expected_value_numbers,
+               "predicted-capture.svg": predicted_capture}
     for name, lit in (("mo", {"MO"}), ("ev", {"EV"})):
         figures[f"phase-{name}.svg"] = lambda lit=lit: d.phase_thumb(lit)
     for name, fn in figures.items():

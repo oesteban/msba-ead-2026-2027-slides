@@ -23,6 +23,11 @@
 .pull-right, .beside-thumb, .col-narrow { padding-right: 2.4em; box-sizing: border-box; }
 .col-wide { float: left; width: 60%; }
 .col-narrow { float: right; width: 38%; font-size: 0.9em; line-height: 1.4; }
+/* the spread slide: the fold histogram, then Dataiku's ROC curve per fold; three points below */
+.spread2 { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 1.4em; align-items: end; margin-top: 1.2em; }
+.spread2 .cap { margin: 0.2em 0 0; font-size: 0.72em; color: #3d4b51; }
+.points3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9em; margin-top: 1.3em; font-size: 0.84em; line-height: 1.4; }
+.points3 > div { border-top: 3px solid var(--accent); padding-top: 0.3em; }
 .points li { margin-bottom: 0.5em; }
 .terms p { margin: 0.35em 0; font-size: 0.9em; line-height: 1.4; }
 /* the numbered frames of a screen capture, explained under it */
@@ -155,30 +160,33 @@ The figure shows 200 random splits of the South German Credit data into two equa
 Cross-validation splits the data into equal parts called folds. Each fold is held out once for testing while the model trains on the others, so every credit is tested exactly once. With five folds, five models are built and five scores collected; their mean and their spread together describe how the model performs and how much that performance varies across subsets of the data (Provost & Fawcett, 2013, pp. 127 to 129). Unlike a single holdout, "cross-validation also makes better use of a limited dataset" (Provost & Fawcett, 2013, p. 126, verbatim). Stratified folds keep the class proportions of the whole dataset, here the 70/30 mix of good and bad credits, in every fold (Dataiku, 2024, *Prediction settings*). In Dataiku the setting is labelled *K-fold cross-test*, under Design then Train/Test set; it can also be stratified or grouped.
 
 ---
+class: stepwise-svg
 
 # Read the ± as spread, and compare fold by fold
 
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
 .beside-thumb[
-.col-wide[
-<img src="images/split-variability-folds.svg" style="width: 100%;" alt="The five fold scores of one cross-validation, over the 200 random splits" />
+<div class="spread2 step-1">
+<div><img src="images/split-variability-folds.svg" style="width: 100%;" alt="The five fold scores of one cross-validation, over the 200 random splits" /></div>
+<div class="step-2"><img src="images/dataiku/roc-folds.png" style="width: 100%;" alt="Dataiku's ROC curves, one per fold, for an XGBoost model" />
+<p class="cap">In Dataiku: one ROC curve per fold. AUC 0.756 (± 0.029).</p></div>
+</div>
+
+<div class="points3 step-1">
+<div>The five folds score 0.755 to 0.803: mean 0.78, ± 0.04.</div>
+<div>Dataiku's <b>±</b> is twice the standard deviation of the fold scores: how much the score moves between folds, not a confidence interval.</div>
+<div>To compare two models, score them on the same folds and count the folds where one wins. Overlapping ± say little.</div>
+</div>
 ]
 
-.col-narrow[
-<ul class="points">
-<li>The five folds score 0.755 to 0.803: mean 0.78, ± 0.04.</li>
-<li>Dataiku's <b>±</b> is twice the standard deviation of the fold scores: how much the score moves between folds. It is not a confidence interval.</li>
-<li>To compare two models, score them on the same folds and count the folds where one wins. Overlapping ± say little.</li>
-</ul>
-]
-]
-
-.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 129.] The ±: Dataiku DSS 13, *Prediction settings*, K-fold cross-test.]
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 129.] The ±: Dataiku DSS 13, *Prediction settings*, K-fold cross-test. Right: screen capture, Dataiku DSS 15.0, course server, 15 October 2026, an XGBoost model, **Performance → ROC & PR curves**, cropped.]
 
 ???
 
 The five fold AUCs are 0.803, 0.792, 0.801, 0.764 and 0.755, with a mean of 0.78. Dataiku's ± is twice the standard deviation of the fold scores (Dataiku, 2024, *Prediction settings*), about 0.04 here. It describes how much the score moves from fold to fold. The folds share most of their training data, so their errors are correlated and the standard deviation understates the true uncertainty of the mean (Bengio & Grandvalet, 2004). Provost and Fawcett report cross-validated results as a mean and standard deviation, treating the spread as a description of variability, not as a confidence interval (Provost & Fawcett, 2013, pp. 128 to 129). To compare two models, both are run on the same folds: on churn data, classification trees averaged 68.6% with a standard deviation of 1.1, logistic regression 64.1% with 1.3, and "there are definite differences between the two" (Provost & Fawcett, 2013, p. 129, verbatim). Comparing fold by fold reveals whether one model is consistently stronger.
+
+Step 2 adds Dataiku's view of the same idea: **Performance → ROC & PR curves** for an XGBoost model trained with five folds on the course server (Dataiku DSS 15.0, 15 October 2026). Each coloured line is the ROC curve of one fold, scored on the fifth of the credits that fold held out. The curves agree at the corners and part in the middle, where a few credits more or less on one side of a cut-off move a fold's curve; Dataiku sums them up as an AUC of 0.756 (± 0.029). The width of that bundle is what the ± measures.
 
 ---
 class: stepwise-svg
@@ -224,6 +232,8 @@ A hyperparameter is a setting fixed before training, such as the number of trees
 ???
 
 The committee's question is whether the best model from the previous hands-on is genuinely better, or only luckier with its test set. To answer it, groups switch to *K-fold cross-test* (five folds, stratified) under Design then Train/Test set, and train two algorithms: logistic regression and a random forest. Sheet panel 7 shows each model's score with its ±, twice the standard deviation over the folds. Declaring one model better requires more than comparing the means: if the ± ranges overlap heavily, the folds where one algorithm wins should be counted against those where the other does (Provost & Fawcett, 2013, p. 129). A model that wins most folds is more convincingly better than one whose higher mean rests on a single strong fold.
+
+Once the model is cross-validated, **Performance → Confusion matrix** says so in a banner: its record counts, and those of the cost matrix, come from the first fold only, while the metrics shown beside it are averages over all folds (Dataiku DSS 15.0, course server). A count copied from that screen is therefore one fold's, about 200 credits.
 
 ---
 class: stepwise-svg

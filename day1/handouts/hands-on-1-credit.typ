@@ -122,7 +122,7 @@ starts from your notes.
 #panel("Step 2 · Train a first model on all 20 columns")[
   #step(1, "Create the analysis")[Select the dataset, then #dss("Lab", "AutoML Prediction"). Target `credit_risk`. Keep *Quick prototypes*, then *Create*.]
   #v(2pt)
-  #step(2, "Bring back five columns")[#dss("Design", "Features handling"): five rows read *Rejected, text feature* (`status`, `credit_history`, `savings`, `personal_status_sex`, `property`). Dataiku took their long labels for free text (intro deck, slide 15). Tick the five, set their type to *Categorical*, and switch them on.]
+  #step(2, "Fix six column types")[#dss("Design", "Features handling"): five rows read *Rejected, text feature* (`status`, `credit_history`, `savings`, `personal_status_sex`, `property`): Dataiku took their long labels for free text (intro deck, slide 15). `number_credits` is read as a number, yet holds bands such as "2 to 3". Tick the six, set their type to *Categorical*, and switch them on.]
   #v(2pt)
   #step(3, "Train")[Change nothing else in #dss("Design"). Click *Train* and wait for every model to finish.]
   #v(2pt)
@@ -141,9 +141,9 @@ starts from your notes.
     [*actually* #rule(1.2cm)], [], [],
   )
   Which value of `credit_risk` does Dataiku treat as *positive*? #rule(2.4cm) #h(8pt)
-  Drag the *threshold* slider above the table: what changes? #rule(4cm)
+  Drag the *Threshold (cut-off)* slider, top right: what changes? #rule(3.4cm)
   #v(2pt)
-  #step(2, "Ask which columns weigh most")[#dss("Interpretation", "Variable importance"). The first three: #rule(6cm)]
+  #step(2, "Ask which columns weigh most")[#dss("Explainability", "Feature importance"). The first three: #rule(6cm)]
   Does your chart of step 1 agree?
   #writing(1)
   #v(2pt)
@@ -165,7 +165,7 @@ starts from your notes.
 #panel("4 · Move the threshold")[
   TP: bad, refused. FP: good, refused. FN: bad, granted. TN: good, granted.
 
-  #step(1, "Reopen the model of panel 3")[#dss("Results", "model", "Performance", "Confusion matrix"). Set the cut-off with the slider above the table to each value below, and copy the counts.]
+  #step(1, "Reopen the model of panel 3")[#dss("Results", "model", "Performance", "Confusion matrix"). Set the *Threshold (cut-off)* slider, top right, to each value below, and copy the counts. The table counts the 200 credits held out for testing.]
   #v(2pt)
   #table(
     columns: (auto, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1.3fr), inset: 4pt, stroke: hair,
@@ -185,7 +185,7 @@ starts from your notes.
   The committee fixes the costs: granting a credit that goes *bad* costs 5,
   refusing a *good* one costs 1, a right decision costs 0.
 
-  #step(1, "Set the cost matrix")[#dss("Design", "Metrics"): under threshold optimization, optimize for *Cost matrix gain*. Enter the costs as negative gains: bad predicted good #sym.arrow.r −5, good predicted bad #sym.arrow.r −1, both right decisions #sym.arrow.r 0. Train again.]
+  #step(1, "Set the cost matrix")[#dss("Design", "Metrics"): *Optimize threshold for* #sym.arrow.r *Cost Matrix*. Under *Cost matrix*, `credit_risk` *true* means `bad`. Enter the costs as negative gains: predicted true but not true #sym.arrow.r −1; predicted false but actually true #sym.arrow.r −5; both right decisions #sym.arrow.r 0. Train again.]
   #v(3pt)
   Threshold Dataiku now selects (#dss("Performance", "Confusion matrix")): #rule(2cm) #h(10pt)
   The rule from the slides gives 1 / (1 + 5) ≈ 0.17. Why might the two differ?
