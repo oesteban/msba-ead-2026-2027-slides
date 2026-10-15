@@ -55,8 +55,15 @@
     "precision_05_at_30": 0.704,
     "precision_05_at_5": 0.226,
     "gain_top20": 0.44,
-    "split_auc_min": 0.744,
-    "split_auc_max": 0.821,
+    "split_auc_min": 0.719,
+    "split_auc_max": 0.893,
+    "split_draws": [
+      0.799,
+      0.81,
+      0.75,
+      0.792,
+      0.841
+    ],
     "fold_aucs": [
       0.803,
       0.792,
@@ -64,6 +71,8 @@
       0.764,
       0.755
     ],
+    "fold_mean": 0.783,
+    "fold_2sd": 0.04,
     "boundary_model": {
       "intercept": -1.67,
       "per_month": 0.034,
@@ -480,6 +489,114 @@
         "recall": 0.733,
         "f1": 0.598,
         "precision": 0.505
+      }
+    ],
+    "models": {
+      "linear": {
+        "name": "logistic regression",
+        "fold_aucs": [
+          0.768,
+          0.765,
+          0.777,
+          0.759,
+          0.742
+        ],
+        "mean": 0.762,
+        "pm": 0.023
+      },
+      "svm": {
+        "name": "SVM (rbf kernel)",
+        "fold_aucs": [
+          0.797,
+          0.779,
+          0.797,
+          0.773,
+          0.741
+        ],
+        "mean": 0.777,
+        "pm": 0.041
+      },
+      "forest": {
+        "name": "random forest",
+        "fold_aucs": [
+          0.803,
+          0.792,
+          0.801,
+          0.764,
+          0.755
+        ],
+        "mean": 0.783,
+        "pm": 0.04
+      },
+      "boosting": {
+        "name": "gradient-boosted trees",
+        "fold_aucs": [
+          0.789,
+          0.775,
+          0.804,
+          0.775,
+          0.744
+        ],
+        "mean": 0.777,
+        "pm": 0.039
+      }
+    },
+    "tree": [
+      {
+        "feature": "status_200 DM or more or salary for at least 1 year",
+        "threshold": 0.5,
+        "left": 1,
+        "right": 4,
+        "n": 1000,
+        "bad": 300
+      },
+      {
+        "feature": "duration",
+        "threshold": 22.5,
+        "left": 2,
+        "right": 3,
+        "n": 606,
+        "bad": 254
+      },
+      {
+        "feature": null,
+        "threshold": null,
+        "left": -1,
+        "right": -1,
+        "n": 349,
+        "bad": 116
+      },
+      {
+        "feature": null,
+        "threshold": null,
+        "left": -1,
+        "right": -1,
+        "n": 257,
+        "bad": 138
+      },
+      {
+        "feature": "amount",
+        "threshold": 3891.0,
+        "left": 5,
+        "right": 6,
+        "n": 394,
+        "bad": 46
+      },
+      {
+        "feature": null,
+        "threshold": null,
+        "left": -1,
+        "right": -1,
+        "n": 301,
+        "bad": 25
+      },
+      {
+        "feature": null,
+        "threshold": null,
+        "left": -1,
+        "right": -1,
+        "n": 93,
+        "bad": 21
       }
     ]
   },

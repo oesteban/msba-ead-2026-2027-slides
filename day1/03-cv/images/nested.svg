@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 334" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Nested cross-validation: an inner loop inside each outer run chooses the model; the outer folds score the choice (after Provost and Fawcett 2013, p. 135; Esteban et al. 2017, p. 11). Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<text x="330.0" y="24" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">outer loop: five runs, each tests one fold</text>
+<text x="106" y="61" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">run 1</text>
+<rect class="accent-a-light-fill" x="123.0" y="40" width="54.6" height="30" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="177.6" y="40" width="23.4" height="30" rx="0" fill="#00609c"/>
+<rect x="207.0" y="40" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="291.0" y="40" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="375.0" y="40" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="459.0" y="40" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<text x="106" y="107" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">run 2</text>
+<rect x="123.0" y="86" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="207.0" y="86" width="54.6" height="30" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="261.6" y="86" width="23.4" height="30" rx="0" fill="#00609c"/>
+<rect x="291.0" y="86" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="375.0" y="86" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="459.0" y="86" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<text x="106" y="153" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">run 3</text>
+<rect x="123.0" y="132" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="207.0" y="132" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="291.0" y="132" width="54.6" height="30" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="345.6" y="132" width="23.4" height="30" rx="0" fill="#00609c"/>
+<rect x="375.0" y="132" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="459.0" y="132" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<text x="106" y="199" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">run 4</text>
+<rect x="123.0" y="178" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="207.0" y="178" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="291.0" y="178" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="375.0" y="178" width="54.6" height="30" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="429.6" y="178" width="23.4" height="30" rx="0" fill="#00609c"/>
+<rect x="459.0" y="178" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<text x="106" y="245" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">run 5</text>
+<rect x="123.0" y="224" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="207.0" y="224" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="291.0" y="224" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="375.0" y="224" width="78.0" height="30" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="459.0" y="224" width="54.6" height="30" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="513.6" y="224" width="23.4" height="30" rx="0" fill="#00609c"/>
+<g data-step="2">
+<rect x="204.0" y="36" width="336.0" height="38" rx="4" fill="none" stroke="#1c2e36" stroke-width="1.4" stroke-dasharray="5 4"/>
+<path d="M500,36 C520,14 580,14 630,56" fill="none" stroke="#1c2e36" stroke-width="1.4" marker-end="url(#ah)"/>
+<text x="800.0" y="42" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">inner loop of run 1: its 800 training credits</text>
+<rect class="accent-b-light-fill" x="643.0" y="58" width="74.0" height="24" rx="2" fill="#a8e4ea"/>
+<rect x="723.0" y="58" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect x="803.0" y="58" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect x="883.0" y="58" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect x="643.0" y="94" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect class="accent-b-light-fill" x="723.0" y="94" width="74.0" height="24" rx="2" fill="#a8e4ea"/>
+<rect x="803.0" y="94" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect x="883.0" y="94" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect x="643.0" y="130" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect x="723.0" y="130" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect class="accent-b-light-fill" x="803.0" y="130" width="74.0" height="24" rx="2" fill="#a8e4ea"/>
+<rect x="883.0" y="130" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect x="643.0" y="166" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect x="723.0" y="166" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect x="803.0" y="166" width="74.0" height="24" rx="2" fill="#e9edf0"/>
+<rect class="accent-b-light-fill" x="883.0" y="166" width="74.0" height="24" rx="2" fill="#a8e4ea"/>
+<text x="800.0" y="212" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">each algorithm and setting is scored</text>
+<text x="800.0" y="230" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">on these four folds; the best is kept</text>
+<rect class="accent-fill" x="670" y="244" width="260" height="40" rx="8" fill="#00609c"/>
+<text x="800.0" y="269" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">then scored once on run 1's test fold</text>
+</g>
+<g data-step="3">
+<text class="accent-fill" x="554" y="61" font-size="15" font-weight="bold" text-anchor="start" fill="#00609c">score 1</text>
+<text class="accent-fill" x="554" y="107" font-size="15" font-weight="bold" text-anchor="start" fill="#00609c">score 2</text>
+<text class="accent-fill" x="554" y="153" font-size="15" font-weight="bold" text-anchor="start" fill="#00609c">score 3</text>
+<text class="accent-fill" x="554" y="199" font-size="15" font-weight="bold" text-anchor="start" fill="#00609c">score 4</text>
+<text class="accent-fill" x="554" y="245" font-size="15" font-weight="bold" text-anchor="start" fill="#00609c">score 5</text>
+<text x="330.0" y="286" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">every run chooses on its own training folds, then tests its choice:</text>
+<text x="330.0" y="306" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">five scores of the whole procedure, the choosing included</text>
+</g>
+<rect class="accent-a-light-fill" x="640" y="310" width="16" height="16" rx="2" fill="#8cb3cf"/>
+<text x="664" y="323" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">outer test</text>
+<rect class="accent-b-light-fill" x="756.0" y="310" width="16" height="16" rx="2" fill="#a8e4ea"/>
+<text x="780.0" y="323" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">inner validation</text>
+</svg>

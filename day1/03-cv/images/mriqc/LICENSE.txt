@@ -1,0 +1,19 @@
+Figures from O. Esteban, D. Birman, M. Schaer, O. O. Koyejo, R. A. Poldrack and
+K. J. Gorgolewski (2017). MRIQC: Advancing the automatic prediction of image
+quality in MRI from unseen sites. PLoS ONE 12(9): e0184661.
+doi:10.1371/journal.pone.0184661
+
+Licence: Creative Commons Attribution (CC BY 4.0), as for every PLOS ONE article:
+"distributed under the terms of the Creative Commons Attribution License, which
+permits unrestricted use, distribution, and reproduction in any medium,
+provided the original author and source are credited" (p. 1).
+
+Changes: rendered with `pdftoppm -r 300` from the published PDF, cropped,
+quantised to 256 colours.
+
+- fig3-sites.png: Fig 3 (p. 4), left panel "Without normalization", heatmap and
+  site labels only; crop box (140, 2058, 1268, 2566) of the 300 dpi page.
+  doi:10.1371/journal.pone.0184661.g003
+- fig6-auc.png: Fig 6 (p. 13), top row (AUC per held-out site, and per model);
+  crop box (520, 285, 2450, 1020) of the 300 dpi page.
+  doi:10.1371/journal.pone.0184661.g006

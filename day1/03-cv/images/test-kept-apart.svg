@@ -1,51 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 310" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Model selection with a test set kept apart: choices made by cross-validation on the training data, one final score on the test data (after Provost and Fawcett 2013, pp. 134 to 135). Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 366" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Model selection with a test set kept apart: choices made by cross-validation on the training data, one final score on the test data (after Provost and Fawcett 2013, pp. 134 to 135); folds and test stratified. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
-<text x="500" y="26" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">the 1,000 credits</text>
-<rect x="40" y="40" width="720" height="40" rx="0" fill="#e9edf0" stroke="#1c2e36" stroke-width="1.2"/>
-<text x="400.0" y="66" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">training data: 800 credits</text>
-<rect x="760" y="40" width="200" height="40" rx="0" fill="#c9cfd2" stroke="#1c2e36" stroke-width="1.2"/>
-<text x="860.0" y="66" font-size="14" font-weight="bold" text-anchor="middle" fill="#1c2e36">test data: 200</text>
+<text x="500" y="26" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">the 1,000 credits</text>
+<rect x="40" y="40" width="720" height="44" rx="0" fill="#e9edf0" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="400.0" y="68" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">training data: 800 credits</text>
+<rect class="accent-a-light-fill" x="760" y="40" width="140.0" height="44" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="900.0" y="40" width="60.0" height="44" rx="0" fill="#00609c"/>
+<rect x="760" y="40" width="200" height="44" rx="0" fill="none" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="860.0" y="68" font-size="16" font-weight="bold" text-anchor="middle" fill="#ffffff">test: 200</text>
 <g data-step="1">
-<text x="860.0" y="100" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">kept apart, not opened</text>
+<text x="860.0" y="106" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">kept apart, not opened</text>
 </g>
 <g data-step="2">
-<rect class="accent-fill" x="42.0" y="118" width="140.0" height="15" rx="2" fill="#00609c"/>
-<rect x="186.0" y="118" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="330.0" y="118" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="474.0" y="118" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="618.0" y="118" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="42.0" y="138" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect class="accent-fill" x="186.0" y="138" width="140.0" height="15" rx="2" fill="#00609c"/>
-<rect x="330.0" y="138" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="474.0" y="138" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="618.0" y="138" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="42.0" y="158" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="186.0" y="158" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect class="accent-fill" x="330.0" y="158" width="140.0" height="15" rx="2" fill="#00609c"/>
-<rect x="474.0" y="158" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="618.0" y="158" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="42.0" y="178" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="186.0" y="178" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="330.0" y="178" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect class="accent-fill" x="474.0" y="178" width="140.0" height="15" rx="2" fill="#00609c"/>
-<rect x="618.0" y="178" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="42.0" y="198" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="186.0" y="198" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="330.0" y="198" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect x="474.0" y="198" width="140.0" height="15" rx="2" fill="#e9edf0"/>
-<rect class="accent-fill" x="618.0" y="198" width="140.0" height="15" rx="2" fill="#00609c"/>
-<text x="400.0" y="236" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">cross-validation on the training data: compare algorithms, their settings (hyperparameters) and thresholds</text>
-<text x="400.0" y="254" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">and keep the best</text>
+<rect class="accent-a-light-fill" x="43.0" y="126" width="96.6" height="22" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="139.6" y="126" width="41.400000000000006" height="22" rx="0" fill="#00609c"/>
+<rect x="187.0" y="126" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="331.0" y="126" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="475.0" y="126" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="619.0" y="126" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="43.0" y="154" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="187.0" y="154" width="96.6" height="22" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="283.6" y="154" width="41.400000000000006" height="22" rx="0" fill="#00609c"/>
+<rect x="331.0" y="154" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="475.0" y="154" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="619.0" y="154" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="43.0" y="182" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="187.0" y="182" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="331.0" y="182" width="96.6" height="22" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="427.6" y="182" width="41.400000000000006" height="22" rx="0" fill="#00609c"/>
+<rect x="475.0" y="182" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="619.0" y="182" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="43.0" y="210" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="187.0" y="210" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="331.0" y="210" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="475.0" y="210" width="96.6" height="22" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="571.6" y="210" width="41.400000000000006" height="22" rx="0" fill="#00609c"/>
+<rect x="619.0" y="210" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="43.0" y="238" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="187.0" y="238" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="331.0" y="238" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect x="475.0" y="238" width="138.0" height="22" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="619.0" y="238" width="96.6" height="22" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="715.6" y="238" width="41.400000000000006" height="22" rx="0" fill="#00609c"/>
+<text x="400.0" y="284" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">cross-validation on the training data: compare algorithms, their settings (hyperparameters) and thresholds,</text>
+<text x="400.0" y="304" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">and keep the best</text>
 </g>
 <g data-step="3">
-<path d="M758,216 L758,270 L770,270" fill="none" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
-<rect class="accent-fill" x="774" y="248" width="186" height="44" rx="8" fill="#00609c"/>
-<text x="867" y="268" font-size="12" font-weight="normal" text-anchor="middle" fill="#ffffff">scored once on the test:</text>
-<text x="867" y="285" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">the number to report</text>
-<path d="M860.0,106 L860.0,244" fill="none" stroke="#1c2e36" stroke-width="1.4" marker-end="url(#ah)"/>
+<path d="M758,264 L758,330 L770,330" fill="none" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-fill" x="774" y="304" width="186" height="52" rx="8" fill="#00609c"/>
+<text x="867" y="326" font-size="14" font-weight="normal" text-anchor="middle" fill="#ffffff">scored once on the test:</text>
+<text x="867" y="346" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">the number to report</text>
+<path d="M860.0,112 L860.0,300" fill="none" stroke="#1c2e36" stroke-width="1.4" marker-end="url(#ah)"/>
 </g>
 </svg>

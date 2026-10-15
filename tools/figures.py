@@ -35,15 +35,21 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.patches import PathPatch  # noqa: E402
+from matplotlib.path import Path as MPath  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
-from sklearn.ensemble import RandomForestClassifier  # noqa: E402
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier  # noqa: E402
 from sklearn.linear_model import LogisticRegression  # noqa: E402
 from sklearn.metrics import (  # noqa: E402
     average_precision_score, confusion_matrix, f1_score, precision_recall_curve,
     precision_score, recall_score, roc_auc_score, roc_curve,
 )
 from sklearn.model_selection import StratifiedKFold, cross_val_predict, train_test_split  # noqa: E402
+from sklearn.pipeline import make_pipeline  # noqa: E402
+from sklearn.preprocessing import StandardScaler  # noqa: E402
+from sklearn.svm import SVC  # noqa: E402
+from sklearn.tree import DecisionTreeClassifier  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 AM = ROOT / "day1" / "02-model" / "images"
@@ -297,12 +303,16 @@ def credit(path: Path) -> None:
     NUMBERS["credit"]["gain_top20"] = round(float(caught[k - 1]), 3)
     save(fig, AM / "cumulative-gains.svg")
 
-    # 6. one split is one draw: test AUC over 200 random 50/50 splits, and 5-fold
-    aucs = []
+    # 6. one split is one draw: test AUC over 200 random 80/20 splits (Dataiku's default ratio,
+    #    200 test credits); the first five drawn row by row, then all 200 as a histogram
+    rows = np.arange(len(y))
+    aucs, draws = [], []
     for s in range(200):
-        Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.5, stratify=y, random_state=s)
-        m = rf(200).fit(Xtr, ytr)
-        aucs.append(roc_auc_score(yte, m.predict_proba(Xte)[:, 1]))
+        tr, te = train_test_split(rows, test_size=0.2, stratify=y, random_state=s)
+        m = rf(200).fit(X.iloc[tr], y[tr])
+        aucs.append(roc_auc_score(y[te], m.predict_proba(X.iloc[te])[:, 1]))
+        if s < 5:
+            draws.append(np.sort(te))
     aucs = np.array(aucs)
     folds = []
     for tr, te in cv.split(X, y):
@@ -310,19 +320,60 @@ def credit(path: Path) -> None:
         folds.append(roc_auc_score(y[te], m.predict_proba(X.iloc[te])[:, 1]))
     NUMBERS["credit"]["split_auc_min"] = round(float(aucs.min()), 3)
     NUMBERS["credit"]["split_auc_max"] = round(float(aucs.max()), 3)
+    NUMBERS["credit"]["split_draws"] = [round(float(a), 3) for a in aucs[:5]]
     NUMBERS["credit"]["fold_aucs"] = [round(float(a), 3) for a in folds]
-    for name, with_folds in (("split-variability.svg", False), ("split-variability-folds.svg", True)):
-        fig, ax = plt.subplots(figsize=(8, 3.4))
-        ax.hist(aucs, bins=24, color=LIGHT)
-        note = "grey: 200 random 50/50 splits"
-        if with_folds:
-            for a in folds:
-                ax.axvline(a, color=ACCENT, lw=2)
-            note += "\nblue: the 5 test folds of one cross-validation"
-        ax.set_xlabel("test AUC")
-        ax.set_ylabel("random splits")
-        ax.set_title(note, loc="left", fontsize=11, color=DARK)
-        save(fig, CV / name)
+    NUMBERS["credit"]["fold_mean"] = round(float(np.mean(folds)), 3)
+    NUMBERS["credit"]["fold_2sd"] = round(float(2 * np.std(folds)), 3)
+
+    # the five draws: each row is the 1,000 credits in file order, the 200 drawn for the test
+    # in the accent; one compound path per row keeps the SVG small
+    fig, ax = plt.subplots(figsize=(9, 3.3))
+    n = len(y)
+    for i, te in enumerate(draws):
+        y0 = len(draws) - 1 - i
+        ax.add_patch(plt.Rectangle((0, y0 + 0.12), n, 0.76, color=LIGHT, lw=0))
+        verts, codes = [], []
+        for r in te:
+            verts += [(r, y0 + 0.12), (r + 1, y0 + 0.12), (r + 1, y0 + 0.88), (r, y0 + 0.88), (r, y0 + 0.12)]
+            codes += [MPath.MOVETO, MPath.LINETO, MPath.LINETO, MPath.LINETO, MPath.CLOSEPOLY]
+        at_step(i + 1, ax.add_patch(PathPatch(MPath(verts, codes), color=ACCENT, lw=0)),
+                ax.text(n + 18, y0 + 0.5, f"test AUC {aucs[i]:.2f}", va="center", fontsize=14, color=DARK,
+                        fontweight="bold"),
+                ax.text(-18, y0 + 0.5, f"draw {i + 1}", va="center", ha="right", fontsize=13, color=DARK))
+    ax.text(n / 2, -0.35, "the 1,000 credits, in file order: grey for training (800), blue for the test (200)",
+            ha="center", va="top", fontsize=12, color=GRAY)
+    ax.set_xlim(-130, n + 190)
+    ax.set_ylim(-0.9, len(draws))
+    ax.axis("off")
+    save(fig, CV / "split-draws.svg")
+
+    fig, ax = plt.subplots(figsize=(8, 3.4))
+    ax.hist(aucs, bins=24, color=LIGHT)
+    for a in aucs[:5]:
+        ax.axvline(a, color=ACCENT, lw=2)
+    ax.set_xlabel("test AUC")
+    ax.set_ylabel("random splits")
+    ax.set_title("grey: 200 random 80/20 splits\nblue: the five draws of the previous slide",
+                 loc="left", fontsize=11, color=DARK)
+    save(fig, CV / "split-variability.svg")
+
+    # the five fold scores of one cross-validation, their mean and Dataiku's ± (twice the SD)
+    mu, sd2 = float(np.mean(folds)), float(2 * np.std(folds))
+    fig, ax = plt.subplots(figsize=(6.2, 3.3))
+    ax.axvspan(mu - sd2, mu + sd2, color=ACCENT, alpha=0.12, lw=0)
+    ax.axvline(mu, ymax=(len(folds) + 0.45 - 0.3) / (len(folds) + 0.9), color=ACCENT, lw=1.6, ls="--")
+    for i, a in enumerate(folds):
+        ax.plot([a], [len(folds) - i], "o", color=ACCENT, ms=10)
+        ax.text(a + 0.004, len(folds) - i, f"{a:.3f}", va="center", fontsize=12, color=DARK)
+    ax.set_yticks(range(len(folds), 0, -1), [f"fold {i + 1}" for i in range(len(folds))])
+    ax.set_ylim(0.3, len(folds) + 1.2)
+    ax.text(mu, len(folds) + 0.75, f"mean {mu:.3f} (± {sd2:.3f})", ha="center", fontsize=13, color=ACCENT,
+            fontweight="bold")
+    ax.set_xlim(mu - 0.07, mu + 0.07)
+    ax.set_xlabel("test AUC of each fold")
+    ax.spines["left"].set_visible(False)
+    ax.tick_params(axis="y", length=0)
+    save(fig, CV / "fold-dots.svg")
 
 
 def boundary(path: Path) -> None:
@@ -421,22 +472,73 @@ def metric_grid(path: Path) -> None:
     NUMBERS["credit"]["metric_grid"] = rows
 
 
-def cv_diagram() -> None:
-    fig, ax = plt.subplots(figsize=(9, 3.6))
-    k = 5
-    for i in range(k):
-        for j in range(k):
-            test = i == j
-            ax.add_patch(plt.Rectangle((j, k - 1 - i), 0.94, 0.8,
-                                       color=ACCENT if test else LIGHT))
-        ax.text(-0.15, k - 1 - i + 0.4, f"run {i + 1}", ha="right", va="center", fontsize=13)
-        ax.text(k + 0.1, k - 1 - i + 0.4, f"score {i + 1}", ha="left", va="center", fontsize=13)
-    ax.text(k / 2, -0.45, "the data, cut into 5 folds (each keeps the 70/30 mix)",
-            ha="center", fontsize=12, color=GRAY)
-    ax.set_xlim(-1.2, k + 1.4)
-    ax.set_ylim(-0.7, k)
-    ax.axis("off")
-    save(fig, CV / "cross-validation.svg")
+def model_boundaries(path: Path) -> None:
+    """Four algorithms on the plane of deck 2: where each refuses (P(bad) > 0.3), and its score.
+
+    Each model is fitted on duration and amount alone, on all rows, to show the shape of its
+    boundary; its score is a 5-fold cross-validated AUC on all twenty attributes, on the same folds.
+    For the pictures only, the two tree ensembles keep leaves of at least 25 credits: with the
+    scored settings their boundary breaks into islands around single credits, too small to read.
+    """
+    d = pd.read_csv(path)
+    target = "credit_risk" if "credit_risk" in d else "Score"
+    y = (d[target] == "bad").astype(int).to_numpy()
+    X = pd.get_dummies(d.drop(columns=["row ID", target], errors="ignore"))
+    two = d[["duration", "amount"]].to_numpy(float)
+    cv = StratifiedKFold(5, shuffle=True, random_state=SEED)
+    models = {
+        "linear": ("logistic regression", lambda: make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000))),
+        "svm": ("SVM (rbf kernel)", lambda: make_pipeline(StandardScaler(), SVC(probability=True, random_state=SEED))),
+        "forest": ("random forest", lambda: rf()),
+        "boosting": ("gradient-boosted trees", lambda: GradientBoostingClassifier(random_state=SEED)),
+    }
+    gx, gy = np.meshgrid(np.linspace(0, 75, 220), np.linspace(0, 19000, 220))
+    grid = np.c_[gx.ravel(), gy.ravel()]
+    NUMBERS["credit"]["models"] = {}
+    for key, (label, make) in models.items():
+        scores = [roc_auc_score(y[te], make().fit(X.iloc[tr], y[tr]).predict_proba(X.iloc[te])[:, 1])
+                  for tr, te in cv.split(X, y)]
+        NUMBERS["credit"]["models"][key] = dict(
+            name=label, fold_aucs=[round(float(a), 3) for a in scores],
+            mean=round(float(np.mean(scores)), 3), pm=round(float(2 * np.std(scores)), 3))
+        shape = {"forest": lambda: RandomForestClassifier(300, min_samples_leaf=25, n_jobs=-1, random_state=SEED),
+                 "boosting": lambda: GradientBoostingClassifier(min_samples_leaf=25, random_state=SEED)}
+        m = shape.get(key, make)().fit(two, y)
+        gp = m.predict_proba(grid)[:, 1].reshape(gx.shape)
+        fig, ax = plt.subplots(figsize=(4.6, 3.8))
+        ax.contourf(gx, gy, gp, levels=[0.3, 1.01], colors=[ACCENT], alpha=0.22)
+        ax.contour(gx, gy, gp, levels=[0.3], colors=[ACCENT], linewidths=1.8)
+        ax.scatter(two[y == 0, 0], two[y == 0, 1], s=6, color=LIGHT)
+        ax.scatter(two[y == 1, 0], two[y == 1, 1], s=6, color=GRAY, alpha=0.8)
+        ax.set_title(label, loc="left", fontsize=19, color=DARK)
+        ax.set_xlim(0, 75)
+        ax.set_ylim(0, 19000)
+        ax.set_xticks([0, 20, 40, 60])
+        ax.set_yticks([0, 5000, 10000, 15000], ["0", "5k", "10k", "15k"])
+        ax.set_xlabel("duration (months)", fontsize=17)
+        ax.set_ylabel("amount (DM)", fontsize=17)
+        ax.tick_params(labelsize=16)
+        save(fig, CV / f"model-{key}.svg")
+
+
+def tree_splits(path: Path) -> None:
+    """A depth-2 classification tree on all twenty attributes: its questions and its leaves.
+
+    Recorded for the forest slide, where the deck's draw script draws it (day1/03-cv/src/draw.py).
+    """
+    d = pd.read_csv(path)
+    target = "credit_risk" if "credit_risk" in d else "Score"
+    y = (d[target] == "bad").astype(int).to_numpy()
+    X = pd.get_dummies(d.drop(columns=["row ID", target], errors="ignore"))
+    t = DecisionTreeClassifier(max_depth=2, min_samples_leaf=30, random_state=SEED).fit(X, y).tree_
+    nodes = []
+    for i in range(t.node_count):
+        n_bad = int(round(t.value[i][0][1] * t.n_node_samples[i])) if t.value[i].sum() <= 1.0001 else int(t.value[i][0][1])
+        nodes.append(dict(feature=None if t.feature[i] < 0 else str(X.columns[t.feature[i]]),
+                          threshold=None if t.feature[i] < 0 else round(float(t.threshold[i]), 2),
+                          left=int(t.children_left[i]), right=int(t.children_right[i]),
+                          n=int(t.n_node_samples[i]), bad=n_bad))
+    NUMBERS["credit"]["tree"] = nodes
 
 
 def zalaxus(path: Path) -> None:
@@ -569,7 +671,8 @@ def main() -> int:
     boundary(a.credit)
     duration_model(a.credit)
     metric_grid(a.credit)
-    cv_diagram()
+    model_boundaries(a.credit)
+    tree_splits(a.credit)
     if a.wine is None:                      # credit only: keep the other keys
         NUMBERS.update({k: v for k, v in json.loads(out.read_text()).items() if k != "credit"})
     else:

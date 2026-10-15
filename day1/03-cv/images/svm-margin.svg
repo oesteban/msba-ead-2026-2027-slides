@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A support vector machine's margin on fourteen illustrative points: the boundary sits in the middle of the widest band free of points; the ringed points fix it. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<defs><clipPath id="svm-plot"><rect x="30" y="16" width="500" height="340"/></clipPath></defs>
+<g clip-path="url(#svm-plot)">
+<polygon points="42.7,437.2 483.9,-4.0 409.2,-78.7 -32.0,362.5" fill="#a8e4ea" class="accent-b-light-fill" opacity="0.55"/>
+<line x1="42.7" y1="437.2" x2="483.9" y2="-4.0" stroke="#556268" stroke-width="1.4" stroke-dasharray="6 5"/>
+<line x1="-32.0" y1="362.5" x2="409.2" y2="-78.7" stroke="#556268" stroke-width="1.4" stroke-dasharray="6 5"/>
+<line x1="5.3" y1="399.9" x2="446.6" y2="-41.4" stroke="#1c2e36" stroke-width="2.4"/>
+</g>
+<circle class="accent-fill" cx="90.2" cy="240.4" r="8" fill="#00609c"/>
+<circle cx="90.2" cy="240.4" r="14" fill="none" stroke="#1c2e36" stroke-width="1.8"/>
+<circle class="accent-fill" cx="185.2" cy="145.3" r="8" fill="#00609c"/>
+<circle cx="185.2" cy="145.3" r="14" fill="none" stroke="#1c2e36" stroke-width="1.8"/>
+<circle class="accent-fill" cx="83.4" cy="165.7" r="8" fill="#00609c"/>
+<circle class="accent-fill" cx="192.0" cy="84.2" r="8" fill="#00609c"/>
+<circle class="accent-fill" cx="73.2" cy="101.2" r="8" fill="#00609c"/>
+<circle class="accent-fill" cx="175.0" cy="26.5" r="8" fill="#00609c"/>
+<circle class="accent-fill" cx="22.3" cy="172.5" r="8" fill="#00609c"/>
+<circle class="accent-a-light-fill" cx="212.4" cy="267.5" r="8" fill="#8cb3cf"/>
+<circle cx="212.4" cy="267.5" r="14" fill="none" stroke="#1c2e36" stroke-width="1.8"/>
+<circle class="accent-a-light-fill" cx="209.0" cy="332.0" r="8" fill="#8cb3cf"/>
+<circle class="accent-a-light-fill" cx="304.0" cy="250.5" r="8" fill="#8cb3cf"/>
+<circle class="accent-a-light-fill" cx="327.8" cy="179.3" r="8" fill="#8cb3cf"/>
+<circle class="accent-a-light-fill" cx="310.8" cy="325.2" r="8" fill="#8cb3cf"/>
+<circle class="accent-a-light-fill" cx="378.7" cy="270.9" r="8" fill="#8cb3cf"/>
+<circle class="accent-a-light-fill" cx="402.4" cy="199.6" r="8" fill="#8cb3cf"/>
+<text class="accent-fill" x="42" y="42" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">bad</text>
+<text x="518" y="342" font-size="17" font-weight="bold" text-anchor="end" fill="#556268">good</text>
+<text x="280.0" y="390" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">the boundary: the middle of the widest band free of points</text>
+<text x="280.0" y="416" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">ringed: the support vectors, the points that fix the band</text>
+</svg>

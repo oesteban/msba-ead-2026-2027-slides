@@ -211,6 +211,8 @@ starts from your notes.
     [Logistic Regression], [], [],
     [Random Forest], [], [],
   )
+  #step(2, "Look at each fold")[On each model: #dss("Performance", "ROC & PR curves"): one curve per fold. Do the two models' curves overlap?]
+  #v(2pt)
   Does the ± let you say one algorithm is better? What would you need to see?
   #writing(1)
 ]

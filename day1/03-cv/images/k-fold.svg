@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 384" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- K-fold cross-validation with five stratified folds: each fold is tested once while the model learns from the four others, and each keeps the data's 70/30 mix. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<text x="490.0" y="24" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">the 1,000 credits: 700 good, 300 bad</text>
+<rect class="accent-a-light-fill" x="140" y="36" width="490.0" height="34" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="630.0" y="36" width="210.0" height="34" rx="0" fill="#00609c"/>
+<text x="385.0" y="59" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">good: 70%</text>
+<text x="735.0" y="59" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">bad: 30%</text>
+<text x="124" y="121" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">run 1</text>
+<rect class="accent-a-light-fill" x="143.0" y="100" width="93.8" height="30" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="236.8" y="100" width="40.2" height="30" rx="0" fill="#00609c"/>
+<rect x="283.0" y="100" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="423.0" y="100" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="563.0" y="100" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="703.0" y="100" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<text x="856" y="121" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">score 1</text>
+<text x="124" y="165" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">run 2</text>
+<rect x="143.0" y="144" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="283.0" y="144" width="93.8" height="30" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="376.8" y="144" width="40.2" height="30" rx="0" fill="#00609c"/>
+<rect x="423.0" y="144" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="563.0" y="144" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="703.0" y="144" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<text x="856" y="165" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">score 2</text>
+<text x="124" y="209" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">run 3</text>
+<rect x="143.0" y="188" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="283.0" y="188" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="423.0" y="188" width="93.8" height="30" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="516.8" y="188" width="40.2" height="30" rx="0" fill="#00609c"/>
+<rect x="563.0" y="188" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="703.0" y="188" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<text x="856" y="209" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">score 3</text>
+<text x="124" y="253" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">run 4</text>
+<rect x="143.0" y="232" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="283.0" y="232" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="423.0" y="232" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="563.0" y="232" width="93.8" height="30" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="656.8" y="232" width="40.2" height="30" rx="0" fill="#00609c"/>
+<rect x="703.0" y="232" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<text x="856" y="253" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">score 4</text>
+<text x="124" y="297" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">run 5</text>
+<rect x="143.0" y="276" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="283.0" y="276" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="423.0" y="276" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect x="563.0" y="276" width="134.0" height="30" rx="2" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="703.0" y="276" width="93.8" height="30" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="796.8" y="276" width="40.2" height="30" rx="0" fill="#00609c"/>
+<text x="856" y="297" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">score 5</text>
+<text x="490.0" y="342" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">each test fold holds 200 credits, 140 good and 60 bad: the mix of the whole</text>
+<rect x="180" y="360" width="16" height="16" rx="2" fill="#e9edf0"/>
+<text x="204" y="373" font-size="14" font-weight="normal" text-anchor="start" fill="#556268">learns from</text>
+<rect class="accent-a-light-fill" x="304.2" y="360" width="16" height="16" rx="2" fill="#8cb3cf"/>
+<text x="328.2" y="373" font-size="14" font-weight="normal" text-anchor="start" fill="#556268">tested on: good</text>
+<rect class="accent-fill" x="461.2" y="360" width="16" height="16" rx="2" fill="#00609c"/>
+<text x="485.2" y="373" font-size="14" font-weight="normal" text-anchor="start" fill="#556268">tested on: bad</text>
+</svg>
