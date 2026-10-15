@@ -67,8 +67,7 @@
 <text x="752" y="90.0" font-size="13" font-weight="bold" text-anchor="end" fill="#556268">bad</text>
 <text x="752" y="140.0" font-size="13" font-weight="bold" text-anchor="end" fill="#556268">good</text>
 <rect class="accent-b-light-fill" x="760" y="60" width="104" height="50" rx="0" fill="#a8e4ea" stroke="#1c2e36" stroke-width="1.2"/>
-<text x="812.0" y="82.0" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">loss</text>
-<text x="812.0" y="98.0" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">avoided</text>
+<text x="812.0" y="90.0" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">no cost</text>
 <rect class="accent-b-light-fill" x="864" y="60" width="104" height="50" rx="0" fill="#a8e4ea" stroke="#1c2e36" stroke-width="1.2"/>
 <text x="916.0" y="82.0" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">capital</text>
 <text x="916.0" y="98.0" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">lost</text>
@@ -76,9 +75,8 @@
 <text x="812.0" y="132.0" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">interest</text>
 <text x="812.0" y="148.0" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">forgone</text>
 <rect class="accent-b-light-fill" x="864" y="110" width="104" height="50" rx="0" fill="#a8e4ea" stroke="#1c2e36" stroke-width="1.2"/>
-<text x="916.0" y="132.0" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">interest</text>
-<text x="916.0" y="148.0" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">earned</text>
-<text x="864" y="186" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">values per credit</text>
+<text x="916.0" y="140.0" font-size="13" font-weight="normal" text-anchor="middle" fill="#1c2e36">no cost</text>
+<text x="864" y="186" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">cost per credit</text>
 <text class="accent-fill" x="864" y="26" font-size="15" font-weight="bold" text-anchor="middle" fill="#00609c">from the business</text>
 </g>
 <g data-step="3">
@@ -91,8 +89,8 @@
 <text x="762" y="252" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">Σ</text>
 <line x1="784" y1="244" x2="806" y2="244" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
 <rect class="accent-fill" x="810" y="218" width="180" height="54" rx="8" fill="#00609c"/>
-<text x="900" y="241" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">expected value</text>
+<text x="900" y="241" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">expected cost</text>
 <text x="900" y="259" font-size="13" font-weight="normal" text-anchor="middle" fill="#ffffff">per application</text>
-<text x="800" y="300" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">multiply each rate by its value, then add</text>
+<text x="800" y="300" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">multiply each rate by its cost, then add</text>
 </g>
 </svg>
