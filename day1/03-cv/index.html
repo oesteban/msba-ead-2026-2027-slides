@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Model selection and cross-validation | 16.10.2026</title>
+    <meta charset="utf-8">
+    <meta name="grammarly" content="false">
+    <meta name="google" content="notranslate">
+    <link rel="stylesheet" type="text/css" href="../../remark/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../remark/themes/hesso-master.css" />
+    <link rel="stylesheet" type="text/css" href="../../remark/ext/nav-controls.css" />
+  </head>
+  <body>
+<style>
+:root { --logo-url: url("../../assets/hes-so-logo.svg"); }
+.large.center { display: block; clear: both; }
+/* the textbook marker, on every slide that draws on Provost & Fawcett */
+.book { color: var(--accent); font-weight: 600; }
+.footnote .lic { color: #556268; }
+.footnote { right: 5.5em; }
+/* the case slides: a small copy of the coloured flowchart, its phase lit, left of the content */
+.phase-thumb { position: absolute; left: 80px; top: 112px; width: 100px; }
+.beside-thumb { margin-left: 132px; }
+.pull-right, .beside-thumb, .col-narrow { padding-right: 2.4em; box-sizing: border-box; }
+.col-wide { float: left; width: 60%; }
+.col-narrow { float: right; width: 38%; font-size: 0.9em; line-height: 1.4; }
+.points li { margin-bottom: 0.5em; }
+.terms p { margin: 0.35em 0; font-size: 0.9em; line-height: 1.4; }
+/* the numbered frames of a screen capture, explained under it */
+.marks3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; margin-top: 0.6em; font-size: 0.8em; line-height: 1.35; }
+.marks3 > div { border-top: 4px solid var(--accent); padding-top: 0.3em; }
+.marks3 b { color: var(--accent); }
+/* the hands-on: moves, then the time */
+.moves { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6em; margin-top: 0.9em; }
+.moves > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.5em 0.7em 0.7em; font-size: 0.8em; line-height: 1.4; }
+.moves b { display: block; font-size: 1.25em; color: var(--heading-color); }
+.moves code { font-size: 0.85em; }
+.need { font-size: 0.86em; margin: 0.2em 0 0; }
+.refs li { font-size: 0.6em; margin-bottom: 0.3em; }
+</style>
+<script src="https://kit.fontawesome.com/015d4b01de.js" crossorigin="anonymous"></script>
+
+<textarea id="source">
+name: title
+layout: true
+class: cover
+---
+count: false
+
+.section-mark.center[
+## Model selection and cross-validation
+
+### How far to trust a score, and how to choose
+
+<br />
+
+Oscar Esteban &lt;<code>oscar.esteban@hevs.ch</code>>
+
+<br />
+
+EAD · Exploration avancée de données et intelligence décisionnelle · 16.10.2026
+]
+
+???
+
+---
+name: newsection
+layout: true
+
+.perma-sidebar[
+<p class="rotate">
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0; height: 20px; padding-top: 6px;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+  <span style="padding-left: 10px; font-weight: 600;">Model selection and cross-validation (16.10.2026)</span>
+</p>
+]
+
+---
+
+.section-mark[
+# How far can a score be trusted?
+
+.large[A score is measured on a sample of credits. Another sample gives another score.]
+
+.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), chapter 5, pp. 111 to 113]
+]
+
+???
+
+---
+
+# One split is one draw
+
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+<img src="images/split-variability.svg" style="width: 80%; display: block; margin: 0.4em auto 0;" alt="Test AUC over 200 random splits of the same data, from 0.74 to 0.82" />
+
+.large.center[Same data, same model, 200 random splits into two halves: the test AUC ranges from 0.74 to 0.82, by the split alone.]
+
+In Dataiku, **Design → Train/Test set** makes one such split, with a random seed.
+]
+
+.footnote[A random forest on South German Credit (scikit-learn). .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 126 and 129.]]
+
+???
+
+---
+
+# Cross-validation tests every row exactly once
+
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+<img src="images/cross-validation.svg" style="width: 72%; display: block; margin: 0.2em auto 0;" alt="Five runs: each holds out a different fifth of the data for testing" />
+
+**Cross-validation** cuts the rows into parts, the *folds*. Each fold is held out once while the model learns from the others, so every credit is tested exactly once. Five folds give five scores: report their mean **and** their spread.
+
+*Stratified*: every fold keeps the 70/30 mix of the data. In Dataiku the setting is called *K-fold cross-test*.
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 127 to 129.] Stratified folds: Dataiku DSS 13, *Prediction settings*.]
+
+???
+
+---
+
+# Read the ± as spread, and compare fold by fold
+
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+.col-wide[
+<img src="images/split-variability-folds.svg" style="width: 100%;" alt="The five fold scores of one cross-validation, over the 200 random splits" />
+]
+
+.col-narrow[
+<ul class="points">
+<li>The five folds score 0.755 to 0.803: mean 0.78, ± 0.04.</li>
+<li>Dataiku's <b>±</b> is twice the standard deviation of the fold scores: how much the score moves between folds. It is not a confidence interval.</li>
+<li>To compare two models, score them on the same folds and count the folds where one wins. Overlapping ± say little.</li>
+</ul>
+]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 129.] The ±: Dataiku DSS 13, *Prediction settings*, K-fold cross-test.]
+
+???
+
+---
+class: stepwise-svg
+
+# Choose on the folds, then test once on new rows
+
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+<object type="image/svg+xml" data="images/test-kept-apart.svg" style="width: 100%; pointer-events: none;"></object>
+
+.terms[
+.step-2[**Hyperparameter**: a setting fixed before training, such as the number of trees. In Dataiku, **Design → Hyperparameters**.]
+
+.step-3[Every choice made on the folds (algorithm, hyperparameters, threshold) flatters their score; the test kept apart gives the honest one. With few rows, **nested** cross-validation repeats the whole choice inside each fold instead.]
+]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 134 to 135.] Choosing among models is part of CRISP-DM's modeling: tasks 4.1 and 4.4 (P. Chapman et al., 2000).]
+
+???
+
+---
+
+# Hands-on 1, continued: five folds
+
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+.need[**The need.** The committee asks whether the best model is better, or only luckier with its test set.]
+
+<div class="moves">
+<div><b>1. Switch</b><i>K-fold cross-test</i>, 5 folds, stratified.<br /><code>Design → Train/Test set</code></div>
+<div><b>2. Train</b>Two algorithms only: logistic regression and random forest.<br /><code>Design → Algorithms</code></div>
+<div><b>3. Compare</b>Each score and its ±: can you say one is better?<br />Sheet, panel 7</div>
+</div>
+
+.need[Groups of three, same roles. 10 minutes.]
+]
+
+???
+
+---
+class: stepwise-svg
+
+# Dataiku's decision chart: every curve at once
+
+<img class="phase-thumb" src="images/phase-mo-ev.svg" alt="The CRISP-DM phases, modeling and evaluation lit" />
+
+.beside-thumb[
+<object type="image/svg+xml" data="images/decision-chart.svg" style="width: 100%; margin-top: 0.4em; pointer-events: none;"></object>
+
+<div class="marks3">
+<div class="step-1"><b>1</b> Precision, recall and F1 at every cut-off, as in the previous deck (slide 9).</div>
+<div class="step-2"><b>2</b> The <i>cost matrix gain</i>, minus the cost: highest at 0.17, the cut-off Dataiku picks from the costs of panel 5.</div>
+<div class="step-3"><b>3</b> The shaded bands: how much each curve moves from fold to fold.</div>
+</div>
+]
+
+.footnote[Screen capture: Dataiku DSS, course server, 14 October 2026; a support vector machine, five folds, the costs of panel 5. **Performance → Decision chart**.]
+
+???
+
+---
+
+# One column took Zalaxus from chance to 0.89
+
+<img class="phase-thumb" src="images/phase-dp.svg" alt="The CRISP-DM phases, data preparation lit" />
+
+.beside-thumb[
+<img src="images/zalaxus-leak.svg" style="width: 70%; display: block; margin: 0.4em auto 0;" alt="Cross-validated AUC predicting BikeBuyer: 0.54 from the customer columns, 0.89 with the number of orders" />
+
+.large.center[`BikeBuyer` is computed from the orders: a customer with a bike among them. Counting the orders hands the answer to the model.]
+]
+
+.footnote[Zalaxus, the module's group-project dataset; a random forest, scikit-learn. .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 30.]]
+
+???
+
+---
+
+# Leaks to hunt before you trust a score
+
+<img class="phase-thumb" src="images/phase-dp.svg" alt="The CRISP-DM phases, data preparation lit" />
+
+.beside-thumb[
+- A column recorded **after** the outcome: orders, payments, follow-ups.
+- A column that **re-encodes** the target, or the target under another name.
+- **Duplicates** across the training and test rows.
+- Preparation **fitted on all the data** before the split.
+- Time ignored: training on the future, testing on the past.
+
+<br />
+
+.large.center[An AUC near 1.0 on a business problem is a bug report.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 30.]]
+
+???
+
+---
+
+# Read the book this deck draws on
+
+.cards.cols-2.vcenter[
+.card.accent[
+.kicker[chapter 5, from p. 111]
+
+### Overfitting and its avoidance
+
+Holdout data, cross-validation, learning curves, and a general method for choosing without fooling yourself.
+]
+.card[
+.kicker[chapter 2, p. 30]
+
+### Data preparation
+
+Leaks: values recorded in the history but unknown when the decision is made.
+]
+]
+
+.admonition[
+<i class="fa-solid fa-book-open"></i> F. Provost and T. Fawcett (2013), *Data Science for Business*, O'Reilly. Available to HES-SO students through the school's O'Reilly access.
+]
+
+???
+
+---
+
+# References
+
+.refs[
+- Chapman, P. et al. (2000). *CRISP-DM 1.0: Step-by-step data mining guide*. SPSS.
+- Dataiku (2024). *Prediction settings*, Dataiku DSS 13 reference documentation.
+- Grömping, U. (2019). South German Credit Data: Correcting a Widely Used Data Set. Report 4/2019, Beuth Hochschule für Technik Berlin. Data: UCI Machine Learning Repository, dataset 573, doi:10.24432/C5QG88, CC BY 4.0.
+- Provost, F. and Fawcett, T. (2013). *Data Science for Business*. O'Reilly.
+- Zalaxus: the EAD module's teaching dataset, a fictitious retailer built from Microsoft's AdventureWorks sample database.
+]
+
+???
+
+---
+
+.section-mark[
+# End
+
+.large[
+Next: 16.10.2026 @ 13h15 (in <span class="timer" data-until="2026-10-16T13:15:00+02:00"></span>)
+
+[<i class="fa-solid fa-circle-left"></i>](../02-model/index.html)
+[<i class="fa-solid fa-home"></i>](#1)
+[<i class="fa-solid fa-circle-right"></i>](../04-multiclass/index.html)
+]
+]
+
+???
+
+</textarea>
+
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script src="../../remark/core/engine.js"></script>
+    <script src="../../remark/ext/svg-preload.js"></script>
+    <script src="../../remark/ext/svg-theme.js"></script>
+    <script src="../../remark/ext/stepwise-svg.js"></script>
+    <script src="../../remark/ext/nav-controls.js"></script>
+    <script src="../../remark/ext/timer.js"></script>
+  </body>
+</html>

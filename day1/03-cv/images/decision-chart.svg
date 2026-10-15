@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1552 356" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Screen capture of Dataiku DSS (Performance, Decision chart; a support vector machine with cross-validation and the cost matrix gain), course server, 14 October 2026; frames by Oscar Esteban. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<image href="dataiku/decision-chart.png" x="0" y="0" width="1552" height="356"/>
+<g data-step="1">
+<rect class="accent-stroke" x="1132" y="59" width="212" height="22" rx="5" fill="none" stroke="#00609c" stroke-width="2.6"/>
+<circle class="accent-fill" cx="1132" cy="59" r="12" fill="#00609c"/><text x="1132" y="64" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">1</text>
+</g>
+<g data-step="2">
+<rect class="accent-stroke" x="1349" y="59" width="110" height="22" rx="5" fill="none" stroke="#00609c" stroke-width="2.6"/>
+<rect class="accent-stroke" x="316" y="76" width="36" height="242" rx="5" fill="none" stroke="#00609c" stroke-width="2.6"/>
+<circle class="accent-fill" cx="316" cy="76" r="12" fill="#00609c"/><text x="316" y="81" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">2</text>
+</g>
+<g data-step="3">
+<rect class="accent-stroke" x="852" y="80" width="452" height="218" rx="5" fill="none" stroke="#00609c" stroke-width="2.6"/>
+<circle class="accent-fill" cx="852" cy="80" r="12" fill="#00609c"/><text x="852" y="85" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">3</text>
+</g>
+</svg>
