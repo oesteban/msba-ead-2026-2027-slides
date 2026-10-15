@@ -51,11 +51,11 @@ days:
   - id: day1/04-multiclass
     date: 2026-10-16
     replaces: 2026-10-16
-    start: "13:15"
+    start: "15:00"
     title: "Beyond two classes"
 
   - id: day1/05-dl
     date: 2026-10-16
     replaces: 2026-10-16
-    start: "15:00"
+    start: "15:45"
     title: "Deep learning for decisions"
