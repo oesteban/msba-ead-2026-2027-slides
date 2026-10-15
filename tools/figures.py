@@ -214,24 +214,71 @@ def credit(path: Path) -> None:
     ax.set_ylim(0, 5 * y.sum() * 1.12)
     save(fig, AM / "cost-vs-threshold.svg")
 
-    # 4. ROC and PR side by side
+    # 4. ROC, built from three thresholds, then every threshold; the AUC; and what a rarer
+    #    bad credit does to precision while the ROC curve stays put
     fpr, tpr, _ = roc_curve(y, p)
-    pr, rc, _ = precision_recall_curve(y, p)
-    fig, (a1, a2) = plt.subplots(1, 2, figsize=(10, 4.2))
+    auc = roc_auc_score(y, p)
+    pts = {t: (float(((p > t) & (y == 1)).sum() / y.sum()), float(((p > t) & (y == 0)).sum() / (1 - y).sum()))
+           for t in (0.6, 0.4, 0.2)}
+    NUMBERS["credit"]["roc_points"] = {str(t): [round(a, 3), round(b, 3)] for t, (a, b) in pts.items()}
+
+    def roc_axes(ax):
+        ax.plot([0, 1], [0, 1], color=GRAY, ls="--", lw=1)
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1.02)
+        ax.set_aspect("equal")
+        ax.set_xlabel("false-positive rate\n(good applicants refused)")
+        ax.set_ylabel("true-positive rate = recall\n(bad applicants refused)")
+
+    fig, ax = plt.subplots(figsize=(5.6, 5.4))
+    roc_axes(ax)
+    at_step(1, ax.text(0.62, 0.50, "guessing", color=GRAY, fontsize=12, rotation=45),
+            ax.plot([0], [1], "*", color=DARK, ms=12)[0],
+            ax.text(0.04, 0.95, "perfect: every bad credit\nrefused, no good one", fontsize=11, va="top", color=DARK))
+    for k, (t, (tp_r, fp_r)) in enumerate(sorted(pts.items(), reverse=True)):
+        at_step(2 + k, ax.plot([fp_r], [tp_r], "o", color=FN_C, ms=9)[0],
+                ax.annotate(f"t = {t}", (fp_r, tp_r), xytext=(10, -14), textcoords="offset points",
+                            fontsize=12, color=FN_C, fontweight="bold"))
+    at_step(5, ax.plot(fpr, tpr, color=ACCENT, lw=2.4)[0])
+    save(fig, AM / "roc-build.svg")
+
+    fig, ax = plt.subplots(figsize=(5.6, 5.4))
+    roc_axes(ax)
+    ax.plot(fpr, tpr, color=ACCENT, lw=2.4)
+    at_step(2, ax.fill_between(fpr, tpr, step="post", color=ACCENT, alpha=0.18),
+            ax.text(0.55, 0.30, f"AUC = {auc:.2f}", fontsize=16, color=ACCENT, fontweight="bold"),
+            ax.text(0.55, 0.20, "guessing: 0.50", fontsize=12, color=GRAY))
+    save(fig, AM / "roc-auc.svg")
+
+    # precision at another mix of bad credits, from the same ROC points:
+    # precision = pi * TPR / (pi * TPR + (1 - pi) * FPR)
+    def prec_at(pi, t_r, f_r):
+        return pi * t_r / (pi * t_r + (1 - pi) * f_r)
+
+    keep = (tpr > 0)
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(10.4, 4.6))
+    roc_axes(a1)
     a1.plot(fpr, tpr, color=ACCENT, lw=2.4)
-    a1.plot([0, 1], [0, 1], color=GRAY, ls="--", lw=1)
-    a1.set_xlabel("false-positive rate\n(good applicants refused)")
-    a1.set_ylabel("true-positive rate\n(bad applicants caught)")
-    a1.set_title(f"ROC · AUC {roc_auc_score(y, p):.2f}", color=DARK)
-    a2.plot(rc, pr, color=CYAN, lw=2.4)
-    a2.axhline(y.mean(), color=GRAY, ls="--", lw=1)
-    a2.text(0.02, y.mean() + 0.02, f"share of bad = {y.mean():.2f}", color=GRAY, fontsize=11)
+    a1.set_title("ROC: the same at 30% and at 5% bad", color=DARK, fontsize=13)
+    r_at = float(((p > 0.5) & (y == 1)).sum() / y.sum())
+    f_at = float(((p > 0.5) & (y == 0)).sum() / (1 - y).sum())
+    for pi, colour, step_n in ((y.mean(), ACCENT, 1), (0.05, FN_C, 2)):
+        pr_curve = prec_at(pi, tpr[keep], fpr[keep])
+        p05 = prec_at(pi, r_at, f_at)
+        at_step(step_n, a2.plot(tpr[keep], pr_curve, color=colour, lw=2.4)[0],
+                a2.axhline(pi, color=colour, ls="--", lw=1),
+                a2.text(0.02, pi + 0.02, f"{pi:.0%} bad: floor {pi:.2f}", color=colour, fontsize=11, ha="left"),
+                a2.plot([r_at], [p05], "o", color=colour, ms=8)[0],
+                a2.annotate(f"t = 0.5: precision {p05:.0%}", (r_at, p05), xytext=(10, 4),
+                            textcoords="offset points", fontsize=11, color=colour))
+        NUMBERS["credit"][f"precision_05_at_{round(pi * 100)}"] = round(float(p05), 3)
+    a2.set_xlim(0, 1)
+    a2.set_ylim(0, 1.02)
     a2.set_xlabel("recall")
     a2.set_ylabel("precision")
-    a2.set_ylim(0, 1.02)
-    a2.set_title("Precision-recall", color=DARK)
+    a2.set_title("Precision-recall: moves with the mix", color=DARK, fontsize=13)
     fig.tight_layout(w_pad=3)
-    save(fig, AM / "roc-pr.svg")
+    save(fig, AM / "pr-imbalance.svg")
 
     # 5. cumulative gains: review the riskiest k% first
     order = np.argsort(-p)
@@ -274,7 +321,7 @@ def credit(path: Path) -> None:
             note += "\nblue: the 5 test folds of one cross-validation"
         ax.set_xlabel("test AUC")
         ax.set_ylabel("random splits")
-        ax.text(0.01, 0.97, note, transform=ax.transAxes, ha="left", va="top", fontsize=11, color=DARK)
+        ax.set_title(note, loc="left", fontsize=11, color=DARK)
         save(fig, CV / name)
 
 
@@ -292,6 +339,12 @@ def boundary(path: Path) -> None:
     mu, sd = X.mean(0), X.std(0)
     lr = LogisticRegression().fit((X - mu) / sd, y)
     prob = lr.predict_proba((X - mu) / sd)[:, 1]
+    # the same model in the data's own units: score = intercept + a * duration + b * amount
+    w = lr.coef_[0] / sd
+    c = lr.intercept_[0] - (lr.coef_[0] * mu / sd).sum()
+    NUMBERS["credit"]["boundary_model"] = dict(
+        intercept=round(float(c), 2), per_month=round(float(w[0]), 3),
+        per_thousand_dm=round(float(w[1] * 1000), 3), score_03=round(float(np.log(0.3 / 0.7)), 2))
 
     fig, ax = plt.subplots(figsize=(8.4, 4.4))
     at_step(1, ax.scatter(X[y == 0, 0], X[y == 0, 1], s=14, color=LIGHT),
@@ -316,6 +369,56 @@ def boundary(path: Path) -> None:
     ax.set_ylabel("amount (DM)")
     NUMBERS["credit"]["boundary_refused"] = {str(t): n for t, n in refused.items()}
     save(fig, AM / "boundary.svg")
+
+
+def duration_model(path: Path) -> None:
+    """One attribute, as the intro deck did with heights: how many good and bad credits per duration.
+
+    The two curves are kernel density estimates scaled to the class counts (700 good, 300 bad), so
+    where they cross, a credit is as likely bad as good. The points go to the JSON; the deck's
+    draw script draws them (day1/02-model/src/draw.py).
+    """
+    from scipy.stats import gaussian_kde
+    d = pd.read_csv(path)
+    target = "credit_risk" if "credit_risk" in d else "Score"
+    y = (d[target] == "bad").astype(int).to_numpy()
+    x = d["duration"].to_numpy(float)
+    xs = np.linspace(4, 60, 113)
+    for bw in (0.3, 0.4, 0.5, 0.6, 0.8):              # widen until the curves cross once
+        good = gaussian_kde(x[y == 0], bw_method=bw)(xs) * (y == 0).sum()
+        bad = gaussian_kde(x[y == 1], bw_method=bw)(xs) * y.sum()
+        cross = [i for i in range(1, len(xs)) if (bad[i] - good[i]) * (bad[i - 1] - good[i - 1]) < 0]
+        if len(cross) == 1:
+            break
+    i = cross[0]
+    t = xs[i - 1] + (xs[i] - xs[i - 1]) * (good[i - 1] - bad[i - 1]) / ((bad[i] - bad[i - 1]) - (good[i] - good[i - 1]))
+    new = 24
+    g24, b24 = np.interp(new, xs, good), np.interp(new, xs, bad)
+    NUMBERS["credit"]["duration_model"] = dict(
+        bandwidth=bw, months=[round(float(v), 1) for v in xs],
+        good=[round(float(v), 3) for v in good], bad=[round(float(v), 3) for v in bad],
+        threshold=round(float(t), 1), beyond=int((x > t).sum()),
+        new_case=new, p_bad_new=round(float(b24 / (b24 + g24)), 2))
+
+
+def metric_grid(path: Path) -> None:
+    """The same six forests, ranked by four metrics: each metric picks its own winner."""
+    d = pd.read_csv(path)
+    target = "credit_risk" if "credit_risk" in d else "Score"
+    y = (d[target] == "bad").astype(int).to_numpy()
+    X = pd.get_dummies(d.drop(columns=["row ID", target], errors="ignore"))
+    cv = StratifiedKFold(5, shuffle=True, random_state=SEED)
+    rows = []
+    for weights in (None, "balanced"):
+        for leaf in (1, 10, 40):
+            p = cross_val_predict(rf(300, class_weight=weights).set_params(min_samples_leaf=leaf), X, y, cv=cv,
+                                  method="predict_proba")[:, 1]
+            yh = p > 0.5
+            rows.append(dict(class_weights="balanced" if weights else "none", min_leaf=leaf,
+                             accuracy=round(float((yh == y).mean()), 3), roc_auc=round(roc_auc_score(y, p), 3),
+                             recall=round(float(recall_score(y, yh)), 3), f1=round(float(f1_score(y, yh)), 3),
+                             precision=round(float(precision_score(y, yh, zero_division=0)), 3)))
+    NUMBERS["credit"]["metric_grid"] = rows
 
 
 def cv_diagram() -> None:
@@ -464,6 +567,8 @@ def main() -> int:
     out = ROOT / "day1" / "figures-numbers.json"
     credit(a.credit)
     boundary(a.credit)
+    duration_model(a.credit)
+    metric_grid(a.credit)
     cv_diagram()
     if a.wine is None:                      # credit only: keep the other keys
         NUMBERS.update({k: v for k, v in json.loads(out.read_text()).items() if k != "credit"})

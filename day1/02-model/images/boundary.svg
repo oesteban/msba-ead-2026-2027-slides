@@ -38,7 +38,7 @@ L 70.177188 251.136
 z
 " style="fill: none"/>
    </g>
-   <g id="step-1-111" data-step="1">
+   <g id="step-1-134" data-step="1">
     <defs>
      <path id="m979a32794b" d="M 0 1.870829 
 C 0.49615 1.870829 0.972045 1.673706 1.322876 1.322876 
@@ -755,7 +755,7 @@ z
      <use xlink:href="#m979a32794b" x="295.162788" y="214.391535" style="fill: #d9d9d9; stroke: #d9d9d9"/>
     </g>
    </g>
-   <g id="step-1-112" data-step="1">
+   <g id="step-1-135" data-step="1">
     <defs>
      <path id="ma863d5d217" d="M 0 1.870829 
 C 0.49615 1.870829 0.972045 1.673706 1.322876 1.322876 
@@ -1252,13 +1252,13 @@ L -3.5 0
      <text style="fill: #1a1a1a; font: 14px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="17.345625" y="129.168" transform="rotate(-90 17.345625 129.168)">amount (DM)</text>
     </g>
    </g>
-   <g id="step-2-113" data-step="2">
+   <g id="step-2-136" data-step="2">
     <path d="M 295.207063 7.2 
 L 377.574865 251.136 
 L 377.574865 251.136 
 " clip-path="url(#p8298127add)" style="fill: none; stroke: #00609c; stroke-width: 2.4"/>
    </g>
-   <g id="step-3-115" data-step="3">
+   <g id="step-3-138" data-step="3">
     <path d="M 138.915304 7.2 
 L 221.282813 251.136 
 L 221.282813 251.136 
@@ -1277,7 +1277,7 @@ L 538.897188 251.136
    <g id="text_19">
     <text style="fill: #1a1a1a; font: 11px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="534.209988" y="20.050283" transform="rotate(-0 534.209988 20.050283)">grey: good · dark: bad</text>
    </g>
-   <g id="step-2-114" data-step="2">
+   <g id="step-2-137" data-step="2">
     <g id="patch_5">
      <path d="M 355.544819 161.130301 
 L 490.582319 161.130301 
@@ -1293,7 +1293,7 @@ z
     </g>
     <text style="fill: #00609c; font: 700 12px 'Arimo', 'Liberation Sans', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="355.544819" y="155.640301" transform="rotate(-0 355.544819 155.640301)">P(bad) = 0.5: 66 refused</text>
    </g>
-   <g id="step-3-116" data-step="3">
+   <g id="step-3-139" data-step="3">
     <g id="patch_6">
      <path d="M 172.806887 82.809712 
 L 314.517512 82.809712 
