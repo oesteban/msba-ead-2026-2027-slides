@@ -181,9 +181,15 @@ def lint(deck: Path, tracked: set[str], subs: list[str]) -> list[str]:
         if j >= 0 and lines[j].strip() not in ('---', '--'):
             say(i, f"property line outside a property block: {line.strip()!r}")
 
-    # 8. vocabulary
+    # 8. vocabulary. A reference list (`.refs[ ... ]`) is exempt: a published
+    # title is cited as published, whatever word it uses.
+    in_refs = False
     for i, line in enumerate(lines):
-        if KFOLD.search(line):
+        if line.startswith('.refs['):
+            in_refs = True
+        elif in_refs and line.strip() == ']':
+            in_refs = False
+        if not in_refs and KFOLD.search(line):
             say(i, "say 'cross-validation', not 'k-fold' (AUTHORING.md, On slides)")
 
     # 6 and 7. assets
