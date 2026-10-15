@@ -72,6 +72,27 @@
 .time { font-size: 1em; margin-top: 1.3em; }
 .fullw { padding-right: 2.4em; box-sizing: border-box; }
 .refs li { font-size: 0.68em; margin-bottom: 0.35em; }
+/* the data slides of Hands-on 2, after the intro deck's: five rows, the target lit, a legend and three facts */
+.terms table { font-size: 0.82em; margin: 0.2em 0 0; border-collapse: collapse; }
+.terms th, .terms td { padding: 0.25em 0.55em; border-bottom: 1px solid #d9d9d9; text-align: left; }
+.data-lead { font-size: 1.4em; font-weight: 600; color: var(--heading-color); text-align: center; padding-bottom: 0.4em; }
+.data-lead .tgt-mark { background: var(--accent-tint, #e6eff5); padding: 0.05em 0.35em; border-radius: 3px; }
+.data-lead .tgt-mark code { background: none; padding: 0; }
+.terms th.tgt, .terms td.tgt { background: var(--accent-tint, #e6eff5); font-weight: 700; }
+.legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; margin-top: 0.8em; font-size: 0.72em; }
+.legend > div { border-top: 3px solid var(--accent); padding-top: 0.3em; }
+.legend b { color: var(--heading-color); }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; margin-top: 1em; }
+.facts > div { background: #f4f6f7; border-radius: 6px; padding: 0.5em 0.8em; font-size: 0.72em; line-height: 1.35; }
+.facts .num { display: block; font-size: 1.9em; font-weight: 700; color: var(--accent); line-height: 1.1; }
+/* the types slide: the documentation's kinds of column */
+.types { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8em 1em; margin-top: 0.3em; }
+.types > div { background: #f4f6f7; border-top: 4px solid var(--accent); padding: 0.5em 0.9em 0.6em; font-size: 0.8em; line-height: 1.55; }
+.types b { display: block; font-size: 1.2em; color: var(--heading-color); }
+.types b .n { color: var(--accent); margin-left: 0.3em; }
+.types p { margin: 0.25em 0 0; color: #3d4b51; }
+.types code { font-size: 0.92em; white-space: nowrap; }
+.types-after { font-size: 0.92em; margin: 0.9em 0 0; line-height: 1.45; }
 </style>
 <script src="https://kit.fontawesome.com/015d4b01de.js" crossorigin="anonymous"></script>
 
@@ -98,7 +119,7 @@ EAD · Exploration avancée de données et intelligence décisionnelle · 16.10.
 
 ???
 
-This deck asks how far a single score can be trusted and how to choose among models without overfitting to the test data. The previous deck, *Evaluating a classifier*, presented ROC AUC and error costs measured on one test set. This deck shows that such a test set gives only one draw from a range of possible scores (slides 2 and 3), introduces cross-validation as the remedy (slides 4 to 7), and explains how to keep a final test honest when choosing among models (slides 8 and 9). A case from MRI quality control (slides 10 to 12) warns that standard k-fold folds can overstate performance when rows share a group. The hands-on sessions (slides 13 to 23) compare four algorithms on the credit data and apply them to a second dataset. The textbook reference is chapter 5, *Overfitting and Its Avoidance* (Provost & Fawcett, 2013, pp. 111 to 138).
+This deck asks how far a single score can be trusted and how to choose among models without overfitting to the test data. The previous deck, *Evaluating a classifier*, presented ROC AUC and error costs measured on one test set. This deck shows that such a test set gives only one draw from a range of possible scores (slides 2 and 3), introduces cross-validation as the remedy (slides 4 to 7), and explains how to keep a final test honest when choosing among models (slides 8 and 9). A case from MRI quality control (slides 10 to 12) warns that standard k-fold folds can overstate performance when rows share a group. The hands-on sessions compare four algorithms on the credit data (slides 13 to 21) and apply them to a second dataset (slides 22 to 26). The textbook reference is chapter 5, *Overfitting and Its Avoidance* (Provost & Fawcett, 2013, pp. 111 to 138).
 
 ---
 name: newsection
@@ -140,13 +161,18 @@ class: vcenter
 .card[
 .enum[5]
 
-<span class="part">Five folds, four algorithms, a second dataset.</span> Hands-on on the credits; linear models, SVM, forests, boosting; card defaults. Slides 13 to 23.
+<span class="part">Five folds, four algorithms.</span> Hands-on on the credits; linear models, SVM, forests, boosting. Slides 13 to 21.
+]
+.card[
+.enum[6]
+
+<span class="part">Hands-on 2: the credit-card dataset.</span> 30,000 clients, their columns, three algorithms on five folds. Slides 22 to 26.
 ]
 ]
 
 ???
 
-The five parts trace the path from a single, unreliable score to a comparison of algorithms on a second dataset. Part 1 (slides 2 and 3) demonstrates that the same model scored on different test sets yields different numbers, driven only by the draw. Part 2 (slides 4 to 7) defines cross-validation and shows how Dataiku reports it. Part 3 (slides 8 and 9) separates choosing from testing: the folds guide the choice, a held-out test gives the honest score, and nested cross-validation does both when data are scarce. Part 4 (slides 10 to 12) uses a published study on MRI scanners to show that rows from the same group are not independent and that folds must reflect how new data arrive. Part 5 (slides 13 to 23) runs the hands-on: five folds on the credits, four algorithms, a cost-aware threshold, then a second dataset of 30,000 records.
+The six parts trace the path from a single, unreliable score to a comparison of algorithms on a second dataset. Part 1 (slides 2 and 3) demonstrates that the same model scored on different test sets yields different numbers, driven only by the draw. Part 2 (slides 4 to 7) defines cross-validation and shows how Dataiku reports it. Part 3 (slides 8 and 9) separates choosing from testing: the folds guide the choice, a held-out test gives the honest score, and nested cross-validation does both when data are scarce. Part 4 (slides 10 to 12) uses a published study on MRI scanners to show that rows from the same group are not independent and that folds must reflect how new data arrive. Part 5 (slides 13 to 21) runs five folds on the credits and presents four algorithms. Part 6 (slides 22 to 26) opens a second dataset of 30,000 credit-card clients, sorts its columns into types, and runs Hands-on 2 on it.
 
 ---
 class: stepwise-svg
@@ -545,7 +571,7 @@ class: stepwise-svg
 
 ???
 
-The second algorithm is the support vector machine. Where logistic regression picks one boundary among many, an SVM picks the one with the widest margin, the band free of points between the two classes (Provost & Fawcett, 2013, p. 92). Only the points at the edges of the band, the support vectors, fix it. "The margin-maximizing boundary gives the maximal leeway for classifying such points" (Provost & Fawcett, 2013, p. 92, verbatim). When the data are not linearly separable, the algorithm seeks "some balance between a fat margin and a low total error penalty" (Provost & Fawcett, 2013, p. 93, verbatim). A kernel bends the band so that the boundary curves: Dataiku's default, rbf, gave the smooth shape on slide 16. The run of 14 October on the course server used kernel rbf, C 1.0 (Dataiku DSS 15.0); James et al. (2021, pp. 367 to 383) develop the method in full. Training time grows fast with the number of rows, which is why the second hands-on on slide 22 leaves this algorithm out.
+The second algorithm is the support vector machine. Where logistic regression picks one boundary among many, an SVM picks the one with the widest margin, the band free of points between the two classes (Provost & Fawcett, 2013, p. 92). Only the points at the edges of the band, the support vectors, fix it. "The margin-maximizing boundary gives the maximal leeway for classifying such points" (Provost & Fawcett, 2013, p. 92, verbatim). When the data are not linearly separable, the algorithm seeks "some balance between a fat margin and a low total error penalty" (Provost & Fawcett, 2013, p. 93, verbatim). A kernel bends the band so that the boundary curves: Dataiku's default, rbf, gave the smooth shape on slide 16. The run of 14 October on the course server used kernel rbf, C 1.0 (Dataiku DSS 15.0); James et al. (2021, pp. 367 to 383) develop the method in full. Training time grows fast with the number of rows, which is why the second hands-on on slide 25 leaves this algorithm out.
 
 ---
 class: stepwise-svg
@@ -625,6 +651,91 @@ The table summarises the four algorithms: boundary shape, preparation needed, in
 
 ---
 
+.section-mark[
+# Hands-on 2:<br />the credit-card dataset
+]
+
+???
+
+This part (slides 23 to 26) leaves the 1,000 South German credits for a second, larger dataset: 30,000 credit-card clients in Taiwan, published by Yeh and Lien (2009) through the UCI Machine Learning Repository (dataset 350). Slide 23 shows what one client's row holds and what the target is. Slide 24 sorts the columns into kinds, the step the intro deck took for the credits (deck 1, slide 16), and points at the codes the data's documentation leaves unexplained. Slides 25 and 26 run Hands-on 2 with its group sheet: three algorithms on five folds, trained across the afternoon break, then compared fold by fold before the debrief at 15:00. With thirty times more rows, an algorithm's training time becomes part of the choice, which is why the SVM is left out.
+
+---
+class: stepwise-svg
+
+# The data: what one client knows
+
+<img class="phase-thumb" src="images/phase-du.svg" style="top: 170px;" alt="The CRISP-DM phases, data understanding lit" />
+
+.beside-thumb.terms[
+<table>
+<caption class="data-lead"><b>Features</b> (columns) and <span class="tgt-mark"><b>target</b> (column <code>default_next_month</code>)</span></caption>
+<tr><th>credit_limit</th><th>sex</th><th>education</th><th>age</th><th>pay_status_sep</th><th>bill_sep</th><th>paid_sep</th><th>...</th><th class="tgt">default_next_month</th></tr>
+<tr><td>20000</td><td>female</td><td>university</td><td>24</td><td>2</td><td>3913</td><td>0</td><td>...</td><td class="tgt">default</td></tr>
+<tr><td>120000</td><td>female</td><td>university</td><td>26</td><td>-1</td><td>2682</td><td>0</td><td>...</td><td class="tgt">default</td></tr>
+<tr><td>90000</td><td>female</td><td>university</td><td>34</td><td>0</td><td>29239</td><td>1518</td><td>...</td><td class="tgt">paid</td></tr>
+<tr><td>50000</td><td>male</td><td>university</td><td>57</td><td>-1</td><td>8617</td><td>2000</td><td>...</td><td class="tgt">paid</td></tr>
+<tr><td>500000</td><td>male</td><td>graduate school</td><td>29</td><td>0</td><td>367965</td><td>55000</td><td>...</td><td class="tgt">paid</td></tr>
+</table>
+
+<br />
+
+<div class="legend step-1">
+<div><b>Rows are samples</b>: one credit-card client.</div>
+<div><b>Columns are features</b>: what the issuer knew by the end of September 2005.</div>
+<div><b>The target</b>: <code>default_next_month</code>, known only a month later.</div>
+</div>
+
+<div class="facts step-2">
+<div><span class="num">30,000</span>clients in Taiwan, with six months of bills, payments and repayment status, April to September 2005.</div>
+<div><span class="num">22.1%</span>defaulted on the next payment: 6,636 clients. Predicting "paid" for all is right 77.9% of the time.</div>
+<div><span class="num">58%</span>have a September status of −2 or 0: two codes the data's documentation does not explain.</div>
+</div>
+]
+
+.footnote[Rows 1, 2, 3, 5 and 7 of the course file. I.-C. Yeh and C.-H. Lien (2009), *Expert Systems with Applications* 36(2): 2473 to 2480; UCI Machine Learning Repository, dataset 350, doi:10.24432/C55S3H, .lic[CC BY 4.0]; English names and labels by the course.]
+
+???
+
+As in the intro deck, each row is an instance, each column an attribute, and the target is the value to predict, unknown at the time of the decision (Provost & Fawcett, 2013, pp. 44 to 46). Here a row is one credit-card client in Taiwan, and the columns hold the credit limit, sex, education, marital status and age, then, for each month from April to September 2005, the repayment status, the amount of the bill and the amount paid, in NT dollars (Yeh & Lien, 2009, UCI record). The target, `default_next_month`, records whether the client defaulted on the next payment, valued `default` or `paid` in the course file.
+
+The file has 30,000 rows, 23 attributes and no missing values (Yeh & Lien, 2009, UCI record). Of the clients, 6,636 defaulted, 22.1%: a model that always predicts "paid" is right 77.9% of the time, the baseline of deck 2 (slide 8) that any model has to beat. The repayment status uses -1 for paid duly and 1 to 9 for the months of delay, but the values -2 and 0 also occur and the record does not explain them. In September, 17,496 clients, 58%, carry one of these two codes. Their meaning is not known from the held sources, so treating them as numbers, merging them or recoding them is an assumption to state. The study that published the data compared six data-mining methods and judged them by how well their predicted probabilities matched estimated real ones, not only by the classes they predicted (Yeh & Lien, 2009, UCI record). The course file renames the columns in English, with the month in each name, decodes the documented categories, and keeps 35 rows that repeat another row exactly.
+
+---
+class: stepwise-svg
+
+# Each column has a type
+
+<img class="phase-thumb" src="images/phase-du.svg" alt="The CRISP-DM phases, data understanding lit" />
+
+.beside-thumb[
+<div class="types step-1">
+<div><b>Numbers<span class="n">14</span></b>
+<code>credit_limit</code> <code>age</code> <code>bill_sep</code> to <code>bill_apr</code> <code>paid_sep</code> to <code>paid_apr</code>
+<p>NT dollars and years. A bill is negative when the client is in credit.</p></div>
+<div><b>Ordered codes<span class="n">6</span></b>
+<code>pay_status_sep</code> to <code>pay_status_apr</code>
+<p>−1 paid duly, 1 to 9 months of delay. −2 and 0 occur, undocumented.</p></div>
+<div><b>Categories<span class="n">3</span></b>
+<code>sex</code> <code>education</code> <code>marriage</code>
+<p>Labels with no order. Undocumented codes read <i>unknown</i>. <code>sex</code> is a protected attribute.</p></div>
+<div><b>The target<span class="n">1</span></b>
+<code>default_next_month</code>
+<p><i>default</i> or <i>paid</i>: the task is classification, as with the credits.</p></div>
+</div>
+
+<p class="types-after step-2"><b>Dataiku will read `pay_status_*` as numbers</b>, and so put the undocumented −2 and 0 in an order: below paid duly, and below one month of delay. As categories, they would get no order at all. Step 1 of the sheet asks you to choose.</p>
+]
+
+.footnote[Types and codes: the UCI record of dataset 350 (I.-C. Yeh and C.-H. Lien, 2009) and the course file's data card. Describing the data: P. Chapman et al. (2000), *CRISP-DM 1.0*, p. 21.]
+
+???
+
+The data's documentation gives each column a meaning, and the meaning decides its type. Fourteen columns are amounts and ages, numbers that can be compared and added: the credit limit, the age, six monthly bills and six monthly payments, in NT dollars; a bill is negative when the client is in credit (Yeh & Lien, 2009, UCI record; course data card). Six columns are the repayment status, September back to April 2005: -1 means paid duly and 1 to 9 the months of delay, an order with steps of one month (UCI record). The values -2 and 0 occur in every one of these columns, but the record does not document them. Three columns are categories without order: sex, education and marital status. Education has codes 0, 5 and 6 and marital status code 0 that the record does not list; the course file labels them unknown (course data card). Sex is a protected attribute: a model that uses it, or attributes that stand in for it, raises a fairness question before any accuracy question. The target, `default_next_month`, takes two values, so the task is classification, as with the South German credits.
+
+Describing the data is a task of CRISP-DM's data understanding phase: the format, the quantity and the meaning of each field (Chapman et al., 2000, p. 21). Dataiku guesses types from the values, not from their meaning, as the intro deck showed on the credits (deck 1, slide 16). Here the repayment status holds small integers, so it will be read as a number. As a number, the column orders its values, so -2 and 0 land below 1 month of delay and -2 below paid duly, an order the documentation never states. As a category, each value is its own label and no order is assumed, at the cost of losing the order the documented values do have. Neither choice reveals what -2 and 0 mean; step 1 of the group sheet asks which assumption the group prefers to state.
+
+---
+
 # Hands-on 2: which algorithm for card defaults?
 
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
@@ -633,19 +744,19 @@ The table summarises the four algorithms: boundary shape, preparation needed, in
 .need[**The need.** A card issuer wants to flag, each month, the clients likely to miss next month's payment. Which algorithm should score them? `credit_card_default.csv`: 30,000 credit-card clients in Taiwan, April to September 2005.]
 
 <div class="moves">
-<div><b>1. Explore</b>Upload the file. Share of <code>default</code>? Are the <code>pay_status_*</code> columns numbers or categories (deck 1, slide 15)?<br /><code>+ Dataset → Upload your files</code>, <code>Explore</code></div>
-<div><b>2. Train</b>Target <code>default_next_month</code>; <i>K-fold cross-test</i>, 5 folds, stratified; logistic regression, random forest, XGBoost.<br /><code>Lab → AutoML Prediction</code>, <code>Design</code></div>
-<div><b>3. Compare</b>Each ROC AUC and its ±. Is the best one better on every fold?<br /><code>Results</code></div>
+<div><b>1. Explore</b>Upload the file. Share of <code>default</code>? Are the <code>pay_status_*</code> columns numbers or categories (slide 24)?<br /><code>+ Dataset → Upload your files</code>, <code>Explore</code>, sheet step 1</div>
+<div><b>2. Train</b>Target <code>default_next_month</code>; <i>K-fold cross-test</i>, 5 folds, stratified; logistic regression, random forest, XGBoost.<br /><code>Lab → AutoML Prediction</code>, <code>Design</code>, step 2</div>
+<div><b>3. Compare</b>Each ROC AUC and its ±. Is the best one's lead larger than the ±?<br /><code>Results</code>, step 3</div>
 </div>
 
-.time[Groups of three, same roles. 40 minutes: start training before the break, the models train on through it. SVM left out: its training time grows fast with the rows.]
+.time[Sheet *Hands-on 2*, steps 1 to 3. Groups of three. 40 minutes: start training before the break, the models train on through it. SVM left out: its training time grows fast with the rows.]
 ]
 
 .footnote[Data: I.-C. Yeh and C.-H. Lien (2009); UCI Machine Learning Repository, dataset 350, doi:10.24432/C55S3H, CC BY 4.0; English names and labels by the course.]
 
 ???
 
-The second hands-on moves to a larger dataset: 30,000 credit-card clients in Taiwan, published by Yeh and Lien (2009, Expert Systems with Applications, 36(2): 2473 to 2480) through the UCI Machine Learning Repository (dataset 350, doi:10.24432/C55S3H, CC BY 4.0). Of these, 6,636 (22.1%) defaulted on the next payment after September 2005. For each client, the file records credit limit, sex, education, marital status, age, the repayment status of each month from April to September 2005, the bill and the amount paid each month, all in NT dollars. The `pay_status_*` columns need attention: the UCI documentation gives -1 as paid duly and 1 to 9 as months of delay, but the codes -2 and 0 also appear and are undocumented; whether these columns are treated as numbers or categories (deck 1, slide 15) affects the model. The groups train logistic regression, random forest and XGBoost with K-fold cross-test, 5 folds, stratified, and compare each AUC and its ±. The SVM is left out because its training time grows fast with 30,000 rows. Training starts before the afternoon break and runs on through it; the debrief follows at 15:00.
+The second hands-on moves to a larger dataset: 30,000 credit-card clients in Taiwan, published by Yeh and Lien (2009, Expert Systems with Applications, 36(2): 2473 to 2480) through the UCI Machine Learning Repository (dataset 350, doi:10.24432/C55S3H, CC BY 4.0). Of these, 6,636 (22.1%) defaulted on the next payment after September 2005. For each client, the file records credit limit, sex, education, marital status, age, the repayment status of each month from April to September 2005, the bill and the amount paid each month, all in NT dollars. The `pay_status_*` columns need attention: the UCI documentation gives -1 as paid duly and 1 to 9 as months of delay, but the codes -2 and 0 also appear and are undocumented; whether these columns are treated as numbers or categories (slide 24) affects the model. The groups train logistic regression, random forest and XGBoost with K-fold cross-test, 5 folds, stratified, and compare each AUC and its ±. The SVM is left out because its training time grows fast with 30,000 rows. Training starts before the afternoon break and runs on through it; the debrief follows at 15:00.
 
 ---
 
@@ -655,17 +766,17 @@ The second hands-on moves to a larger dataset: 30,000 credit-card clients in Tai
 
 .beside-thumb[
 <div class="moves">
-<div><b>4. Overlap</b>For the two best models: do their fold curves overlap?<br /><code>Performance → ROC & PR curves</code></div>
-<div><b>5. Explain</b>Which columns lead? Would a credit officer accept them?<br /><code>Explainability → Feature importance</code></div>
-<div><b>6. Decide</b>The model you would deploy, and why: its score and ±, and how well it explains itself.</div>
+<div><b>4. Overlap</b>For the two best models: do their fold curves overlap?<br /><code>Performance → ROC & PR curves</code>, panel 4</div>
+<div><b>5. Explain</b>Which columns lead? Would a credit officer accept them?<br /><code>Explainability → Feature importance</code>, panel 5</div>
+<div><b>6. Decide</b>The model you would deploy, and why: its score and ±, and how well it explains itself.<br />Panel 6</div>
 </div>
 
-.time[Debrief at 15:00: each Referee gives the group's choice in one sentence. 10 minutes.]
+.time[Sheet panels 4 to 6. Debrief at 15:00: each group gives its choice in one sentence. 10 minutes.]
 ]
 
 ???
 
-The second part asks whether the leading algorithm truly leads, or only on some folds. For the two best models, the groups compare their ROC and precision-recall curves fold by fold under Performance, then ROC and PR curves: if the curves overlap, neither model reliably dominates. Under Explainability, then Feature importance, the groups check which columns the winning model relies on and whether a credit officer would accept them. The final move is a deployment choice: each Referee states the group's algorithm, its AUC and ±, and how well it explains itself. This step is about "connecting the results of mining data back to the goal of the undertaking" (Provost & Fawcett, 2013, p. 187, verbatim): a model that scores well but relies on attributes a decision-maker cannot defend is harder to put into production.
+The second part asks whether the leading algorithm truly leads, or only on some folds. For the two best models, the groups compare their ROC and precision-recall curves fold by fold under Performance, then ROC and PR curves: if the curves overlap, neither model reliably dominates. Under Explainability, then Feature importance, the groups check which columns the winning model relies on and whether a credit officer would accept them. The final move is a deployment choice: each group states its algorithm, its AUC and ±, and how well it explains itself. This step is about "connecting the results of mining data back to the goal of the undertaking" (Provost & Fawcett, 2013, p. 187, verbatim): a model that scores well but relies on attributes a decision-maker cannot defend is harder to put into production.
 
 ---
 
