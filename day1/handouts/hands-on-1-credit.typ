@@ -165,12 +165,14 @@ starts from your notes.
   #step(1, "Reopen the model of panel 3")[#dss("Results", "model", "Performance", "Confusion matrix"). Set the cut-off with the slider above the table to each value below, and copy the counts.]
   #v(2pt)
   #table(
-    columns: (auto, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr), inset: 4pt, stroke: hair,
-    [*cut-off*], [*TP*], [*FP*], [*FN*], [*TN*], [*precision*], [*recall*],
-    [0.2], [], [], [], [], [], [],
-    [0.5], [], [], [], [], [], [],
-    [0.8], [], [], [], [], [], [],
+    columns: (auto, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1.3fr), inset: 4pt, stroke: hair,
+    [*cut-off*], [*TP*], [*FP*], [*FN*], [*TN*], [*precision*], [*recall*], [*false-positive rate*],
+    [0.6], [], [], [], [], [], [], [],
+    [0.4], [], [], [], [], [], [], [],
+    [0.2], [], [], [], [], [], [], [],
   )
+  Each row is a point of the ROC curve: recall up, false-positive rate across (slide 12 of *Evaluating a classifier*).
+
   Which cut-off would you put in production, and why? #rule(7cm)
 ]
 
