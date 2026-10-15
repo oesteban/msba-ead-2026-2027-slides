@@ -90,6 +90,26 @@
 .grid6 th, .grid6 td { padding: 0.4em 0.6em; border-bottom: 1px solid #d9dee1; text-align: center; }
 .grid6 th small { font-weight: 400; color: #556268; }
 .grid6 td.win { background: #e6eff5; color: var(--accent); font-weight: 700; }
+/* three models, three metrics: the winner of each metric gets a badge */
+.grid3 .q { font-size: 1.05em; margin: 0.1em 0 0.5em; }
+.grid3 table { border-collapse: collapse; width: 100%; font-size: 1.05em; }
+.grid3 th, .grid3 td { padding: 0.45em 0.7em; border-bottom: 1px solid #d9dee1; text-align: center; }
+.grid3 thead th small { display: block; font-weight: 400; color: #556268; font-size: 0.75em; }
+.grid3 tbody th { text-align: left; font-size: 1.1em; }
+.grid3 tbody th small { font-weight: 400; color: #556268; font-size: 0.72em; margin-left: 0.5em; }
+.grid3 .best { display: inline-block; margin-left: 0.4em; padding: 0 0.45em; border-radius: 3px; background: var(--accent);
+  color: #fff; font-size: 0.68em; font-weight: 700; vertical-align: middle; }
+.grid3 .then { font-size: 0.95em; line-height: 1.45; margin-top: 0.8em; }
+/* the hands-on with four moves, and its question kept in the flow */
+.moves.four { grid-template-columns: repeat(4, 1fr); margin-top: 1.1em; }
+.moves.four > div { font-size: 0.92em; line-height: 1.45; padding: 0.6em 0.8em 0.9em; }
+.admonition.near { position: relative; bottom: auto; left: auto; right: auto; margin-top: 1.1em; font-size: 1em; }
+/* the three thresholds: a larger table, the lesson in a card below it */
+.cm.wide3 table { font-size: 1.1em; margin-top: 0.8em; }
+.cm.wide3 th, .cm.wide3 td { padding: 0.8em 0.5em; white-space: nowrap; }
+.cm.wide3 tbody th { text-align: left; }
+.lesson { display: block; margin-top: 2em; padding: 0.8em 1.2em; border-left: 6px solid var(--accent); background: #f4f6f7;
+  font-size: 1.3em; line-height: 1.4; text-align: center; }
 /* the outlook: one row per part of the deck */
 .cards.steps .card p { font-size: 0.9em; line-height: 1.3; }
 .cards.steps .card .part { color: var(--accent); font-weight: 700; }
@@ -121,7 +141,7 @@ EAD · Exploration avancée de données et intelligence décisionnelle · 16.10.
 
 ???
 
-This deck moves from a model's probability output to the bank's grant-or-refuse decision. It begins with classification itself: one attribute on slide 2, two on slide 3, then all twenty on slide 4. Slides 5 and 6 name the positive class, bad, and define the four outcomes that arise when a prediction is compared with the truth. Slides 7 to 9 fill the confusion matrix, establish the baseline, and define the metrics that summarise it: precision, recall, F1 and the false-positive rate. Slide 10 shows the trade-off between precision and recall as the threshold moves, and slide 11 asks which metric should steer the model. Slides 12 and 13 introduce the ROC curve and its area (AUC), a ranking measure that does not depend on the class proportions or the costs, while slide 14 shows that precision does change with the class mix, a problem when bad credits are rare. Slides 15 to 20 return to the threshold: the hands-on panels, the cost matrix, the cost-optimal threshold, and three different thresholds for the same model. Slide 21 adds cumulative gains, and slide 22 enters costs in Dataiku. The ideas come from chapters 7 and 8 of Provost and Fawcett (2013), listed on slide 23, and from the CRISP-DM 1.0 guide (Chapman et al., 2000).
+This deck moves from a model's probability output to the bank's grant-or-refuse decision. It begins with classification itself: one attribute on slide 2, two on slide 3, then all twenty on slide 4. Slides 5 and 6 name the positive class, bad, and define the four outcomes that arise when a prediction is compared with the truth. Slides 7 to 9 fill the confusion matrix, establish the baseline, and define the metrics that summarise it: precision, recall, F1 and the false-positive rate. Slide 10 shows the trade-off between precision and recall as the threshold moves, and slide 11 asks which metric should steer the model. Slides 12 and 13 introduce the ROC curve and its area (AUC), a ranking measure that does not depend on the class proportions or the costs, while slide 14 shows that precision does change with the class mix, a problem when bad credits are rare. Slide 15 returns to Dataiku once: the groups move the threshold, enter the two prices and read the lift chart. Slides 16 to 19 then explain what they saw: the cost matrix, the cost-optimal threshold, and three different thresholds for the same model. Slide 20 reads the lift chart. The ideas come from chapters 7 and 8 of Provost and Fawcett (2013), listed on slide 21, and from the CRISP-DM 1.0 guide (Chapman et al., 2000).
 
 ---
 name: newsection
@@ -139,7 +159,6 @@ class: vcenter
 
 # This deck: from a score to a decision
 
-.lead-q[A good model is good for the decision it serves, not only good on the data. .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 187]]
 
 .cards.steps[
 .card[
@@ -155,40 +174,38 @@ class: vcenter
 .card[
 .enum[3]
 
-<span class="part">Hands-on 1, continued.</span> Move the threshold; which one for production? Slides 15 and 16.
+<span class="part">Hands-on 1, continued.</span> Move the threshold, price the errors, read the gains; which threshold for production? Slide 15.
 ]
 .card[
 .enum[4]
 
-<span class="part">Costs choose the threshold.</span> Two errors, two prices, three businesses. Slides 17 to 20.
+<span class="part">Costs choose the threshold.</span> Two errors, two prices, three businesses. Slides 16 to 19.
 ]
 .card[
 .enum[5]
 
-<span class="part">Gains.</span> How many applicants can the analysts review? Slides 21 and 22.
+<span class="part">Gains.</span> How many applicants can the analysts review? Slide 20.
 ]
 ]
 
 ???
 
-The deck has five parts. The first (slides 2 to 7) shows what a classifier returns, a probability that a threshold turns into a decision, and names the four outcomes. The second (slides 8 to 14) measures those outcomes, each metric answering one business question, up to the ROC curve and its AUC. The third (slides 15 and 16) returns to the group sheet to move the threshold. The fourth (slides 17 to 20) prices the two errors and lets the costs choose the threshold. The fifth (slides 21 and 22) reads the gains chart.
+The deck has five parts. The first (slides 2 to 7) shows what a classifier returns, a probability that a threshold turns into a decision, and names the four outcomes. The second (slides 8 to 14) measures those outcomes, each metric answering one business question, up to the ROC curve and its AUC. The third (slide 15) returns to the group sheet once: the groups move the threshold, enter the two prices and read the gains chart in Dataiku. The fourth (slides 16 to 19) prices the two errors and lets the costs choose the threshold, which explains what the groups saw. The fifth (slide 20) reads the gains chart.
 
-Chapter 7 of the textbook opens with the question behind them all, what makes a model good. Provost and Fawcett observe that data scientists and stakeholders often neglect "connecting the results of mining data back to the goal of the undertaking" (Provost & Fawcett, 2013, p. 187, verbatim). A model is not good or bad in itself; it is good for the decision it serves (Provost & Fawcett, 2013, pp. 187 to 188). The subtitle on the slide states the same point: good for the decision, not only good on the data. In CRISP-DM, the evaluation phase (task 5.1) asks whether the model meets the business objectives, beyond its accuracy and generality (Chapman et al., 2000, p. 30). This is distinct from the technical assessment of task 4.4 in the modeling phase, which ranks models by their data-mining success criteria and iterates until the best is found (Chapman et al., 2000, p. 29). Task 4.4 judges models technically; task 5.1 brings the stakeholders in to check the business goal. The next slides build the tools for both: technical metrics first, then costs that tie them to the bank's decision.
+Chapter 7 of the textbook opens with the question behind them all, what makes a model good. Provost and Fawcett observe that data scientists and stakeholders often neglect "connecting the results of mining data back to the goal of the undertaking" (Provost & Fawcett, 2013, p. 187, verbatim). A model is not good or bad in itself; it is good for the decision it serves (Provost & Fawcett, 2013, pp. 187 to 188). The deck keeps to that point: a model good for the decision, not only good on the data. In CRISP-DM, the evaluation phase (task 5.1) asks whether the model meets the business objectives, beyond its accuracy and generality (Chapman et al., 2000, p. 30). This is distinct from the technical assessment of task 4.4 in the modeling phase, which ranks models by their data-mining success criteria and iterates until the best is found (Chapman et al., 2000, p. 29). Task 4.4 judges models technically; task 5.1 brings the stakeholders in to check the business goal. The next slides build the tools for both: technical metrics first, then costs that tie them to the bank's decision.
 
 ---
 class: stepwise-svg
 
-# Classification learns from past credits
-
+# Credit classification learned from past credits
+<br />
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
 .beside-thumb[
 <div class="step-1"><object type="image/svg+xml" data="images/classification-duration.svg" style="width: 100%; padding-top: 4pt; pointer-events: none;"></object></div>
 
-.large.center[From cases whose class is known, learn a model; then predict the class of new cases.]
+.large.center[**Supervised learning**: learn from samples whose class is known; then predict the class of new cases.]
 ]
-
-.footnote[.book[<i class="fa-solid fa-book-open"></i> After Provost & Fawcett (2013), Fig. 2-1, p. 26], as in the intro deck (slide 3), on the course file with one attribute. Curves: the number of good and bad credits per duration, smoothed.]
 
 ???
 
@@ -317,7 +334,7 @@ class: stepwise-svg
 
 ???
 
-Slide 5 named the positive class, bad. This slide defines the four outcomes that arise when a prediction meets the truth. A true positive is a bad credit correctly refused; a false negative is a bad credit wrongly granted. A false positive is a good customer wrongly refused; a true negative is a good customer correctly granted. The first word, true or false, says whether the decision was right; the second, positive or negative, says what the model predicted (Provost & Fawcett, 2013, pp. 189 to 190). Every credit falls in exactly one cell. The table is the confusion matrix, the central tool of evaluation: every metric on the slides that follow is a ratio of these four counts. Two of the four cells are errors. False negatives cost the bank the capital lent to a credit that goes bad; false positives cost it a good customer turned away. Which error is worse depends on the business, a question slides 17 to 20 answer with numbers. The convention matters: swapping which class is called positive changes which error is called a false positive and which a false negative, so checking the positive class (slide 5) comes before reading any metric.
+Slide 5 named the positive class, bad. This slide defines the four outcomes that arise when a prediction meets the truth. A true positive is a bad credit correctly refused; a false negative is a bad credit wrongly granted. A false positive is a good customer wrongly refused; a true negative is a good customer correctly granted. The first word, true or false, says whether the decision was right; the second, positive or negative, says what the model predicted (Provost & Fawcett, 2013, pp. 189 to 190). Every credit falls in exactly one cell. The table is the confusion matrix, the central tool of evaluation: every metric on the slides that follow is a ratio of these four counts. Two of the four cells are errors. False negatives cost the bank the capital lent to a credit that goes bad; false positives cost it a good customer turned away. Which error is worse depends on the business, a question slides 16 to 19 answer with numbers. The convention matters: swapping which class is called positive changes which error is called a false positive and which a false negative, so checking the positive class (slide 5) comes before reading any metric.
 
 ---
 class: stepwise-svg
@@ -392,7 +409,7 @@ right: about 5% of the bank's credits went bad.
 
 ???
 
-If the bank grants every credit, it is right 70.0% of the time, because 700 of the 1,000 credits were good. The model at a threshold of 0.5 is right 75.5%: (95 + 660) / 1,000. Accuracy, the share of right decisions, is (TP + TN) / all credits. It rewards the majority class because a classifier that always predicts the majority class achieves the baseline accuracy with no model at all (Provost & Fawcett, 2013, pp. 189 to 191). Provost and Fawcett call accuracy "too simplistic for applications of data mining techniques to real business problems" (Provost & Fawcett, 2013, p. 189, verbatim). In the bank's real portfolio, only about 5% of credits went bad (deck 1, slide 14), so granting every credit there would be right about 95% of the time. A model that improves on 95% by a fraction of a percent may not be worth the effort. Choosing a persuasive baseline is itself a task of business understanding (Provost & Fawcett, 2013, pp. 204 to 205); the slide pairs the model's accuracy with the baseline so that neither number stands alone.
+If the bank grants every credit, it is right 70.0% of the time, because 700 of the 1,000 credits were good. The model at a threshold of 0.5 is right 75.5%: (95 + 660) / 1,000. Accuracy, the share of right decisions, is (TP + TN) / all credits. It rewards the majority class because a classifier that always predicts the majority class achieves the baseline accuracy with no model at all (Provost & Fawcett, 2013, pp. 189 to 191). Provost and Fawcett call accuracy "too simplistic for applications of data mining techniques to real business problems" (Provost & Fawcett, 2013, p. 189, verbatim). In the bank's real portfolio, only about 5% of credits went bad (deck 1, slide 15), so granting every credit there would be right about 95% of the time. A model that improves on 95% by a fraction of a percent may not be worth the effort. Choosing a persuasive baseline is itself a task of business understanding (Provost & Fawcett, 2013, pp. 204 to 205); the slide pairs the model's accuracy with the baseline so that neither number stands alone.
 
 ---
 class: stepwise-svg
@@ -448,31 +465,30 @@ class: stepwise-svg
 
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
-.beside-thumb.grid6[
+.beside-thumb.grid3[
 <div class="step-1">
+<p class="q">Three models of the same credits, by the same algorithm with three settings. <b>Which is best?</b></p>
+
 <table>
-<thead><tr><th>class weights</th><th>smallest leaf</th><th>accuracy</th><th>recall</th><th>F1</th><th>ROC AUC <small>(next slides)</small></th></tr></thead>
+<thead><tr><th></th><th>accuracy<small>right decisions</small></th><th>recall<small>bad credits caught</small></th><th>F1<small>slide 9</small></th></tr></thead>
 <tbody>
-<tr><td>none</td><td>1</td><td class="win">75.9%</td><td>37.0%</td><td>0.479</td><td>0.781</td></tr>
-<tr><td>none</td><td>10</td><td>73.1%</td><td>17.3%</td><td>0.279</td><td>0.782</td></tr>
-<tr><td>none</td><td>40</td><td>70.2%</td><td>0.7%</td><td>0.013</td><td>0.770</td></tr>
-<tr><td>balanced</td><td>1</td><td class="win">75.9%</td><td>33.0%</td><td>0.451</td><td>0.774</td></tr>
-<tr><td>balanced</td><td>10</td><td>72.4%</td><td>68.3%</td><td class="win">0.598</td><td class="win">0.783</td></tr>
-<tr><td>balanced</td><td>40</td><td>70.4%</td><td class="win">73.3%</td><td class="win">0.598</td><td>0.772</td></tr>
+<tr><th>A<small>simple, no class weights</small></th><td>70.2%</td><td>0.7%</td><td>0.013</td></tr>
+<tr><th>B<small>detailed, no class weights</small></th><td>75.9%<span class="best step-2">best</span></td><td>37.0%</td><td>0.479</td></tr>
+<tr><th>C<small>in between, class weights</small></th><td>72.4%</td><td>68.3%<span class="best step-2">best</span></td><td>0.598<span class="best step-2">best</span></td></tr>
 </tbody>
 </table>
 </div>
 
-.step-2[Six forests, one data set: each metric crowns a different one. Dataiku's metric under **Design → Metrics** drives this search over settings, and ranks the models.]
+<p class="then step-2">Ranked by accuracy, B wins. Ranked by recall or F1, C wins: it catches 68% of the bad credits, B 37%. In Dataiku, the metric chosen in <b>Design → Metrics</b> ranks the models.</p>
 
-.step-3[With 30% bad credits, the forest that refuses almost no one is still right 70.2% of the time, and catches 0.7% of the bad credits. **Class weights**, on by default in Dataiku, make the 300 bad credits count as much as the 700 good ones in training.]
+<p class="then step-3">A is right 70.2% of the time and catches almost no bad credit: the baseline of slide 8. <b>Class weights</b>, on by default in Dataiku, make the 300 bad credits count as much as the 700 good ones: they make C.</p>
 ]
 
-.footnote[Random forests (scikit-learn) on South German Credit, threshold 0.5, scores of credits each forest did not learn from; highlighted: the best value of each column. Dataiku DSS 13, *Prediction settings*: metrics, weighting strategy; both checked on DSS 15.0, course server.]
+.footnote[Three random forests (scikit-learn) on South German Credit, threshold 0.5, scores of credits each forest did not learn from. A: at least 40 credits per leaf; B: 1; C: 10, with class weights. Dataiku DSS 13, *Prediction settings*: metrics, weighting strategy; both checked on DSS 15.0, course server.]
 
 ???
 
-Six random forests, varying class weights (none or balanced) and smallest leaf size (1, 10 or 40), are scored on credits each forest did not learn from. Each metric crowns a different winner. Accuracy ties the two forests with leaf 1, at 75.9%, whose recall is only 37% and 33%. ROC AUC picks the balanced forest with leaf 10, whose recall reaches 68%, and F1 ties it with the balanced forest with leaf 40. Recall picks the balanced forest with leaf 40, at 73% with a precision of 50%. The unweighted forest with leaf 40 is the starkest case: it is right 70.2% of the time yet catches only 0.7% of the bad credits, because 70% of the credits are good. Provost and Fawcett warn that "as the class distribution becomes more skewed, evaluation based on accuracy breaks down" (Provost & Fawcett, 2013, p. 190, verbatim), and the baseline of slide 8 shows why (pp. 189 to 191). In Dataiku, the metric chosen in Design, then Metrics drives the hyperparameter search and ranks the models (Dataiku, 2024). Class weights, enabled by default, make the minority class count as much as the majority during training without changing the evaluation metrics (Dataiku, 2024). A metric that does not move with the class mix or the threshold is needed to compare models fairly; the next two slides introduce it.
+Three random forests, a kind of model deck 3 explains on its slide 19, are trained on the same credits with different settings and scored on credits each did not learn from, at a threshold of 0.5. A is the simplest: no class weights, and each leaf of its trees holds at least 40 credits. B is the most detailed: no class weights, and leaves of a single credit. C sits in between, with leaves of at least 10 credits, and uses class weights. Ranked by accuracy, B wins with 75.9%, but it catches only 37.0% of the bad credits. Ranked by recall or by F1, C wins: it catches 68.3% of the bad credits, with an F1 of 0.598, at an accuracy of 72.4%. A is right 70.2% of the time yet catches 0.7% of the bad credits, close to the baseline of slide 8, which grants every credit and is right 70% of the time because 70% of the credits are good. Provost and Fawcett warn that "as the class distribution becomes more skewed, evaluation based on accuracy breaks down" (Provost & Fawcett, 2013, p. 190, verbatim), and the baseline of slide 8 shows why (pp. 189 to 191). In Dataiku, the metric chosen in Design, then Metrics drives the hyperparameter search and ranks the models (Dataiku, 2024). Class weights, enabled by default, make the minority class count as much as the majority during training without changing the evaluation metrics (Dataiku, 2024). The three forests come from a grid of six computed for the course, two weightings by three leaf sizes; the other three tell the same story. ROC AUC, the measure of the next two slides, also ranks C first, by a much smaller margin: 0.783, against 0.781 for B and 0.770 for A.
 
 Both settings were checked on the course server (Dataiku DSS 15.0, 15 October 2026). **Design → Metrics**, *Optimize model hyperparameters for*, offers accuracy, precision, recall, F1-score, the cost matrix, ROC AUC, lift, average precision and log loss. **Design → Weighting strategy** shows *Class weights* as the default method for classification, each row weighted in inverse proportion to the size of its class, so that both classes count equally despite the imbalance.
 
@@ -527,7 +543,7 @@ class: stepwise-svg
 
 .step-2[It does not change with the share of bad credits or with the costs, so models can be compared before either is known.]
 
-.step-2[It ranks; it does not decide. The threshold is still to choose (slides 17 to 20).]
+.step-2[It ranks; it does not decide. The threshold is still to choose (slides 16 to 19).]
 ]
 ]
 
@@ -535,7 +551,7 @@ class: stepwise-svg
 
 ???
 
-The area under the ROC curve, AUC, is 0.78 for this model. It equals the probability that a randomly chosen bad credit receives a higher score than a randomly chosen good one (Provost & Fawcett, 2013, p. 219; Fawcett, 2006): pick one of each at random, and the model ranks the bad one higher 78 times in 100. A random classifier scores 0.5; a perfect ranking scores 1. Because the true-positive rate and the false-positive rate are each computed within one class, the AUC does not change with the share of bad credits or with the costs (Provost & Fawcett, 2013, p. 218), so models can be compared before either is known. Provost and Fawcett note that "the AUC is useful when a single number is needed to summarize performance" (Provost & Fawcett, 2013, p. 219, verbatim). It ranks models but does not choose a threshold; slides 17 to 20 show that the threshold comes from the costs of the two errors. In Dataiku, the ROC curve and its area appear under Performance, then ROC and PR curves, and ROC AUC is listed among the metrics in Design, then Metrics.
+The area under the ROC curve, AUC, is 0.78 for this model. It equals the probability that a randomly chosen bad credit receives a higher score than a randomly chosen good one (Provost & Fawcett, 2013, p. 219; Fawcett, 2006): pick one of each at random, and the model ranks the bad one higher 78 times in 100. A random classifier scores 0.5; a perfect ranking scores 1. Because the true-positive rate and the false-positive rate are each computed within one class, the AUC does not change with the share of bad credits or with the costs (Provost & Fawcett, 2013, p. 218), so models can be compared before either is known. Provost and Fawcett note that "the AUC is useful when a single number is needed to summarize performance" (Provost & Fawcett, 2013, p. 219, verbatim). It ranks models but does not choose a threshold; slides 16 to 19 show that the threshold comes from the costs of the two errors. In Dataiku, the ROC curve and its area appear under Performance, then ROC and PR curves, and ROC AUC is listed among the metrics in Design, then Metrics.
 
 In Dataiku, **Performance → ROC & PR curves** draws the ROC curve and prints its AUC with a verdict: 0.756 (± 0.029), "good", for an XGBoost model on the course server (15 October 2026). With cross-validation it draws one curve per fold; the next deck reads that spread.
 
@@ -556,55 +572,40 @@ class: stepwise-svg
 
 ???
 
-In the sample, 30% of credits are bad; at the bank, about 5% (deck 1, slide 14; Grömping, 2019). The ROC curve does not move when the class mix changes, because the true-positive rate and the false-positive rate are each computed within one class (Provost & Fawcett, 2013, p. 218; Fawcett, 2006). Precision does move: at a threshold of 0.5, precision is 70% in the sample but falls to about 23% at the bank's 5%. Both values come from the same true-positive and false-positive rates through the formula precision = share × TPR / (share × TPR + (1 − share) × FPR). The precision-recall curve's floor is the share of positives, 0.30 in the sample and 0.05 at the bank (Saito & Rehmsmeier, 2015). With rare positives, the precision-recall curve shows what the ROC curve hides: even a model with a good ranking floods the refused pile with good customers (Davis & Goadrich, 2006). Reading precision against its floor, not against zero, tells how far above chance the model reaches at a given threshold.
+In the sample, 30% of credits are bad; at the bank, about 5% (deck 1, slide 15; Grömping, 2019). The ROC curve does not move when the class mix changes, because the true-positive rate and the false-positive rate are each computed within one class (Provost & Fawcett, 2013, p. 218; Fawcett, 2006). Precision does move: at a threshold of 0.5, precision is 70% in the sample but falls to about 23% at the bank's 5%. Both values come from the same true-positive and false-positive rates through the formula precision = share × TPR / (share × TPR + (1 − share) × FPR). The precision-recall curve's floor is the share of positives, 0.30 in the sample and 0.05 at the bank (Saito & Rehmsmeier, 2015). With rare positives, the precision-recall curve shows what the ROC curve hides: even a model with a good ranking floods the refused pile with good customers (Davis & Goadrich, 2006). Reading precision against its floor, not against zero, tells how far above chance the model reaches at a given threshold.
 
 Dataiku's *PR curve* tab, beside the ROC curve, draws the baseline at the positive rate, 30% in this sample, and reports the average precision, which approximates the area under the precision-recall curve: 0.571 (± 0.117) for the same XGBoost model (Dataiku DSS 15.0, course server, 15 October 2026). At the bank's 5%, that baseline would sit at 5%.
 
 ---
 
-# Hands-on 1, continued: move the threshold
-
-<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
-
-.beside-thumb[
-.need[**The need.** Before it approves any threshold, the bank's risk committee wants to see what the model does at others.]
-
-<div class="moves">
-<div><b>1. Reopen</b>The best model of panel 3.<br /><code>Results → model → Performance → Confusion matrix</code></div>
-<div><b>2. Move</b>The cut-off to 0.6, then 0.4, then 0.2.<br />The slider above the table</div>
-<div><b>3. Record</b>The four counts, precision, recall and the false-positive rate: three points of the ROC curve.<br />Sheet, panel 4</div>
-</div>
-
-.need[Groups of three, same roles. 10 minutes.]
-]
-
-???
-
-The bank's risk committee wants to see what the model does at several thresholds before it approves any one of them. The task, on sheet panel 4, is to reopen the best model from panel 3 and move the cut-off to 0.6, then 0.4, then 0.2. At each threshold the group records the four counts of the confusion matrix, precision, recall and the false-positive rate, so that each row is one point of the ROC curve of slide 12. The Driver works Dataiku: the confusion matrix is at Results, then the model, then Performance, then Confusion matrix, with a slider above it for the cut-off. The Mapper writes the seven numbers for each threshold on the sheet. The Referee checks whether the numbers are consistent: for example, TP + FN must equal the total number of bad credits, and FP + TN the total of good ones. After this exercise each group holds three matrices, and the next slide asks which threshold the group would put into production and why. The point, developed on the slides that follow, is that a model alone does not choose its threshold. A business reason does, and the prices of the two errors fix which threshold is best (Provost & Fawcett, 2013, pp. 194 to 196).
-
-Dataiku's confusion matrix counts the 200 credits held out for testing, not the 1,000 scored on the slides, so the groups' counts are about a fifth of the deck's. With cross-validation, it shows the first fold only, while the metrics beside it average all folds (**Performance → Confusion matrix**, Dataiku DSS 15.0).
-
----
-
-# Which threshold would you put in production?
+# Hands-on 1, continued: threshold, costs, gains
 
 <img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
 
 .beside-thumb[
-<br />
+.need[**The need.** Before it approves a threshold, the bank's risk committee wants to see the model at others, the threshold its two prices imply, and what a review of the riskiest fifth would catch.]
 
-.large[Each group: one threshold from panel 4, and one reason.]
+<div class="moves four">
+<div><b>1. Move</b>Reopen the best model of panel 3. Set the cut-off to 0.6, 0.4, 0.2; copy the counts.<br /><code>Results → model → Performance → Confusion matrix</code>, panel 4</div>
+<div><b>2. Price</b>A bad credit granted costs 5, a good customer refused 1: enter them as gains, −5, −1, 0, 0. Train again.<br /><code>Design → Metrics → Cost matrix</code>, panel 5</div>
+<div><b>3. Read</b>The cut-off Dataiku now picks, against the one of panel 3.<br /><code>Performance → Confusion matrix</code>, panel 5</div>
+<div><b>4. Review</b>The share of bad credits among the riskiest 20% of applicants.<br /><code>Performance → Lift charts</code>, panel 6</div>
+</div>
 
-<br />
-
-.admonition.question[
-<i class="fa-solid fa-circle-question"></i> And why can't the model tell you?
+.admonition.question.near[
+<i class="fa-solid fa-circle-question"></i> **Which threshold would you put in production?** And why can't the model tell you?
 ]
+
+.need[Groups of three, same roles. 25 minutes.]
 ]
 
 ???
 
-After the hands-on, each group chose a threshold and a reason. The question that follows asks why the model itself cannot supply the answer. A model produces probabilities from the data; choosing the threshold is a business decision. The expected value framework of the previous deck (slide 13 of deck 1) separates the two ingredients: probabilities estimated from the data and costs that come from outside it. Provost and Fawcett set this division as the framework's structure: the probabilities come from the confusion matrix, while the values of each outcome usually come from outside the data, from the business (Provost & Fawcett, 2013, p. 194). A probability of 0.51 that a credit goes bad does not say whether to refuse it, because the answer depends on what a bad credit costs the bank compared with a good customer turned away (Provost & Fawcett, 2013, pp. 194 to 199). The next slide puts numbers on those two prices.
+Before it approves any threshold, the bank's risk committee wants three things: what the model does at other thresholds, the threshold its two prices imply, and what a review of the riskiest fifth of applicants would catch. The groups do all three in one session in Dataiku, on sheet panels 4 to 6; slides 16 to 20 then explain what they saw. Move 1 (panel 4): reopen the best model from panel 3, at Results, then the model, then Performance, then Confusion matrix, and move the cut-off slider above the table to 0.6, then 0.4, then 0.2. At each threshold the Mapper copies the four counts, precision, recall and the false-positive rate, so that each row is one point of the ROC curve of slide 12; the Referee checks that TP + FN equals the number of bad credits and FP + TN the number of good ones. Move 2 (panel 5): in Design, Metrics, *Optimize threshold for* is set to *Cost Matrix*, and the costs are entered as gains under *Cost matrix*, which Dataiku words in true and false, true being bad: -5 when the model predicts false (good) but the credit is actually bad, -1 when it predicts true (bad) for a good customer, and 0 for each correct decision. Move 3 (panel 5): after retraining, Dataiku picks the threshold that maximises the sum of gains. On the deck's own scores, the threshold with the best F1 is 0.29 and the cheapest 0.21 (slide 19): a bad credit granted costs five times a good customer refused, so the cheapest threshold refuses more. Slide 17 derives the rule behind it, and why Dataiku's cut-off need not match the rule: the forest's scores are not calibrated, and class weights shift them (Provost & Fawcett, 2013, p. 210; Dataiku, 2024). Move 4 (panel 6): Performance, Lift charts, at a depth of 20%, shows the share of bad credits the model's riskiest fifth catches, the question of slide 20.
+
+The question on the slide closes the session: each group chooses one threshold and one reason. The model cannot choose for them. It produces probabilities from the data, while the values of each outcome usually come from outside the data, from the business (Provost & Fawcett, 2013, p. 194). A probability of 0.51 that a credit goes bad does not say whether to refuse it: the answer depends on what a bad credit costs the bank compared with a good customer turned away (Provost & Fawcett, 2013, pp. 194 to 199).
+
+Dataiku's confusion matrix counts the 200 credits held out for testing, not the 1,000 scored on the slides, so the groups' counts are about a fifth of the deck's. With cross-validation, it shows the first fold only, while the metrics beside it average all folds (**Performance → Confusion matrix**, Dataiku DSS 15.0). Each training run produces a different model, so the groups' cut-offs and shares may differ from the deck's.
 
 ---
 class: stepwise-svg
@@ -623,7 +624,7 @@ The intro deck left the two prices open. The bank's data came with them: grantin
 
 ???
 
-Deck 1 (slide 13) drew the expected value frame with two prices left open. This slide fills them in. The figure follows Provost and Fawcett's Figure 7-2 (2013, p. 197), which multiplies four rates by four values and sums the results (pp. 194 to 200). At a threshold of 0.5, the four rates are 0.095 (bad, refused), 0.205 (bad, granted), 0.040 (good, refused) and 0.660 (good, granted), from scores of credits the model did not learn from. The costs are those published with the Statlog German credit data: granting a credit that goes bad costs 5, refusing a good customer costs 1 (Hofmann, 1994). Correct decisions cost nothing here, so only the two error cells carry a price. "While the probabilities can be estimated from data, the costs and benefits often cannot" (Provost & Fawcett, 2013, p. 199, verbatim). The expected cost per application is 0.205 × 5 + 0.040 × 1 = 1.065. Putting a cost in a correct-decision cell as well would count the same money twice: the book warns against this by testing the benefit of changing one decision (Provost & Fawcett, 2013, p. 203).
+Deck 1 (slide 14) drew the expected value frame with two prices left open, and the groups have just entered them in Dataiku. This slide puts them in the frame. The figure follows Provost and Fawcett's Figure 7-2 (2013, p. 197), which multiplies four rates by four values and sums the results (pp. 194 to 200). At a threshold of 0.5, the four rates are 0.095 (bad, refused), 0.205 (bad, granted), 0.040 (good, refused) and 0.660 (good, granted), from scores of credits the model did not learn from. The costs are those published with the Statlog German credit data: granting a credit that goes bad costs 5, refusing a good customer costs 1 (Hofmann, 1994). Correct decisions cost nothing here, so only the two error cells carry a price. "While the probabilities can be estimated from data, the costs and benefits often cannot" (Provost & Fawcett, 2013, p. 199, verbatim). The expected cost per application is 0.205 × 5 + 0.040 × 1 = 1.065. Putting a cost in a correct-decision cell as well would count the same money twice: the book warns against this by testing the benefit of changing one decision (Provost & Fawcett, 2013, p. 203).
 
 ---
 
@@ -649,7 +650,7 @@ A **calibrated** score means what it says: of the credits scored 0.2, about one 
 
 ???
 
-The cost matrix of slide 17 sets the threshold. Refuse when the expected cost of granting exceeds the expected cost of refusing: P(bad) × 5 > (1 − P(bad)) × 1, which gives P(bad) > 1/6, about 0.17. Provost and Fawcett derive the same form for a targeted mailing: an offer that costs $1 and earns $99 is worth sending when the response probability exceeds 1%, so a default threshold of 50% would leave almost no one to target (Provost & Fawcett, 2013, pp. 195 to 196). Elkan generalises the result: for two classes, the optimal threshold equals c_FP / (c_FP + c_FN), the ratio of the false-positive cost to the sum of both error costs (Elkan, 2001). The rule assumes calibrated scores: a calibrated score of 0.2 means that about one credit in five at that score goes bad. A model can rank cases well without giving true probabilities (Provost & Fawcett, 2013, p. 210). A random forest's scores are not calibrated, and Dataiku's class weights, enabled by default, correct class imbalance during training without changing the evaluation metrics (Dataiku, 2024), shifting the raw scores further from calibrated probabilities.
+The cost matrix of slide 16 sets the threshold. Refuse when the expected cost of granting exceeds the expected cost of refusing: P(bad) × 5 > (1 − P(bad)) × 1, which gives P(bad) > 1/6, about 0.17. Provost and Fawcett derive the same form for a targeted mailing: an offer that costs $1 and earns $99 is worth sending when the response probability exceeds 1%, so a default threshold of 50% would leave almost no one to target (Provost & Fawcett, 2013, pp. 195 to 196). Elkan generalises the result: for two classes, the optimal threshold equals c_FP / (c_FP + c_FN), the ratio of the false-positive cost to the sum of both error costs (Elkan, 2001). The rule assumes calibrated scores: a calibrated score of 0.2 means that about one credit in five at that score goes bad. A model can rank cases well without giving true probabilities (Provost & Fawcett, 2013, p. 210). A random forest's scores are not calibrated, and Dataiku's class weights, enabled by default, correct class imbalance during training without changing the evaluation metrics (Dataiku, 2024), shifting the raw scores further from calibrated probabilities.
 
 ---
 
@@ -684,7 +685,7 @@ The curve plots the total cost of the 1,000 credits at each threshold, at 5 per 
 
 <img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
 
-.beside-thumb.cm[
+.beside-thumb.cm.wide3[
 <table style="width: 100%;">
 <thead><tr><th>threshold chosen for</th><th>t</th><th>bad refused</th><th>good refused</th><th>bad granted</th><th>cost</th></tr></thead>
 <tbody>
@@ -694,9 +695,7 @@ The curve plots the total cost of the 1,000 credits at each threshold, at 5 per 
 </tbody>
 </table>
 
-<br />
-
-.large.center[F1 weighs the two errors alike; the bank does not. Choose the metric **from** the costs.]
+.lesson[F1 weighs the two errors alike; the bank does not. Choose the metric **from** the costs.]
 ]
 
 ???
@@ -705,43 +704,22 @@ The table holds the same model at three thresholds. At 0.50 (the more probable c
 
 ---
 
-# Gains answer "how many can we review?"
+# Lift chart
+
 
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
 .beside-thumb[
 <img src="images/cumulative-gains.svg" style="width: 62%; display: block; margin: 0 auto;" alt="Cumulative gains: the riskiest 20% of applicants hold 44% of the bad credits" />
 
-.large.center[If analysts can check 200 files, the model's riskiest 200 hold 44% of the bad credits; in random order, 20%.]
+.large.center[If analysts can check 200 files (i.e., 20% of the all applications), the model's riskiest 200 hold 44% of the bad credits.]
 ]
 
 .footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 219 to 222.] In Dataiku: **Performance → Lift charts**.]
 
 ???
 
-The cumulative response curve (Provost & Fawcett, 2013, pp. 219 to 222) reads the scored list from the top. Credits are sorted by decreasing score and a fraction of them is targeted. If analysts can check 200 files, the model's riskiest 200 hold 44% of the bad credits; in random order, 20% of the bad credits would fall in the first 200. The lift at that depth is 2.2: the model's top fifth catches 2.2 times as many bad credits as a random ordering. "The lift of a classifier represents the advantage it provides over random guessing" (Provost & Fawcett, 2013, p. 220, verbatim). In Dataiku these charts appear under Performance, Lift charts. As with the cost curve on slide 19, the values depend on the sample's 30% share of bad credits. With the bank's actual 5%, the same model would catch a different share in its top 200, because the ratio of good to bad changes (Provost & Fawcett, 2013, p. 222).
-
----
-
-# Hands-on 1, continued: costs and gains
-
-<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
-
-.beside-thumb[
-.need[**The need.** The committee approved the two prices. It wants the threshold they imply, and what a review of the riskiest fifth would catch.]
-
-<div class="moves">
-<div><b>1. Price</b>Enter the costs as gains: −5, −1, 0, 0. Train again.<br /><code>Design → Metrics → Cost matrix gain</code></div>
-<div><b>2. Read</b>The cut-off Dataiku now picks, against the rule's 0.17.<br />Sheet, panel 5</div>
-<div><b>3. Review</b>The share of bad credits in the riskiest 20%.<br /><code>Performance → Lift charts</code>, panel 6</div>
-</div>
-
-.need[Groups of three, same roles. 15 minutes.]
-]
-
-???
-
-The committee has approved the two prices. The three steps ask the groups to enter them in Dataiku and read what changes. In panel 5, *Optimize threshold for* is set to *Cost Matrix* in Design, Metrics, and the costs are entered as gains under *Cost matrix*, which Dataiku words in true and false, true being bad: -5 when the model predicts false (good) but the credit is actually bad, -1 when it predicts true (bad) for a good customer, and 0 for each correct decision. After retraining, Dataiku picks the threshold that maximises the sum of gains. That threshold may differ from the rule's 0.17 for several reasons: the model is different, possibly with different scores; Dataiku's class weights shift the scores during training (Dataiku, 2024); and the scores of a random forest are not calibrated, so the probability threshold from the cost ratio does not land on the same score (Provost & Fawcett, 2013, p. 210). In panel 6, the Lift charts at a depth of 20% show how many bad credits the model's riskiest fifth catches, the same question as slide 21. The numbers may differ because each training run produces a different model.
+The cumulative response curve (Provost & Fawcett, 2013, pp. 219 to 222) reads the scored list from the top. Credits are sorted by decreasing score and a fraction of them is targeted. If analysts can check 200 files, the model's riskiest 200 hold 44% of the bad credits; in random order, 20% of the bad credits would fall in the first 200. The lift at that depth is 2.2: the model's top fifth catches 2.2 times as many bad credits as a random ordering. "The lift of a classifier represents the advantage it provides over random guessing" (Provost & Fawcett, 2013, p. 220, verbatim). In Dataiku these charts appear under Performance, Lift charts. Panel 6 of the sheet read the same chart in Dataiku. As with the cost curve on slide 18, the values depend on the sample's 30% share of bad credits. With the bank's actual 5%, the same model would catch a different share in its top 200, because the ratio of good to bad changes (Provost & Fawcett, 2013, p. 222).
 
 ---
 
@@ -770,7 +748,7 @@ Ranking instead of classifying; profit, ROC, cumulative response and lift curves
 
 ???
 
-Chapter 7, from page 187, asks what makes a good model. It covers the confusion matrix, the problem of unbalanced classes, unequal costs, the expected value framework and baselines for comparison (Provost & Fawcett, 2013, pp. 187 to 208). The expected value framework (pp. 194 to 200) structured slides 16 to 20 of this deck. Chapter 8, from page 209, presents visual tools for model performance: profit curves, ROC curves and the area under them, cumulative response curves and lift curves (Provost & Fawcett, 2013, pp. 209 to 228). Slides 14, 16 and 17 draw on it. The book is available to HES-SO students through the school's O'Reilly access.
+Chapter 7, from page 187, asks what makes a good model. It covers the confusion matrix, the problem of unbalanced classes, unequal costs, the expected value framework and baselines for comparison (Provost & Fawcett, 2013, pp. 187 to 208). The expected value framework (pp. 194 to 200) structured slides 16 to 19 of this deck. Chapter 8, from page 209, presents visual tools for model performance: profit curves, ROC curves and the area under them, cumulative response curves and lift curves (Provost & Fawcett, 2013, pp. 209 to 228). Slides 12, 13, 18 and 20 draw on it. The book is available to HES-SO students through the school's O'Reilly access.
 
 ---
 

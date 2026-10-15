@@ -1,14 +1,15 @@
 // ---------------------------------------------------------------------------
 // hands-on-1-credit.typ: the group's sheet for Hands-on 1, 16.10.2026 AM.
 //
-// One sheet per group of three (Driver, Mapper, Referee), both sides. Page 1 is
+// One sheet per group of three, both sides. Page 1 is
 // the data card. The core (panels 1 to 3, about 40 minutes, block 1) comes
 // before any theory: the group explores South German Credit, trains a first
 // model with the defaults, looks at its result pages and writes three notes,
 // each placed on a phase of the CRISP-DM map. The evaluation deck starts from
 // those notes. Below the checkpoint bar (block 2) the group moves the threshold,
-// enters the cost matrix and reads the gains chart (Evaluating a classifier),
-// then switches to five folds (Model selection and cross-validation).
+// enters the cost matrix and reads the gains chart in one session (Evaluating a
+// classifier, slide 15), then switches to five folds (Model selection and
+// cross-validation, slide 13).
 //
 // The data: south_german_credit.csv, built by ../../tools/build-datasets.py in
 // the private wrapper from UCI dataset 573 (CC BY 4.0), English names and labels.
@@ -91,20 +92,8 @@ starts from your notes.
   )
 ]
 
+
 #v(5pt)
-
-#block(width: 100%, inset: (x: 6pt, y: 5pt), radius: 2pt, stroke: hair)[
-  #lbl("Three roles, one screen")
-  #v(3pt)
-  #grid(
-    columns: (1fr, 1fr, 1fr), column-gutter: 10pt,
-    [*Driver.* Works Dataiku, and only Dataiku: says aloud what each screen shows before clicking on.],
-    [*Mapper.* Keeps this sheet: writes the answers and the three notes, and places each note on a phase of the map (BU business understanding, DU data understanding, DP data preparation, M modeling, E evaluation, D deployment).],
-    [*Referee.* Checks every step against this sheet and challenges every conclusion: is it true of the data, or of the tool? Speaks for the group in the debrief.],
-  )
-]
-
-#pagebreak()
 
 #panel("Step 1 · Explore the data before modelling it")[
   #step(1, "Load the data")[In your project, on the Flow: #dss("+ Dataset", "Upload your files"), choose `south_german_credit.csv`, then *Create*.]
@@ -122,7 +111,7 @@ starts from your notes.
 #panel("Step 2 · Train a first model on all 20 columns")[
   #step(1, "Create the analysis")[Select the dataset, then #dss("Lab", "AutoML Prediction"). Target `credit_risk`. Keep *Quick prototypes*, then *Create*.]
   #v(2pt)
-  #step(2, "Fix six column types")[#dss("Design", "Features handling"): five rows read *Rejected, text feature* (`status`, `credit_history`, `savings`, `personal_status_sex`, `property`): Dataiku took their long labels for free text (intro deck, slide 15). `number_credits` is read as a number, yet holds bands such as "2 to 3". Tick the six, set their type to *Categorical*, and switch them on.]
+  #step(2, "Fix six column types")[#dss("Design", "Features handling"): five rows read *Rejected, text feature* (`status`, `credit_history`, `savings`, `personal_status_sex`, `property`): Dataiku took their long labels for free text (intro deck, slide 16). `number_credits` is read as a number, yet holds bands such as "2 to 3". Tick the six, set their type to *Categorical*, and switch them on.]
   #v(2pt)
   #step(3, "Train")[Change nothing else in #dss("Design"). Click *Train* and wait for every model to finish.]
   #v(2pt)
@@ -147,7 +136,7 @@ starts from your notes.
   Does your chart of step 1 agree?
   #writing(1)
   #v(2pt)
-  #step(3, "Write three notes")[Three things you noticed, or cannot explain yet, on any screen of this sheet. The Mapper circles the phase each one belongs to; the Referee picks the one to say first.]
+  #step(3, "Write three notes")[Three things you noticed, or cannot explain yet, on any screen of this sheet. Circle the phase each one belongs to (BU business understanding, DU data understanding, DP data preparation, M modeling, E evaluation, D deployment), then pick the one to say first.]
   #note-line
   #note-line
   #note-line
@@ -156,8 +145,8 @@ starts from your notes.
 #v(6pt)
 
 #checkpoint(
-  msg: [Reached this line? Stop here: the Referee reports in the debrief.],
-  note: [Panels 4 to 7 are for block 2, each after its slides: 4 to 6 in *Evaluating a classifier*, 7 in *Model selection and cross-validation*.],
+  msg: [Reached this line? Stop here: the group reports in the debrief.],
+  note: [Panels 4 to 7 are for block 2: 4 to 6 together at slide 15 of *Evaluating a classifier*, 7 at slide 13 of *Model selection and cross-validation*.],
 )
 
 #v(6pt)
@@ -187,8 +176,8 @@ starts from your notes.
 
   #step(1, "Set the cost matrix")[#dss("Design", "Metrics"): *Optimize threshold for* #sym.arrow.r *Cost Matrix*. Under *Cost matrix*, `credit_risk` *true* means `bad`. Enter the costs as negative gains: predicted true but not true #sym.arrow.r −1; predicted false but actually true #sym.arrow.r −5; both right decisions #sym.arrow.r 0. Train again.]
   #v(3pt)
-  Threshold Dataiku now selects (#dss("Performance", "Confusion matrix")): #rule(2cm) #h(10pt)
-  The rule from the slides gives 1 / (1 + 5) ≈ 0.17. Why might the two differ?
+  Cut-off Dataiku now selects: #rule(1.8cm) #h(12pt) the cut-off of panel 3, before the costs: #rule(1.8cm) \
+  Did it go up or down? Why would prices of 5 and 1 move it that way?
   #writing(1)
 ]
 
