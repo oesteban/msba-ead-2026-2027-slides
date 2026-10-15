@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 925 285" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- After Provost and Fawcett (2013), Data Science for Business, Fig. 2-1, p. 26, redrawn on credit data; the probability is illustrative. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="0" y="22" font-size="15" font-weight="bold" text-anchor="start" fill="#1c2e36">Mining: learn from past credits whose outcome is known</text>
+<text x="0" y="50" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">attributes</text>
+<text x="236" y="50" font-size="13" font-weight="bold" text-anchor="middle" fill="#556268">credit_risk</text>
+<rect x="0" y="58" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="46" y="58" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="92" y="58" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="138" y="58" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect class="accent-b-light-fill" x="200" y="58" width="72" height="18" rx="3" fill="#a8e4ea"/>
+<text x="236" y="72" font-size="13" font-weight="bold" text-anchor="middle" fill="#1c2e36">good</text>
+<rect x="0" y="82" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="46" y="82" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="92" y="82" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="138" y="82" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect class="accent-a-light-fill" x="200" y="82" width="72" height="18" rx="3" fill="#8cb3cf"/>
+<text x="236" y="96" font-size="13" font-weight="bold" text-anchor="middle" fill="#1c2e36">bad</text>
+<rect x="0" y="106" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="46" y="106" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="92" y="106" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="138" y="106" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect class="accent-b-light-fill" x="200" y="106" width="72" height="18" rx="3" fill="#a8e4ea"/>
+<text x="236" y="120" font-size="13" font-weight="bold" text-anchor="middle" fill="#1c2e36">good</text>
+<rect x="0" y="130" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="46" y="130" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="92" y="130" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="138" y="130" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect class="accent-b-light-fill" x="200" y="130" width="72" height="18" rx="3" fill="#a8e4ea"/>
+<text x="236" y="144" font-size="13" font-weight="bold" text-anchor="middle" fill="#1c2e36">good</text>
+<line x1="286" y1="94" x2="344" y2="94" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="348" y="66" width="170" height="56" rx="8" fill="#ffffff" stroke="#1c2e36" stroke-width="1.3"/>
+<text x="433" y="90" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">data mining</text>
+<text x="433" y="110" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">Lab → Visual ML</text>
+<line x1="518" y1="94" x2="576" y2="94" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-fill" x="580" y="67" width="120" height="54" rx="8" fill="#00609c"/>
+<text x="640" y="100" font-size="17" font-weight="bold" text-anchor="middle" fill="#ffffff">model</text>
+</g>
+<g data-step="2">
+<text x="0" y="200" font-size="15" font-weight="bold" text-anchor="start" fill="#1c2e36">Use: score a new application, outcome unknown</text>
+<text x="0" y="228" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">attributes</text>
+<text x="236" y="228" font-size="13" font-weight="bold" text-anchor="middle" fill="#556268">credit_risk</text>
+<rect x="0" y="236" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="46" y="236" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="92" y="236" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="138" y="236" width="40" height="18" rx="3" fill="#e9edf0"/>
+<rect x="200" y="236" width="72" height="18" rx="3" fill="#f3f3f3"/>
+<text x="236" y="250" font-size="13" font-weight="bold" text-anchor="middle" fill="#1c2e36">?</text>
+<line x1="286" y1="245" x2="576" y2="245" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-fill" x="580" y="218" width="120" height="54" rx="8" fill="#00609c"/>
+<text x="640" y="251" font-size="17" font-weight="bold" text-anchor="middle" fill="#ffffff">model</text>
+<line x1="640" y1="123" x2="640" y2="214" stroke="#556268" stroke-width="1.2" stroke-dasharray="4 4" marker-end="url(#ah)"/>
+<text x="650" y="172" font-size="13" font-weight="normal" text-anchor="start" fill="#556268">the same model</text>
+<line x1="700" y1="245" x2="748" y2="245" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill" x="752" y="222" width="168" height="46" rx="8" fill="#8cb3cf"/>
+<text x="836" y="251" font-size="15" font-weight="bold" text-anchor="middle" fill="#1c2e36">P(bad) = 0.34</text>
+</g>
+</svg>

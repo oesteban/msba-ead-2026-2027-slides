@@ -1,0 +1,16 @@
+Pictures of the SENSIMED projects, as shown by D. Genoud's team on page 7 of
+"Hands on Machine Learning, warm up" (EAD, HES-SO Master, 2025-26 edition).
+
+  lens.jpg                embedded image 4 of that page, unmodified
+  signal.jpg              embedded image 2, unmodified
+  workflow.jpg            embedded image 1, unmodified
+  diagnostic-helper.jpg   embedded image 5, unmodified
+  information-system.jpg  embedded image 3, cropped to (0, 0, 415, 250)
+  features.jpg            embedded image 3, cropped to (355, 265, 726, 497)
+
+Extracted with `pdfimages -f 7 -l 7 -j` from the PDF of that deck.
+
+NOT OPENLY LICENSED. The pictures belong to D. Genoud's team and, for the lens
+photograph, possibly to SENSIMED. They are used on the private draft of the
+intro deck only. Each must be cleared with D. Genoud, or replaced, before this
+repository is made public.
