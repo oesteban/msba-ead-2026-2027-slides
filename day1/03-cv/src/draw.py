@@ -74,9 +74,22 @@ def decision_chart() -> str:
                "with cross-validation and the cost matrix gain), course server, 14 October 2026; frames by Oscar Esteban.")
 
 
+# ---------------------------------------------------------------------------
+def results_capture() -> str:
+    """Dataiku's Results list, cropped to the metric and two models, with three numbered frames."""
+    w, h = 650, 214
+    body = [f'<image href="dataiku/results-session5.png" x="0" y="0" width="{w}" height="{h}"/>',
+            step(1, [frame(378, 54, 250, 30), badge(378, 54, 1)]),
+            step(2, [frame(331, 179, 38, 26), badge(331, 179, 2)]),
+            step(3, [frame(370, 179, 50, 26), badge(420, 179, 3)])]
+    return svg(w, h, body, "Screen capture of Dataiku DSS (Results, sessions view), course server, 14 October 2026, "
+               "cropped and joined; frames by Oscar Esteban.")
+
+
 def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
-    figures = {"test-kept-apart.svg": test_kept_apart, "decision-chart.svg": decision_chart}
+    figures = {"results-capture.svg": results_capture, "test-kept-apart.svg": test_kept_apart,
+               "decision-chart.svg": decision_chart}
     for name, lit in (("mo", {"MO"}), ("dp", {"DP"}), ("mo-ev", {"MO", "EV"})):
         figures[f"phase-{name}.svg"] = lambda lit=lit: d.phase_thumb(lit)
     for name, fn in figures.items():
