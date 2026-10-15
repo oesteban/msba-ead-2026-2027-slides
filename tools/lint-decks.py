@@ -6,7 +6,7 @@ deck still opens, the slide still looks right on screen, and the damage shows
 up somewhere else entirely, usually in the printed PDF.
 
     python3 tools/lint-decks.py                 lint every day*/*/index.html
-    python3 tools/lint-decks.py day1/am          lint one deck
+    python3 tools/lint-decks.py day1/02-model   lint one deck
 
 Exits non-zero if anything is found, so it can gate a commit.
 

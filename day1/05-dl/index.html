@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deep learning for decisions | 16.10.2026</title>
+    <meta charset="utf-8">
+    <meta name="grammarly" content="false">
+    <meta name="google" content="notranslate">
+    <link rel="stylesheet" type="text/css" href="../../remark/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../remark/themes/hesso-master.css" />
+    <link rel="stylesheet" type="text/css" href="../../remark/ext/nav-controls.css" />
+  </head>
+  <body>
+<style>
+:root { --logo-url: url("../../assets/hes-so-logo.svg"); }
+.large.center { display: block; clear: both; }
+.data-table table { font-size: 1.3em; }
+.data-table td.hit { background: #00609c18; font-weight: 700; }
+.steps { font-size: 1.3em; line-height: 1.5; }
+</style>
+<script src="https://kit.fontawesome.com/015d4b01de.js" crossorigin="anonymous"></script>
+
+<textarea id="source">
+name: title
+layout: true
+class: cover
+---
+count: false
+
+.section-mark.center[
+## Deep learning for decisions
+
+<br />
+
+Oscar Esteban &lt;<code>oscar.esteban@hevs.ch</code>>
+
+<br />
+
+EAD · Exploration avancée de données et intelligence décisionnelle · 16.10.2026
+]
+
+???
+
+---
+name: newsection
+layout: true
+
+.perma-sidebar[
+<p class="rotate">
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0; height: 20px; padding-top: 6px;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+  <span style="padding-left: 10px; font-weight: 600;">Deep learning for decisions (16.10.2026)</span>
+</p>
+]
+
+---
+
+# Deep learning pays off on images, text and sound
+
+.cards.cols-2.vcenter[
+.card.accent[
+.kicker[unstructured data]
+
+### Deep learning
+
+Photos, documents, recordings: the useful features are not columns yet. The network learns them.
+]
+.card.muted[
+.kicker[tables, like this morning]
+
+### Boosted trees
+
+Columns already are features. Gradient-boosted trees usually match or beat a network, at a fraction of the cost.
+]
+]
+
+???
+
+---
+
+# A neural network maps pixels to class probabilities
+
+.boxed-content.center[
+<img src="images/network.svg" style="width: 80%;" />
+]
+
+.large.center[The softmax output is this afternoon's multi-class problem again.]
+
+???
+
+---
+
+# Training adjusts the weights to make fewer mistakes
+
+.boxed-content.large[
+* A **loss** measures how wrong the probabilities are on the training photos.
+* **Gradient descent** nudges every weight to lower the loss, batch after batch.
+* One pass over the training set is an **epoch**. More epochs fit the training photos better, and past a point fit new photos worse.
+]
+
+???
+
+---
+
+# A pretrained network has already learned to see
+
+.boxed-content.large[
+*ImageNet*: 1.28 million labelled photos, 1,000 categories. Networks trained on it learn edges, textures, then parts and objects.
+
+**Transfer learning** keeps those layers and trains only a new last layer on your classes. A few dozen photos per class can be enough.
+]
+
+???
+
+---
+
+# Climb the ladder only as far as you need
+
+.cards.cols-4[
+.card.accent[
+.kicker[1 · no training]
+
+### Zero-shot
+
+A foundation model told the class names. Zero photos.
+]
+.card.accent[
+.kicker[2 · today]
+
+### New head
+
+Pretrained network frozen, last layer trained. Tens of photos per class.
+]
+.card[
+.kicker[3]
+
+### Fine-tuning
+
+Some deep layers trained too. Hundreds of photos, a GPU.
+]
+.card.muted[
+.kicker[4 · rarely]
+
+### From scratch
+
+Every weight learned. Hundreds of thousands of photos.
+]
+]
+
+.large.center[Each step up costs more data, more compute, and more to explain.]
+
+???
+
+---
+
+# Hands-on 3: tell a lion from a tiger
+
+.steps[
+1. Create a managed **folder** `train` and upload the photos of `lion-tiger-train.zip`.
+2. **List Contents** recipe on the folder, then a Prepare recipe: *Extract with regular expression* on `path`, pattern `([a-z]+)_[0-9]+`, into `label`.
+3. **Lab → Image classification** on the folder, target `label`.
+4. **Design**: pretrained model **EfficientNet B0**, fine-tuned layers **0**. Train.
+5. **Results**: confusion matrix. How many test photos is the score based on?
+]
+
+???
+
+---
+
+# Hands-on 3, continued: score photos it has never seen
+
+.steps[
+<ol start="6">
+  <li>Deploy the model to the flow.</li>
+  <li>A second folder <code>test</code> with the photos of <code>lion-tiger-test.zip</code>; <strong>Score</strong> recipe with the model.</li>
+  <li>Extract <code>label</code> from the path as in step 2, then a Formula <code>label == prediction</code>.</li>
+  <li>Open the photos it got wrong. What do they have in common?</li>
+</ol>
+]
+
+.admonition.question[
+<i class="fa-solid fa-circle-question"></i> **Extra mile.** Add `cats-train.zip` to `train` and `cats-test.zip` to `test`, and retrain: three uneven classes. Which average would you report?
+]
+
+???
+
+---
+
+# A working model is the cheap part
+
+.cards.cols-4.vcenter[
+.card[
+.kicker[data]
+
+### Labels
+
+Someone has to tag the photos, and check the tags.
+]
+.card[
+.kicker[compute]
+
+### Training and serving
+
+Every prediction runs the whole network.
+]
+.card[
+.kicker[trust]
+
+### Explanations
+
+Which pixels drove the decision? Saliency maps help, a little.
+]
+.card.alert[
+.kicker[law]
+
+### Rights and people
+
+Photo licences, faces, and the EU AI Act.
+]
+]
+
+???
+
+---
+
+# Three things to keep from today
+
+.boxed-content.large[
+1. The model gives probabilities; **you** choose the threshold, from the costs.
+2. With many classes, say which average you report and why.
+3. Start from a pretrained model, and climb no higher than the problem needs.
+]
+
+.large.center[Next Friday: text mining and time series.]
+
+???
+
+---
+
+.section-mark[
+# End
+
+.large[
+Next Friday: text and time series.
+
+[<i class="fa-solid fa-circle-left"></i>](../04-multiclass/index.html)
+[<i class="fa-solid fa-home"></i>](#1)
+<i class="fa-solid fa-circle-right" style="opacity: 20%"></i>
+]
+]
+
+???
+
+</textarea>
+
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script src="../../remark/core/engine.js"></script>
+    <script src="../../remark/ext/svg-preload.js"></script>
+    <script src="../../remark/ext/svg-theme.js"></script>
+    <script src="../../remark/ext/nav-controls.js"></script>
+  </body>
+</html>

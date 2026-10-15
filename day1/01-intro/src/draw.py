@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Draw the hand-authored figures of the intro deck as themeable, stepwise SVGs.
 
-    python3 day1/intro/src/draw.py day1/intro/images
+    python3 day1/01-intro/src/draw.py day1/01-intro/images
 
 Shapes that follow the theme carry the remark engine's `accent-*` classes
 (`ext/svg-theme.js`) and a literal fill, shown when no script runs. Groups

@@ -2,8 +2,8 @@
 # Render a deck to PDF and to contact sheets, to read the slides back
 # (AUTHORING.md F2: compiling is not evidence).
 #
-#   tools/render-deck.sh day1/am      -> _preview/day1-am.pdf
-#                                        _preview/day1-am/sheetN.png (12 slides each)
+#   tools/render-deck.sh day1/02-model -> _preview/day1-02-model.pdf
+#                                        _preview/day1-02-model/sheetN.png (12 slides each)
 #
 # Serves the checkout on a throwaway local port, prints every slide with
 # decktape (fetched by npx) in headless Chrome, then tiles the screenshots.
@@ -11,7 +11,7 @@
 set -euo pipefail
 root="$(git rev-parse --show-toplevel)"
 cd "$root"
-id="${1:?usage: tools/render-deck.sh <deck-dir, e.g. day1/am>}"
+id="${1:?usage: tools/render-deck.sh <deck-dir, e.g. day1/02-model>}"
 out="_preview/${id//\//-}"
 chrome="${CHROME:-$(command -v google-chrome || command -v chromium || true)}"
 [ -n "$chrome" ] || { echo "no Chrome found; set CHROME=/path/to/chrome" >&2; exit 1; }

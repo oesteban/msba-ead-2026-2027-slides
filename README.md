@@ -15,9 +15,11 @@ Dates and titles come from [`course.yml`](course.yml).
 
 | Session | Date | Directory |
 |---|---|---|
-| From a business question to a first model | Fri 16 Oct 2026, morning, first | `day1/intro/` |
-| Measuring a classifier: metrics, thresholds and cross-validation | Fri 16 Oct 2026, morning | `day1/am/` |
-| Beyond two classes, and into deep learning | Fri 16 Oct 2026, afternoon | `day1/pm/` |
+| From a business question to a first model | Fri 16 Oct 2026, morning | `day1/01-intro/` |
+| Evaluating a classifier | Fri 16 Oct 2026, morning | `day1/02-model/` |
+| Model selection and cross-validation | Fri 16 Oct 2026, morning | `day1/03-cv/` |
+| Beyond two classes | Fri 16 Oct 2026, afternoon | `day1/04-multiclass/` |
+| Deep learning for decisions | Fri 16 Oct 2026, afternoon | `day1/05-dl/` |
 
 Navigation: arrow keys, `P` for presenter view, `C` to clone the window onto a
 second screen, `?` for the full list.
@@ -31,7 +33,7 @@ git submodule update --init remark
 python3 -m http.server 8000
 ```
 
-Then open <http://localhost:8000/day1/am/index.html>. Serve over HTTP rather
+Then open <http://localhost:8000/day1/01-intro/index.html>. Serve over HTTP rather
 than opening the files directly, or the browser blocks the inline SVGs.
 
 ## Handouts

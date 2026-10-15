@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Render the data figures of the day-1 decks.
 
-Every chart in day1/am/images and day1/pm/images is drawn here from the data,
+Every chart in day1/0[2-5]-*/images is drawn here from the data,
 so every number on a slide can be traced to a computation. (Figures drawn by
-others appear only in day1/intro, each with its licence on the slide.)
+others appear only in day1/01-intro, each with its licence on the slide.)
 
     python3 tools/figures.py --credit south_german_credit.csv --wine winequality_all.csv \
         [--zalaxus Zalaxus.zip]
@@ -44,8 +44,9 @@ from sklearn.metrics import (  # noqa: E402
 from sklearn.model_selection import StratifiedKFold, cross_val_predict, train_test_split  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-AM = ROOT / "day1" / "am" / "images"
-PM = ROOT / "day1" / "pm" / "images"
+AM = ROOT / "day1" / "02-model" / "images"
+WINE = ROOT / "day1" / "04-multiclass" / "images"
+DL = ROOT / "day1" / "05-dl" / "images"
 
 ACCENT = "#00609c"
 DARK = "#1a1a1a"
@@ -279,7 +280,7 @@ def wine(path: Path) -> None:
         ax.text(str(q), n + 40, str(n), ha="center", fontsize=12)
     ax.set_xlabel("quality score (as rated by tasters)")
     ax.set_ylabel("wines")
-    save(fig, PM / "wine-classes.svg")
+    save(fig, WINE / "wine-classes.svg")
 
     cv = StratifiedKFold(5, shuffle=True, random_state=SEED)
     # the same model with the duplicates left in: copies of a test row sit in training
@@ -309,7 +310,7 @@ def wine(path: Path) -> None:
     ax.set_ylabel("actual quality")
     for s in ax.spines.values():
         s.set_visible(False)
-    save(fig, PM / "wine-confusion.svg")
+    save(fig, WINE / "wine-confusion.svg")
 
     per_class = dict(zip(labels, [round(float(r), 2) for r in recall_score(y, pred, labels=labels, average=None)]))
     NUMBERS["wine"] = dict(
@@ -350,7 +351,7 @@ def network_diagram() -> None:
     ax.set_ylim(-3.4, 2.3)
     ax.set_aspect("equal")
     ax.axis("off")
-    save(fig, PM / "network.svg")
+    save(fig, DL / "network.svg")
 
 
 def main() -> int:

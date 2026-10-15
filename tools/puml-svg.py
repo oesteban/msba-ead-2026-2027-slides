@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Render a PlantUML diagram to an SVG that the remark engine can theme and step.
 
-    python3 tools/puml-svg.py day1/intro/src/crisp-linear.puml \
-        day1/intro/src/crisp-linear.steps.json day1/intro/images/crisp-linear.svg
+    python3 tools/puml-svg.py day1/01-intro/src/crisp-linear.puml \
+        day1/01-intro/src/crisp-linear.steps.json day1/01-intro/images/crisp-linear.svg
 
 The engine's two SVG extensions read markup that PlantUML does not write:
 `ext/svg-theme.js` recolours shapes that carry an `accent-*` class, and

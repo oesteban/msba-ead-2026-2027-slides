@@ -30,20 +30,26 @@ timezone_offset: "+02:00"
 # Teaching half-days, in delivery order. `id` is the deck directory.
 # Source of record: Planning SA2627.xlsx (module responsible, HE-Arc).
 days:
-  - id: day1/intro
+  - id: day1/01-intro
     date: 2026-10-16
     replaces: 2026-10-16
     start: "08:45"
     title: "From a business question to a first model"
 
-  - id: day1/am
+  - id: day1/02-model
     date: 2026-10-16
     replaces: 2026-10-16
     start: "08:45"
     title: "Measuring a classifier: metrics, thresholds and cross-validation"
 
-  - id: day1/pm
+  - id: day1/04-multiclass
     date: 2026-10-16
     replaces: 2026-10-16
     start: "13:15"
-    title: "Beyond two classes, and into deep learning"
+    title: "Beyond two classes"
+
+  - id: day1/05-dl
+    date: 2026-10-16
+    replaces: 2026-10-16
+    start: "15:00"
+    title: "Deep learning for decisions"
