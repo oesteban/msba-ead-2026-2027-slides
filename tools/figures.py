@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import io
 import json
+import re
 import zipfile
 from pathlib import Path
 
@@ -37,6 +38,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from sklearn.ensemble import RandomForestClassifier  # noqa: E402
+from sklearn.linear_model import LogisticRegression  # noqa: E402
 from sklearn.metrics import (  # noqa: E402
     average_precision_score, confusion_matrix, f1_score, precision_recall_curve,
     precision_score, recall_score, roc_auc_score, roc_curve,
@@ -45,6 +47,7 @@ from sklearn.model_selection import StratifiedKFold, cross_val_predict, train_te
 
 ROOT = Path(__file__).resolve().parent.parent
 AM = ROOT / "day1" / "02-model" / "images"
+CV = ROOT / "day1" / "03-cv" / "images"
 WINE = ROOT / "day1" / "04-multiclass" / "images"
 DL = ROOT / "day1" / "05-dl" / "images"
 
@@ -53,6 +56,9 @@ DARK = "#1a1a1a"
 GRAY = "#8a8a8a"
 LIGHT = "#d9d9d9"
 CYAN = "#25bcca"
+# the four cells of the confusion matrix, as on the decks: right decisions in the accent,
+# errors in the warning hue, the costly one (a bad credit granted) the darkest
+TP_C, TN_C, FP_C, FN_C = ACCENT, "#8cb3cf", "#f0a3a8", "#da232f"
 SEED = 1337
 
 plt.rcParams.update({
@@ -68,6 +74,7 @@ plt.rcParams.update({
     "ytick.color": DARK,
     "legend.frameon": False,
     "figure.dpi": 100,
+    "svg.hashsalt": "ead-figures",          # stable clip-path ids, so reruns diff clean
 })
 
 NUMBERS: dict = {}
@@ -77,7 +84,23 @@ def save(fig, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, bbox_inches="tight", transparent=True, metadata={"Date": None})
     plt.close(fig)
+    # an artist given gid "step-N-..." becomes a group the deck reveals at step N
+    # (remark-engine's stepwise-svg.js reads data-step)
+    svg = path.read_text()
+    stepped = re.sub(r'<g id="step-(\d+)-([^"]*)"', r'<g id="step-\1-\2" data-step="\1"', svg)
+    if stepped != svg:
+        path.write_text(stepped)
     print(f"wrote {path.relative_to(ROOT)}")
+
+
+_gid = iter(range(10**6))
+
+
+def at_step(n: int, *artists) -> None:
+    """Reveal these artists at step n of the slide."""
+    for a in artists:
+        for x in (a if isinstance(a, (list, tuple)) else [a]):
+            x.set_gid(f"step-{n}-{next(_gid)}")
 
 
 def rf(n=500, **kw):
@@ -116,19 +139,52 @@ def credit(path: Path) -> None:
         t_f1=float(t_f1), t_cost=float(t_cost),
         cost_05=int(cost[ts == 0.5][0]), cost_best=int(cost.min()), cost_lend_all=int(5 * y.sum()),
         cm_05=cm(0.5), cm_f1=cm(t_f1), cm_cost=cm(t_cost),
+        precision_05=round(float(precision_score(y, p > 0.5)), 3),
+        recall_05=round(float(recall_score(y, p > 0.5)), 3),
+        f1_05=round(float(f1_score(y, p > 0.5)), 3),
+        fpr_05=round(float(((p > 0.5) & (y == 0)).sum() / (y == 0).sum()), 3),
+        cost_rule=int(cost[ts == 0.17][0]),            # the threshold 1/(1+5) of the expected-cost rule
+        cost_refuse_all=int((1 - y).sum()),             # every good customer turned away, at 1 each
+        exp_cost_05=round(float(cost[ts == 0.5][0]) / len(y), 3),
+        exp_cost_best=round(float(cost.min()) / len(y), 3),
     )
 
-    # 1. score distributions by actual class
-    fig, ax = plt.subplots(figsize=(8, 3.6))
     bins = np.linspace(0, 1, 26)
-    ax.hist(p[y == 0], bins=bins, color=LIGHT, label=f"actually good ({(y == 0).sum()})")
-    ax.hist(p[y == 1], bins=bins, color=ACCENT, alpha=0.75, label=f"actually bad ({y.sum()})")
-    ax.axvline(0.5, color=DARK, lw=1.5, ls="--")
-    ax.text(0.51, ax.get_ylim()[1] * 0.55, "threshold 0.5", color=DARK, fontsize=12)
+
+
+    # 1. score distributions, stacked (bad below, good above), built in steps: the scores, the cut
+    # at 0.5, then the four outcomes coloured as on the decks' confusion matrices
+    fig, ax = plt.subplots(figsize=(8.6, 4.3))
+    t = 0.5
+    nb, _ = np.histogram(p[y == 1], bins=bins)
+    ng, _ = np.histogram(p[y == 0], bins=bins)
+    w = bins[1] - bins[0]
+    left = bins[:-1]
+    at_step(1, list(ax.bar(left, nb, width=w, align="edge", color=GRAY, edgecolor="white", lw=0.6)),
+            list(ax.bar(left, ng, width=w, bottom=nb, align="edge", color=LIGHT, edgecolor="white", lw=0.6)))
+    top = (nb + ng).max()
+    ax.set_ylim(0, top * 1.62)
+    stacked = ax.text(0.66, top * 0.78, f"bars stacked:\nbad credits ({y.sum()}) below,\ngood ones ({(y == 0).sum()}) above",
+            color=DARK, fontsize=11, va="top")
+    at_step(1, stacked)
+    cut = ax.axvline(t, ymax=1.04 / 1.62, color=DARK, lw=1.6, ls="--")
+    cut_lab = ax.text(t, top * 1.08, "threshold 0.5", color=DARK, fontsize=12, ha="center")
+    at_step(2, cut, cut_lab)
+    for x0, b_, g_ in zip(left, nb, ng):
+        right = x0 >= t
+        at_step(3, ax.add_patch(plt.Rectangle((x0, 0), w, b_, color=TP_C if right else FN_C, ec="white", lw=0.6)),
+                ax.add_patch(plt.Rectangle((x0, b_), w, g_, color=FP_C if right else TN_C, ec="white", lw=0.6)))
+    m = NUMBERS["credit"]["cm_05"]
+    key = ((0.02, 1.48, TN_C, f"{m['tn']} true negatives: good, granted"),
+           (0.02, 1.33, FN_C, f"{m['fn']} false negatives: bad, granted"),
+           (0.55, 1.48, FP_C, f"{m['fp']} false positives: good, refused"),
+           (0.55, 1.33, TP_C, f"{m['tp']} true positives: bad, refused"))
+    for x, yy, c, lab in key:
+        at_step(3, ax.add_patch(plt.Rectangle((x, top * yy - top * 0.035), 0.022, top * 0.07, color=c)),
+                ax.text(x + 0.03, top * yy, lab, va="center", fontsize=12, color=DARK))
     ax.set_xlabel("predicted probability of “bad”")
     ax.set_ylabel("applicants")
-    ax.legend(loc="upper right")
-    save(fig, AM / "score-distributions.svg")
+    save(fig, AM / "threshold-regions.svg")
 
     # 2. precision / recall / F1 against the threshold
     fig, ax = plt.subplots(figsize=(8, 3.8))
@@ -146,6 +202,8 @@ def credit(path: Path) -> None:
     ax.plot(ts, cost, color=ACCENT, lw=2.4)
     ax.axhline(5 * y.sum(), color=GRAY, lw=1, ls="--")
     ax.text(0.97, 5 * y.sum() + 25, "lend to everyone", color=GRAY, ha="right", fontsize=12)
+    ax.axhline((1 - y).sum(), color=GRAY, lw=1, ls=":")
+    ax.text(0.97, (1 - y).sum() + 25, "refuse everyone", color=GRAY, ha="right", fontsize=12)
     for t, lab in ((0.5, "0.5"), (t_cost, f"{t_cost:.2f}")):
         c = cost[ts == t][0]
         ax.plot([t], [c], "o", color=DARK)
@@ -171,7 +229,7 @@ def credit(path: Path) -> None:
     a2.set_xlabel("recall")
     a2.set_ylabel("precision")
     a2.set_ylim(0, 1.02)
-    a2.set_title(f"Precision-recall · AP {average_precision_score(y, p):.2f}", color=DARK)
+    a2.set_title("Precision-recall", color=DARK)
     fig.tight_layout(w_pad=3)
     save(fig, AM / "roc-pr.svg")
 
@@ -206,15 +264,58 @@ def credit(path: Path) -> None:
     NUMBERS["credit"]["split_auc_min"] = round(float(aucs.min()), 3)
     NUMBERS["credit"]["split_auc_max"] = round(float(aucs.max()), 3)
     NUMBERS["credit"]["fold_aucs"] = [round(float(a), 3) for a in folds]
-    fig, ax = plt.subplots(figsize=(8, 3.4))
-    ax.hist(aucs, bins=24, color=LIGHT)
-    for a in folds:
-        ax.axvline(a, color=ACCENT, lw=2)
-    ax.set_xlabel("test AUC")
-    ax.set_ylabel("random splits")
-    ax.text(0.99, 0.95, "grey: 200 random 50/50 splits\nblue: the 5 folds of one 5-fold run",
-            transform=ax.transAxes, ha="right", va="top", fontsize=11, color=DARK)
-    save(fig, AM / "split-variability.svg")
+    for name, with_folds in (("split-variability.svg", False), ("split-variability-folds.svg", True)):
+        fig, ax = plt.subplots(figsize=(8, 3.4))
+        ax.hist(aucs, bins=24, color=LIGHT)
+        note = "grey: 200 random 50/50 splits"
+        if with_folds:
+            for a in folds:
+                ax.axvline(a, color=ACCENT, lw=2)
+            note += "\nblue: the 5 test folds of one cross-validation"
+        ax.set_xlabel("test AUC")
+        ax.set_ylabel("random splits")
+        ax.text(0.99, 0.95, note, transform=ax.transAxes, ha="right", va="top", fontsize=11, color=DARK)
+        save(fig, CV / name)
+
+
+def boundary(path: Path) -> None:
+    """Two of the twenty attributes, and where a threshold puts the boundary between them.
+
+    A logistic regression on duration and amount alone (fitted on all rows: the figure
+    shows a boundary, not a score). The line where P(bad) equals the threshold splits
+    the plane; lowering the threshold moves it and refuses more applicants.
+    """
+    d = pd.read_csv(path)
+    target = "credit_risk" if "credit_risk" in d else "Score"
+    y = (d[target] == "bad").astype(int).to_numpy()
+    X = d[["duration", "amount"]].to_numpy(float)
+    mu, sd = X.mean(0), X.std(0)
+    lr = LogisticRegression().fit((X - mu) / sd, y)
+    prob = lr.predict_proba((X - mu) / sd)[:, 1]
+
+    fig, ax = plt.subplots(figsize=(8.4, 4.4))
+    at_step(1, ax.scatter(X[y == 0, 0], X[y == 0, 1], s=14, color=LIGHT),
+            ax.scatter(X[y == 1, 0], X[y == 1, 1], s=14, color=GRAY, alpha=0.8))
+    ax.text(0.99, 0.98, "grey: good · dark: bad", transform=ax.transAxes, ha="right", va="top",
+            fontsize=11, color=DARK)
+    gx, gy = np.meshgrid(np.linspace(0, 75, 300), np.linspace(0, 19000, 300))
+    gp = lr.predict_proba((np.c_[gx.ravel(), gy.ravel()] - mu) / sd)[:, 1].reshape(gx.shape)
+    refused = {}
+    for step, t, colour in ((2, 0.5, ACCENT), (3, 0.3, FN_C)):
+        cs = ax.contour(gx, gy, gp, levels=[t], colors=[colour], linewidths=2.4)
+        refused[t] = int((prob > t).sum())
+        xs = cs.allsegs[0][0]
+        k = int(len(xs) * (0.62 if step == 2 else 0.30))
+        lab = ax.text(xs[k, 0] + 1.5, xs[k, 1], f"P(bad) = {t}: {refused[t]} refused",
+                      color=colour, fontsize=12, fontweight="bold", va="bottom",
+                      bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="none", alpha=0.9))
+        at_step(step, cs, lab)
+    ax.set_xlim(0, 75)
+    ax.set_ylim(0, 19000)
+    ax.set_xlabel("duration (months)")
+    ax.set_ylabel("amount (DM)")
+    NUMBERS["credit"]["boundary_refused"] = {str(t): n for t, n in refused.items()}
+    save(fig, AM / "boundary.svg")
 
 
 def cv_diagram() -> None:
@@ -232,7 +333,7 @@ def cv_diagram() -> None:
     ax.set_xlim(-1.2, k + 1.4)
     ax.set_ylim(-0.7, k)
     ax.axis("off")
-    save(fig, AM / "cross-validation.svg")
+    save(fig, CV / "cross-validation.svg")
 
 
 def zalaxus(path: Path) -> None:
@@ -263,8 +364,8 @@ def zalaxus(path: Path) -> None:
         ax.text(a + 0.01, yy, f"{a:.2f}", va="center", fontsize=14, color=DARK)
     ax.axvline(0.5, color=GRAY, ls="--", lw=1)
     ax.set_xlim(0.4, 1.0)
-    ax.set_xlabel("5-fold AUC, predicting BikeBuyer")
-    save(fig, AM / "zalaxus-leak.svg")
+    ax.set_xlabel("cross-validated AUC, predicting BikeBuyer")
+    save(fig, CV / "zalaxus-leak.svg")
 
 
 # --------------------------------------------------------------------------
@@ -362,6 +463,7 @@ def main() -> int:
     a = ap.parse_args()
     out = ROOT / "day1" / "figures-numbers.json"
     credit(a.credit)
+    boundary(a.credit)
     cv_diagram()
     if a.wine is None:                      # credit only: keep the other keys
         NUMBERS.update({k: v for k, v in json.loads(out.read_text()).items() if k != "credit"})
