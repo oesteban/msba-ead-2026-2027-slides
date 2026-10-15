@@ -51,11 +51,12 @@ days:
   - id: day1/04-multiclass
     date: 2026-10-16
     replaces: 2026-10-16
-    start: "15:00"
-    title: "Beyond two classes"
+    start: "15:10"
+    title: "Beyond binary classification"
 
-  - id: day1/05-dl
-    date: 2026-10-16
-    replaces: 2026-10-16
-    start: "15:45"
+  # moved to the second day (D33); its slot in the 23.10 clock is still open
+  - id: day2/05-dl
+    date: 2026-10-23
+    replaces: 2026-10-23
+    start: "08:45"
     title: "Deep learning for decisions"

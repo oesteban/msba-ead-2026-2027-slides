@@ -17,9 +17,9 @@ Dates and titles come from [`course.yml`](course.yml).
 |---|---|---|
 | From a business question to a first model | Fri 16 Oct 2026, morning | `day1/01-intro/` |
 | Evaluating a classifier | Fri 16 Oct 2026, morning | `day1/02-model/` |
-| Model selection and cross-validation | Fri 16 Oct 2026, morning | `day1/03-cv/` |
-| Beyond two classes | Fri 16 Oct 2026, afternoon | `day1/04-multiclass/` |
-| Deep learning for decisions | Fri 16 Oct 2026, afternoon | `day1/05-dl/` |
+| Model selection and cross-validation | Fri 16 Oct 2026, morning and afternoon | `day1/03-cv/` |
+| Beyond binary classification | Fri 16 Oct 2026, afternoon | `day1/04-multiclass/` |
+| Deep learning for decisions | Fri 23 Oct 2026 | `day2/05-dl/` |
 
 Navigation: arrow keys, `P` for presenter view, `C` to clone the window onto a
 second screen, `?` for the full list.

@@ -638,14 +638,14 @@ The table summarises the four algorithms: boundary shape, preparation needed, in
 <div><b>3. Compare</b>Each ROC AUC and its ±. Is the best one better on every fold?<br /><code>Results</code></div>
 </div>
 
-.time[Groups of three, same roles. 30 minutes with the next slide. SVM left out: its training time grows fast with the rows.]
+.time[Groups of three, same roles. 40 minutes: start training before the break, the models train on through it. SVM left out: its training time grows fast with the rows.]
 ]
 
 .footnote[Data: I.-C. Yeh and C.-H. Lien (2009); UCI Machine Learning Repository, dataset 350, doi:10.24432/C55S3H, CC BY 4.0; English names and labels by the course.]
 
 ???
 
-The second hands-on moves to a larger dataset: 30,000 credit-card clients in Taiwan, published by Yeh and Lien (2009, Expert Systems with Applications, 36(2): 2473 to 2480) through the UCI Machine Learning Repository (dataset 350, doi:10.24432/C55S3H, CC BY 4.0). Of these, 6,636 (22.1%) defaulted on the next payment after September 2005. For each client, the file records credit limit, sex, education, marital status, age, the repayment status of each month from April to September 2005, the bill and the amount paid each month, all in NT dollars. The `pay_status_*` columns need attention: the UCI documentation gives -1 as paid duly and 1 to 9 as months of delay, but the codes -2 and 0 also appear and are undocumented; whether these columns are treated as numbers or categories (deck 1, slide 15) affects the model. The groups train logistic regression, random forest and XGBoost with K-fold cross-test, 5 folds, stratified, and compare each AUC and its ±. The SVM is left out because its training time grows fast with 30,000 rows.
+The second hands-on moves to a larger dataset: 30,000 credit-card clients in Taiwan, published by Yeh and Lien (2009, Expert Systems with Applications, 36(2): 2473 to 2480) through the UCI Machine Learning Repository (dataset 350, doi:10.24432/C55S3H, CC BY 4.0). Of these, 6,636 (22.1%) defaulted on the next payment after September 2005. For each client, the file records credit limit, sex, education, marital status, age, the repayment status of each month from April to September 2005, the bill and the amount paid each month, all in NT dollars. The `pay_status_*` columns need attention: the UCI documentation gives -1 as paid duly and 1 to 9 as months of delay, but the codes -2 and 0 also appear and are undocumented; whether these columns are treated as numbers or categories (deck 1, slide 15) affects the model. The groups train logistic regression, random forest and XGBoost with K-fold cross-test, 5 folds, stratified, and compare each AUC and its ±. The SVM is left out because its training time grows fast with 30,000 rows. Training starts before the afternoon break and runs on through it; the debrief follows at 15:00.
 
 ---
 
@@ -660,7 +660,7 @@ The second hands-on moves to a larger dataset: 30,000 credit-card clients in Tai
 <div><b>6. Decide</b>The model you would deploy, and why: its score and ±, and how well it explains itself.</div>
 </div>
 
-.time[Debrief: each Referee gives the group's choice in one sentence. 5 minutes.]
+.time[Debrief at 15:00: each Referee gives the group's choice in one sentence. 10 minutes.]
 ]
 
 ???
@@ -693,7 +693,7 @@ This slide lists the sources behind the deck. Provost and Fawcett (2013) is the 
 # End
 
 .large[
-Next: 16.10.2026 @ 15h00 (in <span class="timer" data-until="2026-10-16T15:00:00+02:00"></span>)
+Next: *Beyond binary classification*
 
 [<i class="fa-solid fa-circle-left"></i>](../02-model/index.html)
 [<i class="fa-solid fa-home"></i>](#1)
@@ -703,7 +703,7 @@ Next: 16.10.2026 @ 15h00 (in <span class="timer" data-until="2026-10-16T15:00:00
 
 ???
 
-The afternoon session continues at 15:00 with the next deck, which covers classification beyond two classes. The left arrow leads back to the previous deck, Evaluating a classifier. The house returns to this deck's first slide. The right arrow leads to the next deck.
+The next deck, *Beyond binary classification*, follows the debrief of Hands-on 2, at about 15:10, and covers targets with more than two classes. The left arrow leads back to the previous deck, Evaluating a classifier. The house returns to this deck's first slide. The right arrow leads to the next deck.
 </textarea>
 
     <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
