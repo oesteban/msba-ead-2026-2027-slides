@@ -54,7 +54,7 @@ days:
     start: "15:10"
     title: "Beyond binary classification"
 
-  # moved to the second day (D33); its slot in the 23.10 clock is still open
+  # moved to the second day (D33); it opens 23.10, 08:45 to 10:15 (D41)
   - id: day2/05-dl
     date: 2026-10-23
     replaces: 2026-10-23

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Transfer learning: a backbone pretrained on ImageNet, its 1,000-class output replaced by a new two-class head; Dataiku's number of retrained layers sets how many backbone layers are fine-tuned. Schematic. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="40" y="110" width="76" height="110" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="78" y="172" font-size="18" font-weight="normal" text-anchor="middle" fill="#9aa4a8">1</text>
+<line x1="118" y1="165" x2="130" y2="165" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect x="132" y="110" width="76" height="110" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="170" y="172" font-size="18" font-weight="normal" text-anchor="middle" fill="#9aa4a8">2</text>
+<line x1="210" y1="165" x2="222" y2="165" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect x="224" y="110" width="76" height="110" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="262" y="172" font-size="18" font-weight="normal" text-anchor="middle" fill="#9aa4a8">3</text>
+<line x1="302" y1="165" x2="314" y2="165" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect x="316" y="110" width="76" height="110" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="354" y="172" font-size="18" font-weight="normal" text-anchor="middle" fill="#9aa4a8">4</text>
+<line x1="394" y1="165" x2="406" y2="165" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect x="408" y="110" width="76" height="110" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="446" y="172" font-size="18" font-weight="normal" text-anchor="middle" fill="#9aa4a8">5</text>
+<line x1="486" y1="165" x2="498" y2="165" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect x="500" y="110" width="76" height="110" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="538" y="172" font-size="18" font-weight="normal" text-anchor="middle" fill="#9aa4a8">6</text>
+<line x1="578" y1="165" x2="590" y2="165" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect x="592" y="110" width="76" height="110" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="630" y="172" font-size="18" font-weight="normal" text-anchor="middle" fill="#9aa4a8">7</text>
+<text x="360" y="90" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">EfficientNet B0, trained on ImageNet</text>
+<line x1="682" y1="165" x2="722" y2="165" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+</g>
+<g data-step="1" data-hide="2-end">
+<rect x="728" y="110" width="230" height="110" rx="8" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="843" y="160" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1,000 outputs</text>
+<text x="843" y="186" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">ImageNet's classes</text>
+</g>
+<g data-step="2">
+<rect class="accent-a-light-fill accent-stroke" x="728" y="110" width="230" height="110" rx="8" fill="#8cb3cf" stroke="#00609c" stroke-width="2.4"/>
+<text x="843" y="152" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">a new head</text>
+<text x="843" y="180" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">lion, tiger</text>
+<text x="843" y="204" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">trained on the photos</text>
+<text x="360" y="252" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">frozen: the weights learned on ImageNet are kept</text>
+</g>
+<g data-step="3">
+<path class="accent-stroke" d="M 500 300 L 500 290 L 674 290 L 674 300" fill="none" stroke="#00609c" stroke-width="2.2" marker-end="url(#)"/>
+<text class="accent-fill" x="587" y="322" font-size="16" font-weight="bold" text-anchor="middle" fill="#00609c">retrained layers: 0 in Hands-on 4; more only if the data allow</text>
+</g>
+</svg>

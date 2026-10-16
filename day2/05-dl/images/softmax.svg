@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 390" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Softmax of three illustrative scores (2.1, 0.4, -1.0) into 0.81, 0.15 and 0.04. Illustrative. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="150" y="40" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">the last layer's scores</text>
+<rect class="accent-stroke" x="40" y="80" width="220" height="60" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="150" y="118" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">lion: +2.1</text>
+<rect class="accent-stroke" x="40" y="166" width="220" height="60" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="150" y="204" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">tiger: +0.4</text>
+<rect class="accent-stroke" x="40" y="252" width="220" height="60" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="150" y="290" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">cat: −1.0</text>
+</g>
+<g data-step="2">
+<line class="accent-stroke" x1="300" y1="190" x2="450" y2="190" stroke="#00609c" stroke-width="2.6" marker-end="url(#ahA)"/>
+<text x="375" y="170" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">softmax</text>
+<text x="375" y="222" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">e to each score,</text>
+<text x="375" y="242" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">divided by their sum</text>
+<text x="740" y="40" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">probabilities, summing to 1</text>
+<line x1="510" y1="300" x2="960" y2="300" stroke="#556268" stroke-width="1.4"/>
+<rect class="accent-fill" x="520" y="104.51771396964642" width="100" height="195.48228603035358" rx="3" fill="#00609c"/>
+<text x="570" y="94.51771396964642" font-size="21" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.81</text>
+<text x="570" y="328" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">lion</text>
+<rect class="accent-a-light-fill" x="670" y="264.2886070980903" width="100" height="35.71139290190965" rx="3" fill="#8cb3cf"/>
+<text x="720" y="254.28860709809032" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.15</text>
+<text x="720" y="328" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">tiger</text>
+<rect class="accent-a-light-fill" x="820" y="291.19367893226325" width="100" height="8.806321067736755" rx="3" fill="#8cb3cf"/>
+<text x="870" y="281.19367893226325" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.04</text>
+<text x="870" y="328" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">cat</text>
+</g>
+<g data-step="3">
+<text class="accent-fill" x="740" y="378" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">the most probable class wins, unless the costs say otherwise</text>
+</g>
+</svg>
