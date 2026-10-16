@@ -52,7 +52,13 @@ typst compile --root . day1/handouts/<file>.typ
 python3 tools/lint-decks.py
 python3 tools/reyear.py --check
 python3 tools/lint-handouts.py
+tools/render-deck.sh day1/02-model        # PDF and contact sheets in _preview/
+tools/check-steps.sh day1/02-model 11 4   # which steps show, press by press
+python3 tools/check-quotes.py <transcription.md> day1/02-model   # verbatim quotes in the notes
 ```
+
+How the decks and sheets are built: [`SLIDES_STANDARDS.md`](SLIDES_STANDARDS.md) and
+[`HANDOUTS_STANDARDS.md`](HANDOUTS_STANDARDS.md), beside [`AUTHORING.md`](AUTHORING.md).
 
 ## Publishing
 

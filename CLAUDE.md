@@ -14,8 +14,19 @@ wrapper (`../planning/`, `../../2025-2026/`, `../../intel/`).
 
 ## Before writing anything
 
-Read [`AUTHORING.md`](AUTHORING.md): the 302 rule catalogue, with the deltas
-for Dataiku DSS.
+Three files hold the standard every deck and sheet is built to; they are
+imported here, so they load with this file:
+
+- [`AUTHORING.md`](AUTHORING.md): the writing rules, the 302 rule catalogue
+  with the deltas for Dataiku DSS.
+- [`SLIDES_STANDARDS.md`](SLIDES_STANDARDS.md): how a deck is built and laid
+  out, deck 1 as the reference, and what review has taught.
+- [`HANDOUTS_STANDARDS.md`](HANDOUTS_STANDARDS.md): the same for the group
+  sheets.
+
+@AUTHORING.md
+@SLIDES_STANDARDS.md
+@HANDOUTS_STANDARDS.md
 
 ## Before committing
 
@@ -24,6 +35,10 @@ python3 tools/lint-decks.py      # deck structure
 python3 tools/reyear.py --check  # dates and URLs against course.yml
 python3 tools/lint-handouts.py   # handout structure, cross-references, stale PDFs
 ```
+
+Then read the result back: `tools/render-deck.sh <deck>` for slides,
+`tools/check-steps.sh` for every stepping slide touched, and
+`tools/check-quotes.py` for notes (usage in SLIDES_STANDARDS.md, "Checking").
 
 Handout PDFs are committed built: `typst compile --root . <file>.typ`, then
 stage the PDF with its source.
