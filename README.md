@@ -57,9 +57,6 @@ tools/check-steps.sh day1/02-model 11 4   # which steps show, press by press
 python3 tools/check-quotes.py <transcription.md> day1/02-model   # verbatim quotes in the notes
 ```
 
-How the decks and sheets are built: [`SLIDES_STANDARDS.md`](SLIDES_STANDARDS.md) and
-[`HANDOUTS_STANDARDS.md`](HANDOUTS_STANDARDS.md), beside [`AUTHORING.md`](AUTHORING.md).
-
 ## Publishing
 
 Pushing to `main` runs [`.github/workflows/pages.yml`](.github/workflows/pages.yml),

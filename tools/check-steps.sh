@@ -2,7 +2,7 @@
 # Step through a deck with real key presses in headless Chrome and print, for the slide
 # on entry and after each press, which .step-N elements (+ shown, - hidden) and which SVG
 # data-step layers show. A stepwise slide must open on its first step alone and end with
-# everything shown (SLIDES_STANDARDS.md, "Steps"); a screenshot cannot tell you that.
+# everything shown; a screenshot cannot tell you that.
 #
 #   tools/check-steps.sh day1/02-model 11 4
 #

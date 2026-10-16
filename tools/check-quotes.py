@@ -13,8 +13,7 @@ A quote is "..." or “...” followed within 40 characters by a citation ending
 count; a quote marked (Provost & Fawcett, 2013, p. N, verbatim) is also looked up on
 that page of the transcription and its neighbours, and any other source (another work,
 a Roman page) is listed as not checked. It flags more than two quotes on a slide, a
-quote that is not found, a quote of 15 words or more
-(AUTHORING.md, "On slides"), an em or en dash, a second `???`, and a `--` line, which
+quote that is not found, a quote of 15 words or more, an em or en dash, a second `???`, and a `--` line, which
 remark reads as an incremental step. Slides are numbered as on screen; an uncounted
 slide is shown as `+N`, after slide N.
 

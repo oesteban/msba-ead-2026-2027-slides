@@ -14,19 +14,13 @@ wrapper (`../planning/`, `../../2025-2026/`, `../../intel/`).
 
 ## Before writing anything
 
-Three files hold the standard every deck and sheet is built to; they are
-imported here, so they load with this file:
+The writing rules and the slide and handout standards are not in this public
+repository: they live in the private course wrapper, two levels up, and load
+from there.
 
-- [`AUTHORING.md`](AUTHORING.md): the writing rules, the 302 rule catalogue
-  with the deltas for Dataiku DSS.
-- [`SLIDES_STANDARDS.md`](SLIDES_STANDARDS.md): how a deck is built and laid
-  out, deck 1 as the reference, and what review has taught.
-- [`HANDOUTS_STANDARDS.md`](HANDOUTS_STANDARDS.md): the same for the group
-  sheets.
-
-@AUTHORING.md
-@SLIDES_STANDARDS.md
-@HANDOUTS_STANDARDS.md
+@../../AUTHORING.md
+@../../SLIDES_STANDARDS.md
+@../../HANDOUTS_STANDARDS.md
 
 ## Before committing
 
@@ -38,7 +32,7 @@ python3 tools/lint-handouts.py   # handout structure, cross-references, stale PD
 
 Then read the result back: `tools/render-deck.sh <deck>` for slides,
 `tools/check-steps.sh` for every stepping slide touched, and
-`tools/check-quotes.py` for notes (usage in SLIDES_STANDARDS.md, "Checking").
+`tools/check-quotes.py` for notes (usage in each script's header).
 
 Handout PDFs are committed built: `typst compile --root . <file>.typ`, then
 stage the PDF with its source.
