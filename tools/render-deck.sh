@@ -14,7 +14,14 @@ cd "$root"
 id="${1:?usage: tools/render-deck.sh <deck-dir, e.g. day1/02-model>}"
 out="_preview/${id//\//-}"
 chrome="${CHROME:-$(command -v google-chrome || command -v chromium || true)}"
+mac="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+[ -n "$chrome" ] || [ ! -x "$mac" ] || chrome="$mac"
 [ -n "$chrome" ] || { echo "no Chrome found; set CHROME=/path/to/chrome" >&2; exit 1; }
+# The contact sheets need Pillow: use python_cmd from the private wrapper's
+# .local.yaml (two levels up) when it names one, else python3.
+py=""
+[ ! -f ../../.local.yaml ] || py=$(sed -n 's/^python_cmd:[[:space:]]*"\{0,1\}\([^"]*\)"\{0,1\}[[:space:]]*$/\1/p' ../../.local.yaml | head -1)
+py="${py:-python3}"
 
 port=$(python3 -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1])')
 python3 -m http.server "$port" --bind 127.0.0.1 >/dev/null 2>&1 &
@@ -29,7 +36,7 @@ npx --yes decktape remark --chrome-path "$chrome" --chrome-arg=--no-sandbox -s 1
   --screenshots --screenshots-directory "$out" --screenshots-size 640x360 \
   "http://127.0.0.1:$port/$id/index.html" "$out.pdf" 2>&1 | grep -E 'Printed|rror' || true
 
-python3 - "$out" <<'PY'
+$py - "$out" <<'PY'
 import glob, re, sys
 from PIL import Image
 d = sys.argv[1]

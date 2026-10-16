@@ -19,6 +19,8 @@ id="${1:?usage: tools/check-steps.sh <deck-dir> <first slide hash> <presses>}"
 first="${2:-1}"
 presses="${3:-1}"
 chrome="${CHROME:-$(command -v google-chrome || command -v chromium || true)}"
+mac="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+[ -n "$chrome" ] || [ ! -x "$mac" ] || chrome="$mac"
 [ -n "$chrome" ] || { echo "no Chrome found; set CHROME=/path/to/chrome" >&2; exit 1; }
 nm="$(dirname "$(dirname "$(npx --yes -p decktape which decktape)")")"
 [ -d "$nm/puppeteer-core" ] || { echo "puppeteer-core not found in $nm" >&2; exit 1; }
