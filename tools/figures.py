@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Render the data figures of the day-1 decks.
 
-Every chart in day1/0[2-4]-*/images and day2/05-dl/images is drawn here from the data,
+Every chart in day1/0[2-4]-*/images is drawn here from the data,
 so every number on a slide can be traced to a computation. (Figures drawn by
 others appear only in day1/01-intro, each with its licence on the slide.)
 
@@ -55,7 +55,6 @@ ROOT = Path(__file__).resolve().parent.parent
 AM = ROOT / "day1" / "02-model" / "images"
 CV = ROOT / "day1" / "03-cv" / "images"
 WINE = ROOT / "day1" / "04-multiclass" / "images"
-DL = ROOT / "day2" / "05-dl" / "images"
 
 ACCENT = "#00609c"
 DARK = "#1a1a1a"
@@ -692,35 +691,6 @@ def wine_lines(w: pd.DataFrame, X: pd.DataFrame, cv) -> None:
     )
 
 
-def network_diagram() -> None:
-    """Schematic network: pixels in, three class probabilities out (illustrative values)."""
-    fig, ax = plt.subplots(figsize=(10, 4.6))
-    layers = [6, 7, 7, 3]
-    xs = [0, 2.6, 5.2, 7.8]
-    pos = []
-    for x, n in zip(xs, layers):
-        ys = np.linspace(-(n - 1) / 2, (n - 1) / 2, n) * 0.62
-        pos.append([(x, yy) for yy in ys])
-    for a, b in zip(pos[:-1], pos[1:]):
-        for (x0, y0) in a:
-            for (x1, y1) in b:
-                ax.plot([x0, x1], [y0, y1], color=LIGHT, lw=0.7, zorder=1)
-    for li, layer in enumerate(pos):
-        for (x, yy) in layer:
-            ax.add_patch(plt.Circle((x, yy), 0.17, color=ACCENT if li == 3 else (CYAN if li == 0 else GRAY),
-                                    zorder=2))
-    for (x, yy), lab, pr in zip(pos[3], ["cat", "tiger", "lion"], [0.04, 0.15, 0.81]):
-        ax.text(x + 0.35, yy, f"{lab}  {pr:.2f}", va="center", fontsize=14, color=DARK)
-    ax.text(xs[0], -2.45, "inputs\n(pixel values)", ha="center", va="top", fontsize=13)
-    ax.text((xs[1] + xs[2]) / 2, -2.45, "hidden layers\n(learned features)", ha="center", va="top", fontsize=13)
-    ax.text(xs[3], -2.45, "softmax output\n(probabilities, sum = 1)", ha="center", va="top", fontsize=13)
-    ax.set_xlim(-0.8, 10.2)
-    ax.set_ylim(-3.4, 2.3)
-    ax.set_aspect("equal")
-    ax.axis("off")
-    save(fig, DL / "network.svg")
-
-
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--credit", type=Path, required=True)
@@ -737,7 +707,6 @@ def main() -> int:
     if a.wine is None:                      # credit only: keep the other keys
         NUMBERS.update({k: v for k, v in json.loads(out.read_text()).items() if k != "credit"})
     else:
-        network_diagram()
         wine(a.wine)
     if a.zalaxus:
         zalaxus(a.zalaxus)
