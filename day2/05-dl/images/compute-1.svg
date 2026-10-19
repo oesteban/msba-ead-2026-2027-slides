@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Training compute of milestone models, log scale, broken time axis; the milestone models' training compute. Data: Epoch AI, Data on Notable AI Models, CC BY 4.0 (src/compute.csv). Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<line x1="90" y1="340" x2="975" y2="340" stroke="#556268" stroke-width="1.4" marker-end="url(#ah)"/>
+<line x1="90" y1="340" x2="90" y2="20" stroke="#556268" stroke-width="1.4" marker-end="url(#ah)"/>
+<path d="M438,346 L446,334 M446,346 L454,334" stroke="#556268" stroke-width="2"/>
+<line x1="84" y1="326.5217391304348" x2="975" y2="326.5217391304348" stroke="#eef1f2" stroke-width="1"/>
+<text x="80" y="331.5217391304348" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10<tspan baseline-shift='super' font-size='11'>5</tspan></text>
+<line x1="84" y1="259.1304347826087" x2="975" y2="259.1304347826087" stroke="#eef1f2" stroke-width="1"/>
+<text x="80" y="264.1304347826087" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10<tspan baseline-shift='super' font-size='11'>10</tspan></text>
+<line x1="84" y1="191.7391304347826" x2="975" y2="191.7391304347826" stroke="#eef1f2" stroke-width="1"/>
+<text x="80" y="196.7391304347826" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10<tspan baseline-shift='super' font-size='11'>15</tspan></text>
+<line x1="84" y1="124.34782608695653" x2="975" y2="124.34782608695653" stroke="#eef1f2" stroke-width="1"/>
+<text x="80" y="129.34782608695653" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10<tspan baseline-shift='super' font-size='11'>20</tspan></text>
+<line x1="84" y1="56.95652173913044" x2="975" y2="56.95652173913044" stroke="#eef1f2" stroke-width="1"/>
+<text x="80" y="61.95652173913044" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10<tspan baseline-shift='super' font-size='11'>25</tspan></text>
+<line x1="123.0" y1="340" x2="123.0" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="123.0" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">1960</text>
+<line x1="255.0" y1="340" x2="255.0" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="255.0" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">1980</text>
+<line x1="387.0" y1="340" x2="387.0" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="387.0" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2000</text>
+<line x1="524.4444444444445" y1="340" x2="524.4444444444445" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="524.4444444444445" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2010</text>
+<line x1="660.5555555555555" y1="340" x2="660.5555555555555" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="660.5555555555555" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2015</text>
+<line x1="796.6666666666667" y1="340" x2="796.6666666666667" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="796.6666666666667" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2020</text>
+<line x1="932.7777777777778" y1="340" x2="932.7777777777778" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="932.7777777777778" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2025</text>
+<text x="96" y="16" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">training compute, FLOP</text>
+<circle cx="103.2" cy="315.2" r="6" fill="#00609c" class="accent-fill"/>
+<text x="113.2" y="320.17324828595935" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">Perceptron</text>
+<circle cx="299.6" cy="274.9" r="6" fill="#00609c" class="accent-fill"/>
+<text x="309.55" y="279.91806226408914" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">back-propagation</text>
+<circle cx="379.3" cy="226.1" r="6" fill="#00609c" class="accent-fill"/>
+<text x="389.2999999999995" y="231.12613220997503" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">LeNet-5</text>
+</g>
+<g data-step="2">
+<circle cx="599.2" cy="155.7" r="6" fill="#00609c" class="accent-fill"/>
+<text x="599.1998985286672" y="181.72389843651857" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">AlexNet</text>
+<circle cx="686.2" cy="137.6" r="6" fill="#00609c" class="accent-fill"/>
+<text x="686.1804921359762" y="124.59650716597295" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">ResNet-152</text>
+<circle cx="727.2" cy="139.6" r="6" fill="#00609c" class="accent-fill"/>
+<text x="727.162988330799" y="163.5728169288479" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">Transformer</text>
+<circle cx="763.4" cy="118.2" r="6" fill="#00609c" class="accent-fill"/>
+<text x="774.3847031963485" y="123.21730840858095" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">BERT</text>
+<circle cx="807.8" cy="77.2" r="6" fill="#00609c" class="accent-fill"/>
+<text x="796.7544393708773" y="82.21529604770882" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">GPT-3</text>
+<circle cx="824.2" cy="97.1" r="6" fill="#00609c" class="accent-fill"/>
+<text x="835.187214611874" y="102.10570944731825" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">CLIP</text>
+<circle cx="858.1" cy="65.0" r="6" fill="#00609c" class="accent-fill"/>
+<text x="868.1404109589071" y="76.00141906241288" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">PaLM</text>
+<circle cx="883.9" cy="52.6" r="6" fill="#00609c" class="accent-fill"/>
+<text x="873.914510400811" y="43.61356602749936" font-size="15" font-weight="normal" text-anchor="end" fill="#1c2e36">GPT-4</text>
+<circle cx="920.8" cy="49.1" r="6" fill="#00609c" class="accent-fill"/>
+<text x="920.8074581430755" y="36.14204717603428" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">Llama 3.1</text>
+</g>
+</svg>

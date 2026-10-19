@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Back-propagation: a forward pass to the loss (1.90, the tiger photo of the loss slide), then the error sent back layer by layer (Rumelhart et al. 1986; Prince 2023, chapter 7). Schematic. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect class="accent-stroke" x="60" y="120" width="150" height="90" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="135" y="172" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">layer 1</text>
+<rect class="accent-stroke" x="260" y="120" width="150" height="90" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="335" y="172" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">layer 2</text>
+<rect class="accent-stroke" x="460" y="120" width="150" height="90" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="535" y="172" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">layer 3</text>
+<rect class="accent-stroke" x="660" y="120" width="150" height="90" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="735" y="172" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">last layer</text>
+<line x1="60" y1="80" x2="800" y2="80" stroke="#9aa4a8" stroke-width="2.4" marker-end="url(#ah)"/>
+<text x="430" y="66" font-size="17" font-weight="normal" text-anchor="middle" fill="#9aa4a8">forward: the photo to a score</text>
+</g>
+<g data-step="2">
+<line x1="812" y1="165" x2="846" y2="165" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect x="850" y="120" width="120" height="90" rx="8" fill="#fdecee" stroke="#da232f" stroke-width="1.6"/>
+<text x="910" y="160" font-size="18" font-weight="bold" text-anchor="middle" fill="#da232f">the loss</text>
+<text x="910" y="186" font-size="18" font-weight="normal" text-anchor="middle" fill="#da232f">1.90</text>
+</g>
+<g data-step="3">
+<line class="accent-stroke" x1="850" y1="250" x2="70" y2="250" stroke="#00609c" stroke-width="2.8" stroke-dasharray="9 6" marker-end="url(#ahA)"/>
+<text class="accent-fill" x="460" y="284" font-size="18" font-weight="bold" text-anchor="middle" fill="#00609c">back: each weight gets its share of the error</text>
+<line class="accent-stroke" x1="135" y1="246" x2="135" y2="214" stroke="#00609c" stroke-width="2" marker-end="url(#ahA)"/>
+<line class="accent-stroke" x1="335" y1="246" x2="335" y2="214" stroke="#00609c" stroke-width="2" marker-end="url(#ahA)"/>
+<line class="accent-stroke" x1="535" y1="246" x2="535" y2="214" stroke="#00609c" stroke-width="2" marker-end="url(#ahA)"/>
+<line class="accent-stroke" x1="735" y1="246" x2="735" y2="214" stroke="#00609c" stroke-width="2" marker-end="url(#ahA)"/>
+</g>
+</svg>

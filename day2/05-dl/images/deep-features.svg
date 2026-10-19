@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A table's columns are features before any model; a deep network learns its features from raw pixels (LeCun et al. 2015). Schematic. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect class="accent-stroke" x="30" y="40" width="250" height="76" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="155.0" y="72" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">the columns</text>
+<text x="155.0" y="98" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">duration, amount, age</text>
+<line x1="284" y1="78" x2="344" y2="78" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect class="accent-stroke" x="350" y="40" width="280" height="76" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="490.0" y="72" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">a model</text>
+<text x="490.0" y="98" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">trees, a regression</text>
+<line x1="634" y1="78" x2="694" y2="78" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect class="accent-stroke" x="700" y="40" width="260" height="76" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="830.0" y="85" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">good or bad</text>
+<text x="30" y="28" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">a table: the features come with it</text>
+</g>
+<g data-step="2">
+<rect class="accent-stroke" x="30" y="200" width="250" height="76" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="155.0" y="232" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">the pixels</text>
+<text x="155.0" y="258" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">150,528 numbers</text>
+<line x1="284" y1="238" x2="344" y2="238" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="350" y="200" width="280" height="76" rx="8" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<text x="490.0" y="232" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">layers learn the features</text>
+<text x="490.0" y="258" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">edges, parts, objects</text>
+<line x1="634" y1="238" x2="694" y2="238" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect class="accent-stroke" x="700" y="200" width="260" height="76" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="830.0" y="245" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">lion or tiger</text>
+<text x="30" y="188" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">a photo: the network learns its features</text>
+</g>
+</svg>

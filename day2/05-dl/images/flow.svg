@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- The Flow of Hands-on 4, drawn after Dataiku DSS's Flow (folders, recipes, datasets, a model), with the sheet's steps; recipe colours schematic. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<path class="accent-stroke" d="M 20 68 L 42 68 L 50 60 L 84 60 L 84 110 L 20 110 Z" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="52" y="134" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">train</text>
+<line x1="88" y1="85" x2="128" y2="85" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="150" cy="85" r="20" fill="#f0c46a" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="150" y="55" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">List</text>
+<line x1="172" y1="85" x2="212" y2="85" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="216" y="60" width="56" height="50" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<text x="244" y="134" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">listing</text>
+<line x1="276" y1="85" x2="316" y2="85" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="338" cy="85" r="20" fill="#f0c46a" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="338" y="55" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">Prepare</text>
+<line x1="360" y1="85" x2="400" y2="85" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="404" y="60" width="56" height="50" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<text x="432" y="134" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">labelled</text>
+<text x="432" y="152" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">label from the name</text>
+<text class="accent-fill" x="20" y="30" font-size="15" font-weight="bold" text-anchor="start" fill="#00609c">steps 1 and 2</text>
+</g>
+<g data-step="2">
+<line x1="464" y1="85" x2="520" y2="85" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="542" cy="85" r="20" fill="#8fd19e" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="542" y="55" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">Lab</text>
+<line x1="564" y1="85" x2="610" y2="85" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<polygon class="accent-fill" points="642,55 672,85 642,115 612,85" fill="#00609c"/>
+<text x="682" y="91" font-size="15" font-weight="bold" text-anchor="start" fill="#1c2e36">the model</text>
+</g>
+<g data-step="3">
+<path class="accent-stroke" d="M 20 258 L 42 258 L 50 250 L 84 250 L 84 300 L 20 300 Z" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="52" y="324" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">test</text>
+<line x1="88" y1="275" x2="128" y2="275" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="150" cy="275" r="20" fill="#f0c46a" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="150" y="245" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">List</text>
+<line x1="172" y1="275" x2="212" y2="275" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="216" y="250" width="56" height="50" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<text x="244" y="324" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">listing</text>
+<line x1="276" y1="275" x2="316" y2="275" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="338" cy="275" r="20" fill="#f0c46a" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="338" y="245" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">Prepare</text>
+<line x1="360" y1="275" x2="400" y2="275" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="404" y="250" width="56" height="50" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<text x="432" y="324" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">labelled</text>
+<line x1="464" y1="275" x2="620" y2="275" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="642" cy="275" r="20" fill="#8fd19e" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="642" y="317" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">Score</text>
+<line x1="642" y1="117" x2="642" y2="253" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<line x1="664" y1="275" x2="700" y2="275" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="704" y="250" width="56" height="50" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<text x="732" y="324" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">scored</text>
+<text x="732" y="342" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">a prediction per photo</text>
+<text class="accent-fill" x="20" y="220" font-size="15" font-weight="bold" text-anchor="start" fill="#00609c">step 3</text>
+</g>
+<g data-step="4">
+<line x1="764" y1="275" x2="800" y2="275" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="822" cy="275" r="20" fill="#f0c46a" stroke="#1c2e36" stroke-width="1.2"/>
+<text x="822" y="245" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">Prepare</text>
+<line x1="844" y1="275" x2="880" y2="275" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="884" y="250" width="56" height="50" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<text x="912" y="324" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">checked</text>
+<text x="912" y="342" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">right or wrong</text>
+</g>
+</svg>

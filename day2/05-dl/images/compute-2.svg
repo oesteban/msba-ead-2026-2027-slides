@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Training compute of milestone models, log scale, broken time axis; trend lines for doubling times of 20 months before 2010 and 6 months after, drawn through the points (Sevilla et al. 2022). Data: Epoch AI, Data on Notable AI Models, CC BY 4.0 (src/compute.csv). Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<line x1="90" y1="340" x2="975" y2="340" stroke="#556268" stroke-width="1.4" marker-end="url(#ah)"/>
+<line x1="90" y1="340" x2="90" y2="20" stroke="#556268" stroke-width="1.4" marker-end="url(#ah)"/>
+<path d="M438,346 L446,334 M446,346 L454,334" stroke="#556268" stroke-width="2"/>
+<line x1="84" y1="326.5217391304348" x2="975" y2="326.5217391304348" stroke="#eef1f2" stroke-width="1"/>
+<text x="80" y="331.5217391304348" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10<tspan baseline-shift='super' font-size='11'>5</tspan></text>
+<line x1="84" y1="259.1304347826087" x2="975" y2="259.1304347826087" stroke="#eef1f2" stroke-width="1"/>
+<text x="80" y="264.1304347826087" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10<tspan baseline-shift='super' font-size='11'>10</tspan></text>
+<line x1="84" y1="191.7391304347826" x2="975" y2="191.7391304347826" stroke="#eef1f2" stroke-width="1"/>
+<text x="80" y="196.7391304347826" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10<tspan baseline-shift='super' font-size='11'>15</tspan></text>
+<line x1="84" y1="124.34782608695653" x2="975" y2="124.34782608695653" stroke="#eef1f2" stroke-width="1"/>
+<text x="80" y="129.34782608695653" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10<tspan baseline-shift='super' font-size='11'>20</tspan></text>
+<line x1="84" y1="56.95652173913044" x2="975" y2="56.95652173913044" stroke="#eef1f2" stroke-width="1"/>
+<text x="80" y="61.95652173913044" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10<tspan baseline-shift='super' font-size='11'>25</tspan></text>
+<line x1="123.0" y1="340" x2="123.0" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="123.0" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">1960</text>
+<line x1="255.0" y1="340" x2="255.0" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="255.0" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">1980</text>
+<line x1="387.0" y1="340" x2="387.0" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="387.0" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2000</text>
+<line x1="524.4444444444445" y1="340" x2="524.4444444444445" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="524.4444444444445" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2010</text>
+<line x1="660.5555555555555" y1="340" x2="660.5555555555555" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="660.5555555555555" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2015</text>
+<line x1="796.6666666666667" y1="340" x2="796.6666666666667" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="796.6666666666667" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2020</text>
+<line x1="932.7777777777778" y1="340" x2="932.7777777777778" y2="346" stroke="#556268" stroke-width="1.2"/>
+<text x="932.7777777777778" y="366" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2025</text>
+<text x="96" y="16" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">training compute, FLOP</text>
+<circle cx="103.2" cy="315.2" r="6" fill="#9aa4a8"/>
+<text x="113.2" y="320.17324828595935" font-size="15" font-weight="normal" text-anchor="start" fill="#9aa4a8">Perceptron</text>
+<circle cx="299.6" cy="274.9" r="6" fill="#9aa4a8"/>
+<circle cx="379.3" cy="226.1" r="6" fill="#9aa4a8"/>
+<text x="389.2999999999995" y="231.12613220997503" font-size="15" font-weight="normal" text-anchor="start" fill="#9aa4a8">LeNet-5</text>
+<circle cx="599.2" cy="155.7" r="6" fill="#9aa4a8"/>
+<text x="599.1998985286672" y="181.72389843651857" font-size="15" font-weight="normal" text-anchor="middle" fill="#9aa4a8">AlexNet</text>
+<circle cx="686.2" cy="137.6" r="6" fill="#9aa4a8"/>
+<circle cx="727.2" cy="139.6" r="6" fill="#9aa4a8"/>
+<circle cx="763.4" cy="118.2" r="6" fill="#9aa4a8"/>
+<circle cx="807.8" cy="77.2" r="6" fill="#9aa4a8"/>
+<text x="796.7544393708773" y="82.21529604770882" font-size="15" font-weight="normal" text-anchor="end" fill="#9aa4a8">GPT-3</text>
+<circle cx="824.2" cy="97.1" r="6" fill="#9aa4a8"/>
+<circle cx="858.1" cy="65.0" r="6" fill="#9aa4a8"/>
+<circle cx="883.9" cy="52.6" r="6" fill="#9aa4a8"/>
+<circle cx="920.8" cy="49.1" r="6" fill="#9aa4a8"/>
+<text x="920.8074581430755" y="36.14204717603428" font-size="15" font-weight="normal" text-anchor="middle" fill="#9aa4a8">Llama 3.1</text>
+</g>
+<g data-step="2">
+<line x1="90.0" y1="320.0" x2="413.4" y2="200.8" stroke="#9aa4a8" stroke-width="3" stroke-dasharray="9 5"/>
+<text x="222.0" y="205.3537515258285" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">before: doubling about</text>
+<text x="222.0" y="225.3537515258285" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">every 20 months</text>
+</g>
+<g data-step="3">
+<line x1="565.3" y1="164.8" x2="946.4" y2="51.2" stroke="#00609c" class="accent-stroke" stroke-width="3" stroke-dasharray="9 5"/>
+<text class="accent-fill" x="614.2777777777766" y="86.21281541596846" font-size="17" font-weight="bold" text-anchor="end" fill="#00609c">since 2012: doubling</text>
+<text class="accent-fill" x="614.2777777777766" y="108.21281541596846" font-size="17" font-weight="bold" text-anchor="end" fill="#00609c">about every 6 months</text>
+</g>
+</svg>

@@ -1,0 +1,13 @@
+model,date,training_compute_flop,label
+Perceptron Mark I,1957-01-01,6.95e5,Perceptron
+MLP with back-propagation,1986-10-01,6.74e8,back-propagation
+LeNet-5,1998-11-01,2.81e12,LeNet-5
+AlexNet,2012-09-30,4.7e17,AlexNet
+ResNet-152 (ImageNet),2015-12-10,1.04e19,ResNet-152
+Transformer,2017-06-12,7.42e18,Transformer
+BERT-Large,2018-10-11,2.85e20,BERT
+GPT-3 175B (davinci),2020-05-28,3.14e23,GPT-3
+CLIP (ViT L/14@336px),2021-01-05,1.05e22,CLIP
+PaLM (540B),2022-04-04,2.53e24,PaLM
+GPT-4 (Mar 2023),2023-03-15,2.1e25,GPT-4
+Llama 3.1-405B,2024-07-23,3.8e25,Llama 3.1
