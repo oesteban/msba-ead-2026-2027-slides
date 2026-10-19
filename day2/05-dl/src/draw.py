@@ -210,10 +210,10 @@ def tasks() -> str:
         text(550, 66, "tree", size=15, weight="bold", anchor="start", fill=GREY_INK),
         text(500, 300, "Where? A box per object", size=18, weight="bold")]
     which = [frame(690)] + scene(690, mask=True) + [
-        text(835, 300, "Which pixels? A mask per object", size=18, weight="bold")]
+        text(835, 300, "Which pixels? A label for each pixel", size=18, weight="bold")]
     return svg(W, H, [step(1, what), step(2, where), step(3, which)],
                "Three questions asked of a photo: classification (a label), detection (boxes) and segmentation "
-               "(a mask per object); after Prince (2023), chapter 10. Illustrative shapes. " + LICENCE)
+               "(a label for each pixel); after Prince (2023), section 10.5. Illustrative shapes. " + LICENCE)
 
 
 # --- Part 2: how a network learns -------------------------------------------------
@@ -299,7 +299,7 @@ def forward() -> str:
         groups.append(g)
         prev = k
     groups[0] += [text(110, 335, "pixel values", size=16, fill=MUTED)]
-    groups[1] += [text(420, 335, "each unit: a weighted sum, squashed", size=16, fill=MUTED)]
+    groups[1] += [text(420, 335, "each unit: a weighted sum, then a non-linear function", size=16, fill=MUTED)]
     groups[2] += [text(730, 335, "one score per class", size=16, fill=MUTED)]
     for y, n in zip(cols["out"][1], ["lion", "tiger", "cat"]):
         groups[2].append(text(775, y + 7, n, size=18, anchor="start"))
@@ -854,7 +854,7 @@ def saliency_scrambled() -> str:
 
 
 # --- The compute chart: Epoch AI's training compute, with Lonestar 5 -----------------
-LONESTAR5_PEAK = 1.25e15          # FLOP per second at peak (TACC); one day of it is 1.08e20 FLOP
+LONESTAR5_PEAK = 1.25e15          # FLOP per second at peak (TACC 2015); in production January 2016 to July 2021
 DOUBLING_EARLY, DOUBLING_DL = 20, 6   # months, Sevilla et al. (2022), rounded
 
 
@@ -949,11 +949,12 @@ def compute(part: int) -> str:
         gx, gl = rows["GPT-3"]
         mins = 10 ** al / LONESTAR5_PEAK / 60
         yrs = 10 ** gl / day / 365.25
-        ls = [f'<line x1="{_cx(2016):.1f}" y1="{ly:.1f}" x2="{_cx(2025.5):.1f}" y2="{ly:.1f}" stroke="{ALERT}" '
+        ls = [f'<line x1="{_cx(2016.05):.1f}" y1="{ly:.1f}" x2="{_cx(2021.5):.1f}" y2="{ly:.1f}" stroke="{ALERT}" '
               f'stroke-width="3"/>',
               line(_cx(2008.2), ly, _cx(2016), ly, color=ALERT, w=1.6, marker="", dash="4 4"),
               text(_cx(2008.4), ly - 30, "one day of Lonestar 5", size=17, weight="bold", fill=ALERT, anchor="start"),
-              text(_cx(2008.4), ly - 10, "at peak, from 2016", size=16, fill=ALERT, anchor="start")]
+              text(_cx(2008.4), ly - 10, "at peak, in service 2016 to 2021", size=16, fill=ALERT, anchor="start"),
+              line(_cx(2021.5), ly, _cx(2025.5), ly, color=ALERT, w=1.6, marker="", dash="4 4")]
         notes = [text(_cx(ax_) + 14, _cy(al) + 46, f"{mins:.0f} minutes of it", size=16, weight="bold", anchor="start"),
                  text(_cx(gx) - 12, _cy(gl) - 22, f"{yrs:.0f} years of it", size=17, weight="bold", anchor="end",
                       fill=ACCENT, cls="accent-fill")]

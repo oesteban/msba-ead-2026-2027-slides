@@ -50,10 +50,11 @@
 <text x="920.8074581430755" y="36.14204717603428" font-size="15" font-weight="normal" text-anchor="middle" fill="#9aa4a8">Llama 3.1</text>
 </g>
 <g data-step="2">
-<line x1="687.8" y1="123.9" x2="946.4" y2="123.9" stroke="#da232f" stroke-width="3"/>
+<line x1="689.1" y1="123.9" x2="837.5" y2="123.9" stroke="#da232f" stroke-width="3"/>
 <line x1="475.4444444444457" y1="123.89733199126283" x2="687.7777777777778" y2="123.89733199126283" stroke="#da232f" stroke-width="1.6" stroke-dasharray="4 4"/>
 <text x="480.88888888889136" y="93.89733199126283" font-size="17" font-weight="bold" text-anchor="start" fill="#da232f">one day of Lonestar 5</text>
-<text x="480.88888888889136" y="113.89733199126283" font-size="16" font-weight="normal" text-anchor="start" fill="#da232f">at peak, from 2016</text>
+<text x="480.88888888889136" y="113.89733199126283" font-size="16" font-weight="normal" text-anchor="start" fill="#da232f">at peak, in service 2016 to 2021</text>
+<line x1="837.5" y1="123.89733199126283" x2="946.3888888888889" y2="123.89733199126283" stroke="#da232f" stroke-width="1.6" stroke-dasharray="4 4"/>
 </g>
 <g data-step="3">
 <text x="613.1998985286672" y="201.72389843651857" font-size="16" font-weight="bold" text-anchor="start" fill="#1c2e36">6 minutes of it</text>

@@ -29,7 +29,7 @@
 <text x="420" y="187" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.1</text>
 <circle class="accent-stroke" cx="420" cy="280" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
 <text x="420" y="287" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.8</text>
-<text x="420" y="335" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">each unit: a weighted sum, squashed</text>
+<text x="420" y="335" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">each unit: a weighted sum, then a non-linear function</text>
 <line class="accent-stroke" x1="110" y1="365" x2="880" y2="365" stroke="#00609c" stroke-width="2.4" marker-end="url(#ahA)"/>
 <text class="accent-fill" x="495" y="357" font-size="15" font-weight="bold" text-anchor="middle" fill="#00609c">forward</text>
 </g>
