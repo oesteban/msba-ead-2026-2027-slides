@@ -215,10 +215,55 @@ def hygiene() -> str:
                "(8 of 65) and a mislabelled photo (2), as counted on the course copy. File names illustrative. " + LICENCE)
 
 
+def saliency() -> str:
+    """An image, its gradient map, and a near-identical map after the model's top layers are scrambled."""
+    W, H, S, n = 1000, 290, 210, 10
+    cell = S / n
+
+    def seg_dist(px, py, ax, ay, bx, by):
+        dx, dy = bx - ax, by - ay
+        t = max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)))
+        return math.hypot(px - ax - t * dx, py - ay - t * dy)
+
+    def heat(x0, scramble=False):
+        out = []
+        for i in range(n):
+            for j in range(n):
+                px, py = -S / 2 + (i + 0.5) * cell, -S / 2 + (j + 0.5) * cell
+                eye = math.exp(-((px - 18) ** 2 + (py + 18) ** 2) / 500)
+                edge = max(math.exp(-seg_dist(px, py, *s) ** 2 / 90) for s in
+                           ((-50, 40, -10, -40), (-10, -40, 50, 40), (-50, 40, 50, 40)))
+                v = min(1.0, eye + 0.55 * edge)
+                if scramble:
+                    v = min(1.0, 0.94 * v + (0.05 if (i * 7 + j * 3) % 4 == 0 else 0.0))
+                if v > 0.08:
+                    out.append(f'<rect x="{x0 + i * cell:.1f}" y="{20 + j * cell:.1f}" '
+                               f'width="{cell:.1f}" height="{cell:.1f}" fill="{ACCENT}" fill-opacity="{v:.2f}"/>')
+        return out
+
+    def frame(x0):
+        return rect(x0, 20, S, S, fill=WHITE, stroke=EDGE, rx=4, sw=1.6)
+
+    img = [frame(40), f'<g transform="translate({40 + S / 2},{20 + S / 2})">'
+           f'<polygon class="accent-a-light-fill" points="-50,40 -10,-40 50,40" fill="{A_LIGHT}"/>'
+           f'<circle cx="18" cy="-18" r="14" fill="{INK}"/></g>',
+           text(40 + S / 2, 262, "an image the model calls tiger", size=17, weight="bold")]
+    grad = [frame(390)] + heat(390) + [text(390 + S / 2, 262, "its map: the pixels the score", size=17, weight="bold"),
+                                       text(390 + S / 2, 283, "is most sensitive to", size=17, weight="bold")]
+    arrow = [line(262, 125, 378, 125, color=ACCENT, w=2.4, marker="ahA", cls="accent-stroke")]
+    scr = [frame(740)] + heat(740, scramble=True) + [
+        text(740 + S / 2, 262, "after scrambling the top layers:", size=17, fill=ALERT, weight="bold"),
+        text(740 + S / 2, 283, "for some methods, the same map", size=17, fill=ALERT, weight="bold")]
+    body = [step(1, img + arrow + grad), step(2, scr)]
+    return svg(W, H, body, "A saliency map as the gradient of the class score with respect to the pixels (Simonyan "
+               "et al. 2014), and a near-identical map after the model's top layers are randomised, as Adebayo et al. "
+               "(2018) found for some methods. Illustrative. " + LICENCE)
+
+
 def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
     figures = {"network.svg": network, "softmax.svg": softmax, "convolution.svg": convolution,
-               "new-head.svg": new_head, "augment.svg": augment, "hygiene.svg": hygiene}
+               "new-head.svg": new_head, "augment.svg": augment, "hygiene.svg": hygiene, "saliency.svg": saliency}
     for name, lit in (("mo", {"MO"}), ("du", {"DU"}), ("dp", {"DP"}), ("ev", {"EV"}), ("de", {"DE"}),
                       ("du-mo", {"DU", "DP", "MO"})):
         figures[f"phase-{name}.svg"] = lambda lit=lit: d.phase_thumb(lit)

@@ -34,6 +34,8 @@
 .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; margin-top: 0.8em; }
 .trio > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.9em 1.1em 1.1em; font-size: 1.12em; line-height: 1.55; min-height: 12em; }
 .trio > div.lit { background: #e6eff5; }
+.quad.big > div { font-size: 1.08em; padding: 0.8em 0.9em 0.9em; line-height: 1.45; min-height: 10.5em; }
+.quad > div.lit { background: #e6eff5; }
 .trio b.k { display: block; font-size: 1.12em; color: var(--heading-color); margin-bottom: 0.2em; }
 .trio .num { font-weight: 700; color: var(--accent); white-space: nowrap; }
 .duo.big > div { font-size: 1.05em; padding: 0.8em 1em 1em; }
@@ -68,6 +70,9 @@
 .time { font-size: 1em; margin-top: 1em; }
 .refs li { font-size: 0.72em; margin-bottom: 0.4em; }
 .refs ul { padding-right: 3.2em; }
+/* this deck's 25 references: two columns, smaller type */
+.refs.cols2 ul { column-count: 2; column-gap: 1.8em; margin-top: 0; }
+.refs.cols2 li { font-size: 0.6em; margin-bottom: 0.35em; break-inside: avoid; }
 </style>
 <script src="https://kit.fontawesome.com/015d4b01de.js" crossorigin="anonymous"></script>
 
@@ -97,6 +102,9 @@ https://oesteban.github.io/msba-ead-2026-2027-slides/day2/05-dl/index.html
 ]
 
 ???
+
+This deck opens the second teaching day. The four decks of the first day built and evaluated classifiers on tables, from credit scoring to the wine grades of *Beyond binary classification*, and every column of those tables already meant something. This deck turns to photos and asks when a deep network is worth its cost in data, computing and explanation. It shows how a network learns its weights from its errors, why its last layer gives one probability per class, and how convolutional layers build features from edges up. It then explains transfer learning: a network trained first on ImageNet is borrowed and given a new head, which is why a few dozen photos can be enough. In Hands-on 4, groups train an image classifier in Dataiku to tell lions from tigers, score it on a cleaned test set, then add cats. The deck closes on the rights over photos and faces, and on text, the subject of the session after the break.
+
 
 ---
 name: newsection
@@ -144,6 +152,9 @@ class: vcenter
 
 ???
 
+The deck has five parts. Part 1 (slides 2 and 3) asks where deep learning earns its cost: on raw photos, texts and recordings, set against the tables of the first day. Part 2 (slides 4 to 6) opens the model: a network learns its weights by lowering a loss with gradient descent, its last layer gives one probability per class through a softmax, and convolutional layers build features from edges up. Part 3 (slides 7 to 10) borrows a trained network: what training on ImageNet gives, why only a new head is trained, why a few dozen photos can suffice, and the ladder from a zero-shot model to training from scratch. Part 4 (slides 11 to 17) is Hands-on 4: the lion and tiger photo sets and their cleaned test set, a Dataiku image classifier on two classes and then three, the errors read photo by photo, and saliency maps. Part 5 (slides 18 and 19) looks beyond a working model: the rights over photos and faces under the EU AI Act, and text, which the session after the break treats the same way.
+
+
 ---
 
 # Deep learning earns its cost on raw data
@@ -164,6 +175,9 @@ class: vcenter
 
 ???
 
+A deep network earns its extra cost where the raw values mean nothing one by one. A colour photo at 224 × 224 pixels, the input of EfficientNet B0, the network of Hands-on 4 (Tan & Le, 2019, Table 1), is 150,528 numbers (Prince, 2023, chapter 10), and no single pixel says tiger. Classifying such data long required engineers to design a feature extractor by hand; deep learning learns its representations from the raw values, layer after layer, with a general-purpose procedure (LeCun et al., 2015, p. 436). Texts and recordings are raw data too. A neural language model is a multilayer network trained to predict the next word (pp. 440 to 441), and the language models behind week 2's RAG chatbot are deep networks trained on text. In speech recognition, deep networks set records from 2009 and ran in Android phones by 2012 (p. 439). The credit and wine tables of the first day were different: each column already meant something. Slide 3 sets deep learning against such tables; slide 6 shows how the layers learn their features.
+
+
 ---
 
 # On tables, trees still match a network
@@ -171,10 +185,23 @@ class: vcenter
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
 .beside-thumb[
-.lead.big[Drafted once the wiki holds its sources (Grinsztajn et al. 2022; Shwartz-Ziv and Armon 2022).]
+<div class="trio">
+<div><b class="k">45 tables, up to 10,000 rows</b>Random forests and boosted trees stayed ahead of four kinds of network at every tuning budget, at a fraction of the compute.</div>
+<div><b class="k">11 tables</b>XGBoost beat the networks on 8 of the 11 datasets they had not been designed on, and trained and tuned far faster.</div>
+<div class="lit"><b class="k">The wine of deck 4</b>A network did about as well as a regression, and a support vector machine beat both.</div>
+</div>
+
+.lead.big[In a table each column means something of its own, the patterns are irregular, and many columns say nothing.]
+
+.lead[To watch: TabPFN, a network pretrained on synthetic tables, led on tables of up to 10,000 rows in 2025.]
 ]
 
+.footnote[L. Grinsztajn, E. Oyallon and G. Varoquaux (2022), pp. 3 to 9; R. Shwartz-Ziv and A. Armon (2022), pp. 5 to 7; P. Cortez et al. (2009); N. Hollmann et al. (2025), *Nature* 637:319 to 326.]
+
 ???
+
+Unlike the raw data of slide 2, tables such as the credit and wine files of the first day suit trees. On 45 datasets with training sets capped at 10,000 rows, three tree ensembles beat four deep architectures at every tuning budget, and each tuning step is generally slower for a network (Grinsztajn et al., 2022, pp. 3 to 6). XGBoost, a gradient-boosted tree method, beat the deep models on 8 of the 11 datasets they had not been designed on, and trained and tuned more than an order of magnitude faster (Shwartz-Ziv & Armon, 2022, pp. 5 and 7). On the wine data of *Beyond binary classification*, a network did about as well as multiple regression, and a support vector machine beat both (Cortez et al., 2009, p. 13). Table targets are irregular, many columns say nothing, and each column means something of its own (Grinsztajn et al., 2022, pp. 6 to 8), which trees respect: "classification trees select a single attribute at a time" (Provost & Fawcett, 2013, p. 102, verbatim). For a firm with tables, a tree ensemble is the cheaper first model. To watch: TabPFN, a network pretrained on synthetic tables, beat every tuned baseline on tables of up to 10,000 rows in 2025, with no evidence beyond that size (Hollmann et al., 2025, pp. 320 to 324). Slide 4 shows how a network learns.
+
 
 ---
 class: stepwise-svg
@@ -193,6 +220,9 @@ class: stepwise-svg
 
 ???
 
+The figure shows one small network in three steps, with illustrative outputs (0.81 lion, 0.15 tiger, 0.04 cat). First, a tiger photo's pixels enter hidden units, which apply an activation to a weighted sum of their inputs (Prince, 2023, chapters 3 and 4). Provost and Fawcett describe a network as a stack of simple models, such as logistic regressions, and "target labels for training are provided only for the final layer" (Provost & Fawcett, 2013, p. 107, verbatim); the whole stack is one function, all its coefficients fitted at once (p. 107). Second, the label is tiger but the network said lion: the loss, one number for the mismatch, is high (Prince, 2023, chapter 6). Third, gradient descent moves every weight a small step down the loss, batch after batch, with gradients from backpropagation; one pass over all the training photos is an epoch (sections 6.1 and 6.2.1, chapter 7). Week 1's comic, *Surf, sorbets et statistiques*, drew the layers and a validation set, not how the weights are learned. That validation set measures the price of flexibility: "we increase the chance that we fit the data too well" (Provost & Fawcett, 2013, p. 108, verbatim).
+
+
 ---
 class: stepwise-svg
 
@@ -210,6 +240,9 @@ class: stepwise-svg
 
 ???
 
+A network's last layer gives one raw score per class, of any value: here 2.1 for lion, 0.4 for tiger and minus 1.0 for cat, illustrative numbers. The softmax turns K scores into K probabilities between zero and one that sum to one: it takes e to the power of each score, which makes every value positive, and divides each by their sum (Prince, 2023, section 5.5). Here e to the power 2.1 is about 8.17, e to the 0.4 about 1.49 and e to the minus 1.0 about 0.37; divided by their sum, about 10.03, they give 0.81, 0.15 and 0.04. The network is trained with the multiclass cross-entropy loss on these probabilities and predicts the most probable class (section 5.5). The models of *Beyond binary classification* ended the same way: one probability per class (deck 4, slide 2), and the most probable class unless a cost matrix says otherwise (deck 4, slide 8). That deck's K × K confusion matrix, per-class recall and macro average apply to a network unchanged; Hands-on 4 reads them when the cats arrive (slide 15).
+
+
 ---
 class: stepwise-svg
 
@@ -226,6 +259,9 @@ class: stepwise-svg
 .footnote[Y. LeCun, Y. Bengio and G. Hinton (2015); J. Yosinski et al. (2014): first-layer filters; S. J. D. Prince (2023), chapter 10. Illustrative.]
 
 ???
+
+A convolutional layer reads a small patch at a time. In the figure, a 3 × 3 filter, nine weights, slides across the pixels and computes a weighted sum at each position, producing a feature map (Prince, 2023, sections 10.2 and 10.3). The same nine weights serve everywhere because a motif can appear anywhere in an image (LeCun et al., 2015, p. 439), so the number of weights does not grow with the image (Prince, 2023, section 10.6); a fully connected hidden layer as large as the 150,528 values of slide 2 would need over 22 billion weights (chapter 10). Stacked layers build a hierarchy: edges form motifs, motifs form parts, parts form objects (LeCun et al., 2015, p. 439); the figure's examples, from stripes to a tiger's face, are illustrative. Week 1's comic gave its network on faces key features chosen by hand; a convolutional network learns them from the photos (p. 436). Its first layers come out alike whatever the natural images it learns from, filters resembling oriented edges and colour blobs (Yosinski et al., 2014, section 1), and slides 7 to 9 borrow exactly those.
+
 
 ---
 
@@ -247,6 +283,9 @@ class: stepwise-svg
 
 ???
 
+A pretrained network learned its weights on a much larger labelled set before meeting a new problem; for photos, that set is usually ImageNet, organised by the concepts of WordNet (Deng et al., 2009, section 2). Its candidate photos came from image search engines queried with each concept's synonyms, and Amazon Mechanical Turk workers checked each one, keeping it only with a convincing majority of votes (sections 3.1 and 3.2). By 2012, ImageNet held over 15 million labelled photos in roughly 22,000 categories, and its annual challenge used about 1,000 photos in each of 1,000 classes (Krizhevsky et al., 2017, section 2); the 2012 challenge's training set holds 1.28 million (He et al., 2016, section 4.1). On that challenge in 2012, deep convolutional networks almost halved the error rates of the best competing approaches (LeCun et al., 2015, p. 440). Lion, tiger and several domestic cats are among the 1,000 classes (Yosinski et al., 2014, section 2): a network pretrained on ImageNet has seen the animals of Hands-on 4 before it starts, the favourable case of slide 9.
+
+
 ---
 class: stepwise-svg
 
@@ -260,9 +299,12 @@ class: stepwise-svg
 .step-3.lead[It is the fine-tuning option of week 2's RAG session, for images. In Dataiku, **Design**, *Number of retrained layers*: the more layers, the more photos it needs.]
 ]
 
-.footnote[S. J. D. Prince (2023), section 9.3.6; A. Zhang et al. (2023), section 14.2; Dataiku (2024), *Computer vision*, DSS 13 documentation. Schematic.]
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 108.] S. J. D. Prince (2023), section 9.3.6; A. Zhang et al. (2023), section 14.2; Dataiku (2024), *Computer vision*. Schematic.]
 
 ???
+
+Transfer learning trains a network on a task with plentiful data, then adapts it: the last layer is removed, new layers sized for the new classes are added, and either only these are trained, the rest fixed, or the whole network is fine-tuned (Prince, 2023, section 9.3.6). In the schematic figure, the 1,000-class output of an EfficientNet B0 trained on ImageNet is replaced by a new head with two outputs, lion and tiger, whose weights start at random and are learned from the photos (Zhang et al., 2023, section 14.2). This is the fine-tuning option of week 2's RAG session, applied to images. In Dataiku, *Number of retrained layers*, in the model's **Design**, sets how many backbone layers are fine-tuned while the others stay frozen, and the documentation warns that more of them can overfit a training set that is too small (Dataiku, 2024). It is slide 4's trade-off: more flexibility, more chance of fitting the training data too well (Provost & Fawcett, 2013, p. 108). Hands-on 4 retrains zero layers; slide 9 says why that can be enough.
+
 
 ---
 class: stepwise-svg
@@ -286,6 +328,9 @@ class: stepwise-svg
 
 ???
 
+Two findings explain why few photos can suffice. First, early layers are general: the first two layers of a network trained on half of ImageNet transferred almost perfectly to the other half (Yosinski et al., 2014, section 4.1), and with 47 to 800 training examples in all, a logistic regression on frozen pretrained features matched or beat fine-tuning the whole network (Kornblith et al., 2019, section 4.7). Second, borrowed features help most when the new classes resemble ImageNet's: lion and tiger are ImageNet classes (Yosinski et al., 2014, section 2), while car models and aircraft, poorly represented there, gained only marginally (Kornblith et al., 2019, section 4.5). For a firm's own photos, the question is how close their classes are to ImageNet's. Augmentation transforms a training photo without changing its label (Prince, 2023, section 9.3.8); the illustrative figure shows Dataiku's three kinds: a flip, a crop that keeps at least 75% of the image by default, and a change of hue, contrast and brightness (Dataiku, 2024). Augmented photos remain highly interdependent variants of the originals (Krizhevsky et al., 2017, section 4.1): they fix neither a wrong label nor a test photo copied from training, the defects slide 13 removes.
+
+
 ---
 
 # Climb the ladder only as far as the problem needs
@@ -293,10 +338,22 @@ class: stepwise-svg
 <img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
 
 .beside-thumb[
-.lead.big[Drafted once the wiki holds its sources (Radford et al. 2021).]
+<div class="quad big">
+<div><b>1 · Zero-shot</b>The classes named in words, no labelled photo. CLIP matched a ResNet-50 on ImageNet; it is weak on satellite photos, tumours, counting.</div>
+<div class="lit"><b>2 · A new head</b>A frozen network and a new last layer: Hands-on 4. With 47 to 800 photos in all, as good as fine-tuning.</div>
+<div><b>3 · More layers</b>Fine-tuning retrains more of the network: more photos, more compute, and on a small set, overfitting.</div>
+<div><b>4 · From scratch</b>Every weight learned: a ResNet took ImageNet's 1.28 million labelled photos.</div>
+</div>
+
+.lead.big[Each rung up costs more labelled photos, more compute and more to explain. CLIP's zero-shot was worth about four labelled photos per class.]
 ]
 
+.footnote[A. Radford et al. (2021), pp. 5 to 10: 76.2% top-1 zero-shot on ImageNet; four examples per class on average over 20 datasets. S. Kornblith, J. Shlens and Q. Le (2019); K. He et al. (2016); Dataiku (2024), *Computer vision*.]
+
 ???
+
+The ladder orders four ways of reusing a trained network by how many labelled photos each needs; it is the course's framing of sourced rungs, not a quote. Rung 1: CLIP, trained on images paired with text snippets, classifies from class names written as text. Zero-shot, it matched the original ResNet-50 on ImageNet (76.2% right on its first answer, top-1) without ImageNet's labelled photos, but was weak on satellite images, tumour detection and counting (Radford et al., 2021, pp. 6 and 9). Rung 2, Hands-on 4: with 47 to 800 training images in all, a simple model on frozen features matched or beat fine-tuning (Kornblith et al., 2019, section 4.7). Rung 3 raises Dataiku's *Number of retrained layers*, which can overfit a small training set (Dataiku, 2024): more flexibility means "we increase the chance that we fit the data too well" (Provost & Fawcett, 2013, p. 108, verbatim). Rung 4 learns every weight, as a ResNet did from 1.28 million photos (He et al., 2016, section 4.1). CLIP's zero-shot equalled four labelled examples per class on average over 20 datasets, and from under one to 184 on single datasets (Radford et al., 2021, pp. 9 and 10). Stop at the lowest rung that meets the need, and measure it on the firm's own labelled photos. Slide 11 opens Hands-on 4.
+
 
 ---
 
@@ -305,6 +362,9 @@ class: stepwise-svg
 ]
 
 ???
+
+This part, slides 11 to 17, applies the borrowed network of slides 7 to 10 to two small photo sets in Dataiku: lions and tigers first, then cats. Slide 12 describes the photo sets in numbers only; their licences are unknown, so no photo from them appears in this deck. Slide 13 shows how the test set was cleaned of copies and wrong labels before the session, and how little a score on 57 photos can prove. Slide 14 is the core of Hands-on 4: load the photos, train a classifier on a pretrained network with no retrained layers, score the test photos and read the confusion matrix. Slide 15 continues past the checkpoint with a third and larger class, cats, and the choice between a macro and a weighted average. Slide 16 reads the errors one photo at a time, and slide 17 turns to saliency maps, which show where in a photo a model looked.
+
 
 ---
 
@@ -339,6 +399,9 @@ class: stepwise-svg
 
 ???
 
+Before any model, the data: what a row, a column and the target are. A row is one photo, a file in a folder; the only input is its pixels, the raw values that slide 2 counted at 150,528 for a 224 by 224 colour photo. The target is the label, the word before the underscore in the file name; each folder numbers its own files, so `lion_001.jpg` names a different photo in each. Training holds 58 photos, nearly balanced (30 lions, 28 tigers); test holds 57, two lions for each tiger (38 and 19). Always answering `lion`, the majority class of the training set, is right on 38 of the 57 test photos, 67%. That is the baseline to beat: "a classifier that always selects the majority class is called a base rate classifier" (Provost & Fawcett, 2013, p. 115, verbatim). Each test photo is worth 1.75 points. The photos come from the web with no source, photographer or licence recorded, so none is shown here; nor are they a sample of any population of photos, the kind of limitation that data understanding exists to find (Provost & Fawcett, 2013, p. 28).
+
+
 ---
 class: stepwise-svg
 
@@ -360,6 +423,9 @@ class: stepwise-svg
 .footnote[Counted on the course copy. B. Recht et al. (2019): copies of training images score 99 to 100%. 78% to 96%: a 95% interval for 51 of 57.]
 
 ???
+
+Two defects of the inherited photo sets were found on the course copy and fixed before this session. First, 8 of the 65 test photos were byte-identical copies of training photos, like the duplicate wines of *Beyond binary classification*. Holdout data must be data that "will not be used to build the model" (Provost & Fawcett, 2013, p. 113, verbatim); a copy in the test set measures memory instead, like the table model that "memorizes the training data and performs no generalization" (Provost & Fawcett, 2013, p. 112, verbatim). On CIFAR-10, most classifiers scored 99% to 100% on test images that nearly duplicated training images (Recht et al., 2019, p. 27). The copies were removed, leaving 57 test photos. Second, two photos carried the other animal's label and were corrected. The diagram shows both defects with illustrative file names, not photos. Even clean, 57 photos measure coarsely: for 51 right (89%), a 95% Clopper-Pearson interval runs from about 78% to 96%, against at most plus or minus 1% for 10,000 test images (Recht et al., 2019, p. 3). A perfect score on a dozen photos proves even less.
+
 
 ---
 
@@ -383,6 +449,9 @@ class: stepwise-svg
 .footnote[Steps as on the sheet; Dataiku (2024), *Computer vision*. The pattern <code>([a-z]+)_[0-9]+</code> keeps the word before the underscore.]
 
 ???
+
+The slide's need is a firm's: photos of products or defects to sort into classes, from a few dozen labelled examples. Move 1 puts the 58 training photos into a Dataiku folder, lists them one row per file, and reads each label from its file name with *Extract with regular expression*, the step that took each film's year from its title in week 3. The pattern `([a-z]+)_[0-9]+` matches lowercase letters, an underscore and digits, and keeps the letters in parentheses: `lion` from `lion_001.jpg`. Move 2 trains on `label` with EfficientNet B0, the smallest of the three backbones Dataiku offers and the quickest to train, and 0 retrained layers: the backbone stays frozen and only the new head of slide 8 learns (Dataiku, 2024, Computer vision). Each retrained layer adds flexibility, and with it "the chance that we fit the data too well" (Provost & Fawcett, 2013, p. 108, verbatim). Move 3 scores the 57 test photos, holdout data the model has never seen (Provost & Fawcett, 2013, p. 113). Move 4 opens the confusion matrix; selecting a cell shows its photos in the image feed (Dataiku, 2024, Computer vision).
+
 
 ---
 
@@ -409,6 +478,9 @@ class: stepwise-svg
 
 ???
 
+Past the checkpoint comes a third, larger class. The cats come from Natural Images, 6,899 photos in eight classes, 885 of them cats, compiled by Roy et al. (2018, p. 2); the course kept 120 for training and 80 for testing. Moves 5 and 6 add them to the two folders, where the same pattern reads `cat`, and retrain with the same settings on 30 lions, 28 tigers and 120 cats. Move 7 reads recall per class, then two averages, as on slide 6 of *Beyond binary classification*. The macro average, the plain mean of per-class recall, gives every class the same weight; the weighted average weights each recall by the size of its class, so the cats dominate it (Grandini et al., 2020, pp. 4 and 5). Macro says how well each animal is recognised; weighted, how well a photo drawn from this mix is classified. With uneven classes, "accuracy can be greatly misleading" (Provost & Fawcett, 2013, p. 190, verbatim). In the DSS 13 documentation, hovering over a metric explains how it is computed (Dataiku, 2024, Computer vision). Move 8 asks which score to report. The cats, compiled for another study, may also differ from the lions and tigers in source, framing and resolution.
+
+
 ---
 
 # The errors are worth looking at, one by one
@@ -418,7 +490,7 @@ class: stepwise-svg
 .beside-thumb[
 <div class="duo big">
 <div><b class="k">Where to look</b>In Dataiku's results, the confusion matrix: click a cell, and the image feed shows its photos, each with its class probabilities.</div>
-<div><b class="k">What to ask of each</b>Is its label right? Is the animal visible, alone, the main subject? Benchmarks carry wrong labels too: about 3.3% of test labels across ten of them, about 6% on ImageNet's validation set.</div>
+<div><b class="k">What to ask of each</b>Is its label right? Is the animal visible, alone, the main subject? Benchmarks carry wrong labels too: at least 3.3% of test labels across ten of them, about 6% on ImageNet's validation set.</div>
 </div>
 
 .lead.big[With 57 test photos, one error is 1.75 points: read the photos before the percentage.]
@@ -428,17 +500,34 @@ class: stepwise-svg
 
 ???
 
+After the scores, the photos. In Dataiku's image classification results, the confusion matrix has actual classes in its rows and predicted classes in its columns; selecting a cell filters the image feed to its photos, and clicking a photo shows the probability of each class (Dataiku, 2024, Computer vision). Provost and Fawcett transpose it, for the same purpose: "making explicit how one class is being confused for another" (Provost & Fawcett, 2013, p. 189, verbatim). Each wrong photo then gets two questions. Is its label right? Benchmarks carry wrong labels too: at least 3.3% of test labels on average across ten widely used datasets, and at least 6% of ImageNet's validation set, 2,916 images (Northcutt et al., 2021, pp. 1 and 2). Is the animal visible, alone and the main subject? Some of the images Northcutt et al. checked showed both classes, and some neither (Northcutt et al., 2021, p. 5). With 57 test photos, one error is 1.75 points, and one wrong label moves the score as much as one model error: read the photos before trusting the percentage. Slide 17 asks where in a photo the model looked.
+
+
 ---
 
-# Saliency maps show where a model looked
+class: stepwise-svg
+
+# Saliency maps show what moves the score
 
 <img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
 
 .beside-thumb[
-.lead.big[Drafted once the wiki holds its sources (Simonyan et al. 2014; Adebayo et al. 2018).]
+<div class="step-1"><object type="image/svg+xml" data="images/saliency.svg" style="width: 86%; display: block; margin: 0 auto; pointer-events: none;" aria-label="An image, its saliency map, and a near-identical map after the model's top layers are scrambled"></object></div>
+
+<div class="duo step-2">
+<div><b class="k">What a map is</b>The gradient of the class score with respect to each pixel: the pixels whose change would move the score most. It may light only the most telling part of the animal.</div>
+<div><b class="k">Why it can mislead</b>The plain gradient passes the checks, but some methods give almost the same map when the model's weights, or its labels, are scrambled: a convincing picture is not evidence about the model.</div>
+</div>
+
+.step-3.lead.big[A map is a question to ask of the model, not a proof.]
 ]
 
+.footnote[K. Simonyan, A. Vedaldi and A. Zisserman (2014), pp. 3 to 4; J. Adebayo et al. (2018), pp. 2 to 7 and 10. Illustrative.]
+
 ???
+
+After the errors of slide 16, a saliency map asks which pixels one photo's class score depends on. Simonyan et al. take the gradient of the score with respect to each pixel: its magnitude marks the pixels that need to change least to move the score most, for one back-propagation pass (Simonyan et al., 2014, pp. 2 to 4). It shows sensitivity, not reasoning, and "might capture only the most discriminative part of an object" (p. 4). Adebayo et al. compare a method's maps before and after randomising the weights from the top layer down, and with those of a network trained on shuffled labels (Adebayo et al., 2018, pp. 2, 4 and 6). The plain gradient and GradCAM passed. Guided Backprop and Guided GradCAM kept much the same maps with the top layers randomised, and an edge detector, which uses no model, drew maps strikingly like some methods' (pp. 2 to 5); by eye, some methods' maps from a network trained on shuffled labels could pass for real ones (p. 7). So "visual inspection is a poor guide" (p. 2): a method that fails cannot explain what the model learned or help debug it (p. 1), and a map is evidence about a model only if its method passes such checks. The figure is illustrative: shapes stand for a photo, and the maps are drawn, not computed. Slide 18 turns to the law.
+
 
 ---
 
@@ -447,10 +536,21 @@ class: stepwise-svg
 <img class="phase-thumb" src="images/phase-de.svg" alt="The CRISP-DM phases, deployment lit" />
 
 .beside-thumb[
-.lead.big[Drafted once the wiki holds its sources (Regulation (EU) 2024/1689).]
+<div class="trio">
+<div><b class="k">Photos have owners</b>Photos found on the web come with rights. The course's lion and tiger photos carry no licence, so none is on these slides.</div>
+<div><b class="k">Some uses are banned</b>Scraping faces from the web or CCTV to build recognition databases; inferring emotions at work or at school, medical and safety uses aside. Since 2 February 2025.</div>
+<div><b class="k">Some uses are high-risk</b>Remote biometric identification, recruitment, and the credit scoring of people, the first day's case. Their obligations apply from 2 December 2027.</div>
+</div>
+
+.lead.big[A provider outside the Union is covered when its system's output is used in the Union.]
 ]
 
+.footnote[Regulation (EU) 2024/1689, the AI Act: Art. 2(1)(c), Art. 5(1)(e) and (f), Art. 6(2) with Annex III points 1, 4 and 5(b); dates as amended by Regulation (EU) 2026/1744, Art. 113.]
+
 ???
+
+This note reports what the legal texts say, as field facts; it is not legal advice. Rights come first: the lion and tiger photos came from the web with no source, photographer or licence recorded, so their reuse terms are unknown and none appears in this deck (slide 12). The EU AI Act, Regulation (EU) 2024/1689, bans the untargeted scraping of facial images from the internet or CCTV to build or expand facial recognition databases, inferring emotions at work or in education except for medical or safety reasons, and biometric categorisation to infer traits such as race or sexual orientation (Art. 5(1)(e), (f) and (g)), all since 2 February 2025 (Art. 113). Annex III uses are high-risk (Art. 6(2)), among them remote biometric identification (point 1), recruitment (point 4) and the creditworthiness of natural persons (point 5(b)), the South German Credit case of *From a business question to a first model*. Regulation (EU) 2026/1744 moved their obligations to 2 December 2027 (Art. 113 as amended). Art. 50 applies from 2 August 2026, high-risk or not: people exposed to emotion recognition or biometric categorisation must be informed, and generated images marked as artificial in a machine-readable format. A provider outside the Union, a Swiss one for instance, is covered when its system's output is used in the Union (Art. 2(1)(c)). Slide 19 turns to text.
+
 
 ---
 
@@ -471,15 +571,24 @@ class: stepwise-svg
 
 ???
 
+The deck ends where the next session begins: text. Photos needed a network to learn features from raw pixels; words raise the same question. Week 2's RAG workshop chunked the Dataiku documentation, embedded each piece and indexed it into a knowledge base. Embeddings, for Jurafsky and Martin, are short, dense vectors, typically of 50 to 1,000 dimensions, learned from how words occur in text: representation learning, not features engineered by hand (Jurafsky & Martin, 2026, pp. 127 and 136). Transfer learning carries over: BERT is pretrained on unlabelled text, then fine-tuned with one additional output layer per task (Devlin et al., 2019, p. 1), a recipe its authors relate to fine-tuning ImageNet-pretrained models (p. 3). For sentiment, the encoder's vector for a text feeds a classifier head ending in a softmax, as on slide 5, and the pretrained weights are typically frozen or barely adjusted (Jurafsky & Martin, 2026, p. 236). Provost and Fawcett frame the choice: engineer the data to fit existing tools, or "build new tools to match the data" (Provost & Fawcett, 2013, p. 249, verbatim). After the break comes the question of slide 2 for text: which features a classifier can read from words.
+
+
 ---
 
 # References
 
-.refs[
-- Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K. and Fei-Fei, L. (2009). ImageNet: a large-scale hierarchical image database. *2009 IEEE Conference on Computer Vision and Pattern Recognition*, 248 to 255. doi:10.1109/cvpr.2009.5206848.
+.refs.cols2[
+- Adebayo, J., Gilmer, J., Muelly, M., Goodfellow, I., Hardt, M. and Kim, B. (2018). Sanity checks for saliency maps. *Advances in Neural Information Processing Systems* 31.
+- Cortez, P., Cerdeira, A., Almeida, F., Matos, T. and Reis, J. (2009). Modeling wine preferences by data mining from physicochemical properties. *Decision Support Systems* 47(4):547 to 553. doi:10.1016/j.dss.2009.05.016.
 - Dataiku (2024). *Computer vision*, Dataiku DSS 13 reference documentation.
+- Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K. and Fei-Fei, L. (2009). ImageNet: a large-scale hierarchical image database. *2009 IEEE Conference on Computer Vision and Pattern Recognition*, 248 to 255. doi:10.1109/cvpr.2009.5206848.
 - Devlin, J., Chang, M.-W., Lee, K. and Toutanova, K. (2019). BERT: pre-training of deep bidirectional transformers for language understanding. *Proceedings of NAACL-HLT 2019*, 4171 to 4186.
+- European Union (2024). Regulation (EU) 2024/1689 of 13 June 2024 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). *Official Journal of the European Union* L 2024/1689.
+- European Union (2026). Regulation (EU) 2026/1744 of 8 July 2026 amending Regulation (EU) 2024/1689 (Digital Omnibus on AI). *Official Journal of the European Union* L 2026/1744.
+- Grinsztajn, L., Oyallon, E. and Varoquaux, G. (2022). Why do tree-based models still outperform deep learning on typical tabular data? *Advances in Neural Information Processing Systems* 35, 507 to 520. doi:10.52202/068431-0037.
 - He, K., Zhang, X., Ren, S. and Sun, J. (2016). Deep residual learning for image recognition. *2016 IEEE Conference on Computer Vision and Pattern Recognition*, 770 to 778. doi:10.1109/cvpr.2016.90.
+- Hollmann, N., Müller, S., Purucker, L., Krishnakumar, A., Körfer, M., Hoo, S. B., Schirrmeister, R. T. and Hutter, F. (2025). Accurate predictions on small data with a tabular foundation model. *Nature* 637:319 to 326. doi:10.1038/s41586-024-08328-6.
 - Jurafsky, D. and Martin, J. H. (2026). *Speech and Language Processing*, 3rd ed., draft.
 - Kornblith, S., Shlens, J. and Le, Q. V. (2019). Do better ImageNet models transfer better? *2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition*, 2656 to 2666. doi:10.1109/cvpr.2019.00277.
 - Krizhevsky, A., Sutskever, I. and Hinton, G. E. (2017). ImageNet classification with deep convolutional neural networks. *Communications of the ACM* 60(6):84 to 90. doi:10.1145/3065386.
@@ -487,14 +596,20 @@ class: stepwise-svg
 - Northcutt, C. G., Athalye, A. and Mueller, J. (2021). Pervasive label errors in test sets destabilize machine learning benchmarks. *Proceedings of the Neural Information Processing Systems Track on Datasets and Benchmarks* 1.
 - Prince, S. J. D. (2023). *Understanding Deep Learning*. MIT Press.
 - Provost, F. and Fawcett, T. (2013). *Data Science for Business*. O'Reilly.
+- Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., Sastry, G., Askell, A. et al. (2021). Learning transferable visual models from natural language supervision. *Proceedings of the 38th International Conference on Machine Learning*, PMLR 139:8748 to 8763.
 - Recht, B., Roelofs, R., Schmidt, L. and Shankar, V. (2019). Do ImageNet classifiers generalize to ImageNet? *Proceedings of the 36th International Conference on Machine Learning*, PMLR 97:5389 to 5400.
 - Roy, P., Ghosh, S., Bhattacharya, S. and Pal, U. (2018). Effects of degradations on deep neural network architectures. arXiv:1807.10108.
+- Shwartz-Ziv, R. and Armon, A. (2022). Tabular data: deep learning is not all you need. *Information Fusion* 81:84 to 90. doi:10.1016/j.inffus.2021.11.011.
+- Simonyan, K., Vedaldi, A. and Zisserman, A. (2014). Deep inside convolutional networks: visualising image classification models and saliency maps. *ICLR 2014*, workshop track. arXiv:1312.6034.
 - Tan, M. and Le, Q. V. (2019). EfficientNet: rethinking model scaling for convolutional neural networks. *Proceedings of the 36th International Conference on Machine Learning*, PMLR 97:6105 to 6114.
 - Yosinski, J., Clune, J., Bengio, Y. and Lipson, H. (2014). How transferable are features in deep neural networks? *Advances in Neural Information Processing Systems* 27, 3320 to 3328.
 - Zhang, A., Lipton, Z. C., Li, M. and Smola, A. J. (2023). *Dive into Deep Learning*. Cambridge University Press.
 ]
 
 ???
+
+This list gathers the works the deck's footnotes cite. To start on deep learning, read the short review by LeCun, Bengio and Hinton (2015), on how networks of many layers learn representations of data, then Prince (2023) as a textbook; Provost and Fawcett (2013, pp. 106 to 108) present a network as a stack of simple models. On transfer learning, Yosinski et al. (2014) measure how general or specific each layer's features are, and Kornblith et al. (2019) test how well ImageNet models transfer, down to subsets of 47 to 800 images. Before trusting a test score, read Recht et al. (2019), who rebuilt the CIFAR-10 and ImageNet test sets and checked them for near-duplicates, and Northcutt et al. (2021) on wrong labels in benchmark test sets. Dataiku (2024) documents the image classification of Hands-on 4. For the bridge to text, start with Jurafsky and Martin (2026), chapters 5 and 9, a draft whose chapters may still change, and Devlin et al. (2019) on BERT.
+
 
 ---
 
@@ -512,6 +627,7 @@ Next: 23.10.2026 @ 10h30 (in <span class="timer" data-until="2026-10-23T10:30:00
 
 ???
 
+The next session is on 23 October 2026 at 10:30, after the break; the counter on the slide shows the time left until it starts. It turns from photos to text and sentiment, from the question slide 19 left open: which features a classifier can read from words. The left arrow links to the previous deck, *Beyond binary classification*. The home icon returns to the first slide of this deck. The right arrow is faded because the next deck is not published yet.
 </textarea>
 
     <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
