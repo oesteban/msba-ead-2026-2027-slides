@@ -42,7 +42,6 @@
 <path class="accent-stroke" d="M 40 196 L 40 206 L 300 206 L 300 196" fill="none" stroke="#00609c" stroke-width="2.2" marker-end="url(#)"/>
 <text class="accent-fill" x="170" y="234" font-size="18" font-weight="bold" text-anchor="middle" fill="#00609c">first layers: general</text>
 <text x="170" y="258" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">useful for other tasks too</text>
-<text x="170" y="280" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">(for photos: edges, colours)</text>
 </g>
 <g data-step="3">
 <path d="M 408 196 L 408 206 L 958 206 L 958 196" fill="none" stroke="#1c2e36" stroke-width="2.2" marker-end="url(#)"/>

@@ -160,12 +160,12 @@ class: vcenter
 .card[
 .enum[4]
 
-<span class="part">Tables, then photos.</span> Trees on tables; a photo as numbers; convolution and what its layers find. Slides 20 to 28.
+<span class="part">Pretrained models.</span> Pretraining, transfer learning, fine-tuning, zero-shot, four ways to get a model. Slides 20 to 27.
 ]
 .card[
 .enum[5]
 
-<span class="part">Pretrained models.</span> Pretraining, transfer learning, fine-tuning, zero-shot, four ways to get a model. Slides 29 to 36.
+<span class="part">Tables, then photos.</span> Trees on tables; a photo as numbers; convolution and what its layers find. Slides 28 to 36.
 ]
 .card[
 .enum[6]
@@ -181,7 +181,7 @@ class: vcenter
 
 ???
 
-**Seven parts: from one neuron to a network, sixty years of networks, data and compute, how a network learns, tables and photos, pretrained models, then one case and its result.** Parts 1 to 5 teach the concepts on a wine of *Beyond binary classification*, on photos in general or on drawings; parts 6 and 7 apply them to one case and read its errors. Slide 2 starts from a single artificial neuron.
+**Seven parts: from one neuron to a network, sixty years of networks, data and compute, how a network learns, pretrained models, tables and photos, then one case and its result.** Parts 1 to 5 teach the concepts on a wine of *Beyond binary classification*, on photos in general or on drawings; parts 6 and 7 apply them to one case and read its errors. Slide 2 starts from a single artificial neuron.
 
 
 ---
@@ -469,179 +469,7 @@ class: stepwise-svg
 
 ???
 
-**Augmentation adds varied copies of each training example with the same label: variety, not new information, and it cannot fix a wrong label.** A photo is flipped, a sentence takes a synonym, a sound has a frequency band filtered: each change leaves the label valid (Prince, 2023, p. 152), and the aim is to teach the model to ignore such irrelevant changes (p. 154). Every copy inherits its original's label, so a wrong label is copied, not corrected. Part 4 turns from training to the data, starting with a table.
-
-
----
-
-# A table
-
-.fullw.terms[
-<table class="big">
-<tr><th>alcohol</th><th>volatile acidity</th><th>sulphates</th><th>colour</th><th class="tgt">grade</th></tr>
-<tr class="meaning"><td>% by volume</td><td>acetic acid, g/dm³</td><td>potassium sulphate, g/dm³</td><td>red or white</td><td class="tgt">the target: the line</td></tr>
-<tr><td>8.8</td><td>0.27</td><td>0.45</td><td>white</td><td class="tgt">medium</td></tr>
-<tr><td>12.0</td><td>0.27</td><td>0.56</td><td>white</td><td class="tgt">low</td></tr>
-<tr><td>12.4</td><td>0.16</td><td>0.52</td><td>white</td><td class="tgt">high</td></tr>
-</table>
-.lead.big.center[Each column means something before any model reads it.]
-]
-
-.footnote[Lines 2, 12 and 15 of the course file, five of its 13 columns. P. Cortez et al. (2009); UCI Machine Learning Repository, .lic[CC BY 4.0].]
-
-???
-
-**Each column of a table means something before any model reads it.** Three wines of the course file, the middle one the wine of slides 2 and 11, appear on five of its 13 columns with their units (Cortez et al., 2009, Table 1) and the target, the wine's line. Each row is an instance "described by a set of attributes" (Provost & Fawcett, 2013, p. 46, verbatim), each with a meaning of its own (Grinsztajn et al., 2022, p. 8). Slide 21 asks which models suit such columns.
-
-
----
-
-# Trees and networks on tables
-
-.fullw[
-<div class="duo big">
-<div><b class="k">45 tables, up to 10,000 rows</b>Tree-based models, boosted trees first, stayed ahead of the networks tested at every tuning budget.</div>
-<div class="lit"><b class="k">The wines of <i>Beyond binary classification</i></b>A network did about as well as a regression, and a support vector machine beat both.</div>
-</div>
-.lead.big.center[On a firm's tables, try a tree ensemble first.]
-]
-
-.footnote[L. Grinsztajn, E. Oyallon and G. Varoquaux (2022), pp. 1 to 8; P. Cortez et al. (2009), p. 13; N. Hollmann et al. (2025).]
-
-???
-
-**On a firm's tables, try a tree ensemble first.** On 45 tables of up to 10,000 rows, tree-based models stayed ahead of the networks tested at every tuning budget (Grinsztajn et al., 2022, pp. 3 to 6); on the wines, a support vector machine beat both a network and a regression (Cortez et al., 2009, p. 13). First, not only: "we can easily compare various models on the same data" (Provost & Fawcett, 2013, p. 353, verbatim). TabPFN, pretrained on synthetic tables, has since beaten tree ensembles there (Hollmann et al., 2025, p. 323).
-
-
----
-class: stepwise-svg
-
-# A photo
-
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/pixels.svg" style="width: 92%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A tiger photo at 224 by 224 pixels, one patch of 25 pixels zoomed to its red, green and blue values"></object></div>
-]
-
-.footnote[Photo: S. Taheri, edited by Fir0002, Wikimedia Commons, .lic[CC BY-SA 2.5], resized. 224 × 224 × 3: S. J. D. Prince (2023), p. 161.]
-
-???
-
-**To a model, a colour photo is 150,528 numbers, and no single one means anything.** A typical image for classification holds 224 by 224 pixels, each with a red, a green and a blue value: 150,528 inputs (Prince, 2023, p. 161). The zoomed patch shows 25 of the photo's pixels with their three values. A table's columns carry meaning one by one (slide 20); in a photo, nearby pixels are related (p. 161), which a plain network ignores, as slide 23 shows.
-
-
----
-class: stepwise-svg
-# A photo in a plain network
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/flatten.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A 4 by 4 patch unrolled into one list, row after row: two pixels one above the other end up 4 places apart"></object></div>
-.step-4.lead.big.center[Shuffle every photo's pixels the same way: a plain network can still be trained.]
-]
-
-.footnote[S. J. D. Prince (2023), p. 161. Illustrative grey levels.]
-
-???
-
-**A plain network reads a photo's pixels as one long list, without knowing which are neighbours.** Unrolled row after row, two vertical neighbours land 4 places apart in the illustrative patch, 224 in a photo 224 pixels wide. A fully connected network treats every pair of inputs alike: shuffle the pixels of every training and test photo the same way, and it can still be trained (Prince, 2023, p. 161). It must also learn a pattern separately at every position (p. 161), which slide 24 avoids.
-
-
----
-class: stepwise-svg
-
-# Convolution
-
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/convolution.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A three by three filter slides over the pixels; its map is lit where the pixels change from dark to light"></object></div>
-.step-4.lead.big.center[A filter reads each pixel together with its neighbours.]
-]
-
-.footnote[S. J. D. Prince (2023), section 10.3, p. 170. Illustrative.]
-
-???
-
-**A convolution's filter reads each pixel together with its neighbours.** A 3 by 3 filter takes a weighted sum of each pixel and the eight around it, then slides on, with the same weights at every position (Prince, 2023, pp. 163 and 170). In the illustrative grid, dark on the left and light on the right, the filter's map lights up only along the edge between them. Slide 25 counts what sharing the same weights everywhere saves.
-
-
----
-
-# Weight sharing
-
-.fullw[
-<div class="facts big two">
-<div><span class="num">22 billion</span>weights in one plain layer from a 224 × 224 colour photo to as many hidden neurons.</div>
-<div><span class="num">9</span>weights in a 3 × 3 filter on one channel, the same at every position of the photo.</div>
-</div>
-.lead.big.center[The same weights everywhere: a pattern is found wherever it appears.]
-]
-
-.footnote[S. J. D. Prince (2023), pp. 161 and 163; Y. LeCun, Y. Bengio and G. Hinton (2015), p. 439.]
-
-???
-
-**The same weights at every position find a pattern wherever it appears, with a handful of weights instead of billions.** A plain layer from a 224 by 224 colour photo to as many hidden neurons would need over 22 billion weights (Prince, 2023, p. 161); a 3 by 3 filter has 9 per channel, 27 over the three colours (p. 170). Sharing suits images because a motif that can appear in one place can appear anywhere (LeCun et al., 2015, p. 439). Slide 26 shows what trained filters find.
-
-
----
-
-# First layers
-
-
-.fullw[
-<div class="feat one">
-<figure><img src="images/features/features-edges.png" alt="Feature visualisation of a first layer: edges" /><figcaption>a first layer: edges</figcaption></figure>
-</div>
-
-.lead.big.center[Learned, not given: the network found these from labelled photos alone.]
-]
-
-.footnote[C. Olah, A. Mordvintsev and L. Schubert (2017), *Feature Visualization*, *Distill*, doi:10.23915/distill.00007, .lic[CC BY 4.0]; J. Yosinski et al. (2014).]
-
-???
-
-**The first layers of a trained network find edges, and nobody programmed them to.** The image was adjusted step by step until one channel of layer conv2d0 of GoogLeNet, a network trained on ImageNet, responded strongly to it (Olah et al., 2017). Networks trained on natural images learn such first-layer features, edge detectors and colour blobs, whatever the dataset or training objective (Yosinski et al., 2014, p. 1); they are learned from data, not designed by engineers (LeCun et al., 2015, p. 436). Slide 27 goes deeper.
-
-
----
-class: stepwise
-
-# Deeper layers
-
-
-.fullw[
-<div class="feat four">
-<figure class="step-1"><img src="images/features/features-textures.png" alt="Textures" /><figcaption>textures</figcaption></figure>
-<figure class="step-2"><img src="images/features/features-patterns.png" alt="Patterns" /><figcaption>patterns</figcaption></figure>
-<figure class="step-3"><img src="images/features/features-parts.png" alt="Parts" /><figcaption>parts</figcaption></figure>
-<figure class="step-4"><img src="images/features/features-objects.png" alt="Objects" /><figcaption>objects</figcaption></figure>
-</div>
-
-.step-4.lead.center[Layer after layer, from the first to the last.]
-]
-
-.footnote[C. Olah, A. Mordvintsev and L. Schubert (2017), *Feature Visualization*, *Distill*, .lic[CC BY 4.0]: GoogLeNet, layers mixed3a to mixed4e.]
-
-???
-
-**Layer after layer, a trained network combines edges into textures, patterns, parts and whole objects.** The four visualisations come from the same GoogLeNet: textures from layer mixed3a, patterns from mixed4a, parts from mixed4b and mixed4c, objects from mixed4d and mixed4e (Olah et al., 2017). LeCun et al. (2015, p. 439) describe the same hierarchy: edges form motifs, motifs parts, parts objects. The last layers become specific to the classes trained on (Yosinski et al., 2014, p. 1), which matters when a network is borrowed (slide 30).
-
-
----
-class: stepwise-svg
-
-# Three image tasks
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/tasks.svg" style="width: 92%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three questions asked of a photo: one label for the photo, a box per object, a label for each pixel"></object></div>
-
-]
-
-.footnote[S. J. D. Prince (2023), sections 10.5.1 to 10.5.3. Illustrative shapes.]
-
-???
-
-**A photo can be asked what it shows, where each object is, or which pixels belong to which object.** Image classification assigns the image to one of a set of classes; object detection finds each object and the box around it; semantic segmentation labels every pixel (Prince, 2023, p. 174). The early detector YOLO starts from a network trained to classify ImageNet, then adapted to detection (Prince, 2023, p. 177): the reuse that slide 29 opens.
+**Augmentation adds varied copies of each training example with the same label: variety, not new information, and it cannot fix a wrong label.** A photo is flipped, a sentence takes a synonym, a sound has a frequency band filtered: each change leaves the label valid (Prince, 2023, p. 152), and the aim is to teach the model to ignore such irrelevant changes (p. 154). Every copy inherits its original's label, so a wrong label is copied, not corrected. Part 4 turns from training a network to borrowing one.
 
 
 ---
@@ -677,7 +505,7 @@ class: stepwise-svg
 
 ???
 
-**Keep a pretrained network's general first layers for a new task; replace its specific last ones.** First-layer features suit many datasets and tasks, while each output of the last layer belongs to one class of the original task (Yosinski et al., 2014, p. 1). Between two halves of ImageNet's classes, layers 1 and 2 transferred almost perfectly; from layer 3 on, accuracy dropped, and at layers 6 and 7 mostly because the features were specific (section 4.1). Slide 31 replaces the head.
+**Keep a pretrained network's general first layers for a new task; replace its specific last ones.** First-layer features suit many datasets and tasks, while each output of the last layer belongs to one class of the original task (Yosinski et al., 2014, p. 1). Between two halves of ImageNet's classes, layers 1 and 2 transferred almost perfectly; from layer 3 on, accuracy dropped, and at layers 6 and 7 mostly because the features were specific (section 4.1). Slide 22 replaces the head.
 
 
 ---
@@ -788,7 +616,179 @@ class: stepwise-svg
 
 ???
 
-**Of four ways to get a model, each rung up needs more labelled examples; the last also needs slide 10's compute.** Zero-shot needs only the class names (Radford et al., 2021, p. 6); a new head on locked layers did well with 47 to 800 examples (Kornblith et al., 2019, p. 7), and fine-tuning pulls ahead with more (p. 7). Training from scratch learns every weight from millions of examples (slide 7), with slide 10's compute; even where both end equal, fine-tuning gets there about 17 times faster (Kornblith et al., 2019, p. 7).
+**Of four ways to get a model, each rung up needs more labelled examples; the last also needs slide 10's compute.** Zero-shot needs only the class names (Radford et al., 2021, p. 6); a new head on locked layers did well with 47 to 800 examples (Kornblith et al., 2019, p. 7), and fine-tuning pulls ahead with more (p. 7). Training from scratch learns every weight from millions of examples (slide 7), with slide 10's compute; even where both end equal, fine-tuning gets there about 17 times faster (p. 7). Part 5 turns to the data, a table first.
+
+
+---
+
+# A table
+
+.fullw.terms[
+<table class="big">
+<tr><th>alcohol</th><th>volatile acidity</th><th>sulphates</th><th>colour</th><th class="tgt">grade</th></tr>
+<tr class="meaning"><td>% by volume</td><td>acetic acid, g/dm³</td><td>potassium sulphate, g/dm³</td><td>red or white</td><td class="tgt">the target: the line</td></tr>
+<tr><td>8.8</td><td>0.27</td><td>0.45</td><td>white</td><td class="tgt">medium</td></tr>
+<tr><td>12.0</td><td>0.27</td><td>0.56</td><td>white</td><td class="tgt">low</td></tr>
+<tr><td>12.4</td><td>0.16</td><td>0.52</td><td>white</td><td class="tgt">high</td></tr>
+</table>
+.lead.big.center[Each column means something before any model reads it.]
+]
+
+.footnote[Lines 2, 12 and 15 of the course file, five of its 13 columns. P. Cortez et al. (2009); UCI Machine Learning Repository, .lic[CC BY 4.0].]
+
+???
+
+**Each column of a table means something before any model reads it.** Three wines of the course file, the middle one the wine of slides 2 and 11, appear on five of its 13 columns with their units (Cortez et al., 2009, Table 1) and the target, the wine's line. Each row is an instance "described by a set of attributes" (Provost & Fawcett, 2013, p. 46, verbatim), each with a meaning of its own (Grinsztajn et al., 2022, p. 8). Slide 29 asks which models suit such columns.
+
+
+---
+
+# Trees and networks on tables
+
+.fullw[
+<div class="duo big">
+<div><b class="k">45 tables, up to 10,000 rows</b>Tree-based models, boosted trees first, stayed ahead of the networks tested at every tuning budget.</div>
+<div class="lit"><b class="k">The wines of <i>Beyond binary classification</i></b>A network did about as well as a regression, and a support vector machine beat both.</div>
+</div>
+.lead.big.center[On a firm's tables, try a tree ensemble first.]
+]
+
+.footnote[L. Grinsztajn, E. Oyallon and G. Varoquaux (2022), pp. 1 to 8; P. Cortez et al. (2009), p. 13; N. Hollmann et al. (2025).]
+
+???
+
+**On a firm's tables, try a tree ensemble first.** On 45 tables of up to 10,000 rows, tree-based models stayed ahead of the networks tested at every tuning budget (Grinsztajn et al., 2022, pp. 3 to 6); on the wines, a support vector machine beat both a network and a regression (Cortez et al., 2009, p. 13). First, not only: "we can easily compare various models on the same data" (Provost & Fawcett, 2013, p. 353, verbatim). TabPFN, pretrained on synthetic tables, has since beaten tree ensembles there (Hollmann et al., 2025, p. 323).
+
+
+---
+class: stepwise-svg
+
+# A photo
+
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/pixels.svg" style="width: 92%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A tiger photo at 224 by 224 pixels, one patch of 25 pixels zoomed to its red, green and blue values"></object></div>
+]
+
+.footnote[Photo: S. Taheri, edited by Fir0002, Wikimedia Commons, .lic[CC BY-SA 2.5], resized. 224 × 224 × 3: S. J. D. Prince (2023), p. 161.]
+
+???
+
+**To a model, a colour photo is 150,528 numbers, and no single one means anything.** A typical image for classification holds 224 by 224 pixels, each with a red, a green and a blue value: 150,528 inputs (Prince, 2023, p. 161). The zoomed patch shows 25 of the photo's pixels with their three values. A table's columns carry meaning one by one (slide 28); in a photo, nearby pixels are related (p. 161), which a plain network ignores, as slide 31 shows.
+
+
+---
+class: stepwise-svg
+# A photo in a plain network
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/flatten.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A 4 by 4 patch unrolled into one list, row after row: two pixels one above the other end up 4 places apart"></object></div>
+.step-4.lead.big.center[Shuffle every photo's pixels the same way: a plain network can still be trained.]
+]
+
+.footnote[S. J. D. Prince (2023), p. 161. Illustrative grey levels.]
+
+???
+
+**A plain network reads a photo's pixels as one long list, without knowing which are neighbours.** Unrolled row after row, two vertical neighbours land 4 places apart in the illustrative patch, 224 in a photo 224 pixels wide. A fully connected network treats every pair of inputs alike: shuffle the pixels of every training and test photo the same way, and it can still be trained (Prince, 2023, p. 161). It must also learn a pattern separately at every position (p. 161), which slide 32 avoids.
+
+
+---
+class: stepwise-svg
+
+# Convolution
+
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/convolution.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A three by three filter slides over the pixels; its map is lit where the pixels change from dark to light"></object></div>
+.step-4.lead.big.center[A filter reads each pixel together with its neighbours.]
+]
+
+.footnote[S. J. D. Prince (2023), section 10.3, p. 170. Illustrative.]
+
+???
+
+**A convolution's filter reads each pixel together with its neighbours.** A 3 by 3 filter takes a weighted sum of each pixel and the eight around it, then slides on, with the same weights at every position (Prince, 2023, pp. 163 and 170). In the illustrative grid, dark on the left and light on the right, the filter's map lights up only along the edge between them. Slide 33 counts what sharing the same weights everywhere saves.
+
+
+---
+
+# Weight sharing
+
+.fullw[
+<div class="facts big two">
+<div><span class="num">22 billion</span>weights in one plain layer from a 224 × 224 colour photo to as many hidden neurons.</div>
+<div><span class="num">9</span>weights in a 3 × 3 filter on one channel, the same at every position of the photo.</div>
+</div>
+.lead.big.center[The same weights everywhere: a pattern is found wherever it appears.]
+]
+
+.footnote[S. J. D. Prince (2023), pp. 161 and 163; Y. LeCun, Y. Bengio and G. Hinton (2015), p. 439.]
+
+???
+
+**The same weights at every position find a pattern wherever it appears, with a handful of weights instead of billions.** A plain layer from a 224 by 224 colour photo to as many hidden neurons would need over 22 billion weights (Prince, 2023, p. 161); a 3 by 3 filter has 9 per channel, 27 over the three colours (p. 170). Sharing suits images because a motif that can appear in one place can appear anywhere (LeCun et al., 2015, p. 439). Slide 34 shows what trained filters find.
+
+
+---
+
+# First layers
+
+
+.fullw[
+<div class="feat one">
+<figure><img src="images/features/features-edges.png" alt="Feature visualisation of a first layer: edges" /><figcaption>a first layer: edges</figcaption></figure>
+</div>
+
+.lead.big.center[Learned, not given: the network found these from labelled photos alone.]
+]
+
+.footnote[C. Olah, A. Mordvintsev and L. Schubert (2017), *Feature Visualization*, *Distill*, doi:10.23915/distill.00007, .lic[CC BY 4.0]; J. Yosinski et al. (2014).]
+
+???
+
+**The first layers of a trained network find edges, and nobody programmed them to.** The image was adjusted step by step until one channel of layer conv2d0 of GoogLeNet, a network trained on ImageNet, responded strongly to it (Olah et al., 2017). Networks trained on natural images learn such first-layer features, edge detectors and colour blobs, whatever the dataset or training objective (Yosinski et al., 2014, p. 1); they are learned from data, not designed by engineers (LeCun et al., 2015, p. 436). Slide 35 goes deeper.
+
+
+---
+class: stepwise
+
+# Deeper layers
+
+
+.fullw[
+<div class="feat four">
+<figure class="step-1"><img src="images/features/features-textures.png" alt="Textures" /><figcaption>textures</figcaption></figure>
+<figure class="step-2"><img src="images/features/features-patterns.png" alt="Patterns" /><figcaption>patterns</figcaption></figure>
+<figure class="step-3"><img src="images/features/features-parts.png" alt="Parts" /><figcaption>parts</figcaption></figure>
+<figure class="step-4"><img src="images/features/features-objects.png" alt="Objects" /><figcaption>objects</figcaption></figure>
+</div>
+
+.step-4.lead.center[Layer after layer, from the first to the last.]
+]
+
+.footnote[C. Olah, A. Mordvintsev and L. Schubert (2017), *Feature Visualization*, *Distill*, .lic[CC BY 4.0]: GoogLeNet, layers mixed3a to mixed4e.]
+
+???
+
+**Layer after layer, a trained network combines edges into textures, patterns, parts and whole objects.** The four visualisations come from the same GoogLeNet: textures from layer mixed3a, patterns from mixed4a, parts from mixed4b and mixed4c, objects from mixed4d and mixed4e (Olah et al., 2017). LeCun et al. (2015, p. 439) describe the same hierarchy: edges form motifs, motifs parts, parts objects. The last layers become specific to the classes trained on (Yosinski et al., 2014, p. 1), as slide 21 drew for any pretrained network.
+
+
+---
+class: stepwise-svg
+
+# Three image tasks
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/tasks.svg" style="width: 92%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three questions asked of a photo: one label for the photo, a box per object, a label for each pixel"></object></div>
+
+]
+
+.footnote[S. J. D. Prince (2023), sections 10.5.1 to 10.5.3. Illustrative shapes.]
+
+???
+
+**A photo can be asked what it shows, where each object is, or which pixels belong to which object.** Image classification assigns the image to one of a set of classes; object detection finds each object and the box around it; semantic segmentation labels every pixel (Prince, 2023, p. 174). The early detector YOLO starts from a network trained to classify ImageNet, then adapted to detection (Prince, 2023, p. 177): the reuse of slide 22, applied to a new task.
 
 
 ---
@@ -905,7 +905,7 @@ class: stepwise-svg
 
 ???
 
-**EfficientNet B0, pretrained on ImageNet, has seen lions and tigers before Hands-on 4 begins.** It learned from the 1.28 million training images of ImageNet's 2012 challenge, in 1,000 classes (He et al., 2016, section 4.1); 13 of them are felids, lion, tiger and several domestic cats among them (Yosinski et al., 2014, section 2). B0 is the baseline of its family and reads photos of 224 by 224 pixels (Tan & Le, 2019, Table 1). Hands-on 4's task is thus close to the pretraining data, the case of slide 34; a firm's own photos may lie further from it.
+**EfficientNet B0, pretrained on ImageNet, has seen lions and tigers before Hands-on 4 begins.** It learned from the 1.28 million training images of ImageNet's 2012 challenge, in 1,000 classes (He et al., 2016, section 4.1); 13 of them are felids, lion, tiger and several domestic cats among them (Yosinski et al., 2014, section 2). B0 is the baseline of its family and reads photos of 224 by 224 pixels (Tan & Le, 2019, Table 1). Hands-on 4's task is thus close to the pretraining data, the case of slide 25; a firm's own photos may lie further from it.
 
 
 ---
@@ -924,7 +924,7 @@ class: stepwise-svg
 
 ???
 
-**In Dataiku, 0 fine-tuned layers is transfer learning and 2 is fine-tuning; Dataiku also sets the number of epochs and early stopping.** Hands-on 4 picks EfficientNet B0 in **Design → Training**, the smallest and fastest to train of Dataiku's three (Dataiku, 2024). The fine-tuned layers keep learning, the others stay frozen: at 0, only the new head of slide 31 learns; at 2, the last two adapt too (slide 32). The number of epochs (slide 17) caps training, and early stopping (slide 18) can end it sooner. The figure is a drawing of the panel, not a screen capture.
+**In Dataiku, 0 fine-tuned layers is transfer learning and 2 is fine-tuning; Dataiku also sets the number of epochs and early stopping.** Hands-on 4 picks EfficientNet B0 in **Design → Training**, the smallest and fastest to train of Dataiku's three (Dataiku, 2024). The fine-tuned layers keep learning, the others stay frozen: at 0, only the new head of slide 22 learns; at 2, the last two adapt too (slide 23). The number of epochs (slide 17) caps training, and early stopping (slide 18) can end it sooner. The figure is a drawing of the panel, not a screen capture.
 
 
 ---
@@ -968,7 +968,7 @@ class: stepwise-svg
 
 ???
 
-**In the 25 minutes of the core, each group loads the 58 photos, trains a new head on EfficientNet B0, scores the 57 test photos and reads its errors.** The need is a firm's: a few dozen labelled photos per class, of products or defects, and a network trained on ImageNet to borrow. Only the new head of slide 31 learns; the 57 test photos are holdout data, never used to build the model (Provost & Fawcett, 2013, p. 113). In **Results**, selecting a cell of the confusion matrix shows its photos (Dataiku, 2024).
+**In the 25 minutes of the core, each group loads the 58 photos, trains a new head on EfficientNet B0, scores the 57 test photos and reads its errors.** The need is a firm's: a few dozen labelled photos per class, of products or defects, and a network trained on ImageNet to borrow. Only the new head of slide 22 learns; the 57 test photos are holdout data, never used to build the model (Provost & Fawcett, 2013, p. 113). In **Results**, selecting a cell of the confusion matrix shows its photos (Dataiku, 2024).
 
 
 ---
@@ -996,7 +996,7 @@ class: stepwise-svg
 
 ???
 
-**In 8 minutes past the checkpoint, groups fine-tune 2 layers, add a larger third class, cats, then decide which model and which score to report.** Panel 4 compares time and score at 0 and 2 fine-tuned layers, the trade-off of slide 33. Panel 5 adds 120 training and 80 test photos from the 885 cats of Natural Images (Roy et al., 2018, p. 2); with uneven classes, "accuracy can be greatly misleading" (Provost & Fawcett, 2013, p. 190, verbatim), so groups read the macro average, every class counted the same, and the weighted one (*Beyond binary classification*, slide 6).
+**In 8 minutes past the checkpoint, groups fine-tune 2 layers, add a larger third class, cats, then decide which model and which score to report.** Panel 4 compares time and score at 0 and 2 fine-tuned layers, the trade-off of slide 24. Panel 5 adds 120 training and 80 test photos from the 885 cats of Natural Images (Roy et al., 2018, p. 2); with uneven classes, "accuracy can be greatly misleading" (Provost & Fawcett, 2013, p. 190, verbatim), so groups read the macro average, every class counted the same, and the weighted one (*Beyond binary classification*, slide 6).
 
 
 ---
@@ -1101,7 +1101,7 @@ class: stepwise-svg
 
 ???
 
-**After the break, the same question for text: which features can a classifier read from words?** The embeddings of week 2's RAG workshop are short, dense vectors of 50 to 1,000 dimensions learned from text, by representation learning (Jurafsky & Martin, 2026, pp. 127 and 136). BERT is pretrained on unlabelled text, then fine-tuned with one additional output layer (Devlin et al., 2019, p. 1): transfer learning again (slide 31). The textbook frames the choice: engineer the data to fit existing tools, or "build new tools to match the data" (Provost & Fawcett, 2013, p. 249, verbatim).
+**After the break, the same question for text: which features can a classifier read from words?** The embeddings of week 2's RAG workshop are short, dense vectors of 50 to 1,000 dimensions learned from text, by representation learning (Jurafsky & Martin, 2026, pp. 127 and 136). BERT is pretrained on unlabelled text, then fine-tuned with one additional output layer (Devlin et al., 2019, p. 1): transfer learning again (slide 22). The textbook frames the choice: engineer the data to fit existing tools, or "build new tools to match the data" (Provost & Fawcett, 2013, p. 249, verbatim).
 
 
 ---

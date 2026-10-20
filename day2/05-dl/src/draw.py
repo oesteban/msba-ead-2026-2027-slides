@@ -873,8 +873,7 @@ def general() -> str:
                text(843, 120, "its head", size=19), text(843, 148, "the original classes", size=16, fill=MUTED)]
     gen = [path("M 40 196 L 40 206 L 300 206 L 300 196", color=ACCENT, w=2.2, marker="", cls="accent-stroke"),
            text(170, 234, "first layers: general", size=18, weight="bold", fill=ACCENT, cls="accent-fill"),
-           text(170, 258, "useful for other tasks too", size=16, fill=MUTED),
-           text(170, 280, "(for photos: edges, colours)", size=15, fill=MUTED)]
+           text(170, 258, "useful for other tasks too", size=16, fill=MUTED)]
     spec = [path("M 408 196 L 408 206 L 958 206 L 958 196", color=INK, w=2.2, marker=""),
             text(683, 234, "last layers and head: specific", size=18, weight="bold"),
             text(683, 258, "fitted to the task it was trained on", size=16, fill=MUTED)]
