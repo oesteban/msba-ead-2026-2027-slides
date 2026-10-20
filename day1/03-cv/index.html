@@ -139,44 +139,38 @@ layout: true
 ---
 class: vcenter
 
-# This deck: from one score to a trusted one
+# Outline
 
 .cards.steps[
 .card[
 .enum[1]
 
-<span class="part">A score depends on its test rows.</span> Draw another test set, get another score. Slides 2 and 3.
+<span class="part">Cross-validation.</span> Another test set gives another score, so every row takes a turn in the test: k-fold, and how Dataiku reports it. Slides 2 to 7.
 ]
 .card[
 .enum[2]
 
-<span class="part">Cross-validation.</span> Every row takes a turn in the test: k-fold, and how Dataiku reports it. Slides 4 to 7.
+<span class="part">Choosing without fooling yourself.</span> A test kept apart; nested cross-validation. Slides 8 and 9.
 ]
 .card[
 .enum[3]
 
-<span class="part">Choosing without fooling yourself.</span> A test kept apart; nested cross-validation. Slides 8 and 9.
+<span class="part">When cross-validation promises too much.</span> Rows that come in groups: a lesson from MRI scanners. Slides 10 to 12.
 ]
 .card[
 .enum[4]
 
-<span class="part">When cross-validation promises too much.</span> Rows that come in groups: a lesson from MRI scanners. Slides 10 to 12.
-]
-.card[
-.enum[5]
-
 <span class="part">Five folds, four algorithms.</span> Hands-on on the credits; linear models, SVM, forests, boosting. Slides 13 to 21.
 ]
 .card[
-.enum[6]
+.enum[5]
 
 <span class="part">Hands-on 2: the credit-card dataset.</span> 30,000 clients, their columns, three algorithms on five folds. Slides 22 to 26.
 ]
 ]
 
 ???
-
-The six parts trace the path from a single, unreliable score to a comparison of algorithms on a second dataset. Part 1 (slides 2 and 3) demonstrates that the same model scored on different test sets yields different numbers, driven only by the draw. Part 2 (slides 4 to 7) defines cross-validation and shows how Dataiku reports it. Part 3 (slides 8 and 9) separates choosing from testing: the folds guide the choice, a held-out test gives the honest score, and nested cross-validation does both when data are scarce. Part 4 (slides 10 to 12) uses a published study on MRI scanners to show that rows from the same group are not independent and that folds must reflect how new data arrive. Part 5 (slides 13 to 21) runs five folds on the credits and presents four algorithms. Part 6 (slides 22 to 26) opens a second dataset of 30,000 credit-card clients, sorts its columns into types, and runs Hands-on 2 on it.
+**Five parts: from a single, unreliable score to a comparison of algorithms on a second dataset.** Part 1 (slides 2 to 7) shows that another test set gives another score, then defines cross-validation and how Dataiku reports it. Part 2 (slides 8 and 9) separates choosing from testing; part 3 (slides 10 to 12) shows, with MRI scanners, rows that come in groups. Part 4 (slides 13 to 21) runs five folds on the credits; part 5 (slides 22 to 26) opens the credit-card dataset for Hands-on 2.
 
 ---
 class: stepwise-svg
