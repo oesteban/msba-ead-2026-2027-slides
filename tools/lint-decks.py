@@ -46,6 +46,18 @@ The checks, and the bug each one is a memorial to:
 7. **Untracked assets.** A file that exists here but is not committed is a 404
    for everyone else, and the deck looks fine locally. Paths inside a submodule
    are skipped; they are tracked in their own repository.
+
+8. **A body left under the title.** Not invisible, but missed slide after
+   slide: in October 2026 nearly every slide of deck 5 piled its content right
+   under the title and left the lower half of the frame empty. Every titled
+   slide carries `class: vcenter` (with `stepwise-svg`: `class: stepwise-svg,
+   vcenter`), so that its one body block centres in the height under the title;
+   section marks and the References are exempt. The footnote and the phase
+   thumbnail each leave an empty paragraph that the centring counts as a block,
+   so such a deck also needs the rule that zeroes its margins
+   (`p:has(> .footnote, > .phase-thumb)`), or the body sits above the middle.
+   The decks in VCENTER_PENDING were taught before the rule and take it at
+   their next edit.
 """
 
 from __future__ import annotations
@@ -77,6 +89,8 @@ NEEDS_EXT = (
      'ext/timer.js', 'countdown timers'),
 )
 TAG = re.compile(r'<[^>]+>')
+CLASS_LINE = re.compile(r'^class:\s*(.+)$')
+VCENTER_PENDING = {'day1/01-intro', 'day1/02-model', 'day1/03-cv', 'day1/04-multiclass'}
 
 
 def submodule_paths() -> list[str]:
@@ -177,6 +191,34 @@ def lint(deck: Path, tracked: set[str], subs: list[str]) -> list[str]:
         # property block, which is how a step carries `count: false`.
         if j >= 0 and lines[j].strip() not in ('---', '--'):
             say(i, f"property line outside a property block: {line.strip()!r}")
+
+    # 8. a titled slide whose body is not centred in the height under its title
+    if str(rel.parent) not in VCENTER_PENDING:
+        centred_with_pins = False
+        for start, chunk in slides:
+            body = FENCE.sub('', "\n".join(chunk)).split('\n???')[0]
+            titles = [t for t in H1.findall(body) if TAG.sub('', t).strip()]
+            if not titles or '.section-mark' in body or '.refs' in body:
+                continue
+            props = []
+            for line in chunk:
+                if not line.strip():
+                    continue
+                if not PROPERTY.match(line):
+                    break
+                props.append(line)
+            classes = [c.strip() for line in props
+                       for m in [CLASS_LINE.match(line)] if m for c in m.group(1).split(',')]
+            if 'vcenter' not in classes:
+                say(start, f"slide {titles[0]!r} is not centred: give it class: vcenter "
+                           "(with stepwise-svg: class: stepwise-svg, vcenter), or its "
+                           "body sits right under the title")
+            elif '.footnote[' in body or 'phase-thumb' in body:
+                centred_with_pins = True
+        if centred_with_pins and not re.search(r'vcenter\s*>\s*p:has\(', page):
+            say(0, "centred slides carry a footnote or a phase thumbnail, but the deck "
+                   "lacks the rule .remark-slide-content.vcenter > p:has(> .footnote, "
+                   "> .phase-thumb) { margin: 0; }, so their body sits above the middle")
 
     # 6 and 7. assets
     text = deck.read_text()

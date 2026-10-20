@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="45 0 870 380" font-family="Inter, Arimo, Helvetica, sans-serif">
 <!-- A forward pass on deck 4's example wine (alcohol 12.0, volatile acidity 0.27, sulphates 0.56): three hidden neurons, three line scores [0.4, 1.6, 0.2], those of the next slide's softmax. Hidden values and scores illustrative. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>

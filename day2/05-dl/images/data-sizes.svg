@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" font-family="Inter, Arimo, Helvetica, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 0 830 360" font-family="Inter, Arimo, Helvetica, sans-serif">
 <!-- Training-set sizes, log scale: MNIST 60000 handwritten digits (LeCun et al. 1998, p. 10); ImageNet 1.28e+06 labelled photos (He et al. 2016, p. 4); BERT 3.3e+09 words of books and Wikipedia (Devlin et al. 2019, p. 13); GPT-3 3e+11 tokens of text (Brown et al. 2020, p. 8); CLIP 4e+08 photos with their captions (Radford et al. 2021, p. 1). Units differ: digits, photos, words, tokens, image and caption pairs. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>

@@ -17,6 +17,9 @@
 .book { color: var(--accent); font-weight: 600; }
 .footnote .lic { color: #556268; }
 .footnote { right: 5.5em; }
+/* a centred slide (class: vcenter) centres its one body block under the title; the footnote and
+   the phase thumbnail are pinned, but each leaves an empty paragraph that would count as a block */
+.remark-slide-content.vcenter > p:has(> .footnote, > .phase-thumb) { margin: 0; }
 /* the case slides: a small copy of the coloured flowchart, its phase lit, left of the content */
 .phase-thumb { position: absolute; left: 80px; top: 112px; width: 100px; }
 .beside-thumb { margin-left: 132px; }
@@ -24,7 +27,6 @@
 /* the outlook: one row per part of the deck */
 .cards.steps .card p { font-size: 0.92em; line-height: 1.35; }
 .cards.steps .card .part { color: var(--accent); font-weight: 700; }
-/* seven parts: tighter rows */
 /* a row of small cards under a figure */
 .quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8em; margin-top: 0.9em; }
 .quad > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.5em 0.8em 0.6em; font-size: 0.95em; line-height: 1.4; }
@@ -33,17 +35,19 @@
 .duo > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.6em 0.9em 0.7em; font-size: 0.92em; line-height: 1.45; }
 .duo b.k { display: block; font-size: 1.08em; color: var(--heading-color); margin-bottom: 0.15em; }
 .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; margin-top: 0.8em; }
-.trio > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.9em 1.1em 1.1em; font-size: 1.12em; line-height: 1.55; min-height: 12em; }
+.trio > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 1em 1.2em 1.2em; font-size: 1.22em; line-height: 1.55; min-height: 11em; }
 .trio > div.lit { background: #e6eff5; }
-.quad.big > div { font-size: 1.08em; padding: 0.8em 0.9em 0.9em; line-height: 1.45; min-height: 10.5em; }
+.quad.big > div { font-size: 1.2em; padding: 0.9em 1em 1em; line-height: 1.45; min-height: 11.5em; }
 .quad > div.lit { background: #e6eff5; }
 .trio b.k { display: block; font-size: 1.12em; color: var(--heading-color); margin-bottom: 0.2em; }
 .trio .num { font-weight: 700; color: var(--accent); white-space: nowrap; }
 .duo.big > div { font-size: 1.05em; padding: 0.8em 1em 1em; }
-.fullw .duo.big > div { font-size: 1.22em; padding: 1em 1.2em 1.2em; min-height: 8em; }
-.fullw .facts.big > div { font-size: 1.3em; }
-.lead.big { font-size: 1.15em; margin-top: 1em; }
-.lead { font-size: 1.04em; margin: 0.6em 0 0.2em; line-height: 1.4; }
+/* the content fills the height under the title: cards on a centred slide take larger type and taller cells */
+:is(.fullw, .beside-thumb) .duo.big > div { font-size: 1.32em; padding: 1.1em 1.3em 1.3em; min-height: 10em; }
+:is(.fullw, .beside-thumb) .facts.big > div { font-size: 1.45em; padding: 1.1em 1.3em 1.2em; min-height: 7.5em; }
+:is(.fullw, .beside-thumb) object { max-height: 470px; }
+.lead.big { font-size: 1.3em; margin-top: 1.1em; }
+.lead { font-size: 1.15em; margin: 0.7em 0 0.2em; line-height: 1.4; }
 /* the data slide: five rows, the target lit, and what a row and a column are */
 .terms table { font-size: 0.96em; margin: 0.2em 0 0; border-collapse: collapse; }
 .terms th, .terms td { padding: 0.3em 0.6em; border-bottom: 1px solid #d9d9d9; text-align: left; }
@@ -173,7 +177,7 @@ class: vcenter
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # An artificial neuron
 
 .fullw[
@@ -188,7 +192,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Activation functions
 
 .fullw[
@@ -204,7 +208,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # A neural network
 
 .fullw[
@@ -219,7 +223,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # 1958 to 1998
 
 .fullw[
@@ -235,7 +239,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # 2009 to 2022
 
 .fullw[
@@ -251,7 +255,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Training data
 
 .fullw[
@@ -267,7 +271,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Training compute
 
@@ -285,7 +289,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Training compute over time
 
@@ -302,7 +306,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Lonestar 5
 
@@ -320,7 +324,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Forward pass
 
 .fullw[
@@ -335,7 +339,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Softmax
 
 .fullw[
@@ -350,7 +354,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Loss
 
 .fullw[
@@ -365,7 +369,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Gradient descent
 
 .fullw[
@@ -381,7 +385,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Back-propagation
 
 .fullw[
@@ -396,7 +400,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # The training loop
 
 .fullw[
@@ -412,7 +416,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Epochs
 
 .fullw[
@@ -427,7 +431,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Early stopping
 
@@ -445,7 +449,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Augmentation
 
 .fullw[
@@ -461,6 +465,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # Wrong labels in benchmarks
 
@@ -481,6 +486,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # Pretrained models
 
@@ -501,7 +507,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Inside a pretrained network
 
 .fullw[
@@ -517,7 +523,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Transfer learning
 
@@ -535,7 +541,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Fine-tuning
 
@@ -553,6 +559,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # Transfer learning or fine-tuning
 
@@ -572,6 +579,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # How much to retrain
 
@@ -591,7 +599,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # Zero-shot
 
 .fullw[
@@ -607,6 +615,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # Four ways to get a model
 
@@ -628,6 +637,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # A table
 
@@ -650,6 +660,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # Trees and networks on tables
 
@@ -669,7 +680,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # A photo
 
@@ -686,7 +697,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 # A photo in a plain network
 
 .fullw[
@@ -702,7 +713,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Convolution
 
@@ -720,6 +731,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # Weight sharing
 
@@ -739,6 +751,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # First layers
 
@@ -759,7 +772,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise
+class: stepwise, vcenter
 
 # Deeper layers
 
@@ -783,7 +796,7 @@ class: stepwise
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Saliency maps
 
@@ -801,7 +814,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Saliency maps under test
 
@@ -819,7 +832,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Three image tasks
 
@@ -855,6 +868,7 @@ As field facts, not legal advice: since 2 February 2025, the EU AI Act (Regulati
 
 
 ---
+class: vcenter
 
 # The data
 
@@ -891,7 +905,7 @@ As field facts, not legal advice: since 2 February 2025, the EU AI Act (Regulati
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # Test photos
 
@@ -914,7 +928,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # 57 test photos
 
@@ -922,6 +936,7 @@ class: stepwise-svg
 
 .beside-thumb[
 <div class="step-1"><object type="image/svg+xml" data="images/interval.svg" style="width: 100%; display: block; margin: 1em auto 0; pointer-events: none;" aria-label="51 of 57 right is 89%, with a 95% interval from 78% to 96%; with 10,000 test photos, about 1 point either way"></object></div>
+.step-4.lead.big.center[On 57 test photos, a score is known only roughly.]
 ]
 
 .footnote[A 95% Clopper-Pearson interval for 51 of 57. B. Recht et al. (2019), p. 3: at most 1% for 10,000 test images.]
@@ -932,6 +947,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # The borrowed network
 
@@ -953,7 +969,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # In Dataiku
 
@@ -972,7 +988,7 @@ class: stepwise-svg
 
 
 ---
-class: stepwise-svg
+class: stepwise-svg, vcenter
 
 # The Flow
 
@@ -990,6 +1006,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # Hands-on 4: lion or tiger
 
@@ -1016,6 +1033,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # Hands-on 4, continued
 
@@ -1044,6 +1062,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # The errors, one by one
 
@@ -1066,6 +1085,7 @@ class: stepwise-svg
 
 
 ---
+class: vcenter
 
 # Text
 

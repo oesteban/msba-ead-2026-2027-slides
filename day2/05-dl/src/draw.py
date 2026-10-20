@@ -21,6 +21,7 @@ from __future__ import annotations
 import csv
 import importlib.util
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -986,25 +987,25 @@ def flow() -> str:
 
 def interval() -> str:
     """51 right of 57 is 89%, and could be anything from 78% to 96%."""
-    W, H = 1000, 260
-    x0, x1 = 60, 940
+    W, H = 1000, 330
+    x0, x1 = 50, 950
 
     def px(v):
         return x0 + (v - 70) / 30 * (x1 - x0)
 
-    axis = [line(x0, 120, x1, 120, color=MUTED, w=1.4, marker="")]
-    axis += [line(px(v), 114, px(v), 126, color=MUTED, w=1.2, marker="") for v in range(70, 101, 5)]
-    axis += [text(px(v), 150, f"{v}%", size=15, fill=MUTED) for v in range(70, 101, 5)]
-    pt = [f'<circle class="accent-fill" cx="{px(89.5):.1f}" cy="120" r="10" fill="{ACCENT}"/>',
-          text(px(89.5), 92, "51 of 57 right: 89%", size=18, weight="bold")]
-    ci = [rect(px(78.5), 112, px(96.0) - px(78.5), 16, fill=ACCENT, stroke=None, rx=8, cls="accent-fill",
+    axis = [line(x0, 140, x1, 140, color=MUTED, w=1.8, marker="")]
+    axis += [line(px(v), 132, px(v), 148, color=MUTED, w=1.6, marker="") for v in range(70, 101, 5)]
+    axis += [text(px(v), 178, f"{v}%", size=20, fill=MUTED) for v in range(70, 101, 5)]
+    pt = [f'<circle class="accent-fill" cx="{px(89.5):.1f}" cy="140" r="14" fill="{ACCENT}"/>',
+          text(px(89.5), 104, "51 of 57 right: 89%", size=24, weight="bold")]
+    ci = [rect(px(78.5), 129, px(96.0) - px(78.5), 22, fill=ACCENT, stroke=None, rx=11, cls="accent-fill",
                extra=' fill-opacity="0.3"'),
-          text(px(78.5), 182, "78%", size=17, weight="bold", fill=ACCENT, cls="accent-fill"),
-          text(px(96.0), 182, "96%", size=17, weight="bold", fill=ACCENT, cls="accent-fill"),
-          text(px(87.2), 214, "a 95% interval: the score could be anywhere here", size=17, fill=ACCENT,
+          text(px(78.5), 216, "78%", size=23, weight="bold", fill=ACCENT, cls="accent-fill"),
+          text(px(96.0), 216, "96%", size=23, weight="bold", fill=ACCENT, cls="accent-fill"),
+          text(px(87.2), 254, "a 95% interval: the score could be anywhere here", size=22, fill=ACCENT,
                cls="accent-fill")]
-    big = [rect(px(89.0), 230, px(90.0) - px(89.0), 12, fill=INK, stroke=None, rx=4),
-           text(px(90.0) + 14, 241, "with 10,000 test photos: about 1 point either way", size=15, anchor="start")]
+    big = [rect(px(89.0), 290, px(90.0) - px(89.0), 16, fill=INK, stroke=None, rx=5),
+           text(px(89.0) - 16, 304, "with 10,000 test photos: about 1 point either way", size=20, anchor="end")]
     return svg(W, H, [step(1, axis + pt), step(2, ci), step(3, big)],
                "An observed 51 of 57 (89%) with its 95% Clopper-Pearson interval, 78% to 96%, against the at most 1 "
                "point of 10,000 test images (Recht et al. 2019). " + LICENCE)
@@ -1185,6 +1186,17 @@ def compute(part: int) -> str:
                "Data on Notable AI Models, CC BY 4.0 (src/compute.csv). " + LICENCE)
 
 
+# Side margins cut from a figure's canvas, x from and x to, so that it draws larger at the slide's
+# width: content drawn on 70% to 85% of a 1000-wide canvas showed small under the title.
+CROP = {"layers.svg": (85, 915), "forward.svg": (45, 915), "data-sizes.svg": (60, 890), "convolution.svg": (16, 776),
+        "hygiene.svg": (55, 905), "saliency-map.svg": (125, 890), "saliency-scrambled.svg": (125, 890)}
+
+
+def crop(s: str, x0: int, x1: int) -> str:
+    """Narrow the viewBox of a figure drawn on a 0-based canvas to x0..x1, its full height kept."""
+    return re.sub(r'viewBox="0 0 (\d+) (\d+)"', lambda m: f'viewBox="{x0} 0 {x1 - x0} {m.group(2)}"', s, count=1)
+
+
 def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
     figures = {"timeline-1.svg": lambda: timeline(1), "timeline-2.svg": lambda: timeline(2),
@@ -1207,6 +1219,8 @@ def main(out: Path) -> int:
         s = fn()
         if s is None:
             continue
+        if name in CROP:
+            s = crop(s, *CROP[name])
         (out / name).write_text(s, encoding="utf-8")
         print(out / name)
     return 0
