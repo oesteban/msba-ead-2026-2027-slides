@@ -557,7 +557,7 @@ class: stepwise-svg
 .step-4.lead.big.center[A filter reads each pixel together with its neighbours.]
 ]
 
-.footnote[S. J. D. Prince (2023), section 10.2. Illustrative.]
+.footnote[S. J. D. Prince (2023), section 10.3, p. 170. Illustrative.]
 
 ???
 
@@ -778,17 +778,17 @@ class: stepwise-svg
 <div class="quad big">
 <div><b>1 · Zero-shot</b>The classes described in words; no labelled example.</div>
 <div class="lit"><b>2 · A new head</b>Locked pretrained layers; tens to hundreds of examples.</div>
-<div><b>3 · Fine-tuning</b>More layers learn: more examples, more compute.</div>
+<div><b>3 · Fine-tuning</b>More layers learn: more examples needed.</div>
 <div><b>4 · From scratch</b>Every weight learned: millions of examples, and slide 10's compute.</div>
 </div>
-.lead.big.center[Each rung up costs more labelled examples and more compute.]
+.lead.big.center[Each rung up needs more labelled examples; the last, slide 10's compute.]
 ]
 
 .footnote[A. Radford et al. (2021); S. Kornblith, J. Shlens and Q. Le (2019); K. He et al. (2016).]
 
 ???
 
-**Of four ways to get a model, each rung up costs more labelled examples and more compute.** Zero-shot needs only the class names (Radford et al., 2021, p. 6); a new head on locked layers did well with 47 to 800 examples (Kornblith et al., 2019, p. 7), and fine-tuning pulls ahead with more (p. 7). Training from scratch learns every weight from millions of examples (slide 7), with slide 10's compute; even where both end equal, fine-tuning gets there about 17 times faster (Kornblith et al., 2019, p. 7).
+**Of four ways to get a model, each rung up needs more labelled examples; the last also needs slide 10's compute.** Zero-shot needs only the class names (Radford et al., 2021, p. 6); a new head on locked layers did well with 47 to 800 examples (Kornblith et al., 2019, p. 7), and fine-tuning pulls ahead with more (p. 7). Training from scratch learns every weight from millions of examples (slide 7), with slide 10's compute; even where both end equal, fine-tuning gets there about 17 times faster (Kornblith et al., 2019, p. 7).
 
 
 ---
