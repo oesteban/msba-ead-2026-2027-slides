@@ -1,61 +1,344 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Milestones of neural networks on a broken time axis: Rosenblatt 1958, Rumelhart et al. 1986, LeCun et al. 1998, Deng et al. 2009, Krizhevsky et al. 2012, He et al. 2016 (ILSVRC 2015), Vaswani et al. 2017, Brown et al. 2020, OpenAI 2022. Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 372" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Six milestones, 2009 to 2022: ImageNet (Deng et al. 2009), AlexNet on two GTX 580 cards (Krizhevsky et al. 2012; a GTX 580 board by Fritzchens Fritz, CC0), ResNet (He et al. 2016), the transformer (Vaswani et al. 2017), GPT-3 (Brown et al. 2020), ChatGPT (OpenAI 2022). The mosaic, stack, grid, dots and bubbles are drawn. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
-<polygon class="accent-fill" points="20,150 962,150 962,136 990,167.0 962,198 962,184 20,184" fill="#00609c"/>
-<path d="M418,188 L430,146 M430,188 L442,146" stroke="#ffffff" stroke-width="5"/>
-</g>
-<g data-step="1">
-<line x1="64.0" y1="113" x2="64.0" y2="148" stroke="#556268" stroke-width="1.3" stroke-dasharray="3 3"/>
-<text x="64.0" y="173.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">1958</text>
-<text x="44.0" y="84" font-size="16" font-weight="bold" text-anchor="start" fill="#9aa4a8">One artificial neuron</text>
-<text x="44.0" y="105" font-size="16" font-weight="normal" text-anchor="start" fill="#9aa4a8">learns from examples</text>
-<line x1="288.0" y1="186" x2="288.0" y2="208" stroke="#556268" stroke-width="1.3" stroke-dasharray="3 3"/>
-<text x="288.0" y="173.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">1986</text>
-<text x="288.0" y="224" font-size="16" font-weight="bold" text-anchor="middle" fill="#9aa4a8">Errors sent back</text>
-<text x="288.0" y="245" font-size="16" font-weight="normal" text-anchor="middle" fill="#9aa4a8">through the layers</text>
-<line x1="384.0" y1="113" x2="384.0" y2="148" stroke="#556268" stroke-width="1.3" stroke-dasharray="3 3"/>
-<text x="384.0" y="173.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">1998</text>
-<text x="384.0" y="84" font-size="16" font-weight="bold" text-anchor="middle" fill="#9aa4a8">A network reads</text>
-<text x="384.0" y="105" font-size="16" font-weight="normal" text-anchor="middle" fill="#9aa4a8">digits on cheques</text>
-</g>
-<g data-step="1">
-<line x1="557.3684210526316" y1="186" x2="557.3684210526316" y2="208" stroke="#556268" stroke-width="1.3" stroke-dasharray="3 3"/>
-<text x="557.3684210526316" y="173.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2009</text>
-<text x="557.3684210526316" y="224" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">ImageNet: millions</text>
-<text x="557.3684210526316" y="245" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">of labelled photos</text>
+<polygon class="accent-fill" points="20,330 962,330 962,318 990,346.0 962,374 962,362 20,362" fill="#00609c"/>
+<text x="118.66666666666666" y="352.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2009</text>
+<text x="294.66666666666663" y="352.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2012</text>
+<text x="470.6666666666667" y="352.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2015</text>
+<text x="588.0" y="352.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2017</text>
+<text x="764.0" y="352.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2020</text>
+<text x="881.3333333333334" y="352.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2022</text>
 </g>
 <g data-step="2">
-<line x1="637.8947368421052" y1="113" x2="637.8947368421052" y2="148" stroke="#556268" stroke-width="1.3" stroke-dasharray="3 3"/>
-<text x="637.8947368421052" y="173.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2012</text>
-<text x="637.8947368421052" y="84" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">AlexNet wins,</text>
-<text x="637.8947368421052" y="105" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">on two gaming GPUs</text>
+<rect x="20.0" y="16" width="150" height="150" rx="4" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<rect x="32" y="45.0" width="19" height="21" rx="2" fill="#00609c"/>
+<rect x="32" y="69.0" width="19" height="21" rx="2" fill="#25bcca"/>
+<rect x="32" y="93.0" width="19" height="21" rx="2" fill="#00609c"/>
+<rect x="32" y="117.0" width="19" height="21" rx="2" fill="#25bcca"/>
+<rect x="53" y="45.0" width="19" height="21" rx="2" fill="#f0c46a"/>
+<rect x="53" y="69.0" width="19" height="21" rx="2" fill="#25bcca"/>
+<rect x="53" y="93.0" width="19" height="21" rx="2" fill="#8cb3cf"/>
+<rect x="53" y="117.0" width="19" height="21" rx="2" fill="#f0c46a"/>
+<rect x="74" y="45.0" width="19" height="21" rx="2" fill="#a8e4ea"/>
+<rect x="74" y="69.0" width="19" height="21" rx="2" fill="#25bcca"/>
+<rect x="74" y="93.0" width="19" height="21" rx="2" fill="#9aa4a8"/>
+<rect x="74" y="117.0" width="19" height="21" rx="2" fill="#8cb3cf"/>
+<rect x="95" y="45.0" width="19" height="21" rx="2" fill="#25bcca"/>
+<rect x="95" y="69.0" width="19" height="21" rx="2" fill="#25bcca"/>
+<rect x="95" y="93.0" width="19" height="21" rx="2" fill="#25bcca"/>
+<rect x="95" y="117.0" width="19" height="21" rx="2" fill="#25bcca"/>
+<rect x="116" y="45.0" width="19" height="21" rx="2" fill="#9aa4a8"/>
+<rect x="116" y="69.0" width="19" height="21" rx="2" fill="#25bcca"/>
+<rect x="116" y="93.0" width="19" height="21" rx="2" fill="#a8e4ea"/>
+<rect x="116" y="117.0" width="19" height="21" rx="2" fill="#f0c46a"/>
+<rect x="137" y="45.0" width="19" height="21" rx="2" fill="#8cb3cf"/>
+<rect x="137" y="69.0" width="19" height="21" rx="2" fill="#25bcca"/>
+<rect x="137" y="93.0" width="19" height="21" rx="2" fill="#f0c46a"/>
+<rect x="137" y="117.0" width="19" height="21" rx="2" fill="#8cb3cf"/>
+<text x="95" y="194" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">ImageNet</text>
+<text x="95" y="216" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">3.2 million</text>
+<text x="95" y="238" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">labelled photos</text>
+<path d="M 95 248 L 118.7 327" fill="none" stroke-dasharray="3 3" stroke="#556268" stroke-width="1.3" marker-end="url(#)"/>
+<rect x="182.0" y="16" width="150" height="150" rx="4" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<image href="photos/gtx580.jpg" x="182.0" y="49" width="150.0" height="84" preserveAspectRatio="xMidYMid slice"/>
+<rect x="182.0" y="49" width="150" height="84" rx="0" fill="none" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="257" y="194" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">AlexNet</text>
+<text x="257" y="216" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">two graphics cards:</text>
+<text x="257" y="238" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">GTX 580</text>
+<path d="M 257 248 L 294.7 327" fill="none" stroke-dasharray="3 3" stroke="#556268" stroke-width="1.3" marker-end="url(#)"/>
 </g>
 <g data-step="3">
-<line x1="718.421052631579" y1="186" x2="718.421052631579" y2="208" stroke="#556268" stroke-width="1.3" stroke-dasharray="3 3"/>
-<text x="718.421052631579" y="173.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2015</text>
-<text x="718.421052631579" y="224" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">ResNet:</text>
-<text x="718.421052631579" y="245" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">152 layers</text>
+<rect x="344.0" y="16" width="150" height="150" rx="4" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<rect class="accent-fill" x="389" y="39.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="42.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="46.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="49.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="53.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="56.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="60.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="63.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="67.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="70.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="74.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="77.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="81.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="84.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="88.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="91.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="95.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="98.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="102.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="105.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="109.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="112.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="116.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="119.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="123.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="126.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="130.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="133.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="137.0" width="60" height="2.2" rx="0" fill="#00609c"/>
+<rect class="accent-fill" x="389" y="140.5" width="60" height="2.2" rx="0" fill="#00609c"/>
+<text x="419" y="194" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">ResNet</text>
+<text x="419" y="216" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">152 layers</text>
+<path d="M 419 226 L 470.7 327" fill="none" stroke-dasharray="3 3" stroke="#556268" stroke-width="1.3" marker-end="url(#)"/>
+<rect x="506.0" y="16" width="150" height="150" rx="4" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<rect class="accent-fill" x="530" y="40.0" width="15" height="15" fill="#00609c" fill-opacity="0.85"/>
+<rect class="accent-fill" x="530" y="57.0" width="15" height="15" fill="#00609c" fill-opacity="0.45"/>
+<rect class="accent-fill" x="530" y="74.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="530" y="91.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="530" y="108.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="530" y="125.0" width="15" height="15" fill="#00609c" fill-opacity="0.25"/>
+<rect class="accent-fill" x="547" y="40.0" width="15" height="15" fill="#00609c" fill-opacity="0.45"/>
+<rect class="accent-fill" x="547" y="57.0" width="15" height="15" fill="#00609c" fill-opacity="0.85"/>
+<rect class="accent-fill" x="547" y="74.0" width="15" height="15" fill="#00609c" fill-opacity="0.45"/>
+<rect class="accent-fill" x="547" y="91.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="547" y="108.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="547" y="125.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="564" y="40.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="564" y="57.0" width="15" height="15" fill="#00609c" fill-opacity="0.45"/>
+<rect class="accent-fill" x="564" y="74.0" width="15" height="15" fill="#00609c" fill-opacity="0.85"/>
+<rect class="accent-fill" x="564" y="91.0" width="15" height="15" fill="#00609c" fill-opacity="0.45"/>
+<rect class="accent-fill" x="564" y="108.0" width="15" height="15" fill="#00609c" fill-opacity="0.25"/>
+<rect class="accent-fill" x="564" y="125.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="581" y="40.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="581" y="57.0" width="15" height="15" fill="#00609c" fill-opacity="0.25"/>
+<rect class="accent-fill" x="581" y="74.0" width="15" height="15" fill="#00609c" fill-opacity="0.45"/>
+<rect class="accent-fill" x="581" y="91.0" width="15" height="15" fill="#00609c" fill-opacity="0.85"/>
+<rect class="accent-fill" x="581" y="108.0" width="15" height="15" fill="#00609c" fill-opacity="0.45"/>
+<rect class="accent-fill" x="581" y="125.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="598" y="40.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="598" y="57.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="598" y="74.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="598" y="91.0" width="15" height="15" fill="#00609c" fill-opacity="0.45"/>
+<rect class="accent-fill" x="598" y="108.0" width="15" height="15" fill="#00609c" fill-opacity="0.85"/>
+<rect class="accent-fill" x="598" y="125.0" width="15" height="15" fill="#00609c" fill-opacity="0.45"/>
+<rect class="accent-fill" x="615" y="40.0" width="15" height="15" fill="#00609c" fill-opacity="0.25"/>
+<rect class="accent-fill" x="615" y="57.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="615" y="74.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="615" y="91.0" width="15" height="15" fill="#00609c" fill-opacity="0.08"/>
+<rect class="accent-fill" x="615" y="108.0" width="15" height="15" fill="#00609c" fill-opacity="0.45"/>
+<rect class="accent-fill" x="615" y="125.0" width="15" height="15" fill="#00609c" fill-opacity="0.85"/>
+<text x="581" y="194" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">The transformer</text>
+<text x="581" y="216" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">built for</text>
+<text x="581" y="238" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">translation</text>
+<path d="M 581 248 L 588.0 327" fill="none" stroke-dasharray="3 3" stroke="#556268" stroke-width="1.3" marker-end="url(#)"/>
 </g>
 <g data-step="4">
-<line x1="772.1052631578948" y1="113" x2="772.1052631578948" y2="148" stroke="#556268" stroke-width="1.3" stroke-dasharray="3 3"/>
-<text x="772.1052631578948" y="173.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2017</text>
-<text x="772.1052631578948" y="84" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">The transformer,</text>
-<text x="772.1052631578948" y="105" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">for text</text>
-</g>
-<g data-step="5">
-<line x1="852.6315789473684" y1="186" x2="852.6315789473684" y2="208" stroke="#556268" stroke-width="1.3" stroke-dasharray="3 3"/>
-<text x="852.6315789473684" y="173.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2020</text>
-<text x="852.6315789473684" y="224" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">GPT-3: 175 billion</text>
-<text x="852.6315789473684" y="245" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">weights</text>
-</g>
-<g data-step="6">
-<line x1="906.3157894736842" y1="113" x2="906.3157894736842" y2="148" stroke="#556268" stroke-width="1.3" stroke-dasharray="3 3"/>
-<text x="906.3157894736842" y="173.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2022</text>
-<text x="906.3157894736842" y="84" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">ChatGPT opens</text>
-<text x="906.3157894736842" y="105" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">to the public</text>
+<rect x="668.0" y="16" width="150" height="150" rx="4" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<circle cx="681.0" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="681.0" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="681.0" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="681.0" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="681.0" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="681.0" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="681.0" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="681.0" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="681.0" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="681.0" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="681.0" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="681.0" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="681.0" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="689.6" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="689.6" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="689.6" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="689.6" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="689.6" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="689.6" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="689.6" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="689.6" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="689.6" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="689.6" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="689.6" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="689.6" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="689.6" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="698.2" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="698.2" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="698.2" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="698.2" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="698.2" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="698.2" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="698.2" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="698.2" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="698.2" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="698.2" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="698.2" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="698.2" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="698.2" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="706.8" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="706.8" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="706.8" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="706.8" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="706.8" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="706.8" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="706.8" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="706.8" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="706.8" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="706.8" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="706.8" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="706.8" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="706.8" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="715.4" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="715.4" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="715.4" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="715.4" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="715.4" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="715.4" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="715.4" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="715.4" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="715.4" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="715.4" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="715.4" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="715.4" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="715.4" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="724.0" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="724.0" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="724.0" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="724.0" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="724.0" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="724.0" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="724.0" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="724.0" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="724.0" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="724.0" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="724.0" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="724.0" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="724.0" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="732.6" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="732.6" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="732.6" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="732.6" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="732.6" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="732.6" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="732.6" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="732.6" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="732.6" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="732.6" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="732.6" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="732.6" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="732.6" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="741.2" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="741.2" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="741.2" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="741.2" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="741.2" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="741.2" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="741.2" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="741.2" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="741.2" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="741.2" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="741.2" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="741.2" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="741.2" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="749.8" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="749.8" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="749.8" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="749.8" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="749.8" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="749.8" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="749.8" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="749.8" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="749.8" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="749.8" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="749.8" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="749.8" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="749.8" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="758.4" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="758.4" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="758.4" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="758.4" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="758.4" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="758.4" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="758.4" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="758.4" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="758.4" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="758.4" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="758.4" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="758.4" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="758.4" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="767.0" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="767.0" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="767.0" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="767.0" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="767.0" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="767.0" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="767.0" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="767.0" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="767.0" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="767.0" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="767.0" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="767.0" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="767.0" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="775.6" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="775.6" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="775.6" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="775.6" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="775.6" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="775.6" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="775.6" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="775.6" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="775.6" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="775.6" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="775.6" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="775.6" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="775.6" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="784.2" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="784.2" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="784.2" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="784.2" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="784.2" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="784.2" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="784.2" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="784.2" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="784.2" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="784.2" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="784.2" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="784.2" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="784.2" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="792.8" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="792.8" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="792.8" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="792.8" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="792.8" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="792.8" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="792.8" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="792.8" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="792.8" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="792.8" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="792.8" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="792.8" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="792.8" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="801.4" cy="41.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="801.4" cy="49.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="801.4" cy="57.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="801.4" cy="66.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="801.4" cy="74.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="801.4" cy="83.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="801.4" cy="91.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="801.4" cy="99.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<circle cx="801.4" cy="108.2" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.50"/>
+<circle cx="801.4" cy="116.6" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.65"/>
+<circle cx="801.4" cy="125.0" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.80"/>
+<circle cx="801.4" cy="133.4" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.95"/>
+<circle cx="801.4" cy="141.8" r="2.3" fill="#00609c" class="accent-fill" fill-opacity="0.35"/>
+<text x="743" y="194" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">GPT-3</text>
+<text x="743" y="216" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">175 billion</text>
+<text x="743" y="238" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">weights</text>
+<path d="M 743 248 L 764.0 327" fill="none" stroke-dasharray="3 3" stroke="#556268" stroke-width="1.3" marker-end="url(#)"/>
+<rect x="830.0" y="16" width="150" height="150" rx="4" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<path d="M 847 45.0 h 80 a 8 8 0 0 1 8 8 v 26 a 8 8 0 0 1 -8 8 h -62 l -14 12 v -12 a 8 8 0 0 1 -4 -8 v -26 a 8 8 0 0 1 8 -8 z" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.6"/>
+<path class="accent-fill" d="M 883 97.0 h 72 a 8 8 0 0 1 8 8 v 26 a 8 8 0 0 1 -4 8 v 12 l -14 -12 h -62 a 8 8 0 0 1 -8 -8 v -26 a 8 8 0 0 1 8 -8 z" fill="#00609c"/>
+<rect x="855" y="56.0" width="64" height="4" rx="2" fill="#9aa4a8"/>
+<rect x="855" y="68.0" width="46" height="4" rx="2" fill="#9aa4a8"/>
+<rect x="893" y="109.0" width="56" height="4" rx="2" fill="#ffffff"/>
+<rect x="893" y="121.0" width="40" height="4" rx="2" fill="#ffffff"/>
+<text x="905" y="194" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">ChatGPT</text>
+<text x="905" y="216" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">a chatbot open</text>
+<text x="905" y="238" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">to the public</text>
+<path d="M 905 248 L 881.3 327" fill="none" stroke-dasharray="3 3" stroke="#556268" stroke-width="1.3" marker-end="url(#)"/>
 </g>
 </svg>

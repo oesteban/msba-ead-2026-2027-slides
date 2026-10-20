@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Fine-tuning: the same backbone with its last two blocks unfrozen and trained with the new head. Schematic. Oscar Esteban, CC BY 4.0. -->
+<!-- Fine-tuning: the same pretrained network with its last two blocks unlocked and trained with the new head. Schematic. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
@@ -32,12 +32,12 @@
 <rect x="592" y="110" width="76" height="110" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="1.6"/>
 <text x="630" y="150" font-size="18" font-weight="normal" text-anchor="middle" fill="#9aa4a8">7</text>
 <path d="M 623 182 L 623 174 A 7 7 0 0 1 637 174 L 637 182" fill="none" stroke="#9aa4a8" stroke-width="2.4"/><rect x="620" y="182" width="20" height="15" rx="2" fill="#9aa4a8"/>
-<text x="360" y="90" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">EfficientNet B0, trained on ImageNet</text>
+<text x="360" y="90" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">a pretrained network: its layers, trained on a large dataset</text>
 <line x1="682" y1="165" x2="722" y2="165" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
 <rect class="accent-a-light-fill accent-stroke" x="728" y="110" width="230" height="110" rx="8" fill="#8cb3cf" stroke="#00609c" stroke-width="2.4"/>
 <text x="843" y="152" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">a new head</text>
-<text x="843" y="180" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">lion, tiger</text>
-<text x="843" y="204" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">learns from the photos</text>
+<text x="843" y="180" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">your classes</text>
+<text x="843" y="204" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">learns from your examples</text>
 </g>
 <g data-step="2">
 <rect x="40" y="110" width="76" height="110" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="1.6"/>
@@ -67,10 +67,10 @@
 <rect class="accent-a-light-fill accent-stroke" x="592" y="110" width="76" height="110" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="2.2"/>
 <text x="630" y="150" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">7</text>
 <path d="M 623 182 L 623 174 A 7 7 0 0 1 637 174 L 637 178" fill="none" stroke="#00609c" stroke-width="2.4"/><rect x="620" y="182" width="20" height="15" rx="2" fill="#00609c"/>
-<text x="360" y="90" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">EfficientNet B0, trained on ImageNet</text>
+<text x="360" y="90" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">a pretrained network: its layers, trained on a large dataset</text>
 <line x1="682" y1="165" x2="722" y2="165" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
 <path class="accent-stroke" d="M 500 240 L 500 250 L 674 250 L 674 240" fill="none" stroke="#00609c" stroke-width="2.2" marker-end="url(#)"/>
-<text class="accent-fill" x="587" y="278" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">fine-tuned: 2 blocks learn too</text>
-<text x="240" y="278" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">still frozen</text>
+<text class="accent-fill" x="587" y="278" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">fine-tuned: the last 2 learn too</text>
+<text x="240" y="278" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">still locked</text>
 </g>
 </svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- General first layers and specific last layers in a pretrained network (Yosinski et al. 2014, p. 1); the shading only orders the blocks. Schematic. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect class="accent-fill" x="40" y="70" width="76" height="110" rx="6" fill="#00609c" fill-opacity="0.12"/>
+<rect class="accent-stroke" x="40" y="70" width="76" height="110" rx="6" fill="none" stroke="#00609c" stroke-width="1.6"/>
+<text x="78" y="132" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">1</text>
+<line x1="118" y1="125" x2="130" y2="125" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect class="accent-fill" x="132" y="70" width="76" height="110" rx="6" fill="#00609c" fill-opacity="0.24"/>
+<rect class="accent-stroke" x="132" y="70" width="76" height="110" rx="6" fill="none" stroke="#00609c" stroke-width="1.6"/>
+<text x="170" y="132" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">2</text>
+<line x1="210" y1="125" x2="222" y2="125" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect class="accent-fill" x="224" y="70" width="76" height="110" rx="6" fill="#00609c" fill-opacity="0.35"/>
+<rect class="accent-stroke" x="224" y="70" width="76" height="110" rx="6" fill="none" stroke="#00609c" stroke-width="1.6"/>
+<text x="262" y="132" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">3</text>
+<line x1="302" y1="125" x2="314" y2="125" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect class="accent-fill" x="316" y="70" width="76" height="110" rx="6" fill="#00609c" fill-opacity="0.47"/>
+<rect class="accent-stroke" x="316" y="70" width="76" height="110" rx="6" fill="none" stroke="#00609c" stroke-width="1.6"/>
+<text x="354" y="132" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">4</text>
+<line x1="394" y1="125" x2="406" y2="125" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect class="accent-fill" x="408" y="70" width="76" height="110" rx="6" fill="#00609c" fill-opacity="0.59"/>
+<rect class="accent-stroke" x="408" y="70" width="76" height="110" rx="6" fill="none" stroke="#00609c" stroke-width="1.6"/>
+<text x="446" y="132" font-size="18" font-weight="bold" text-anchor="middle" fill="#ffffff">5</text>
+<line x1="486" y1="125" x2="498" y2="125" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect class="accent-fill" x="500" y="70" width="76" height="110" rx="6" fill="#00609c" fill-opacity="0.70"/>
+<rect class="accent-stroke" x="500" y="70" width="76" height="110" rx="6" fill="none" stroke="#00609c" stroke-width="1.6"/>
+<text x="538" y="132" font-size="18" font-weight="bold" text-anchor="middle" fill="#ffffff">6</text>
+<line x1="578" y1="125" x2="590" y2="125" stroke="#9aa4a8" stroke-width="1.4"/>
+<rect class="accent-fill" x="592" y="70" width="76" height="110" rx="6" fill="#00609c" fill-opacity="0.82"/>
+<rect class="accent-stroke" x="592" y="70" width="76" height="110" rx="6" fill="none" stroke="#00609c" stroke-width="1.6"/>
+<text x="630" y="132" font-size="18" font-weight="bold" text-anchor="middle" fill="#ffffff">7</text>
+<text x="360" y="50" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">a pretrained network</text>
+<line x1="682" y1="125" x2="722" y2="125" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="728" y="70" width="230" height="110" rx="8" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="843" y="120" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">its head</text>
+<text x="843" y="148" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the original classes</text>
+</g>
+<g data-step="2">
+<path class="accent-stroke" d="M 40 196 L 40 206 L 300 206 L 300 196" fill="none" stroke="#00609c" stroke-width="2.2" marker-end="url(#)"/>
+<text class="accent-fill" x="170" y="234" font-size="18" font-weight="bold" text-anchor="middle" fill="#00609c">first layers: general</text>
+<text x="170" y="258" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">useful for other tasks too</text>
+<text x="170" y="280" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">(for photos: edges, colours)</text>
+</g>
+<g data-step="3">
+<path d="M 408 196 L 408 206 L 958 206 L 958 196" fill="none" stroke="#1c2e36" stroke-width="2.2" marker-end="url(#)"/>
+<text x="683" y="234" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">last layers and head: specific</text>
+<text x="683" y="258" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">fitted to the task it was trained on</text>
+</g>
+</svg>

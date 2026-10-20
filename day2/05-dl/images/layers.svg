@@ -1,88 +1,93 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- A network's layers: input units for the pixels, two hidden layers, one output unit per class. Schematic. Oscar Esteban, CC BY 4.0. -->
+<!-- A network's layers on deck 4's wines: input neurons for a wine's values, two hidden layers, one output neuron per line (low, medium, high); deep means more than one hidden layer (Prince 2023, p. 41). Schematic. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="2">
-<line x1="110" y1="70" x2="360" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="70" x2="360" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="70" x2="360" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="70" x2="360" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="125" x2="360" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="125" x2="360" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="125" x2="360" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="125" x2="360" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="180" x2="360" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="180" x2="360" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="180" x2="360" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="180" x2="360" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="260" x2="360" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="260" x2="360" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="260" x2="360" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="260" x2="360" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="315" x2="360" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="315" x2="360" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="315" x2="360" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="110" y1="315" x2="360" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="80" x2="560" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="80" x2="560" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="80" x2="560" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="80" x2="560" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="150" x2="560" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="150" x2="560" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="150" x2="560" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="150" x2="560" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="220" x2="560" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="220" x2="560" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="220" x2="560" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="220" x2="560" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="290" x2="560" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="290" x2="560" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="290" x2="560" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="360" y1="290" x2="560" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="80" x2="790" y2="110" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="80" x2="790" y2="185" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="80" x2="790" y2="260" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="150" x2="790" y2="110" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="150" x2="790" y2="185" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="150" x2="790" y2="260" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="220" x2="790" y2="110" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="220" x2="790" y2="185" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="220" x2="790" y2="260" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="290" x2="790" y2="110" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="290" x2="790" y2="185" stroke="#c9cfd2" stroke-width="1.1"/>
-<line x1="560" y1="290" x2="790" y2="260" stroke="#c9cfd2" stroke-width="1.1"/>
-<circle class="accent-stroke" cx="360" cy="80" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="360" cy="150" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="360" cy="220" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="360" cy="290" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="560" cy="80" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="560" cy="150" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="560" cy="220" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="560" cy="290" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<text x="460" y="30" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">hidden layers</text>
+<line x1="220" y1="70" x2="430" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="70" x2="430" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="70" x2="430" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="70" x2="430" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="125" x2="430" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="125" x2="430" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="125" x2="430" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="125" x2="430" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="180" x2="430" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="180" x2="430" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="180" x2="430" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="180" x2="430" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="260" x2="430" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="260" x2="430" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="260" x2="430" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="260" x2="430" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="315" x2="430" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="315" x2="430" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="315" x2="430" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="220" y1="315" x2="430" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="80" x2="610" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="80" x2="610" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="80" x2="610" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="80" x2="610" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="150" x2="610" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="150" x2="610" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="150" x2="610" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="150" x2="610" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="220" x2="610" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="220" x2="610" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="220" x2="610" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="220" x2="610" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="290" x2="610" y2="80" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="290" x2="610" y2="150" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="290" x2="610" y2="220" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="430" y1="290" x2="610" y2="290" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="80" x2="800" y2="110" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="80" x2="800" y2="185" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="80" x2="800" y2="260" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="150" x2="800" y2="110" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="150" x2="800" y2="185" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="150" x2="800" y2="260" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="220" x2="800" y2="110" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="220" x2="800" y2="185" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="220" x2="800" y2="260" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="290" x2="800" y2="110" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="290" x2="800" y2="185" stroke="#c9cfd2" stroke-width="1.1"/>
+<line x1="610" y1="290" x2="800" y2="260" stroke="#c9cfd2" stroke-width="1.1"/>
+<circle class="accent-stroke" cx="430" cy="80" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="430" cy="150" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="430" cy="220" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="430" cy="290" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="610" cy="80" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="610" cy="150" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="610" cy="220" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="610" cy="290" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="520" y="30" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">hidden layers</text>
 </g>
 <g data-step="1">
-<circle class="accent-stroke" cx="110" cy="70" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="110" cy="125" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="110" cy="180" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="110" cy="260" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<circle class="accent-stroke" cx="110" cy="315" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<text x="110" y="226" font-size="26" font-weight="normal" text-anchor="middle" fill="#556268">⋮</text>
-<text x="110" y="30" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">input layer</text>
-<text x="110" y="360" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the pixels</text>
-<text x="790" y="30" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">output layer</text>
-<text x="790" y="330" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">one unit per class</text>
-<circle class="accent-a-light-fill" cx="790" cy="110" r="16" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
-<text x="820" y="116" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">lion</text>
-<circle class="accent-a-light-fill" cx="790" cy="185" r="16" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
-<text x="820" y="191" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">tiger</text>
-<circle class="accent-a-light-fill" cx="790" cy="260" r="16" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
-<text x="820" y="266" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">cat</text>
+<circle class="accent-stroke" cx="220" cy="70" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="220" cy="125" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="220" cy="180" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="220" cy="260" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<circle class="accent-stroke" cx="220" cy="315" r="13" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="220" y="226" font-size="26" font-weight="normal" text-anchor="middle" fill="#556268">⋮</text>
+<text x="220" y="30" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">input layer</text>
+<text x="220" y="360" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">a wine's values</text>
+<text x="800" y="30" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">output layer</text>
+<text x="800" y="330" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">one neuron per class</text>
+<text x="196" y="75" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">alcohol</text>
+<text x="196" y="130" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">volatile acidity</text>
+<text x="196" y="185" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">sulphates</text>
+<text x="196" y="265" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">pH</text>
+<text x="196" y="320" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">colour</text>
+<circle class="accent-a-light-fill" cx="800" cy="110" r="16" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="830" y="116" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">low</text>
+<circle class="accent-a-light-fill" cx="800" cy="185" r="16" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="830" y="191" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">medium</text>
+<circle class="accent-a-light-fill" cx="800" cy="260" r="16" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="830" y="266" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">high</text>
 </g>
 <g data-step="3">
-<path class="accent-stroke" d="M 340 330 L 340 340 L 580 340 L 580 330" fill="none" stroke="#00609c" stroke-width="2.2" marker-end="url(#)"/>
-<text class="accent-fill" x="460" y="368" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">deep: many hidden layers, not two</text>
+<path class="accent-stroke" d="M 410 330 L 410 340 L 630 340 L 630 330" fill="none" stroke="#00609c" stroke-width="2.2" marker-end="url(#)"/>
+<text class="accent-fill" x="520" y="368" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">deep: more than one hidden layer</text>
 </g>
 </svg>

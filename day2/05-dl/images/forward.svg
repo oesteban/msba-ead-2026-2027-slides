@@ -1,57 +1,60 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- A forward pass with illustrative values: three inputs, three hidden units, three class scores (2.1, 0.4, -1.0, the scores of the next slide's softmax). Illustrative. Oscar Esteban, CC BY 4.0. -->
+<!-- A forward pass on deck 4's example wine (alcohol 12.0, volatile acidity 0.27, sulphates 0.56): three hidden neurons, three line scores [0.4, 1.6, 0.2], those of the next slide's softmax. Hidden values and scores illustrative. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
-<circle class="accent-stroke" cx="110" cy="80" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<text x="110" y="87" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.2</text>
-<circle class="accent-stroke" cx="110" cy="180" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<text x="110" y="187" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.9</text>
-<circle class="accent-stroke" cx="110" cy="280" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<text x="110" y="287" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.5</text>
-<text x="110" y="335" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">pixel values</text>
+<circle class="accent-stroke" cx="200" cy="80" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="200" y="87" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">12.0</text>
+<circle class="accent-stroke" cx="200" cy="180" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="200" y="187" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.27</text>
+<circle class="accent-stroke" cx="200" cy="280" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="200" y="287" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.56</text>
+<text x="200" y="335" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the wine's values</text>
+<text x="156" y="85" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">alcohol</text>
+<text x="156" y="185" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">volatile acidity</text>
+<text x="156" y="285" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">sulphates</text>
 </g>
 <g data-step="2">
-<line x1="142" y1="80" x2="388" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="142" y1="80" x2="388" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="142" y1="80" x2="388" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="142" y1="180" x2="388" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="142" y1="180" x2="388" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="142" y1="180" x2="388" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="142" y1="280" x2="388" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="142" y1="280" x2="388" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="142" y1="280" x2="388" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
-<circle class="accent-stroke" cx="420" cy="80" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<text x="420" y="87" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.6</text>
-<circle class="accent-stroke" cx="420" cy="180" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<text x="420" y="187" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.1</text>
-<circle class="accent-stroke" cx="420" cy="280" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<text x="420" y="287" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.8</text>
-<text x="420" y="335" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">each unit: a weighted sum, then a non-linear function</text>
-<line class="accent-stroke" x1="110" y1="365" x2="880" y2="365" stroke="#00609c" stroke-width="2.4" marker-end="url(#ahA)"/>
-<text class="accent-fill" x="495" y="357" font-size="15" font-weight="bold" text-anchor="middle" fill="#00609c">forward</text>
+<line x1="232" y1="80" x2="448" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="232" y1="80" x2="448" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="232" y1="80" x2="448" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="232" y1="180" x2="448" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="232" y1="180" x2="448" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="232" y1="180" x2="448" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="232" y1="280" x2="448" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="232" y1="280" x2="448" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="232" y1="280" x2="448" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
+<circle class="accent-stroke" cx="480" cy="80" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="480" y="87" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.9</text>
+<circle class="accent-stroke" cx="480" cy="180" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="480" y="187" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0</text>
+<circle class="accent-stroke" cx="480" cy="280" r="30" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="480" y="287" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">1.4</text>
+<text x="480" y="335" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">each neuron: a weighted sum, then ReLU</text>
+<line class="accent-stroke" x1="200" y1="365" x2="900" y2="365" stroke="#00609c" stroke-width="2.4" marker-end="url(#ahA)"/>
+<text class="accent-fill" x="550" y="357" font-size="15" font-weight="bold" text-anchor="middle" fill="#00609c">forward</text>
 </g>
 <g data-step="3">
-<line x1="452" y1="80" x2="698" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="452" y1="80" x2="698" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="452" y1="80" x2="698" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="452" y1="180" x2="698" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="452" y1="180" x2="698" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="452" y1="180" x2="698" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="452" y1="280" x2="698" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="452" y1="280" x2="698" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
-<line x1="452" y1="280" x2="698" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
-<circle class="accent-a-light-fill accent-stroke" cx="730" cy="80" r="30" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
-<text x="730" y="87" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">2.1</text>
-<circle class="accent-a-light-fill accent-stroke" cx="730" cy="180" r="30" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
-<text x="730" y="187" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.4</text>
-<circle class="accent-a-light-fill accent-stroke" cx="730" cy="280" r="30" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
-<text x="730" y="287" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">−1.0</text>
-<text x="730" y="335" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">one score per class</text>
-<text x="775" y="87" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">lion</text>
-<text x="775" y="187" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">tiger</text>
-<text x="775" y="287" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">cat</text>
+<line x1="512" y1="80" x2="728" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="512" y1="80" x2="728" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="512" y1="80" x2="728" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="512" y1="180" x2="728" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="512" y1="180" x2="728" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="512" y1="180" x2="728" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="512" y1="280" x2="728" y2="80" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="512" y1="280" x2="728" y2="180" stroke="#c9cfd2" stroke-width="1.6"/>
+<line x1="512" y1="280" x2="728" y2="280" stroke="#c9cfd2" stroke-width="1.6"/>
+<circle class="accent-a-light-fill accent-stroke" cx="760" cy="80" r="30" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="760" y="87" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.4</text>
+<circle class="accent-a-light-fill accent-stroke" cx="760" cy="180" r="30" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="760" y="187" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">1.6</text>
+<circle class="accent-a-light-fill accent-stroke" cx="760" cy="280" r="30" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="760" y="287" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.2</text>
+<text x="760" y="335" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">one score per line</text>
+<text x="805" y="87" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">low</text>
+<text x="805" y="187" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">medium</text>
+<text x="805" y="287" font-size="18" font-weight="normal" text-anchor="start" fill="#1c2e36">high</text>
 </g>
 </svg>

@@ -24,6 +24,9 @@
 /* the outlook: one row per part of the deck */
 .cards.steps .card p { font-size: 0.92em; line-height: 1.35; }
 .cards.steps .card .part { color: var(--accent); font-weight: 700; }
+/* seven parts: tighter rows */
+.cards.steps.seven .card { padding-top: 0.35em; padding-bottom: 0.35em; }
+.cards.steps.seven .card p { font-size: 0.86em; line-height: 1.3; margin: 0.1em 0; }
 /* a row of small cards under a figure */
 .quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8em; margin-top: 0.9em; }
 .quad > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.5em 0.8em 0.6em; font-size: 0.95em; line-height: 1.4; }
@@ -121,7 +124,7 @@ https://oesteban.github.io/msba-ead-2026-2027-slides/day2/05-dl/index.html
 
 ???
 
-**This deck turns from tables to photos: when a deep network is worth its cost, and how a firm borrows one already trained.** It shows what a photo is to a model, how a network learns its weights from its errors, why tables still suit trees, and why a firm borrows a network trained on millions of photos rather than training its own. Hands-on 4 then trains an image classifier in Dataiku DSS to tell lions from tigers.
+**This deck shows what a neural network is and how it learns, on familiar data first, why it took about sixty years, and when a firm borrows a pretrained network rather than training its own.** A network is a stack of simple models, such as logistic regressions, whose weights are fitted together (Provost & Fawcett, 2013, p. 107). Hands-on 4 then trains an image classifier in Dataiku DSS, lions against tigers, on a borrowed network.
 
 
 ---
@@ -137,258 +140,261 @@ layout: true
 
 ---
 class: vcenter
-
-# This deck: from a photo to a borrowed network
-
-.cards.steps[
+# This deck
+.cards.steps.seven[
 .card[
 .enum[1]
 
-<span class="part">Why networks, why now.</span> What a photo is to a model, and sixty years of networks. Slides 2 to 7.
+<span class="part">From one neuron to a network.</span> A neuron, its activation function, layers. Slides 2 to 4.
 ]
 .card[
 .enum[2]
 
-<span class="part">How a network learns.</span> One unit, layers, the loss, gradient descent, epochs, convolutions; and why tables are different. Slides 8 to 21.
+<span class="part">Old ideas, recent data and compute.</span> Sixty years of networks, the training data, the training compute. Slides 5 to 10.
 ]
 .card[
 .enum[3]
 
-<span class="part">Borrowing a trained network.</span> ImageNet, the cost of training, transfer learning, fine-tuning, the ladder. Slides 22 to 34.
+<span class="part">How a network learns.</span> The forward pass, the loss, gradient descent, back-propagation, epochs, early stopping, augmentation. Slides 11 to 19.
 ]
 .card[
 .enum[4]
 
-<span class="part">Hands-on 4: lions and tigers.</span> The photos, the Flow, a borrowed network in Dataiku, then fine-tuning and cats. Slides 35 to 41.
+<span class="part">Tables, then photos.</span> Trees on tables; a photo as numbers; convolution and what its layers find. Slides 20 to 28.
 ]
 .card[
 .enum[5]
 
-<span class="part">Reading the result.</span> The errors, wrong labels, saliency maps; text next. Slides 42 to 46.
+<span class="part">Pretrained models.</span> Pretraining, transfer learning, fine-tuning, zero-shot, four ways to get a model. Slides 29 to 36.
+]
+.card[
+.enum[6]
+
+<span class="part">Hands-on 4: lions and tigers.</span> The photos, the borrowed network in Dataiku, the Flow; then fine-tuning and cats. Slides 37 to 45.
+]
+.card[
+.enum[7]
+
+<span class="part">Reading the result.</span> The errors, wrong labels, saliency maps; text next. Slides 46 to 50.
 ]
 ]
 
 ???
 
-**The deck has five parts, from what a photo is to a model to what a borrowed network gets wrong.** Slides 2 to 7 set a photo against a table and follow sixty years of networks. Slides 8 to 21 build a network from one unit up, then ask why tables differ. Slides 22 to 34 borrow a network trained on ImageNet; slides 35 to 41 are Hands-on 4 in Dataiku; slides 42 to 46 read the errors and end on text.
+**Seven parts: from one neuron to a network, sixty years of networks, data and compute, how a network learns, tables and photos, pretrained models, then one case and its result.** Parts 1 to 5 teach the concepts on a wine of *Beyond binary classification*, on photos in general or on drawings; parts 6 and 7 apply them to one case and read its errors. Slide 2 starts from a single artificial neuron.
 
 
 ---
+class: stepwise-svg
+# An artificial neuron
 
-# A table row already holds its features
-
-<img class="phase-thumb" src="images/phase-du.svg" alt="The CRISP-DM phases, data understanding lit" />
-
-.beside-thumb.terms[
-<table class="big">
-<tr><th>duration</th><th>purpose</th><th>amount</th><th>age</th><th class="tgt">credit_risk</th></tr>
-<tr class="meaning"><td>months</td><td>what the credit is for</td><td>DM</td><td>years</td><td class="tgt">the target</td></tr>
-<tr><td>18</td><td>car (used)</td><td>1049</td><td>21</td><td class="tgt">good</td></tr>
-<tr><td>9</td><td>others</td><td>2799</td><td>36</td><td class="tgt">good</td></tr>
-</table>
-
-.lead.big.center[Each column means something before any model reads it.]
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/unit.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three values of one wine, alcohol 12.0, volatile acidity 0.27, sulphates 0.56, times three weights, summed with a bias to minus 0.70, then the logistic function: 0.33"></object></div>
 ]
 
-.footnote[Five of the 21 columns of the first day's credit file. U. Grömping (2019), *South German Credit Data*; UCI Machine Learning Repository, dataset 573, .lic[CC BY 4.0].]
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 106 to 107.] *Evaluating a classifier*, slide 3. The wine: line 12 of the course file, P. Cortez et al. (2009). Weights illustrative.]
 
 ???
 
-**In a table, each column already means something before any model reads it.** The five columns shown, of the 21 in the first day's South German Credit file, are the duration in months, the purpose, the amount in DM, after an unknown monotonic transformation, the age in years (Grömping, 2019, pp. 4 and 13) and the target, `credit_risk`. Each row is an instance described by "a set of attributes (fields, columns, variables, or features)" (Provost & Fawcett, 2013, p. 46, verbatim). Slide 3 shows a photo, whose numbers mean nothing one by one.
+**An artificial neuron multiplies each input by a weight, adds a bias, then applies a function: with the logistic function, it is the logistic regression of the first day.** Three values of one white wine, line 12 of the course file, times illustrative weights, plus a bias of -7.0, give -0.70; the logistic function turns that into 0.33, read as P(high). Logistic regression maps "a weighted sum of the attribute values" (Provost & Fawcett, 2013, p. 85, verbatim) to a probability (pp. 97 to 98), as on slide 3 of *Evaluating a classifier*; networks stack such models (p. 107).
+
+
+---
+class: stepwise-svg
+# Activation functions
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/activation.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Two functions of the weighted sum: the logistic, between 0 and 1, and the ReLU, zero below zero and the sum itself above"></object></div>
+.step-3.lead.big.center[Without one, a stack of layers is a single weighted sum.]
+]
+
+.footnote[S. J. D. Prince (2023), pp. 25, 35 and 66.]
+
+???
+
+**Without an activation function, a stack of layers is a single weighted sum.** After its weighted sum, each neuron applies a function: the logistic gives a value between 0 and 1, as on the first day (Prince, 2023, p. 66); the ReLU, the most common choice, gives 0 below zero and the sum itself above (pp. 25 and 35). With no activation function, or a linear one, a network describes only a linear relation between inputs and output (p. 35). Slide 4 arranges the neurons in layers.
+
+
+---
+class: stepwise-svg
+# A neural network
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/layers.svg" style="width: 96%; display: block; margin: 0 auto; pointer-events: none;" aria-label="An input layer for a wine's values, two hidden layers, an output layer with one neuron per line: low, medium, high"></object></div>
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 107.] S. J. D. Prince (2023), chapter 4; deep: p. 41. Schematic.]
+
+???
+
+**A neural network arranges neurons in layers: inputs, hidden layers, one output neuron per class; deep means more than one hidden layer.** Layer after layer, "each subsequent layer in the stack applies a simple model" (Provost & Fawcett, 2013, p. 107, verbatim) to the outputs of the layer below; for the wines, the outputs are the three lines. Prince counts any network with more than one hidden layer as deep (2023, p. 41), and many have far more than the two drawn: LeCun et al. speak of 5 to 20 (2015, p. 438). Slide 5 asks why networks took decades to pay off.
+
+
+---
+class: stepwise-svg
+# 1958 to 1998
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/timeline-1.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A timeline with pictures: the Mark I Perceptron in 1958; back-propagation in 1986, with a portrait of G. Hinton; handwritten digits read by LeNet in 1998"></object></div>
+.step-5.lead.big.center[The ideas are old; labelled data and compute were missing.]
+]
+
+.footnote[F. Rosenblatt (1958); D. E. Rumelhart, G. E. Hinton and R. J. Williams (1986); Y. LeCun et al. (1998). Photos: U.S. Navy, public domain; Arthur Petron, .lic[CC BY-SA 4.0], cropped; Josef Steppan, .lic[CC BY-SA 4.0]; all via Wikimedia Commons.]
+
+???
+
+**The ideas are old, the perceptron of 1958, back-propagation of 1986, LeNet of 1998; labelled data and compute were missing.** Back-propagation let hidden units learn their own features, where those of the perceptron (Rosenblatt, 1958) were set by hand (Rumelhart et al., 1986, p. 533); G. Hinton, pictured, co-signed it and later AlexNet. A cheque reader built on LeNet-5 read several million cheques a day (LeCun et al., 1998, pp. 1 and 2), yet by the late 1990s networks were largely set aside, until graphics cards and labelled datasets brought them back (LeCun et al., 2015, pp. 438 to 440).
+
+
+---
+class: stepwise-svg
+# 2009 to 2022
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/timeline-2.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The timeline continued: ImageNet in 2009, AlexNet on two graphics cards in 2012, ResNet with 152 layers in 2015, the transformer in 2017, GPT-3 in 2020, ChatGPT in 2022"></object></div>
+.step-5.lead.big.center[Labelled data and graphics cards made networks win; then they grew.]
+]
+
+.footnote[J. Deng et al. (2009); A. Krizhevsky, I. Sutskever and G. Hinton (2017, first published 2012); K. He et al. (2016); A. Vaswani et al. (2017); T. Brown et al. (2020); OpenAI (2022). Photo: a GTX 580 board, Fritzchens Fritz, Wikimedia Commons, .lic[CC0].]
+
+???
+
+**Large labelled datasets and graphics cards made networks win; then they grew.** ImageNet held 3.2 million labelled images in 2009 (Deng et al., 2009, abstract). In 2012, AlexNet, trained for five to six days on two GTX 580 graphics cards, won the ImageNet challenge with a top-5 error of 15.3% against 26.2% (Krizhevsky et al., 2017, abstract and section 1). Then came ResNet's 152 layers (He et al., 2016, p. 1), the transformer for translation (Vaswani et al., 2017, p. 1), GPT-3's 175 billion parameters (Brown et al., 2020, p. 5) and ChatGPT, free to use in 2022 (OpenAI, 2022).
+
+
+---
+class: stepwise-svg
+# Training data
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/data-sizes.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Training sets on a log scale: 60,000 digits for MNIST in 1998, 1.28 million photos for ImageNet, 3.3 billion words for BERT, 300 billion tokens for GPT-3, 400 million captioned photos for CLIP"></object></div>
+.step-3.lead.big.center[From thousands of examples to hundreds of billions.]
+]
+
+.footnote[Y. LeCun et al. (1998), p. 10; K. He et al. (2016), p. 4; J. Devlin et al. (2019), p. 13; T. Brown et al. (2020), p. 8; A. Radford et al. (2021), p. 1. The units differ.]
+
+???
+
+**Training sets grew from thousands of examples to hundreds of billions.** LeNet learned from 60,000 handwritten digits (LeCun et al., 1998, p. 10), ResNet from 1.28 million labelled photos (He et al., 2016, p. 4), BERT from 3.3 billion words (Devlin et al., 2019, p. 13), GPT-3 from 300 billion tokens of text (Brown et al., 2020, p. 8) and CLIP from 400 million photos with their captions (Radford et al., 2021, p. 1). The units differ, so the log scale compares orders of magnitude only. Slide 8 does the same for compute.
 
 
 ---
 class: stepwise-svg
 
-# A photo is just 150,528 numbers
-
-<img class="phase-thumb" src="images/phase-du.svg" alt="The CRISP-DM phases, data understanding lit" />
-
-.beside-thumb[
-<div class="step-1"><object type="image/svg+xml" data="images/pixels.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A tiger photo at 224 by 224 pixels, one patch of 25 pixels zoomed to its red, green and blue values"></object></div>
-]
-
-.footnote[Photo: S. Taheri, edited by Fir0002, Wikimedia Commons, .lic[CC BY-SA 2.5], resized. 224 × 224: the input of EfficientNet B0, M. Tan and Q. Le (2019), Table 1.]
-
-???
-
-**To a model, a colour photo is 150,528 numbers: 224 by 224 pixels, each with a red, a green and a blue value.** The tiger photo is resized to 224 by 224, the input of EfficientNet B0, the network of Hands-on 4 (Tan & Le, 2019, Table 1), and a typical size for image classification (Prince, 2023, chapter 10). The zoomed patch shows 25 of its pixels and their three values. Unlike a credit column, no single number says tiger; slide 4 shows how a network copes.
-
-
----
-class: stepwise-svg
-
-# Deep learning learns the features itself
+# Training compute
 
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/deep-features.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A table's columns go straight to a model; a photo's pixels go through layers that learn the features"></object></div>
+<div class="step-1"><object type="image/svg+xml" data="images/compute-1.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Training compute of milestone models on a log scale, from the perceptron near a million operations to Llama 3.1 near 10 to the 25"></object></div>
+.step-3.lead.big.center[A log scale: each gridline is 100,000 times the one below.]
 ]
 
-.footnote[Y. LeCun, Y. Bengio and G. Hinton (2015), *Nature* 521:436 to 444. Schematic.]
+.footnote[Data: Epoch AI (2026), *Data on Notable AI Models*, .lic[CC BY 4.0]. Training compute in floating-point operations (FLOP), log scale.]
 
 ???
 
-**Deep learning learns its features from the raw pixels, where a table brings its features with it.** For decades, classifying pixel values required engineers to design a feature extractor by hand; deep learning lets layers discover the representations from the raw data, by a general-purpose learning procedure (LeCun et al., 2015, p. 436). The first layers typically detect edges, later ones motifs, parts and then objects (p. 436). The figure is a schematic; slide 5 shows why this came so late.
+**On a log scale, each gridline is 100,000 times the one below: training compute rose from under a million operations for the perceptron to about 4 × 10<sup>25</sup> for Llama 3.1 in 2024.** The chart counts floating-point operations (FLOP), additions and multiplications, as reported by each paper or estimated from its hardware or architecture (Epoch AI, 2026). Epoch rates ten of the twelve values accurate within a factor of 3, those of the perceptron and GPT-4 within a factor of 10. Slide 9 measures how fast the climb was.
 
 
 ---
 class: stepwise-svg
 
-# Early networks lacked data and compute
+# Training compute over time
+
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/timeline-1.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A timeline: one artificial neuron in 1958, errors sent back through the layers in 1986, digits read on cheques in 1998; labelled data and compute still missing"></object></div>
+<div class="step-1"><object type="image/svg+xml" data="images/compute-2.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The same points with two trend lines: doubling about every 20 months before 2010, about every 6 months since 2012"></object></div>
 ]
 
-.footnote[F. Rosenblatt (1958); D. E. Rumelhart, G. E. Hinton and R. J. Williams (1986); Y. LeCun, L. Bottou, Y. Bengio and P. Haffner (1998).]
+.footnote[J. Sevilla et al. (2022); data: Epoch AI (2026), .lic[CC BY 4.0].]
 
 ???
 
-**The ideas are old: what early networks lacked was labelled data and compute.** In 1958, Rosenblatt's perceptron learned the weights of a linear yes-or-no rule from data (Prince, 2023, p. 37); in 1986, back-propagation trained hidden units to represent features of the task (Rumelhart et al., 1986, p. 533); by 1998, a convolutional network read several million cheques a day (LeCun et al., 1998, p. 1). Yet until shortly before 2012, labelled image sets held tens of thousands of images, and convolutional networks were too expensive to apply to high-resolution images at scale (Krizhevsky et al., 2017, section 1). Slide 6 shows what changed.
+**Training compute doubled about every 20 months before 2010 and about every 6 months since the early 2010s.** Sevilla et al. find the older pace in line with Moore's law and the change coming with deep learning (2022, p. 1). Their fitted 0.6 orders of magnitude a year since 2010 (p. 3) is about four times more each year, a million times more in ten years. The two dashed lines carry these two rates through the chart's points; they are not fitted to them. Slide 10 sets the result against one supercomputer.
 
 
 ---
 class: stepwise-svg
 
-# In 2012, data and GPUs made networks win
+# Lonestar 5
+
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/timeline-2.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The timeline continued: ImageNet in 2009, AlexNet on two gaming GPUs in 2012, ResNet with 152 layers in 2015, the transformer in 2017, GPT-3 in 2020, ChatGPT in 2022"></object></div>
+<div class="step-1"><object type="image/svg+xml" data="images/compute-3.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="One day of Lonestar 5 at peak, about 10 to the 20 operations: AlexNet takes 6 minutes of it, GPT-3 8 years"></object></div>
+
 ]
 
-.footnote[J. Deng et al. (2009); A. Krizhevsky, I. Sutskever and G. Hinton (2017, first published 2012): two GTX 580 graphics cards; K. He et al. (2016); A. Vaswani et al. (2017); T. Brown et al. (2020); OpenAI (2022).]
+.footnote[T. Brown et al. (2020), Table D.1; TACC (2015): 1.25 petaflops at peak; data: Epoch AI (2026), .lic[CC BY 4.0]. Peak and training arithmetic differ. Photo: Julian Herzog, .lic[CC BY 4.0].]
 
 ???
 
-**In 2012, millions of labelled photos and two graphics processing units (GPUs) made a network win; networks have grown ever since.** ImageNet held 3.2 million labelled images in 2009 (Deng et al., 2009, abstract). AlexNet trained on its challenge set for five to six days on two GTX 580 cards (Krizhevsky et al., 2017, section 1) and almost halved the best competing error rate (LeCun et al., 2015, p. 440). Then came ResNet's 152 layers (He et al., 2016, abstract), the transformer, built for translation (Vaswani et al., 2017, p. 1), GPT-3's 175 billion parameters (Brown et al., 2020, p. 1) and ChatGPT, free to the public in its research preview (OpenAI, 2022).
+**One day of the Lonestar 5 supercomputer at its peak would do AlexNet's training arithmetic in 6 minutes, GPT-3's in 8 years.** In service from January 2016, Lonestar 5 peaked at 1.25 petaflops (Texas Advanced Computing Center, 2015), about 1.08 × 10<sup>20</sup> operations a day. AlexNet took 4.7 × 10<sup>17</sup> operations (Epoch AI, 2026), GPT-3 3.14 × 10<sup>23</sup> (Brown et al., 2020, Table D.1). Its benchmark counts 64-bit operations (Texas Advanced Computing Center, 2015), and training runs reach about 30% to 50% of peak (Epoch AI, 2026): an order of magnitude only. Borrowing a trained network avoids this cost.
 
 
 ---
 class: stepwise-svg
-
-# Ask a photo what, where or which pixels
+# Forward pass
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/tasks.svg" style="width: 92%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three questions asked of a photo: one label for the photo, a box per object, a label for each pixel"></object></div>
-
-.step-4.lead.big.center[Hands-on 4 asks *what*: one label per photo. Dataiku also offers object detection.]
+<div class="step-1"><object type="image/svg+xml" data="images/forward.svg" style="width: 96%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The wine's values 12.0, 0.27 and 0.56 pass through three hidden neurons to three line scores: low 0.4, medium 1.6, high 0.2"></object></div>
 ]
 
-.footnote[S. J. D. Prince (2023), sections 10.5.1 to 10.5.3; Dataiku (2024), *Computer vision*. Illustrative shapes.]
+.footnote[S. J. D. Prince (2023), chapter 4. The wine of *Beyond binary classification*, slide 2. Hidden values and scores illustrative.]
 
 ???
 
-**A photo can be asked what it shows, where each object is, or which pixels belong to which object.** Image classification gives the whole image one class; object detection finds each object and the box around it; semantic segmentation labels every pixel (Prince, 2023, section 10.5). Dataiku offers the first two (Dataiku, 2024, Computer vision), and Hands-on 4 asks *what*: one label per photo. The shapes are illustrative; slide 8 opens the network behind the answer.
+**In the forward pass, the wine's values flow through the layers to one score per line.** The wine of *Beyond binary classification*, slide 2, enters with alcohol 12.0, volatile acidity 0.27 and sulphates 0.56; each hidden neuron takes a weighted sum, then a ReLU, giving 0.9, 0 and 1.4; the output layer turns these into scores: low 0.4, medium 1.6, high 0.2. All values but the wine's are illustrative. Running the network on an example and keeping every layer's values is the forward pass (Prince, 2023, p. 97). Slide 12 turns the scores into probabilities.
 
 
 ---
 class: stepwise-svg
-
-# One unit is the logistic regression of the first day
-
+# Softmax
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/unit.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three pixel values times three weights, summed with a bias to 0.28, then squashed to 0.57"></object></div>
-]
-
-.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 106 to 107.] *Evaluating a classifier*, slide 3. Illustrative values.]
-
-???
-
-**One unit of a network is a logistic regression: a weighted sum of its inputs plus a bias, squashed to between 0 and 1.** With the illustrative values, 0.2 × 1.5 + 0.9 × (-0.8) + 0.5 × 2.0 + (-0.3) = 0.28, which the logistic function squashes to 0.57 (Provost & Fawcett, 2013, p. 100), as P(bad) was computed in *Evaluating a classifier*, slide 3. Provost and Fawcett build networks from such models: "Let’s say these are logistic regressions" (Provost & Fawcett, 2013, p. 107, verbatim). Slide 9 stacks them.
-
-
----
-class: stepwise-svg
-
-# A network stacks units in layers
-
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/layers.svg" style="width: 96%; display: block; margin: 0 auto; pointer-events: none;" aria-label="An input layer for the pixels, two hidden layers, an output layer with one unit per class"></object></div>
-]
-
-.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 107.] S. J. D. Prince (2023), chapter 4. Schematic.]
-
-???
-
-**A network stacks units in layers: the pixels enter, hidden layers transform them, and the output layer has one unit per class.** Each layer applies simple models to the outputs of the layer below, and "target labels for training are provided only for the final layer" (Provost & Fawcett, 2013, p. 107, verbatim). A network with several hidden layers is called deep (Prince, 2023, section 3.5): typically 5 to 20 (LeCun et al., 2015, p. 438), 152 in ResNet (slide 6). Slide 10 runs a photo through.
-
-
----
-class: stepwise-svg
-
-# A photo flows forward to one score per class
-
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/forward.svg" style="width: 96%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three input values pass through three hidden units to three class scores: lion 2.1, tiger 0.4, cat minus 1.0"></object></div>
-]
-
-.footnote[S. J. D. Prince (2023), chapter 4. Illustrative values.]
-
-???
-
-**A photo flows forward, layer by layer, to one score per class.** Each unit takes a weighted sum of the layer below and passes it through a non-linear function (LeCun et al., 2015, p. 438), from the input up to the output units (Rumelhart et al., 1986, p. 533). In the illustrative figure, the pixel values 0.2, 0.9 and 0.5 give the hidden values 0.6, 0.1 and 0.8, then the scores 2.1 for lion, 0.4 for tiger and -1.0 for cat. Scores can take any value (Prince, 2023, section 5.5): slide 11 turns them into probabilities.
-
-
----
-class: stepwise-svg
-
-# The last layer turns scores into probabilities
-
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/softmax.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three scores, 2.1, 0.4 and minus 1.0, become the probabilities 0.81, 0.15 and 0.04 through a softmax"></object></div>
+<div class="step-1"><object type="image/svg+xml" data="images/softmax.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three scores, 0.4, 1.6 and 0.2, become the probabilities 0.19, 0.65 and 0.16 through a softmax"></object></div>
 ]
 
 .footnote[S. J. D. Prince (2023), section 5.5. *Beyond binary classification*, slide 2. Illustrative scores.]
 
 ???
 
-**The last layer turns the scores into probabilities, one per class, summing to one.** The softmax raises e to each score, which makes it positive, and divides by their sum (Prince, 2023, section 5.5): the illustrative scores 2.1, 0.4 and -1.0 give about 8.17, 1.49 and 0.37, which sum to 10.03, hence 0.81, 0.15 and 0.04. As in *Beyond binary classification*, slide 2, the most probable class wins unless the costs say otherwise (that deck's slide 8). Slide 12 measures how wrong such an answer is.
+**Softmax turns the scores into probabilities that sum to one.** It raises e to each score and divides by their sum, so each result lies between 0 and 1 and all add up to 1 (Prince, 2023, p. 68): the illustrative scores 0.4, 1.6 and 0.2 become 0.19 low, 0.65 medium and 0.16 high. The most probable line is predicted (p. 69), unless the costs say otherwise (*Beyond binary classification*, slide 2). There, a random forest, a different model, gave this wine 0.19, 0.59 and 0.22. This wine's line is low: slide 13 measures the miss.
 
 
 ---
 class: stepwise-svg
-
-# The loss measures how wrong one answer is
-
+# Loss
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/loss.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The same output, 0.81 lion: for a tiger photo the loss is 1.90, high; for a lion photo it is 0.21, low"></object></div>
+<div class="step-1"><object type="image/svg+xml" data="images/loss.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The same output, 0.65 medium: for this wine, whose line is low, the loss is 1.64, high; for a medium wine it is 0.44, low"></object></div>
 ]
 
 .footnote[S. J. D. Prince (2023), section 5.5: the cross-entropy loss. Illustrative values.]
 
 ???
 
-**The loss is one number for how wrong one answer is: minus the log of the probability given to the true class.** The illustrative output, 0.81 lion, 0.15 tiger and 0.04 cat, costs 1.90 for a tiger photo, -ln(0.15), and 0.21 for a lion photo: the more confident a wrong answer, the higher the loss. Summed over the training photos, this is the cross-entropy loss (Prince, 2023, section 5.5); loss itself is "a general term for error penalty" (Provost & Fawcett, 2013, p. 94, verbatim). Slide 13 lowers it.
+**The more probability the network puts on wrong lines, the higher the loss.** The loss is minus the log of the probability given to the true line, the multiclass cross-entropy (Prince, 2023, p. 69). With the same illustrative output, this wine, whose line is low and gets 0.19, costs 1.64; a medium wine, given 0.65, costs 0.44. A loss is "a general term for error penalty" (Provost & Fawcett, 2013, p. 94, verbatim); logistic regression is fitted the same way, on the probability given to each example's actual class (p. 101). Slide 14 lowers the loss.
 
 
 ---
 class: stepwise-svg
-
-# Gradient descent lowers the loss step by step
-
+# Gradient descent
 
 .fullw[
 <div class="step-1"><object type="image/svg+xml" data="images/descent.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A loss curve over one weight; from a random start, each step goes a little downhill"></object></div>
+.step-4.lead.big.center[Deep-learning frameworks train every network this way, whatever its data.]
 ]
 
-.footnote[S. J. D. Prince (2023), chapter 6; 5.3 million: M. Tan and Q. Le (2019), Table 2. Illustrative curve.]
+.footnote[S. J. D. Prince (2023), chapter 6; 175 billion: T. Brown et al. (2020), p. 5. Illustrative curve.]
 
 ???
 
-**Gradient descent lowers the loss step by step, moving every weight a little downhill.** Training repeats two steps: compute the gradient, how the loss changes with each weight, then move each weight a small distance against it, set by the learning rate (Prince, 2023, section 6.1). The illustrative curve shows one weight; EfficientNet B0 has 5.3 million (Tan & Le, 2019, Table 2), all fitted together, as Provost and Fawcett fit their stack of models as one function (Provost & Fawcett, 2013, p. 107). Slide 14 computes the gradients.
+**Gradient descent moves each weight a small step down the loss; frameworks train every network this way, whatever its data.** From random initial weights, it computes the gradient, the direction in which the loss rises, and moves a small step the other way, again and again (Prince, 2023, pp. 78 and 96). Provost and Fawcett give every fitted model this goal: "find the optimal value for the weights by maximizing or minimizing the objective function" (Provost & Fawcett, 2013, p. 87, verbatim). The curve is illustrative; GPT-3 has 175 billion parameters to move (Brown et al., 2020, p. 5).
 
 
 ---
 class: stepwise-svg
-
-# Back-propagation sends the error back
-
+# Back-propagation
 
 .fullw[
 <div class="step-1"><object type="image/svg+xml" data="images/backprop.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Forward through four layers to the loss, then the error sent back to every layer"></object></div>
@@ -398,65 +404,188 @@ class: stepwise-svg
 
 ???
 
-**Back-propagation finds each weight's gradient by sending the error back from the loss through the layers.** A forward pass runs the photo up to the loss, 1.90 for the tiger photo of slide 12; a backward pass then propagates the derivatives from the top layer back to the bottom (Rumelhart et al., 1986, p. 534). It computes them all efficiently (Prince, 2023, section 7.1), and the hidden units come to represent features of the task that nobody specified (Rumelhart et al., 1986, p. 533). Slide 15 repeats it over the training photos.
+**Back-propagation sends the error back through the layers to give each weight its gradient.** From the loss of slide 13, it computes the derivatives at the end of the network first and works backward, reusing the values the forward pass stored (Prince, 2023, pp. 97 and 99), as Rumelhart et al. set out (1986, pp. 533 to 534). It solves the problem that "target labels for training are provided only for the final layer" (Provost & Fawcett, 2013, p. 107, verbatim): the hidden layers learn from the error passed back. Slide 16 puts the steps in a loop.
 
 
 ---
 class: stepwise-svg
-
-# One pass over the training photos is an epoch
-
+# The training loop
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/epochs.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Every training photo once, a batch at a time, is one epoch; the training loss falls over twenty epochs"></object></div>
+<div class="step-1"><object type="image/svg+xml" data="images/loop.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Four steps in a loop: forward a batch, its loss, the backward pass, an update of every weight; then the next batch"></object></div>
+.step-6.lead.big.center[PyTorch runs this loop; Dataiku's image models are built on PyTorch.]
+]
+
+.footnote[S. J. D. Prince (2023), sections 6.2 and 7.2; A. Zhang et al. (2023), section 3.4; Dataiku (2024), *Computer vision*.]
+
+???
+
+**Training is a loop, forward, loss, backward, update, one batch at a time; PyTorch runs this loop, and Dataiku's image models are built on PyTorch.** A batch is a random subset of the training examples; taking each gradient from a batch alone is stochastic gradient descent, cheaper than using all the data at every step (Prince, 2023, pp. 85 to 86). Zhang et al. write it in PyTorch and use similar loops for every model of their book (2023, section 3.4.4), and Dataiku's computer vision is based on PyTorch (Dataiku, 2024). Slide 17 counts the passes over the data.
+
+
+---
+class: stepwise-svg
+# Epochs
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/epochs.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Every training example once, a batch at a time, is one epoch; the training loss falls over twenty epochs"></object></div>
 ]
 
 .footnote[S. J. D. Prince (2023), section 6.2. Illustrative curve.]
 
 ???
 
-**One pass over all the training photos is an epoch, and training runs many.** Each step of stochastic gradient descent uses a random batch of photos; once every photo has been used, an epoch ends and the next begins (Prince, 2023, section 6.2.1). In Dataiku, the batch size sets the number of images per training step (Dataiku, 2024, Computer vision). The illustrative training loss falls over twenty epochs, but a falling training loss does not say when to stop: slide 16 does.
+**An epoch is one pass over all the training examples, a batch at a time; training runs many.** Batches are drawn until every example has been used, then drawing starts again over the full training set; each full pass is an epoch (Prince, 2023, p. 85). The illustrative curve shows the training loss falling over 20 epochs, fast at first, then slowly. The number of epochs is a setting chosen before training, like the learning rate (Zhang et al., 2023, section 3.4.4). Slide 18 shows when to stop sooner.
 
 
 ---
 class: stepwise-svg
 
-# The validation curve says when to stop
+# Early stopping
 
 
 .fullw[
 <div class="step-1"><object type="image/svg+xml" data="images/early-stop.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The training loss keeps falling; the validation loss falls, then rises; training stops at its lowest point"></object></div>
 
-.step-4.lead.center[In Dataiku: a *number of epochs*, and *early stopping*.]
 ]
 
-.footnote[S. J. D. Prince (2023), section 9.3.1; Dataiku (2024), *Computer vision*. Illustrative curves.]
+.footnote[S. J. D. Prince (2023), section 9.3.1; Illustrative curves.]
 
 ???
 
-**Training should stop where the validation loss is lowest, before the network learns its training photos by heart.** On the illustrative curves, the training loss keeps falling while the loss on held-out photos falls, then rises: overfitting, the tendency to "tailor models to the training data, at the expense of generalization" (Provost & Fawcett, 2013, p. 113, verbatim). Early stopping keeps the weights where validation was best (Prince, 2023, section 9.3.1); Dataiku caps the *number of epochs* and offers *early stopping* (Dataiku, 2024, Computer vision). Slide 17 opens the layers built for images.
+**Training should stop where the validation loss is lowest, before the network learns its training set by heart.** On the illustrative curves, the training loss keeps falling while the loss on held-out validation examples falls, then rises: overfitting, the tendency to "tailor models to the training data, at the expense of generalization" (Provost & Fawcett, 2013, p. 113, verbatim). Early stopping checks the validation loss during training and keeps the weights where it was lowest (Prince, 2023, p. 145). Slide 19 adds variety to the data instead.
+
+
+---
+class: stepwise-svg
+# Augmentation
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/augment.svg" style="width: 96%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A photo flipped, a sentence with a synonym, a sound filtered: each a new training example with the same label"></object></div>
+.step-5.lead.big.center[Variety, not new information: it cannot fix a wrong label.]
+]
+
+.footnote[S. J. D. Prince (2023), section 9.3.8. Drawn examples.]
+
+???
+
+**Augmentation adds varied copies of each training example with the same label: variety, not new information, and it cannot fix a wrong label.** A photo is flipped, a sentence takes a synonym, a sound has a frequency band filtered: each change leaves the label valid (Prince, 2023, p. 152), and the aim is to teach the model to ignore such irrelevant changes (p. 154). Every copy inherits its original's label, so a wrong label is copied, not corrected. Part 4 turns from training to the data, starting with a table.
+
+
+---
+
+# A table
+
+.fullw.terms[
+<table class="big">
+<tr><th>alcohol</th><th>volatile acidity</th><th>sulphates</th><th>colour</th><th class="tgt">grade</th></tr>
+<tr class="meaning"><td>% by volume</td><td>acetic acid, g/dm³</td><td>potassium sulphate, g/dm³</td><td>red or white</td><td class="tgt">the target: the line</td></tr>
+<tr><td>8.8</td><td>0.27</td><td>0.45</td><td>white</td><td class="tgt">medium</td></tr>
+<tr><td>12.0</td><td>0.27</td><td>0.56</td><td>white</td><td class="tgt">low</td></tr>
+<tr><td>12.4</td><td>0.16</td><td>0.52</td><td>white</td><td class="tgt">high</td></tr>
+</table>
+.lead.big.center[Each column means something before any model reads it.]
+]
+
+.footnote[Lines 2, 12 and 15 of the course file, five of its 13 columns. P. Cortez et al. (2009); UCI Machine Learning Repository, .lic[CC BY 4.0].]
+
+???
+
+**Each column of a table means something before any model reads it.** Three wines of the course file, the middle one the wine of slides 2 and 11, appear on five of its 13 columns with their units (Cortez et al., 2009, Table 1) and the target, the wine's line. Each row is an instance "described by a set of attributes" (Provost & Fawcett, 2013, p. 46, verbatim), each with a meaning of its own (Grinsztajn et al., 2022, p. 8). Slide 21 asks which models suit such columns.
+
+
+---
+
+# Trees and networks on tables
+
+.fullw[
+<div class="duo big">
+<div><b class="k">45 tables, up to 10,000 rows</b>Tree-based models, boosted trees first, stayed ahead of the networks tested at every tuning budget.</div>
+<div class="lit"><b class="k">The wines of <i>Beyond binary classification</i></b>A network did about as well as a regression, and a support vector machine beat both.</div>
+</div>
+.lead.big.center[On a firm's tables, try a tree ensemble first.]
+]
+
+.footnote[L. Grinsztajn, E. Oyallon and G. Varoquaux (2022), pp. 1 to 8; P. Cortez et al. (2009), p. 13; N. Hollmann et al. (2025).]
+
+???
+
+**On a firm's tables, try a tree ensemble first.** On 45 tables of up to 10,000 rows, tree-based models stayed ahead of the networks tested at every tuning budget (Grinsztajn et al., 2022, pp. 3 to 6); on the wines, a support vector machine beat both a network and a regression (Cortez et al., 2009, p. 13). First, not only: "we can easily compare various models on the same data" (Provost & Fawcett, 2013, p. 353, verbatim). TabPFN, pretrained on synthetic tables, has since beaten tree ensembles there (Hollmann et al., 2025, p. 323).
 
 
 ---
 class: stepwise-svg
 
-# A convolution finds one pattern everywhere
+# A photo
+
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/pixels.svg" style="width: 92%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A tiger photo at 224 by 224 pixels, one patch of 25 pixels zoomed to its red, green and blue values"></object></div>
+]
+
+.footnote[Photo: S. Taheri, edited by Fir0002, Wikimedia Commons, .lic[CC BY-SA 2.5], resized. 224 × 224 × 3: S. J. D. Prince (2023), p. 161.]
+
+???
+
+**To a model, a colour photo is 150,528 numbers, and no single one means anything.** A typical image for classification holds 224 by 224 pixels, each with a red, a green and a blue value: 150,528 inputs (Prince, 2023, p. 161). The zoomed patch shows 25 of the photo's pixels with their three values. A table's columns carry meaning one by one (slide 20); in a photo, nearby pixels are related (p. 161), which a plain network ignores, as slide 23 shows.
+
+
+---
+class: stepwise-svg
+# A photo in a plain network
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/flatten.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A 4 by 4 patch unrolled into one list, row after row: two pixels one above the other end up 4 places apart"></object></div>
+.step-4.lead.big.center[Shuffle every photo's pixels the same way: a plain network can still be trained.]
+]
+
+.footnote[S. J. D. Prince (2023), p. 161. Illustrative grey levels.]
+
+???
+
+**A plain network reads a photo's pixels as one long list, without knowing which are neighbours.** Unrolled row after row, two vertical neighbours land 4 places apart in the illustrative patch, 224 in a photo 224 pixels wide. A fully connected network treats every pair of inputs alike: shuffle the pixels of every training and test photo the same way, and it can still be trained (Prince, 2023, p. 161). It must also learn a pattern separately at every position (p. 161), which slide 24 avoids.
+
+
+---
+class: stepwise-svg
+
+# Convolution
 
 
 .fullw[
 <div class="step-1"><object type="image/svg+xml" data="images/convolution.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A three by three filter slides over the pixels; its map is lit where the pixels change from dark to light"></object></div>
+.step-4.lead.big.center[A filter reads each pixel together with its neighbours.]
 ]
 
-.footnote[S. J. D. Prince (2023), chapter 10. Illustrative.]
+.footnote[S. J. D. Prince (2023), section 10.2. Illustrative.]
 
 ???
 
-**A convolution slides one small filter over the whole image, so it finds the same pattern wherever it appears.** Each output is a weighted sum of a 3 by 3 patch, with the same nine weights at every position (Prince, 2023, section 10.3); the illustrative filter lights up where dark pixels meet light ones, along an edge. Sharing the weights suits images, where a motif can appear anywhere (LeCun et al., 2015, p. 439), and keeps them few: a fully connected layer on 150,528 inputs would need over 22 billion (Prince, 2023, chapter 10). Slide 18 shows what trained filters find.
+**A convolution's filter reads each pixel together with its neighbours.** A 3 by 3 filter takes a weighted sum of each pixel and the eight around it, then slides on, with the same weights at every position (Prince, 2023, pp. 163 and 170). In the illustrative grid, dark on the left and light on the right, the filter's map lights up only along the edge between them. Slide 25 counts what sharing the same weights everywhere saves.
 
 
 ---
 
-# The first layers find edges
+# Weight sharing
+
+.fullw[
+<div class="facts big two">
+<div><span class="num">22 billion</span>weights in one plain layer from a 224 × 224 colour photo to as many hidden neurons.</div>
+<div><span class="num">9</span>weights in a 3 × 3 filter on one channel, the same at every position of the photo.</div>
+</div>
+.lead.big.center[The same weights everywhere: a pattern is found wherever it appears.]
+]
+
+.footnote[S. J. D. Prince (2023), pp. 161 and 163; Y. LeCun, Y. Bengio and G. Hinton (2015), p. 439.]
+
+???
+
+**The same weights at every position find a pattern wherever it appears, with a handful of weights instead of billions.** A plain layer from a 224 by 224 colour photo to as many hidden neurons would need over 22 billion weights (Prince, 2023, p. 161); a 3 by 3 filter has 9 per channel, 27 over the three colours (p. 170). Sharing suits images because a motif that can appear in one place can appear anywhere (LeCun et al., 2015, p. 439). Slide 26 shows what trained filters find.
+
+
+---
+
+# First layers
 
 
 .fullw[
@@ -471,13 +600,13 @@ class: stepwise-svg
 
 ???
 
-**The first layers of a trained network find edges, and nobody programmed them to.** The image is a feature visualisation: a picture adjusted until one channel of layer conv2d0 of GoogLeNet, a network trained on ImageNet, responds strongly to it (Olah et al., 2017). Networks trained on natural images learn first-layer features of the same kinds, oriented edges and colour blobs, whatever the dataset or training objective (Yosinski et al., 2014, section 1; LeCun et al., 2015, p. 436). Slide 19 goes deeper; slide 26 borrows these general first layers.
+**The first layers of a trained network find edges, and nobody programmed them to.** The image was adjusted step by step until one channel of layer conv2d0 of GoogLeNet, a network trained on ImageNet, responded strongly to it (Olah et al., 2017). Networks trained on natural images learn such first-layer features, edge detectors and colour blobs, whatever the dataset or training objective (Yosinski et al., 2014, p. 1); they are learned from data, not designed by engineers (LeCun et al., 2015, p. 436). Slide 27 goes deeper.
 
 
 ---
 class: stepwise
 
-# Deeper layers combine edges into objects
+# Deeper layers
 
 
 .fullw[
@@ -495,300 +624,174 @@ class: stepwise
 
 ???
 
-**Deeper layers combine edges into textures, patterns, parts and whole objects.** The four visualisations come from the same GoogLeNet: textures from layer mixed3a, patterns from mixed4a, parts from mixed4b and mixed4c, objects from mixed4d and mixed4e (Olah et al., 2017), the hierarchy LeCun et al. describe (2015, p. 439). The first layers stay general, the last become specific to the classes trained on (Yosinski et al., 2014, section 1), which transfer learning uses (slide 26). Slide 20 asks whether tables need such layers.
-
-
----
-
-# On tables, trees still match a network
-
-
-.fullw[
-<div class="duo big">
-<div><b class="k">45 tables, up to 10,000 rows</b>Random forests and boosted trees stayed ahead of four kinds of network, at every tuning budget.</div>
-<div class="lit"><b class="k">The wine of deck 4</b>A network did about as well as a regression, and a support vector machine beat both.</div>
-</div>
-]
-
-.footnote[L. Grinsztajn, E. Oyallon and G. Varoquaux (2022), pp. 3 to 6; P. Cortez et al. (2009), p. 13.]
-
-???
-
-**On tables, tree ensembles still match or beat deep networks.** On 45 tables from varied domains, with training sets cut to 10,000 rows, random forests and boosted trees beat four kinds of network at every tuning budget, and each tuning step was generally slower for a network (Grinsztajn et al., 2022, pp. 3 to 6). On the wine data of *Beyond binary classification*, a network did about as well as multiple regression, and a support vector machine beat both (Cortez et al., 2009, p. 13). Slide 21 says why.
-
-
----
-
-# A table's columns are already features
-
-
-.fullw[
-<div class="duo big">
-<div><b class="k">A photo</b>No pixel means anything alone: the network must learn its features, and that is what it is good at.</div>
-<div class="lit"><b class="k">A table</b>Each column already means something, many say little, and the patterns are irregular: trees handle that, at a fraction of the cost.</div>
-</div>
-
-.lead.big.center[For a firm's tables, a tree ensemble is the first model to try.]
-]
-
-.footnote[L. Grinsztajn, E. Oyallon and G. Varoquaux (2022), pp. 6 to 8; N. Hollmann et al. (2025), *Nature* 637:319 to 326.]
-
-???
-
-**For a firm's tables, a tree ensemble is the first model to try: the columns are already features.** Each column carries a meaning of its own, as its name says; many are uninformative, and targets vary irregularly, which trees handle better than networks (Grinsztajn et al., 2022, pp. 6 to 8). Classification trees "select a single attribute at a time" (Provost & Fawcett, 2013, p. 102, verbatim). One to watch: TabPFN, a network pretrained on millions of synthetic tables, led on tables of up to 10,000 rows (Hollmann et al., 2025, p. 319). Slide 22 returns to photos.
-
-
----
-
-# Pretrained means trained first on ImageNet
-
-
-.fullw[
-<div class="facts big two">
-<div><span class="num">1.28 million</span>labelled training photos in the 2012 challenge's set.</div>
-<div><span class="num">1,000</span>classes, lion and tiger among them, and several domestic cats.</div>
-</div>
-
-.lead.big.center[A network pretrained on ImageNet has seen lions and tigers before Hands-on 4 begins.]
-]
-
-.footnote[J. Deng et al. (2009); K. He et al. (2016), section 4.1: 1.28 million training images; J. Yosinski et al. (2014), section 2: the felid classes.]
-
-???
-
-**A network pretrained on ImageNet has already learned from 1.28 million labelled photos, lions and tigers among them.** ImageNet's photos came from web image searches, and crowd workers on Amazon Mechanical Turk kept each one only on a convincing majority of votes (Deng et al., 2009, sections 3.1 and 3.2), a way of buying labels that Provost and Fawcett also describe (Provost & Fawcett, 2013, p. 343). The 2012 challenge trained on 1.28 million photos in 1,000 classes (He et al., 2016, section 4.1), 13 of them felids, lion, tiger and five domestic cats included (Yosinski et al., 2014, section 2). Slide 23 counts what learning from so many photos costs.
+**Layer after layer, a trained network combines edges into textures, patterns, parts and whole objects.** The four visualisations come from the same GoogLeNet: textures from layer mixed3a, patterns from mixed4a, parts from mixed4b and mixed4c, objects from mixed4d and mixed4e (Olah et al., 2017). LeCun et al. (2015, p. 439) describe the same hierarchy: edges form motifs, motifs parts, parts objects. The last layers become specific to the classes trained on (Yosinski et al., 2014, p. 1), which matters when a network is borrowed (slide 30).
 
 
 ---
 class: stepwise-svg
 
-# Training a network from scratch takes compute
-
+# Three image tasks
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/compute-1.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Training compute of milestone models on a log scale, from the perceptron near a million operations to Llama 3.1 near 10 to the 25"></object></div>
+<div class="step-1"><object type="image/svg+xml" data="images/tasks.svg" style="width: 92%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three questions asked of a photo: one label for the photo, a box per object, a label for each pixel"></object></div>
+
 ]
 
-.footnote[Data: Epoch AI (2026), *Data on Notable AI Models*, .lic[CC BY 4.0]. Training compute in floating-point operations (FLOP), log scale.]
+.footnote[S. J. D. Prince (2023), sections 10.5.1 to 10.5.3. Illustrative shapes.]
 
 ???
 
-**The compute spent to train one model grew from under a million operations for the perceptron to about 4 × 10<sup>25</sup> for Llama 3.1 in 2024.** The chart counts floating-point operations (FLOP), one addition or multiplication each, as reported in each paper or estimated from its hardware or architecture (Epoch AI, 2026). On its log scale, each gridline is 100,000 times the one below. Ten of the twelve values are rated accurate within a factor of 3, the perceptron and GPT-4 within 10 (Epoch AI, 2026). Slide 24 measures the slope.
-
-
----
-class: stepwise-svg
-
-# Training compute doubles every six months
-
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/compute-2.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The same points with two trend lines: doubling about every 20 months before 2010, about every 6 months since 2012"></object></div>
-]
-
-.footnote[J. Sevilla et al. (2022); data: Epoch AI (2026), .lic[CC BY 4.0].]
-
-???
-
-**Since the early 2010s, training compute has doubled about every six months; before 2010, about every 20 months.** Sevilla et al. find the older pace in line with Moore's law and date the change to the arrival of deep learning (Sevilla et al., 2022, p. 1). A doubling every six months is four times more each year (p. 3), about a million times more in ten years. The two dashed lines carry these two rates through the chart's points; they are not fitted to them. Slide 25 sets the result against one supercomputer.
-
-
----
-class: stepwise-svg
-
-# GPT-3 would keep Lonestar 5 busy for years
-
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/compute-3.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="One day of Lonestar 5 at peak, about 10 to the 20 operations: AlexNet takes 6 minutes of it, GPT-3 8 years"></object></div>
-
-.step-4.lead.center[A firm borrows a trained network instead.]
-]
-
-.footnote[T. Brown et al. (2020), Table D.1; TACC (2015): Lonestar 5, 1.25 petaflops at peak, 2016 to 2021; data: Epoch AI (2026), .lic[CC BY 4.0]. Peak and training arithmetic differ.]
-
-???
-
-**At its peak, the Lonestar 5 supercomputer would need about 8 years for GPT-3's training arithmetic.** Lonestar 5, at the University of Texas from January 2016, peaked at 1.25 petaflops (Texas Advanced Computing Center, 2015): about 1.08 × 10<sup>20</sup> operations a day. AlexNet's 4.7 × 10<sup>17</sup> take 6 minutes of it, GPT-3's 3.14 × 10<sup>23</sup> (Brown et al., 2020, p. 46) 8 years, Llama 3.1's nearly 1,000. Its benchmark counts 64-bit operations (Texas Advanced Computing Center, 2015), and training runs reach about 30% to 50% of their chips' peak (Epoch AI, 2026): an order of magnitude only. A firm borrows a trained network instead.
+**A photo can be asked what it shows, where each object is, or which pixels belong to which object.** Image classification assigns the image to one of a set of classes; object detection finds each object and the box around it; semantic segmentation labels every pixel (Prince, 2023, p. 174). The early detector YOLO starts from a network trained to classify ImageNet, then adapted to detection (Prince, 2023, p. 177): the reuse that slide 29 opens.
 
 
 ---
 
-# The first layers suit other photos too
-
+# Pretrained models
 
 .fullw[
-<div class="duo big">
-<div class="lit"><b class="k">The first layers</b>Edges and colours, alike whatever photos the network learned from: they suit other photos.</div>
-<div><b class="k">The last layers</b>Parts of ImageNet's own classes, specific to the task it was trained on.</div>
+<div class="trio">
+<div><b class="k">Photos</b><span class="num">1.28 million</span> labelled photos of ImageNet train image networks: AlexNet, ResNet.</div>
+<div><b class="k">Text</b><span class="num">3.3 billion</span> words of books and Wikipedia train BERT; 300 billion tokens, GPT-3.</div>
+<div><b class="k">Photos with captions</b><span class="num">400 million</span> pairs train CLIP, which links a photo to words.</div>
 </div>
-
-.lead.big.center[Borrow the first layers; replace the last.]
+.lead.big.center[Trained once, at great cost, then reused by others for their own tasks.]
 ]
 
-.footnote[J. Yosinski, J. Clune, Y. Bengio and H. Lipson (2014), sections 1 and 4.1.]
+.footnote[A. Zhang et al. (2023), section 14.2.1; K. He et al. (2016), p. 4; J. Devlin et al. (2019), pp. 3 and 13; T. Brown et al. (2020), p. 8; A. Radford et al. (2021), p. 1.]
 
 ???
 
-**A network's first layers find edges and colours whatever photos it learned from; its last layers belong to its own task.** Yosinski et al. call the first-layer features general, because networks trained on natural images all tend to learn them, and the last-layer features specific, one output unit per class (Yosinski et al., 2014, section 1). Between two halves of ImageNet, the first two layers transferred almost perfectly (section 4.1). These are the edges of slide 18: slide 27 keeps such layers and replaces the last one.
+**A pretrained model is trained once, at great cost, then reused by others for their own tasks.** The slide's three families learned from the training sets of slide 7: labelled photos, text, photos with captions. Collecting ImageNet cost millions of dollars (Zhang et al., 2023, section 14.2), and pretraining BERT took 4 days, while adapting it to a new task took a few hours on one graphics card (Devlin et al., 2019, pp. 13 and 5). The same pretrained weights start the models of many different tasks (p. 3).
+
+
+---
+class: stepwise-svg
+# Inside a pretrained network
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/general.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Seven blocks of a pretrained network shaded from general to specific: the first layers general, the last layers and the head fitted to the original task"></object></div>
+.step-4.lead.big.center[Keep the general layers for a new task; replace the specific ones.]
+]
+
+.footnote[J. Yosinski, J. Clune, Y. Bengio and H. Lipson (2014), p. 1 and section 4.1. Schematic.]
+
+???
+
+**Keep a pretrained network's general first layers for a new task; replace its specific last ones.** First-layer features suit many datasets and tasks, while each output of the last layer belongs to one class of the original task (Yosinski et al., 2014, p. 1). Between two halves of ImageNet's classes, layers 1 and 2 transferred almost perfectly; from layer 3 on, accuracy dropped, and at layers 6 and 7 mostly because the features were specific (section 4.1). Slide 31 replaces the head.
 
 
 ---
 class: stepwise-svg
 
-# Transfer learning trains only a new head
+# Transfer learning
 
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/transfer.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Seven frozen blocks of EfficientNet B0 trained on ImageNet; its 1,000-class output replaced by a new lion and tiger head, the only weights that learn"></object></div>
+<div class="step-1"><object type="image/svg+xml" data="images/transfer.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Seven locked blocks of a pretrained network; its original head replaced by a new head for your classes, the only weights that learn"></object></div>
+.step-4.lead.big.center[Only the new head learns from your examples.]
 ]
 
 .footnote[S. J. D. Prince (2023), section 9.3.6; A. Zhang et al. (2023), section 14.2. Schematic.]
 
 ???
 
-**Transfer learning keeps a network trained on ImageNet frozen and trains only a new last layer for the new classes.** The old last layer is removed and replaced; then either only the new layers learn or the whole network is fine-tuned (Prince, 2023, section 9.3.6). The new head starts from random weights (Zhang et al., 2023, section 14.2), here with two outputs, lion and tiger, in place of 1,000. In an advertising case, models built on cheaper data and transferred to the task let a team "operate with a substantially reduced investment in data" (Provost & Fawcett, 2013, p. 324, verbatim).
+**Transfer learning keeps the pretrained layers locked: only a new head learns from your examples.** The original last layer is replaced by a new head, one output per new class, starting from random weights (Prince, 2023, p. 152; Zhang et al., 2023, section 14.2.1). Locking suits a small set of examples, on which training many weights may overfit (Yosinski et al., 2014, p. 2). In display advertising, models transferred from cheaper data let a team "operate with a substantially reduced investment in data" (Provost & Fawcett, 2013, p. 324, verbatim).
 
 
 ---
 class: stepwise-svg
 
-# In Dataiku, 0 fine-tuned layers: a new head
-
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/dss-training.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A drawing of Dataiku's Design, Training panel: pretrained model EfficientNet B0, number of fine-tuned layers 0"></object></div>
-
-.step-4.lead.center[Hands-on 4 starts here: EfficientNet B0, zero fine-tuned layers.]
-]
-
-.footnote[Drawn after Dataiku DSS's *Design → Training* panel, not a capture; Dataiku (2024), *Computer vision*: B0, B4 and B7.]
-
-???
-
-**In Dataiku, Hands-on 4 sets Design → Training to EfficientNet B0 and 0 fine-tuned layers: a new head on a frozen network.** Of Dataiku's three pretrained EfficientNets, B0 is the smallest and fastest to train, B4 the default, B7 the largest (Dataiku, 2024). The number of fine-tuned layers says how many layers keep learning on the new photos, the others frozen; at 0, only the new head of slide 27 learns. The figure is a drawing of the panel, not a screen capture. Slide 29 raises the number.
-
-
----
-class: stepwise-svg
-
-# Fine-tuning also retrains the last layers
+# Fine-tuning
 
 
 .fullw[
 <div class="step-1"><object type="image/svg+xml" data="images/finetune.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The same network with its last two blocks unlocked: they learn with the new head"></object></div>
+.step-3.lead.big.center[The unlocked layers adapt the pretrained features to the new task.]
 ]
 
-.footnote[S. J. D. Prince (2023), section 9.3.6; Dataiku (2024), *Computer vision*. Schematic.]
+.footnote[S. J. D. Prince (2023), section 9.3.6; A. Zhang et al. (2023), section 14.2. Schematic.]
 
 ???
 
-**Fine-tuning lets some borrowed layers learn too: in the figure, the last two blocks adapt along with the new head.** In the usual recipe, the copied layers keep training on the new data while the new output layer learns from scratch (Zhang et al., 2023, section 14.2); fine-tuning may cover the whole network (Prince, 2023, section 9.3.6) or, in Dataiku, a set number of layers, the rest frozen (Dataiku, 2024). The last layers are those most specific to ImageNet's own classes (Yosinski et al., 2014, section 1). Slide 30 weighs what fine-tuning buys and costs.
+**Fine-tuning unlocks some pretrained layers, so that they adapt their features to the new task.** In the figure, the last two blocks learn along with the new head. The copied layers keep training on the new data in smaller steps than the new output layer, which learns from scratch (Zhang et al., 2023, section 14.2.3); fine-tuning may also cover the whole network (Prince, 2023, p. 152). Copying layers and then fine-tuning them generalised better than training on the target data alone (Yosinski et al., 2014, section 4.1).
 
 
 ---
 
-# Fine-tuning needs more photos and can overfit
-
+# Transfer learning or fine-tuning
 
 .fullw[
 <div class="duo big">
-<div><b class="k">What it buys</b>The borrowed features adapt to the new photos: worth it when they differ from ImageNet's.</div>
-<div class="lit"><b class="k">What it costs</b>More photos, more training time, and on a small set, a model that learns the training photos by heart.</div>
+<div><b class="k">What fine-tuning buys</b>The pretrained features adapt to the new examples: worth it when these differ from the pretraining data.</div>
+<div class="lit"><b class="k">What it costs</b>More examples, and on a small set, a model that learns its training examples by heart.</div>
 </div>
-
-.lead.center["Increasing the number of finetuned layers can lead to overfitting if the training dataset is insufficiently large."]
+.lead.big.center[More layers that learn: more data needed, more risk of overfitting.]
 ]
 
-.footnote[Dataiku (2024), *Computer vision*: the quotation; S. Kornblith, J. Shlens and Q. Le (2019).]
+.footnote[Dataiku (2024), *Computer vision*: fine-tuned layers and overfitting; A. Zhang et al. (2023), section 14.2.3; S. Kornblith, J. Shlens and Q. Le (2019).]
 
 ???
 
-**Fine-tuning adapts the borrowed features, which pays when the photos differ from ImageNet's; on a small set, it overfits.** Earlier work finds fine-tuning ahead of frozen features, especially on larger datasets or on images far from ImageNet's (Kornblith et al., 2019, section 2). Each unfrozen layer adds flexibility, and with more flexibility "we increase the chance that we fit the data too well" (Provost & Fawcett, 2013, p. 108, verbatim): the model fits details of its training photos rather than patterns that hold for new ones (p. 108). The documentation quoted on the slide gives the same warning (Dataiku, 2024).
+**More layers that learn need more examples and bring more risk of overfitting.** Fine-tuning improves the copied features when the new dataset is large enough (Yosinski et al., 2014, p. 2), and locked layers copied from a distant task lose more, above all the higher ones (p. 8). Dataiku warns that more fine-tuned layers can overfit a training set that is not large enough (Dataiku, 2024, Computer vision): with more flexibility, "we increase the chance that we fit the data too well" (Provost & Fawcett, 2013, p. 108, verbatim).
 
 
 ---
 
-# Few photos suffice for ImageNet-like classes
-
+# How much to retrain
 
 .fullw[
 <div class="duo big">
-<div class="lit"><b class="k">47 to 800 photos in all</b>A simple model on frozen features matched or beat fine-tuning the whole network.</div>
-<div><b class="k">Close to ImageNet</b>Lions and tigers are ImageNet classes. Car models and aircraft gained far less.</div>
+<div class="lit"><b class="k">Few examples: 47 to 800 in all</b>A logistic regression on locked pretrained features matched or beat fine-tuning.</div>
+<div><b class="k">Far from ImageNet</b>Car models and aircraft types gained little from pretraining on ImageNet's classes.</div>
 </div>
+.lead.big.center[With few examples, a new head is enough; on a distant task, pretraining helps little.]
 ]
 
-.footnote[S. Kornblith, J. Shlens and Q. Le (2019), sections 4.5 and 4.7; J. Yosinski et al. (2014), section 2.]
+.footnote[S. Kornblith, J. Shlens and Q. Le (2019), sections 4.5 and 4.7.]
 
 ???
 
-**With a few dozen to a few hundred photos of classes ImageNet already knows, a new head on frozen features does as well as fine-tuning.** On subsets of 47 to 800 training images in all, a logistic regression on frozen features, a new head, matched or beat fine-tuning (Kornblith et al., 2019, section 4.7). Car models and aircraft, poorly represented in ImageNet, gained little from pretraining (section 4.5); lion and tiger are ImageNet classes (Yosinski et al., 2014, section 2). For a firm, the question is how close its classes are to ImageNet's.
+**With few examples, a new head is enough; on a task far from the pretraining data, pretraining helps little.** With 47 to 800 examples in all, a logistic regression on locked pretrained features, that is, a new head, did as well as fine-tuning or better (Kornblith et al., 2019, p. 7). On car models and aircraft types, classes ImageNet barely covers, pretraining gave little over training from scratch: 93.3% against 92.7% for cars (pp. 6 to 7). Features transfer less as the original and new tasks grow apart (Yosinski et al., 2014, p. 1).
 
 
 ---
 class: stepwise-svg
-
-# Augmentation varies each training photo
-
+# Zero-shot
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/augment.svg" style="width: 96%; display: block; margin: 0 auto; pointer-events: none;" aria-label="One training image flipped, cropped and recoloured, with the same label"></object></div>
-
-.step-3.lead.big.center[Variety, not new photos: it cannot fix a wrong label.]
+<div class="step-1"><object type="image/svg+xml" data="images/zeroshot.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A review and the question positive or negative go to a pretrained language model, with no example and no weight change; it answers negative"></object></div>
+.step-5.lead.big.center[No labelled example and no training: the classes described in words.]
 ]
 
-.footnote[Dataiku (2024), *Computer vision*: augmentation, minimum kept ratio 0.75; A. Krizhevsky et al. (2017), section 4.1. Illustrative image.]
+.footnote[T. Brown et al. (2020), p. 7; A. Radford et al. (2021), p. 6. The review is invented.]
 
 ???
 
-**Augmentation shows the network each training photo flipped, cropped or recoloured, under the same label.** Each transformation must keep the label valid (Prince, 2023, section 9.3.8); Dataiku applies each enabled kind with a set probability, to each image at every epoch, and a crop keeps at least 75% of the image by default (Dataiku, 2024). The variants stay highly interdependent with their originals (Krizhevsky et al., 2017, section 4.1): augmentation adds variety, not new photos, and cannot fix a wrong label, one of the defects slide 37 removes. The image in the figure is illustrative.
-
-
----
-class: stepwise-svg
-
-# Zero-shot models classify from class names
-
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/zeroshot.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The photo and each class name become vectors; the closest name, tiger, wins"></object></div>
-
-.step-4.lead.center[No labelled photo: only the names of the classes.]
-]
-
-.footnote[A. Radford et al. (2021), CLIP, pp. 3 to 6. Illustrative values.]
-
-???
-
-**A zero-shot model such as CLIP classifies a photo without a single labelled example, from the class names alone.** CLIP (Contrastive Language-Image Pre-training) learned which caption goes with which image from 400 million image and caption pairs collected from the internet (Radford et al., 2021, pp. 1, 2 and 4). It turns the photo and a sentence per class, such as *a photo of a tiger*, into vectors, and the closest sentence wins (pp. 6 and 7). Its best model matched the original ResNet-50 on ImageNet without ImageNet's labelled photos (p. 6). The figure's values are illustrative.
+**Zero-shot needs no labelled example and no training: the classes are described in words.** A pretrained language model is given only a natural-language instruction describing the task, no demonstration, and answers with forward passes alone, its weights unchanged (Brown et al., 2020, p. 7). For photos, CLIP compares a photo with the class names written as text and picks the most probable pair (Radford et al., 2021, p. 6). Brown et al. call it the most convenient setting and the most challenging (p. 7); the review in the figure is invented.
 
 
 ---
 
-# Climb the ladder only as far as the problem needs
-
+# Four ways to get a model
 
 .fullw[
 <div class="quad big">
-<div><b>1 · Zero-shot</b>The classes named in words; no labelled photo.</div>
-<div class="lit"><b>2 · A new head</b>A frozen network, a few dozen photos: Hands-on 4.</div>
-<div><b>3 · Fine-tuning</b>More layers learn: more photos, more compute.</div>
-<div><b>4 · From scratch</b>Every weight learned: millions of photos.</div>
+<div><b>1 · Zero-shot</b>The classes described in words; no labelled example.</div>
+<div class="lit"><b>2 · A new head</b>Locked pretrained layers; tens to hundreds of examples.</div>
+<div><b>3 · Fine-tuning</b>More layers learn: more examples, more compute.</div>
+<div><b>4 · From scratch</b>Every weight learned: millions of examples, and slide 10's compute.</div>
 </div>
-
-.lead.big.center[Each rung up costs more labelled photos, more compute and more to explain.]
+.lead.big.center[Each rung up costs more labelled examples and more compute.]
 ]
 
 .footnote[A. Radford et al. (2021); S. Kornblith, J. Shlens and Q. Le (2019); K. He et al. (2016).]
 
 ???
 
-**Stop at the lowest rung that meets the need: each rung up costs more labelled photos, more compute and more to explain.** Zero-shot CLIP equalled, on average over 20 datasets, a classifier given 4 labelled examples per class (Radford et al., 2021, pp. 9 and 10); a new head suffices with 47 to 800 photos, and fine-tuning pays with more (Kornblith et al., 2019, section 4.7); a ResNet trained from scratch used ImageNet's 1.28 million (He et al., 2016, section 4.1). The ladder is the course's framing of these results. Hands-on 4 stands on rung 2.
+**Of four ways to get a model, each rung up costs more labelled examples and more compute.** Zero-shot needs only the class names (Radford et al., 2021, p. 6); a new head on locked layers did well with 47 to 800 examples (Kornblith et al., 2019, p. 7), and fine-tuning pulls ahead with more (p. 7). Training from scratch learns every weight from millions of examples (slide 7), with slide 10's compute; even where both end equal, fine-tuning gets there about 17 times faster (Kornblith et al., 2019, p. 7).
 
 
 ---
-
 .section-mark[
 # Hands-on 4: lions and tigers
 
@@ -802,14 +805,14 @@ class: stepwise-svg
 
 ???
 
-**Hands-on 4 tells lions from tigers with a borrowed network; photos carry rights, and photos of people carry legal limits.** The two photos here are openly licensed (CC BY-SA 4.0); the course's own came from the web with no source or licence recorded, so they stay on the learning platform.
+**Hands-on 4 tells lions from tigers with a borrowed network; photos carry rights, and photos of people carry legal limits.** The two photos here are openly licensed (CC BY-SA 4.0); the course's own, from the web with no source or licence recorded, stay on the learning platform.
 
-As field facts, not legal advice: since 2 February 2025, the EU AI Act (Regulation (EU) 2024/1689, amended by 2026/1744) bans untargeted scraping of facial images to build recognition databases, and emotion inference at work or in education save for medical or safety reasons (Art. 5(1)(e) and (f), Art. 113). Remote biometric identification, recruitment and the creditworthiness of natural persons, the first day's case, are high-risk (Annex III, points 1, 4 and 5(b)), with obligations from 2 December 2027 (Art. 113 as amended).
+As field facts, not legal advice: since 2 February 2025, the EU AI Act (Regulation (EU) 2024/1689, amended by 2026/1744) bans untargeted scraping of facial images for recognition databases, and emotion inference at work or in education save for medical or safety reasons (Art. 5(1)(e) and (f), Art. 113). Remote biometric identification, recruitment and the creditworthiness of natural persons, the first day's case, are high-risk (Annex III, points 1, 4 and 5(b)), with obligations from 2 December 2027 (Art. 113 as amended).
 
 
 ---
 
-# The data: photos labelled by their file names
+# The data
 
 <img class="phase-thumb" src="images/phase-du.svg" alt="The CRISP-DM phases, data understanding lit" />
 
@@ -840,13 +843,13 @@ As field facts, not legal advice: since 2 February 2025, the EU AI Act (Regulati
 
 ???
 
-**A row is one photo, its pixels are its only input, and its label is the word before the underscore of its file name.** Each folder numbers its own photos, so `lion_001.jpg` is a different photo in train and in test. Training holds 30 lions and 28 tigers, test 38 lions and 19 tigers: always saying lion scores 67% on test, and "a classifier that always selects the majority class is called a base rate classifier" (Provost & Fawcett, 2013, p. 115, verbatim). Every model is measured against it, at 1.75 points a test photo.
+**The photos are labelled by their file names: a row is one photo, its pixels are its only input, its label the word before the underscore.** Each folder numbers its own photos, so `lion_001.jpg` is a different photo in train and in test. Test holds 38 lions and 19 tigers, so always saying lion scores 67%: "a classifier that always selects the majority class is called a base rate classifier" (Provost & Fawcett, 2013, p. 115, verbatim). Every model is measured against it, at 1.75 points a test photo. Slide 39 checks that the test photos are new.
 
 
 ---
 class: stepwise-svg
 
-# A test photo must be new to the model
+# Test photos
 
 <img class="phase-thumb" src="images/phase-dp.svg" alt="The CRISP-DM phases, data preparation lit" />
 
@@ -863,13 +866,13 @@ class: stepwise-svg
 
 ???
 
-**A test photo must be new to the model: 8 copies of training photos were removed from the test set, and 2 wrong labels corrected.** Holdout data are data that "will not be used to build the model" (Provost & Fawcett, 2013, p. 113, verbatim); a copy measures memory instead. On CIFAR-10, most classifiers scored 99% to 100% on test images that nearly duplicated training images (Recht et al., 2019, p. 27). The copies were 8 of 65 inherited test photos, leaving 57; two training photos that showed the other animal were relabelled. The file names in the figure are illustrative.
+**A test photo must be new to the model: 8 copies of training photos were removed from the test set, and 2 wrong labels corrected.** Holdout data "will not be used to build the model" (Provost & Fawcett, 2013, p. 113, verbatim); a copy measures memory instead. On CIFAR-10, most classifiers scored 99% to 100% on test images that nearly duplicated training images (Recht et al., 2019, p. 27). The copies were 8 of 65 inherited test photos, leaving 57; the two relabelled photos were training photos of the other animal. The figure's file names are illustrative.
 
 
 ---
 class: stepwise-svg
 
-# 57 test photos give only a rough score
+# 57 test photos
 
 <img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
 
@@ -881,13 +884,53 @@ class: stepwise-svg
 
 ???
 
-**On 57 test photos, an observed 89% could be anything from 78% to 96%: the score is rough.** For 51 right of 57, an example, a 95% Clopper-Pearson interval runs from 78% to 96%; with 10,000 test images it is at most 1 point either way (Recht et al., 2019, p. 3). One holdout score may come from "a single particularly lucky (or unlucky) choice of training and test data" (Provost & Fawcett, 2013, p. 126, verbatim). A gap of one or two photos between two groups, 1.75 or 3.5 points, lies well inside that interval.
+**On 57 test photos, a score is known only roughly: an observed 89% could be anything from 78% to 96%.** For 51 right of 57, an example, a 95% Clopper-Pearson interval runs from 78% to 96%; with 10,000 test images it is at most 1 point either way (Recht et al., 2019, p. 3). One holdout score may reflect "a single particularly lucky (or unlucky) choice of training and test data" (Provost & Fawcett, 2013, p. 126, verbatim). A gap of one or two photos between groups, 1.75 or 3.5 points, lies well inside that interval.
+
+
+---
+
+# The borrowed network
+
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+<div class="facts big two">
+<div><span class="num">1.28 million</span>labelled training photos in ImageNet's 2012 challenge set.</div>
+<div><span class="num">1,000</span>classes, lion and tiger among them, and several domestic cats.</div>
+</div>
+.lead.big.center[EfficientNet B0, pretrained on ImageNet, has seen lions and tigers before Hands-on 4 begins.]
+]
+
+.footnote[M. Tan and Q. Le (2019); K. He et al. (2016), section 4.1: 1.28 million training images; J. Yosinski et al. (2014), section 2: the felid classes.]
+
+???
+
+**EfficientNet B0, pretrained on ImageNet, has seen lions and tigers before Hands-on 4 begins.** It learned from the 1.28 million training images of ImageNet's 2012 challenge, in 1,000 classes (He et al., 2016, section 4.1); 13 of them are felids, lion, tiger and several domestic cats among them (Yosinski et al., 2014, section 2). B0 is the baseline of its family and reads photos of 224 by 224 pixels (Tan & Le, 2019, Table 1). Hands-on 4's task is thus close to the pretraining data, the case of slide 34; a firm's own photos may lie further from it.
 
 
 ---
 class: stepwise-svg
 
-# The Flow you will build in Dataiku
+# In Dataiku
+
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/dss-training.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A drawing of Dataiku's Design, Training panel: pretrained model EfficientNet B0, number of fine-tuned layers 0"></object></div>
+
+.step-4.lead.center[0 fine-tuned layers: transfer learning. 2: fine-tuning. Dataiku also sets the number of epochs and early stopping.]
+]
+
+.footnote[Drawn after Dataiku DSS's *Design → Training* panel, not a capture; Dataiku (2024), *Computer vision*: B0, B4 and B7.]
+
+???
+
+**In Dataiku, 0 fine-tuned layers is transfer learning and 2 is fine-tuning; Dataiku also sets the number of epochs and early stopping.** Hands-on 4 picks EfficientNet B0 in **Design → Training**, the smallest and fastest to train of Dataiku's three (Dataiku, 2024). The fine-tuned layers keep learning, the others stay frozen: at 0, only the new head of slide 31 learns; at 2, the last two adapt too (slide 32). The number of epochs (slide 17) caps training, and early stopping (slide 18) can end it sooner. The figure is a drawing of the panel, not a screen capture.
+
+
+---
+class: stepwise-svg
+
+# The Flow
 
 <img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
 
@@ -904,7 +947,7 @@ class: stepwise-svg
 
 ---
 
-# Hands-on 4: tell a lion from a tiger
+# Hands-on 4: lion or tiger
 
 <img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
 
@@ -925,12 +968,12 @@ class: stepwise-svg
 
 ???
 
-**In 25 minutes, each group loads the 58 photos, trains a new head on EfficientNet B0, scores the 57 test photos and reads its errors.** The need is a firm's: photos of products or defects to sort, a few dozen labelled examples per class, and a network trained on ImageNet to borrow. With 0 fine-tuned layers, only the new head of slide 27 learns; the 57 test photos are holdout data, never used to build the model (Provost & Fawcett, 2013, p. 113). In **Results**, selecting a cell of the confusion matrix shows its photos in the image feed (Dataiku, 2024).
+**In the 25 minutes of the core, each group loads the 58 photos, trains a new head on EfficientNet B0, scores the 57 test photos and reads its errors.** The need is a firm's: a few dozen labelled photos per class, of products or defects, and a network trained on ImageNet to borrow. Only the new head of slide 31 learns; the 57 test photos are holdout data, never used to build the model (Provost & Fawcett, 2013, p. 113). In **Results**, selecting a cell of the confusion matrix shows its photos (Dataiku, 2024).
 
 
 ---
 
-# Hands-on 4, continued: fine-tune, add cats
+# Hands-on 4, continued
 
 <img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
 
@@ -953,12 +996,12 @@ class: stepwise-svg
 
 ???
 
-**Past the checkpoint, groups fine-tune 2 layers, add a third and larger class, cats, then decide which model and which score to report.** Panel 4 compares training time and test score at 0 and 2 fine-tuned layers, the trade-off of slide 30. Panel 5 adds 120 training and 80 test photos from the 885 cats of Natural Images (Roy et al., 2018, p. 2); with uneven classes, "accuracy can be greatly misleading" (Provost & Fawcett, 2013, p. 190, verbatim), so groups read the macro average, every class counted the same, and the weighted one (*Beyond binary classification*, slide 6). Panel 6 writes the decision.
+**In 8 minutes past the checkpoint, groups fine-tune 2 layers, add a larger third class, cats, then decide which model and which score to report.** Panel 4 compares time and score at 0 and 2 fine-tuned layers, the trade-off of slide 33. Panel 5 adds 120 training and 80 test photos from the 885 cats of Natural Images (Roy et al., 2018, p. 2); with uneven classes, "accuracy can be greatly misleading" (Provost & Fawcett, 2013, p. 190, verbatim), so groups read the macro average, every class counted the same, and the weighted one (*Beyond binary classification*, slide 6).
 
 
 ---
 
-# The errors are worth looking at, one by one
+# The errors, one by one
 
 <img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
 
@@ -975,12 +1018,12 @@ class: stepwise-svg
 
 ???
 
-**With 57 test photos, one error is 1.75 points: read each wrong photo before trusting the percentage.** In Dataiku's results, the confusion matrix puts true classes in rows and predictions in columns; selecting a cell shows its photos, and clicking one shows each class's probability (Dataiku, 2024). The matrix exists for "making explicit how one class is being confused for another" (Provost & Fawcett, 2013, p. 189, verbatim). Each wrong photo then gets two questions: is its label right, and is the animal visible, alone and the main subject? Slide 43 shows labels failing even in benchmarks.
+**With 57 test photos, one error is 1.75 points: read each wrong photo before trusting the percentage.** In Dataiku's results, the confusion matrix puts true classes in rows and predictions in columns; selecting a cell shows its photos, and clicking one shows each class's probability (Dataiku, 2024). The matrix exists for "making explicit how one class is being confused for another" (Provost & Fawcett, 2013, p. 189, verbatim). Each wrong photo then gets two questions: is its label right, and is the animal visible, alone and the main subject? Slide 47 finds wrong labels even in benchmarks.
 
 
 ---
 
-# Benchmark labels are wrong too
+# Wrong labels in benchmarks
 
 <img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
 
@@ -997,13 +1040,13 @@ class: stepwise-svg
 
 ???
 
-**Even benchmark test sets carry wrong labels: at least 3.3% on average across ten of them, and about 6% of ImageNet's validation set.** Northcutt et al. flagged likely errors with an algorithm and had crowd workers confirm them, finding at least 2,916 wrong labels among ImageNet's validation images (Northcutt et al., 2021, pp. 1 and 2). With corrected labels, the ranking of models can change: on ImageNet, ResNet-18 overtakes ResNet-50 if the share of mislabelled test examples rises by 6% (p. 1). Practitioners' own datasets are often noisier than such curated benchmarks (p. 2).
+**A wrong label costs a point as surely as a model error, and even benchmark test sets carry them.** Northcutt et al. flagged likely errors with an algorithm and had crowd workers confirm them: at least 3.3% of test labels on average across ten widely used test sets, and 2,916 wrong labels, about 6%, in ImageNet's validation set (Northcutt et al., 2021, pp. 1 and 2). With corrected labels, ResNet-18 overtakes ResNet-50 on ImageNet if the share of mislabelled test examples rises by 6% (p. 1). Practitioners' own datasets are often noisier than such curated benchmarks (p. 2).
 
 
 ---
 class: stepwise-svg
 
-# A saliency map shows what moves the score
+# Saliency maps
 
 <img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
 
@@ -1017,13 +1060,13 @@ class: stepwise-svg
 
 ???
 
-**A saliency map lights the pixels the class score is most sensitive to: where the score reacts, not why.** Simonyan et al. take the derivative of the class score with respect to each pixel: its magnitude marks the pixels that need to change least to move the score most, for one back-propagation pass, the algorithm of slide 14 (Simonyan et al., 2014, pp. 2 and 4). A map may light only the most telling part of the animal (p. 4). The figure's image and map are drawn, not computed. Slide 45 tests the maps.
+**A saliency map lights the pixels the class score is most sensitive to: where the score reacts, not why.** Simonyan et al. take the derivative of the class score with respect to each pixel: its magnitude marks the pixels that need to change least to move the score most, in one back-propagation pass, the algorithm of slide 15 (Simonyan et al., 2014, pp. 2 and 4). A map may light only the most telling part of an object (p. 4). The figure's image and map are drawn, not computed. Slide 49 puts the maps to a test.
 
 
 ---
 class: stepwise-svg
 
-# Some maps survive a scrambled model
+# Saliency maps under test
 
 <img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
 
@@ -1037,12 +1080,12 @@ class: stepwise-svg
 
 ???
 
-**Some saliency methods draw almost the same map after the model's top layers are scrambled: a convincing map proves nothing by itself.** Adebayo et al. re-initialised a trained network from its top layer down: the maps of the plain gradient and GradCAM changed, while those of Guided Backprop and Guided GradCAM stayed nearly the same until the lowest layers (Adebayo et al., 2018, pp. 3 to 5). An edge detector, which uses no model, drew maps strikingly like some methods' (p. 2): visual inspection is a poor guide (p. 2). The figure is illustrative.
+**A saliency map is a question to ask of the model, not a proof: some methods draw almost the same map after the model's top layers are scrambled.** Adebayo et al. re-initialised a trained network from its top layer down: the maps of the plain gradient and GradCAM changed, while those of Guided Backprop and Guided GradCAM stayed nearly the same until the lowest layers (Adebayo et al., 2018, pp. 3 to 5). An edge detector, which uses no model, drew maps strikingly like some methods', so visual inspection is a poor guide (p. 2). The figure is illustrative.
 
 
 ---
 
-# Text gets the same treatment
+# Text
 
 
 .fullw[
@@ -1051,14 +1094,14 @@ class: stepwise-svg
 <div><b class="k">Borrowed, then adapted</b>A language model trained first on a large body of text, then given a new output layer for a task, is transfer learning again.</div>
 </div>
 
-.lead.big.center[After the break, slide 3's question for text: which features can a classifier read from words?]
+.lead.big.center[After the break, the same question for text: which features can a classifier read from words?]
 ]
 
 .footnote[D. Jurafsky and J. H. Martin (2026 draft), chapters 5 and 9; J. Devlin et al. (2019).]
 
 ???
 
-**Text follows the same path: networks learn its features, and a model pretrained on text is borrowed and given a new head.** The embeddings of week 2's RAG workshop are short, dense vectors of 50 to 1,000 dimensions learned from how words occur in text, an instance of representation learning (Jurafsky & Martin, 2026, pp. 127 and 136). BERT is pretrained on unlabelled text, then fine-tuned with one additional output layer (Devlin et al., 2019, p. 1). After the break, slide 3's question returns for words, and Provost and Fawcett frame the choice: engineer the data to fit existing tools, or "build new tools to match the data" (Provost & Fawcett, 2013, p. 249, verbatim).
+**After the break, the same question for text: which features can a classifier read from words?** The embeddings of week 2's RAG workshop are short, dense vectors of 50 to 1,000 dimensions learned from text, by representation learning (Jurafsky & Martin, 2026, pp. 127 and 136). BERT is pretrained on unlabelled text, then fine-tuned with one additional output layer (Devlin et al., 2019, p. 1): transfer learning again (slide 31). The textbook frames the choice: engineer the data to fit existing tools, or "build new tools to match the data" (Provost & Fawcett, 2013, p. 249, verbatim).
 
 
 ---
@@ -1076,7 +1119,6 @@ class: stepwise-svg
 - European Union (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act). *Official Journal of the European Union* L 2024/1689.
 - European Union (2026). Regulation (EU) 2026/1744 amending Regulation (EU) 2024/1689. *Official Journal of the European Union* L 2026/1744.
 - Grinsztajn, L., Oyallon, E. and Varoquaux, G. (2022). Why do tree-based models still outperform deep learning on typical tabular data? *Advances in Neural Information Processing Systems* 35.
-- Grömping, U. (2019). South German Credit Data: correcting a widely used data set. Report 4/2019, Beuth Hochschule für Technik Berlin.
 - He, K., Zhang, X., Ren, S. and Sun, J. (2016). Deep residual learning for image recognition. *CVPR 2016*, 770 to 778.
 - Hollmann, N. et al. (2025). Accurate predictions on small data with a tabular foundation model. *Nature* 637:319 to 326.
 - Jurafsky, D. and Martin, J. H. (2026). *Speech and Language Processing*, 3rd ed., draft.
@@ -1105,11 +1147,10 @@ class: stepwise-svg
 
 ???
 
-**These are the works the deck's footnotes cite; a few are the places to start.** LeCun, Bengio and Hinton (2015) review how deep networks learn representations, Prince (2023) is the textbook, and Provost and Fawcett (2013, pp. 106 to 108) present a network as a stack of simple models. On the cost of training, read Sevilla et al. (2022). On transfer, Yosinski et al. (2014) measure how general each layer is, and Kornblith et al. (2019) test ImageNet models down to 47 to 800 images. Before trusting a test score, read Recht et al. (2019) and Northcutt et al. (2021). Dataiku (2024) documents Hands-on 4; for text, Jurafsky and Martin (2026, chapters 5 and 9, a draft) and Devlin et al. (2019).
+**These are the works the deck's footnotes cite; a few are the places to start.** LeCun, Bengio and Hinton (2015) review deep learning, Prince (2023) is the textbook, and Provost and Fawcett (2013, pp. 106 to 108) present a network as a stack of simple models. On the cost of training, Sevilla et al. (2022); on transfer, Yosinski et al. (2014) and Kornblith et al. (2019). Before trusting a test score, Recht et al. (2019) and Northcutt et al. (2021). Dataiku (2024) documents Hands-on 4's tool; for text, Jurafsky and Martin (2026, chapters 5 and 9, a draft).
 
 
 ---
-
 .section-mark[
 # End
 
@@ -1123,8 +1164,6 @@ Next: 23.10.2026 @ 10h30 (in <span class="timer" data-until="2026-10-23T10:30:00
 ]
 
 ???
-
-**The next session starts at 10:30 on 23 October 2026, after the break.** The counter shows the time left until it starts. The left arrow leads to the previous deck, *Beyond binary classification*; the home icon returns to the first slide of this deck; the right arrow is faded because the next deck is not published yet.
 </textarea>
 
     <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

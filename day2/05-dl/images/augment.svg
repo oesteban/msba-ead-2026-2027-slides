@@ -1,28 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 250" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Data augmentation: one abstract training image flipped, cropped (Dataiku's default minimum kept ratio, 0.75) and recoloured; the label does not change. Illustrative. Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Data augmentation on three kinds of input: an image flipped, a sentence with a synonym, a sound with a frequency band attenuated; the label does not change (Prince 2023, sections 9.3.6 and 9.3.8). Drawn; illustrative. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
-<clipPath id="clipc"><rect x="525" y="20" width="170" height="150" rx="6"/></clipPath>
 <g data-step="1">
-<rect x="25" y="20" width="170" height="150" rx="6" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
-<g transform="translate(110,100) scale(1.0,1.0)"><polygon class="accent-a-light-fill" points="-50,40 -10,-40 50,40" fill="#8cb3cf"/><circle cx="18" cy="-18" r="14" fill="#1c2e36"/></g>
-<text x="110" y="200" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">a training photo</text>
+<text x="170" y="26" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">a photo</text>
+<rect x="30.0" y="40" width="280" height="96" rx="6" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
+<g transform="translate(170,88) scale(0.55,0.55)"><polygon class="accent-a-light-fill" points="-50,40 -10,-40 50,40" fill="#8cb3cf"/><circle cx="18" cy="-18" r="14" fill="#1c2e36"/></g>
+<line class="accent-stroke" x1="170" y1="140" x2="170" y2="184" stroke="#00609c" stroke-width="2.2" marker-end="url(#ahA)"/>
+<text class="accent-fill" x="182" y="168" font-size="15" font-weight="normal" text-anchor="start" fill="#00609c">flipped</text>
+<rect x="30.0" y="190" width="280" height="96" rx="6" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
+<g transform="translate(170,238) scale(-0.55,0.55)"><polygon class="accent-a-light-fill" points="-50,40 -10,-40 50,40" fill="#8cb3cf"/><circle cx="18" cy="-18" r="14" fill="#1c2e36"/></g>
 </g>
 <g data-step="2">
-<line class="accent-stroke" x1="205" y1="95" x2="270" y2="95" stroke="#00609c" stroke-width="2.4" marker-end="url(#ahA)"/>
-<rect x="285" y="20" width="170" height="150" rx="6" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
-<g transform="translate(370,100) scale(-1.0,1.0)"><polygon class="accent-a-light-fill" points="-50,40 -10,-40 50,40" fill="#8cb3cf"/><circle cx="18" cy="-18" r="14" fill="#1c2e36"/></g>
-<text x="370" y="200" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">flipped</text>
-<text x="370" y="224" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">left to right</text>
-<rect x="525" y="20" width="170" height="150" rx="6" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
-<g clip-path="url(#clipc)"><g transform="translate(630,110) scale(1.45,1.45)"><polygon class="accent-a-light-fill" points="-50,40 -10,-40 50,40" fill="#8cb3cf"/><circle cx="18" cy="-18" r="14" fill="#1c2e36"/></g></g>
-<text x="610" y="200" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">cropped</text>
-<text x="610" y="224" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">75% of it kept, or more</text>
-<rect x="765" y="20" width="170" height="150" rx="6" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
-<g transform="translate(850,100) scale(1.0,1.0)"><polygon class="" points="-50,40 -10,-40 50,40" fill="#f0c46a"/><circle cx="18" cy="-18" r="14" fill="#1c2e36"/></g>
-<text x="850" y="200" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">recoloured</text>
-<text x="850" y="224" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">hue, contrast, brightness</text>
+<text x="500" y="26" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">a sentence</text>
+<rect x="360.0" y="40" width="280" height="96" rx="6" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="500" y="82" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">“The wine was excellent.”</text>
+<text x="500" y="108" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">label: positive</text>
+<line class="accent-stroke" x1="500" y1="140" x2="500" y2="184" stroke="#00609c" stroke-width="2.2" marker-end="url(#ahA)"/>
+<text class="accent-fill" x="512" y="168" font-size="15" font-weight="normal" text-anchor="start" fill="#00609c">a synonym</text>
+<rect x="360.0" y="190" width="280" height="96" rx="6" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="500" y="232" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">“The wine was superb.”</text>
+<text x="500" y="258" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">label: positive</text>
+</g>
+<g data-step="3">
+<text x="830" y="26" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">a sound</text>
+<rect x="690.0" y="40" width="280" height="96" rx="6" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
+<polyline points="710.0,88.0 714.0,97.8 718.0,103.0 722.0,102.1 726.0,98.0 730.0,95.1 734.0,96.2 738.0,100.0 742.0,102.2 746.0,99.2 750.0,90.5 754.0,80.1 758.0,73.0 762.0,72.1 766.0,75.9 770.0,80.1 774.0,81.0 778.0,78.2 782.0,75.2 786.0,76.3 790.0,83.2 794.0,93.5 798.0,102.2 802.0,105.2 806.0,102.3 810.0,97.3 814.0,94.5 818.0,95.8 822.0,99.0 826.0,99.6 830.0,94.6 834.0,85.0 838.0,75.3 842.0,70.2 846.0,71.6 850.0,76.8 854.0,81.2 858.0,81.8 862.0,79.2 866.0,77.4 870.0,80.3 874.0,88.5 878.0,98.7 882.0,105.6 886.0,106.2 890.0,101.5 894.0,95.8 898.0,93.3 902.0,94.7 906.0,97.1 910.0,96.1 914.0,89.6 918.0,79.7 922.0,71.3 926.0,68.7 930.0,72.2 934.0,78.5 938.0,82.9 942.0,83.1 946.0,80.8 950.0,80.3" fill="none" stroke="#00609c" class="accent-stroke" stroke-width="2.4"/>
+<line class="accent-stroke" x1="830" y1="140" x2="830" y2="184" stroke="#00609c" stroke-width="2.2" marker-end="url(#ahA)"/>
+<text class="accent-fill" x="842" y="168" font-size="15" font-weight="normal" text-anchor="start" fill="#00609c">filtered</text>
+<rect x="690.0" y="190" width="280" height="96" rx="6" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
+<polyline points="710.0,238.0 714.0,243.7 718.0,247.9 722.0,250.0 726.0,250.5 730.0,250.3 734.0,250.1 738.0,249.6 742.0,247.8 746.0,244.2 750.0,238.8 754.0,233.0 758.0,228.3 762.0,225.7 766.0,225.1 770.0,225.5 774.0,226.2 778.0,226.9 782.0,228.4 786.0,231.5 790.0,236.5 794.0,242.3 798.0,247.4 802.0,250.5 806.0,251.4 810.0,250.8 814.0,249.7 818.0,248.7 822.0,247.3 826.0,244.6 830.0,240.2 834.0,234.5 838.0,229.1 842.0,225.4 846.0,224.1 850.0,224.7 854.0,226.1 858.0,227.6 862.0,229.1 866.0,231.5 870.0,235.4 874.0,240.7 878.0,246.2 882.0,250.4 886.0,252.3 890.0,251.8 894.0,250.2 898.0,248.3 902.0,246.5 906.0,244.3 910.0,240.9 914.0,236.0 918.0,230.5 922.0,225.9 926.0,223.5 930.0,223.6 934.0,225.4 938.0,227.7 942.0,229.8 946.0,232.0 950.0,235.0" fill="none" stroke="#00609c" class="accent-stroke" stroke-width="2.4"/>
+</g>
+<g data-step="4">
+<text x="500" y="318" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">a new training example, with the same label</text>
 </g>
 </svg>

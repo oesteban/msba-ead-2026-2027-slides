@@ -8,9 +8,12 @@ The drawing helpers and the phase thumbnails are the intro deck's
 figure shows a photo of the course's photo sets, whose licences are unknown:
 the photos drawn on are the openly licensed ones in `images/photos/` (see its
 `CREDITS.md`). The pixel patch reads one of them and needs Pillow; without it,
-that figure is skipped. Every number is a count from a wiki page, a value from
-`compute.csv` (Epoch AI's data, CC BY 4.0), or marked illustrative in the
-figure's comment and on its slide.
+that figure is skipped. The general figures (a neuron to the loss) run on deck
+4's example wine, line 12 of the course's `winequality_all.csv` (UCI Wine
+Quality, CC BY 4.0): its attribute values are real, the weights illustrative.
+Every other number is a count from a wiki page, a value from `compute.csv`
+(Epoch AI's data, CC BY 4.0), or marked illustrative in the figure's comment
+and on its slide.
 """
 
 from __future__ import annotations
@@ -43,12 +46,18 @@ def glyph(x, y, s=1.0, flip=False, fill=A_LIGHT, cls="accent-a-light-fill"):
             f'<circle cx="18" cy="-18" r="14" fill="{INK}"/></g>')
 
 
+# deck 4's example wine: line 12 of winequality_all.csv, a white of grade 5, so line "low"
+WINE = [("alcohol", 12.0), ("volatile acidity", 0.27), ("sulphates", 0.56)]
+LINES = ["low", "medium", "high"]
+SCORES = [0.4, 1.6, 0.2]               # illustrative output scores for the three lines
+
+
 def edges_between(xa, ya, xb, yb, color=EDGE, w=1.1):
     return [f'<line x1="{xa}" y1="{y1}" x2="{xb}" y2="{y2}" stroke="{color}" stroke-width="{w}"/>'
             for y1 in ya for y2 in yb]
 
 
-# --- Part 1: why networks, why now ----------------------------------------------
+# --- History and photos --------------------------------------------------------
 def pixels(photo: Path) -> str | None:
     """The photo at 224 by 224, one 5 by 5 patch boxed, then zoomed to its values."""
     try:
@@ -94,91 +103,129 @@ def pixels(photo: Path) -> str | None:
                "its pixels with their red, green and blue values, read from that resized copy. " + LICENCE)
 
 
-def deep_features() -> str:
-    """A table brings its features; a network learns them from the pixels."""
-    W, H = 1000, 330
-
-    def box(x, y, w, t1, t2="", lit=False):
-        out = [rect(x, y, w, 76, fill=A_LIGHT if lit else WHITE, stroke=ACCENT,
-                    cls="accent-a-light-fill accent-stroke" if lit else "accent-stroke"),
-               text(x + w / 2, y + (32 if t2 else 45), t1, size=19, weight="bold")]
-        if t2:
-            out.append(text(x + w / 2, y + 58, t2, size=15, fill=MUTED))
-        return out
-
-    def arrow(x1, x2, y):
-        return line(x1, y, x2, y, color=INK, w=1.8)
-
-    y1, y2 = 40, 200
-    row1 = (box(30, y1, 250, "the columns", "duration, amount, age")
-            + [arrow(284, 344, y1 + 38)] + box(350, y1, 280, "a model", "trees, a regression")
-            + [arrow(634, 694, y1 + 38)] + box(700, y1, 260, "good or bad")
-            + [text(30, y1 - 12, "a table: the features come with it", size=17, fill=MUTED, anchor="start")])
-    row2 = (box(30, y2, 250, "the pixels", "150,528 numbers")
-            + [arrow(284, 344, y2 + 38)] + box(350, y2, 280, "layers learn the features", "edges, parts, objects",
-                                                lit=True)
-            + [arrow(634, 694, y2 + 38)] + box(700, y2, 260, "lion or tiger")
-            + [text(30, y2 - 12, "a photo: the network learns its features", size=17, fill=MUTED, anchor="start")])
-    return svg(W, H, [step(1, row1), step(2, row2)],
-               "A table's columns are features before any model; a deep network learns its features from raw pixels "
-               "(LeCun et al. 2015). Schematic. " + LICENCE)
+def _picture(cx, y, w, h, name):
+    """An openly licensed photo from images/photos/ (CREDITS.md), centred on cx, with a thin frame."""
+    x = cx - w / 2
+    return [f'<image href="photos/{name}" x="{x:.1f}" y="{y}" width="{w:.1f}" height="{h}" '
+            f'preserveAspectRatio="xMidYMid slice"/>',
+            rect(x, y, w, h, fill="none", stroke=EDGE, rx=0, sw=1.2)]
 
 
-def _tx(year: float) -> float:
-    """The timeline's broken axis: 1955 to 2000 on the left, 2005 to 2024 stretched on the right."""
-    return 40 + (year - 1955) * 360 / 45 if year <= 2002 else 450 + (year - 2005) * 510 / 19
+def _axis(x0, x1, y0, y1, years, tx, muted=False):
+    col, cls = (GREY_INK, "") if muted else (ACCENT, "accent-fill")
+    out = [f'<polygon{" class=" + chr(34) + cls + chr(34) if cls else ""} points="{x0},{y0} {x1 - 28},{y0} '
+           f'{x1 - 28},{y0 - 12} {x1},{(y0 + y1) / 2} {x1 - 28},{y1 + 12} {x1 - 28},{y1} {x0},{y1}" fill="{col}"/>']
+    out += [text(tx(yr), (y0 + y1) / 2 + 6, str(yr), size=15, weight="bold", fill=WHITE) for yr in years]
+    return out
 
 
-EVENTS = [  # year, lines, above the axis?
-    (1958, ["One artificial neuron", "learns from examples"], True),
-    (1986, ["Errors sent back", "through the layers"], False),
-    (1998, ["A network reads", "digits on cheques"], True),
-    (2009, ["ImageNet: millions", "of labelled photos"], False),
-    (2012, ["AlexNet wins,", "on two gaming GPUs"], True),
-    (2015, ["ResNet:", "152 layers"], False),
-    (2017, ["The transformer,", "for text"], True),
-    (2020, ["GPT-3: 175 billion", "weights"], False),
-    (2022, ["ChatGPT opens", "to the public"], True),
-]
+def _event(cx, yr_x, top, h, pic, lines_, y_axis):
+    """A picture, its caption under it, and a dashed leader down to its year on the axis."""
+    cap_y = top + h + 28
+    out = list(pic)
+    out += [text(cx, cap_y + 22 * i, s_, size=18 if i == 0 else 15, weight="bold" if i == 0 else "normal",
+                 fill=INK if i < 2 else MUTED) for i, s_ in enumerate(lines_)]
+    y_lead = cap_y + 22 * (len(lines_) - 1) + 10
+    out.append(path(f"M {cx} {y_lead} L {yr_x:.1f} {y_axis - 3}", color=MUTED, w=1.3, marker="")
+               .replace('fill="none"', 'fill="none" stroke-dasharray="3 3"'))
+    return out
 
 
 def timeline(part: int) -> str:
-    """Part 1 lights 1958 to 1998; part 2 keeps them muted and lights 2009 to 2022."""
-    W, H, y0, y1 = 1000, 330, 150, 184
-    axis = [f'<polygon class="accent-fill" points="20,{y0} 962,{y0} 962,{y0 - 14} 990,{(y0 + y1) / 2} 962,{y1 + 14} '
-            f'962,{y1} 20,{y1}" fill="{ACCENT}"/>',
-            f'<path d="M418,{y1 + 4} L430,{y0 - 4} M430,{y1 + 4} L442,{y0 - 4}" stroke="{WHITE}" stroke-width="5"/>']
-    groups = {1: [], 2: []}
-    first = [e for e in EVENTS if e[0] < 2005]
-    for k, (yr, lines_, above) in enumerate(EVENTS):
-        x = _tx(yr)
-        era = 1 if yr < 2005 else 2
-        lit = era == part
-        col, ink = (ACCENT, INK) if lit else (GREY_INK, GREY_INK)
-        out = [text(x, (y0 + y1) / 2 + 6, str(yr), size=15, weight="bold", fill=WHITE)]
-        if above:
-            ys = [y0 - 66 + 21 * i for i in range(len(lines_))]
-            out.insert(0, line(x, ys[-1] + 8, x, y0 - 2, color=MUTED, w=1.3, marker="", dash="3 3"))
-        else:
-            ys = [y1 + 40 + 21 * i for i in range(len(lines_))]
-            out.insert(0, line(x, y1 + 2, x, ys[0] - 16, color=MUTED, w=1.3, marker="", dash="3 3"))
-        anchor = "start" if x < 90 else "middle"
-        tx = x - 20 if anchor == "start" else x
-        out += [text(tx, y, s_, size=16, fill=ink, weight="bold" if i == 0 else "normal", anchor=anchor)
-                for i, (y, s_) in enumerate(zip(ys, lines_))]
-        groups[era].append((k, out))
-    body = [step(1, axis)]
+    """Part 1: three ideas, 1958 to 1998. Part 2: data, graphics cards and size, 2009 to 2022."""
+    W, H = 1000, 430
     if part == 1:
-        body += [step(i + 1, out) for i, (_, out) in enumerate(groups[1])]
-        body.append(step(len(first) + 1, [
-            text(700, 70, "still missing:", size=17, fill=MUTED, anchor="middle"),
-            text(700, 96, "labelled data, and compute", size=19, weight="bold", fill=ALERT, anchor="middle")]))
-    else:
-        body.append(step(1, [o for _, out in groups[1] for o in out]))
-        body += [step(i + 1, out) for i, (_, out) in enumerate(groups[2])]
-    comment = ("Milestones of neural networks on a broken time axis: Rosenblatt 1958, Rumelhart et al. 1986, "
-               "LeCun et al. 1998, Deng et al. 2009, Krizhevsky et al. 2012, He et al. 2016 (ILSVRC 2015), "
-               "Vaswani et al. 2017, Brown et al. 2020, OpenAI 2022. ")
+        H, y0, y1 = 372, 330, 362
+
+        def tx(yr):
+            return 60 + (yr - 1950) * 880 / 52
+
+        events = [
+            (200, 1958, _picture(200, 14, 211, 200, "perceptron.jpg"),
+             ["1958 · The perceptron", "one artificial neuron", "learns from examples"]),
+            (520, 1986, _picture(520, 14, 191, 200, "hinton.jpg"),
+             ["1986 · Back-propagation", "errors sent back through layers", "pictured: G. Hinton, a co-author"]),
+            (820, 1998, _picture(820, 14, 300, 200, "mnist.png"),
+             ["1998 · LeNet", "reads handwritten digits", "on bank cheques"]),
+        ]
+        body = [step(1, _axis(20, 990, y0, y1, [1958, 1986, 1998], tx))]
+        body += [step(i + 2, _event(cx, tx(yr), 14, 200, pic, ls, y0)) for i, (cx, yr, pic, ls) in enumerate(events)]
+        comment = ("Three ideas on a time axis, 1950 to 2002: Rosenblatt's perceptron (1958; the Mark I Perceptron, "
+                   "U.S. Navy photo, public domain), back-propagation (Rumelhart, Hinton and Williams 1986; G. Hinton "
+                   "by Arthur Petron, CC BY-SA 4.0), LeNet (LeCun et al. 1998; MNIST digits by Josef Steppan, CC BY-SA "
+                   "4.0). Photos cropped and resized; see images/photos/CREDITS.md. ")
+        return svg(W, H, body, comment + LICENCE)
+
+    H, y0, y1 = 372, 330, 362
+
+    def tx(yr):
+        return 60 + (yr - 2008) * 880 / 15
+
+    cols = [95 + i * 162 for i in range(6)]
+    top, th, tw = 16, 150, 150
+    gt = top + (th - 120) / 2              # the drawn glyphs are 120 high
+
+    def tile(cx):
+        return rect(cx - tw / 2, top, tw, th, fill="#f4f6f7", stroke=EDGE, rx=4, sw=1.2)
+
+    def mosaic(cx):
+        out = [tile(cx)]
+        shades = [ACCENT, A_LIGHT, GREY_INK, B, B_LIGHT, "#f0c46a"]
+        for i in range(6):
+            for j in range(4):
+                k = (i * 5 + j * 3 + i * j) % len(shades)
+                out.append(rect(cx - 63 + i * 21, gt + 14 + j * 24, 19, 21, fill=shades[k], stroke=None, rx=2))
+        return out
+
+    def stack(cx):
+        out = [tile(cx)]
+        out += [rect(cx - 30, gt + 8 + i * 3.5, 60, 2.2, fill=ACCENT, stroke=None, rx=0, cls="accent-fill")
+                for i in range(30)]
+        return out
+
+    def attention(cx):
+        out = [tile(cx)]
+        for i in range(6):
+            for j in range(6):
+                v = 0.85 if i == j else (0.45 if abs(i - j) == 1 else (0.25 if (i + 2 * j) % 5 == 0 else 0.08))
+                out.append(f'<rect class="accent-fill" x="{cx - 51 + i * 17}" y="{gt + 9 + j * 17}" width="15" '
+                           f'height="15" fill="{ACCENT}" fill-opacity="{v}"/>')
+        return out
+
+    def weights(cx):
+        out = [tile(cx)]
+        out += [f'<circle cx="{cx - 62 + i * 8.6:.1f}" cy="{gt + 10 + j * 8.4:.1f}" r="2.3" fill="{ACCENT}" '
+                f'class="accent-fill" fill-opacity="{0.35 + 0.6 * ((i * 7 + j * 11) % 5) / 4:.2f}"/>'
+                for i in range(15) for j in range(13)]
+        return out
+
+    def chat(cx):
+        out = [tile(cx)]
+        out += [f'<path d="M {cx - 58} {gt + 14} h 80 a 8 8 0 0 1 8 8 v 26 a 8 8 0 0 1 -8 8 h -62 l -14 12 v -12 '
+                f'a 8 8 0 0 1 -4 -8 v -26 a 8 8 0 0 1 8 -8 z" fill="{WHITE}" stroke="{GREY_INK}" stroke-width="1.6"/>',
+                f'<path class="accent-fill" d="M {cx - 22} {gt + 66} h 72 a 8 8 0 0 1 8 8 v 26 a 8 8 0 0 1 -4 8 v 12 '
+                f'l -14 -12 h -62 a 8 8 0 0 1 -8 -8 v -26 a 8 8 0 0 1 8 -8 z" fill="{ACCENT}"/>']
+        out += [rect(cx - 50, gt + 25 + 12 * k, 64 - 18 * k, 4, fill=GREY_INK, stroke=None, rx=2) for k in range(2)]
+        out += [rect(cx - 12, gt + 78 + 12 * k, 56 - 16 * k, 4, fill=WHITE, stroke=None, rx=2) for k in range(2)]
+        return out
+
+    gpu_h = round(258 * tw / 460)
+    events = [
+        (2009, mosaic(cols[0]), ["ImageNet", "3.2 million", "labelled photos"]),
+        (2012, [tile(cols[1])] + _picture(cols[1], top + (th - gpu_h) // 2, tw, gpu_h, "gtx580.jpg"),
+         ["AlexNet", "two graphics cards:", "GTX 580"]),
+        (2015, stack(cols[2]), ["ResNet", "152 layers"]),
+        (2017, attention(cols[3]), ["The transformer", "built for", "translation"]),
+        (2020, weights(cols[4]), ["GPT-3", "175 billion", "weights"]),
+        (2022, chat(cols[5]), ["ChatGPT", "a chatbot open", "to the public"]),
+    ]
+    parts = [_event(cx, tx(yr), top, th, pic, ls, y0) for cx, (yr, pic, ls) in zip(cols, events)]
+    body = [step(1, _axis(20, 990, y0, y1, [e[0] for e in events], tx)),
+            step(2, parts[0] + parts[1]), step(3, parts[2] + parts[3]), step(4, parts[4] + parts[5])]
+    comment = ("Six milestones, 2009 to 2022: ImageNet (Deng et al. 2009), AlexNet on two GTX 580 cards (Krizhevsky "
+               "et al. 2012; a GTX 580 board by Fritzchens Fritz, CC0), ResNet (He et al. 2016), the transformer "
+               "(Vaswani et al. 2017), GPT-3 (Brown et al. 2020), ChatGPT (OpenAI 2022). The mosaic, stack, grid, "
+               "dots and bubbles are drawn. ")
     return svg(W, H, body, comment + LICENCE)
 
 
@@ -201,11 +248,11 @@ def tasks() -> str:
 
     what = [frame(20)] + scene(20) + [
         rect(95, 232, 140, 34, fill=A_LIGHT, stroke=ACCENT, cls="accent-a-light-fill accent-stroke", rx=17),
-        text(165, 255, "tiger", size=18, weight="bold"),
+        text(165, 255, "animal", size=18, weight="bold"),
         text(165, 300, "What? One label per photo", size=18, weight="bold")]
     where = [frame(355)] + scene(355) + [
         rect(405, 82, 128, 104, fill="none", stroke=ACCENT, cls="accent-stroke", rx=2, sw=3),
-        text(410, 76, "tiger", size=15, weight="bold", anchor="start", fill=ACCENT, cls="accent-fill"),
+        text(410, 76, "animal", size=15, weight="bold", anchor="start", fill=ACCENT, cls="accent-fill"),
         rect(545, 72, 72, 108, fill="none", stroke=GREY_INK, rx=2, sw=3),
         text(550, 66, "tree", size=15, weight="bold", anchor="start", fill=GREY_INK),
         text(500, 300, "Where? A box per object", size=18, weight="bold")]
@@ -216,42 +263,68 @@ def tasks() -> str:
                "(a label for each pixel); after Prince (2023), section 10.5. Illustrative shapes. " + LICENCE)
 
 
-# --- Part 2: how a network learns -------------------------------------------------
+# --- How a network learns, on the example wine -----------------------------------
 def unit() -> str:
-    """One unit: inputs times weights, summed with a bias, then squashed between 0 and 1."""
+    """One neuron: the wine's three values times weights, summed with a bias, then the logistic function."""
     W, H = 1000, 360
-    xs, ws, b = [0.2, 0.9, 0.5], [1.5, -0.8, 2.0], -0.3
-    z = sum(x * w for x, w in zip(xs, ws)) + b
+    ws, b = [0.5, -2.0, 1.5], -7.0                 # illustrative
+    z = sum(v * w for (_, v), w in zip(WINE, ws)) + b
     p = 1 / (1 + math.exp(-z))
     ins = []
-    for i, (x, w) in enumerate(zip(xs, ws)):
+    for i, ((name, v), w) in enumerate(zip(WINE, ws)):
         y = 70 + i * 100
-        ins += [node(110, y, r=30), text(110, y + 7, f"{x:.1f}", size=19, weight="bold"),
-                line(142, y, 416, 170, color=EDGE, w=2, marker=""),
-                text(214, y + 0.26 * (170 - y) - 9, f"× {w:+.1f}".replace("-", "−"), size=17, fill=ACCENT,
-                     cls="accent-fill", weight="bold")]
-    ins.append(text(110, 30, "three pixel values", size=16, fill=MUTED))
-    s = [rect(420, 120, 190, 100, fill=WHITE, stroke=ACCENT, cls="accent-stroke"),
-         text(515, 155, "weighted sum", size=18, weight="bold"), text(515, 180, f"plus a bias ({b:+.1f})".replace("-", "−"),
-                                                                       size=15, fill=MUTED),
-         text(515, 207, f"= {z:.2f}", size=19, weight="bold")]
+        ins += [text(184, y + 6, name, size=16, fill=MUTED, anchor="end"),
+                node(230, y, r=30), text(230, y + 7, f"{v}", size=19, weight="bold"),
+                line(262, y, 416, 170, color=EDGE, w=2, marker=""),
+                text(296, y + 0.22 * (170 - y) + (-12 if i < 2 else 24), f"× {w:+.1f}".replace("-", "−"), size=17,
+                     fill=ACCENT, cls="accent-fill", weight="bold", anchor="start")]
+    ins.append(text(160, 30, "one wine, three of its values", size=16, fill=MUTED))
+    s_ = [rect(420, 120, 190, 100, fill=WHITE, stroke=ACCENT, cls="accent-stroke"),
+          text(515, 155, "weighted sum", size=18, weight="bold"),
+          text(515, 180, f"plus a bias ({b:+.1f})".replace("-", "−"), size=15, fill=MUTED),
+          text(515, 207, f"= {z:.2f}".replace("-", "−"), size=19, weight="bold")]
     cx, cy = 690, 120
     curve = " ".join(f"{cx + 10 + t * 13:.1f},{cy + 90 - 80 / (1 + math.exp(-(t - 6))):.1f}" for t in range(13))
     sq = [line(612, 170, 676, 170, color=INK, w=1.8),
           rect(cx, cy, 176, 100, fill=WHITE, stroke=ACCENT, cls="accent-stroke"),
           f'<polyline points="{curve}" fill="none" stroke="{ACCENT}" class="accent-stroke" stroke-width="3"/>',
-          text(cx + 88, cy + 126, "a squash: 0 to 1", size=15, fill=MUTED),
-          line(868, 170, 912, 170, color=INK, w=1.8),
-          text(950, 178, f"{p:.2f}", size=26, weight="bold", fill=ACCENT, cls="accent-fill")]
+          text(cx + 88, cy + 126, "a function: here 0 to 1", size=15, fill=MUTED),
+          line(868, 170, 900, 170, color=INK, w=1.8),
+          text(950, 162, f"{p:.2f}", size=26, weight="bold", fill=ACCENT, cls="accent-fill"),
+          text(950, 188, "P(high)", size=15, fill=MUTED)]
     cap = [text(520, 330, "the logistic regression of the first day", size=19, weight="bold", fill=ACCENT,
                 cls="accent-fill")]
-    return svg(W, H, [step(1, ins), step(2, s), step(3, sq), step(4, cap)],
-               f"One unit with illustrative inputs {xs}, weights {ws} and bias {b}: weighted sum {z:.2f}, logistic "
-               f"squash {p:.2f} (Provost and Fawcett 2013, pp. 106 to 108). Illustrative. " + LICENCE)
+    return svg(W, H, [step(1, ins), step(2, s_), step(3, sq), step(4, cap)],
+               f"One neuron on deck 4's example wine (line 12 of winequality_all.csv: alcohol 12.0, volatile acidity "
+               f"0.27, sulphates 0.56), illustrative weights {ws} and bias {b}: weighted sum {z:.2f}, logistic "
+               f"{p:.2f} (Provost and Fawcett 2013, pp. 106 to 108). Weights illustrative. " + LICENCE)
 
 
-NET = {"in": (110, [70, 125, 180, 260, 315]), "h1": (360, [80, 150, 220, 290]),
-       "h2": (560, [80, 150, 220, 290]), "out": (790, [110, 185, 260])}
+def activation() -> str:
+    """Two functions applied after the weighted sum: the logistic, and the ReLU."""
+    W, H = 1000, 340
+
+    def panel(x0, title, sub, f, ymin, ymax):
+        x1, y_top, y_bot = x0 + 380, 50, 270
+        sx = lambda v: x0 + (v + 5) / 10 * (x1 - x0)
+        sy = lambda v: y_bot - (v - ymin) / (ymax - ymin) * (y_bot - y_top)
+        pts = " ".join(f"{sx(v / 10):.1f},{sy(f(v / 10)):.1f}" for v in range(-50, 51))
+        return [line(x0, sy(0), x1, sy(0), color=MUTED, w=1.3, marker=""),
+                line(sx(0), y_bot + 6, sx(0), y_top - 10, color=MUTED, w=1.3, marker=""),
+                f'<polyline class="accent-stroke" points="{pts}" fill="none" stroke="{ACCENT}" stroke-width="3.4"/>',
+                text(x1, sy(0) + 24, "the weighted sum", size=14, fill=MUTED, anchor="end"),
+                text((x0 + x1) / 2, 22, title, size=20, weight="bold"),
+                text((x0 + x1) / 2, y_bot + 46, sub, size=16, fill=MUTED)]
+
+    logi = panel(60, "logistic", "between 0 and 1: the first day's", lambda v: 1 / (1 + math.exp(-v)), -0.1, 1.1)
+    relu = panel(560, "ReLU", "0 below zero, the sum itself above", lambda v: max(0.0, v), -0.5, 5.2)
+    return svg(W, H, [step(1, logi), step(2, relu)],
+               "Two activation functions of the weighted sum: the logistic sigmoid and the rectified linear unit, the "
+               "most common choice (Prince 2023, pp. 25 and 66). " + LICENCE)
+
+
+NET = {"in": (220, [70, 125, 180, 260, 315]), "h1": (430, [80, 150, 220, 290]),
+       "h2": (610, [80, 150, 220, 290]), "out": (800, [110, 185, 260])}
 
 
 def layers() -> str:
@@ -261,30 +334,34 @@ def layers() -> str:
     xo, yo = NET["out"]
     io = [node(xi, y) for y in yi] + [text(xi, 226, "⋮", size=26, fill=MUTED),
                                       text(xi, 30, "input layer", size=17, weight="bold"),
-                                      text(xi, 360, "the pixels", size=16, fill=MUTED),
+                                      text(xi, 360, "a wine's values", size=16, fill=MUTED),
                                       text(xo, 30, "output layer", size=17, weight="bold"),
-                                      text(xo, 330, "one unit per class", size=16, fill=MUTED)]
-    for y, n in zip(yo, ["lion", "tiger", "cat"]):
+                                      text(xo, 330, "one neuron per class", size=16, fill=MUTED)]
+    io += [text(xi - 24, y + 5, n, size=15, fill=MUTED, anchor="end")
+           for y, n in zip(yi, ["alcohol", "volatile acidity", "sulphates", "pH", "colour"])]
+    for y, n in zip(yo, LINES):
         io += [node(xo, y, r=16, fill=A_LIGHT, cls="accent-a-light-fill"),
                text(xo + 30, y + 6, n, size=18, anchor="start")]
     hid = []
     for a, b_ in (("in", "h1"), ("h1", "h2"), ("h2", "out")):
         hid += edges_between(NET[a][0], NET[a][1], NET[b_][0], NET[b_][1])
     hid += [node(x, y) for k in ("h1", "h2") for x in [NET[k][0]] for y in NET[k][1]]
-    hid += [text(460, 30, "hidden layers", size=17, weight="bold")]
-    deep = [path("M 340 330 L 340 340 L 580 340 L 580 330", color=ACCENT, w=2.2, marker="", cls="accent-stroke"),
-            text(460, 368, "deep: many hidden layers, not two", size=17, weight="bold", fill=ACCENT, cls="accent-fill")]
+    hid += [text(520, 30, "hidden layers", size=17, weight="bold")]
+    deep = [path("M 410 330 L 410 340 L 630 340 L 630 330", color=ACCENT, w=2.2, marker="", cls="accent-stroke"),
+            text(520, 368, "deep: more than one hidden layer", size=17, weight="bold", fill=ACCENT, cls="accent-fill")]
     # the hidden layers go under the input and output units, so they are drawn first
     return svg(W, H, [step(2, hid), step(1, io), step(3, deep)],
-               "A network's layers: input units for the pixels, two hidden layers, one output unit per class. "
+               "A network's layers on deck 4's wines: input neurons for a wine's values, two hidden layers, one output "
+               "neuron per line (low, medium, high); deep means more than one hidden layer (Prince 2023, p. 41). "
                "Schematic. " + LICENCE)
 
 
 def forward() -> str:
-    """A photo's values flow forward, layer by layer, to one score per class."""
+    """The wine's values flow forward, layer by layer, to one score per line."""
     W, H = 1000, 380
-    cols = {"in": (110, [80, 180, 280]), "h": (420, [80, 180, 280]), "out": (730, [80, 180, 280])}
-    vals = {"in": ["0.2", "0.9", "0.5"], "h": ["0.6", "0.1", "0.8"], "out": ["2.1", "0.4", "−1.0"]}
+    cols = {"in": (200, [80, 180, 280]), "h": (480, [80, 180, 280]), "out": (760, [80, 180, 280])}
+    vals = {"in": [f"{v}" for _, v in WINE], "h": ["0.9", "0", "1.4"],
+            "out": [f"{v:.1f}" for v in SCORES]}
     groups = []
     prev = None
     for k in ("in", "h", "out"):
@@ -298,26 +375,32 @@ def forward() -> str:
                   text(x, y + 7, v, size=19, weight="bold")]
         groups.append(g)
         prev = k
-    groups[0] += [text(110, 335, "pixel values", size=16, fill=MUTED)]
-    groups[1] += [text(420, 335, "each unit: a weighted sum, then a non-linear function", size=16, fill=MUTED)]
-    groups[2] += [text(730, 335, "one score per class", size=16, fill=MUTED)]
-    for y, n in zip(cols["out"][1], ["lion", "tiger", "cat"]):
-        groups[2].append(text(775, y + 7, n, size=18, anchor="start"))
-    arrow = [line(110, 365, 880, 365, color=ACCENT, w=2.4, marker="ahA", cls="accent-stroke"),
-             text(495, 357, "forward", size=15, weight="bold", fill=ACCENT, cls="accent-fill")]
+    groups[0] += [text(200, 335, "the wine's values", size=16, fill=MUTED)]
+    groups[0] += [text(156, y + 5, n, size=15, fill=MUTED, anchor="end") for y, (n, _) in zip(cols["in"][1], WINE)]
+    groups[1] += [text(480, 335, "each neuron: a weighted sum, then ReLU", size=16, fill=MUTED)]
+    groups[2] += [text(760, 335, "one score per line", size=16, fill=MUTED)]
+    for y, n in zip(cols["out"][1], LINES):
+        groups[2].append(text(805, y + 7, n, size=18, anchor="start"))
+    arrow = [line(200, 365, 900, 365, color=ACCENT, w=2.4, marker="ahA", cls="accent-stroke"),
+             text(550, 357, "forward", size=15, weight="bold", fill=ACCENT, cls="accent-fill")]
     return svg(W, H, [step(1, groups[0]), step(2, groups[1] + arrow), step(3, groups[2])],
-               "A forward pass with illustrative values: three inputs, three hidden units, three class scores "
-               "(2.1, 0.4, -1.0, the scores of the next slide's softmax). Illustrative. " + LICENCE)
+               "A forward pass on deck 4's example wine (alcohol 12.0, volatile acidity 0.27, sulphates 0.56): three "
+               f"hidden neurons, three line scores {SCORES}, those of the next slide's softmax. Hidden values and "
+               "scores illustrative. " + LICENCE)
+
+
+def _probs():
+    e = [math.exp(v) for v in SCORES]
+    return [x / sum(e) for x in e]
 
 
 def softmax() -> str:
     """Three scores become three probabilities that sum to one."""
     W, H = 1000, 390
-    z = [("lion", 2.1), ("tiger", 0.4), ("cat", -1.0)]
-    e = [math.exp(v) for _, v in z]
-    p = [x / sum(e) for x in e]
+    p = _probs()
+    top_i = max(range(3), key=lambda i: p[i])
     left = [text(150, 40, "the last layer's scores", size=19, weight="bold")]
-    for i, (n, v) in enumerate(z):
+    for i, (n, v) in enumerate(zip(LINES, SCORES)):
         y = 80 + i * 86
         left += [rect(40, y, 220, 60, fill=WHITE, stroke=ACCENT, cls="accent-stroke"),
                  text(150, y + 38, f"{n}: {v:+.1f}".replace("-", "−"), size=22)]
@@ -327,29 +410,30 @@ def softmax() -> str:
     base, top, x0 = 300, 60, 520
     bars = [text(740, 40, "probabilities, summing to 1", size=19, weight="bold"),
             line(x0 - 10, base, 960, base, color=MUTED, w=1.4, marker="")]
-    for i, ((n, _), q) in enumerate(zip(z, p)):
+    for i, (n, q) in enumerate(zip(LINES, p)):
         h = q * (base - top)
         x = x0 + i * 150
-        fill, cls = (ACCENT, "accent-fill") if i == 0 else (A_LIGHT, "accent-a-light-fill")
+        lit = i == top_i
+        fill, cls = (ACCENT, "accent-fill") if lit else (A_LIGHT, "accent-a-light-fill")
         bars += [rect(x, base - h, 100, h, fill=fill, stroke=None, rx=3, cls=cls),
-                 text(x + 50, base - h - 10, f"{q:.2f}", size=21, weight="bold" if i == 0 else "normal"),
-                 text(x + 50, base + 28, n, size=19, weight="bold" if i == 0 else "normal")]
-    win = [text(740, 378, "the most probable class wins, unless the costs say otherwise", size=17, fill=ACCENT,
+                 text(x + 50, base - h - 10, f"{q:.2f}", size=21, weight="bold" if lit else "normal"),
+                 text(x + 50, base + 28, n, size=19, weight="bold" if lit else "normal")]
+    win = [text(740, 378, "the most probable line wins, unless the costs say otherwise", size=17, fill=ACCENT,
                 cls="accent-fill", weight="bold")]
     body = [step(1, left), step(2, mid + bars), step(3, win)]
-    return svg(W, H, body, "Softmax of three illustrative scores (2.1, 0.4, -1.0) into 0.81, 0.15 and 0.04. "
-               "Illustrative. " + LICENCE)
+    return svg(W, H, body, f"Softmax of three illustrative line scores {SCORES} into "
+               f"{', '.join(f'{q:.2f}' for q in p)}. Illustrative. " + LICENCE)
 
 
 def loss() -> str:
-    """Minus the log of the probability given to the true class: high when wrong, low when right."""
+    """Minus the log of the probability given to the true line: high when wrong, low when right."""
     W, H = 1000, 380
-    probs = [("lion", 0.81), ("tiger", 0.15), ("cat", 0.04)]
+    probs = list(zip(LINES, _probs()))
 
-    def panel(x0, truth, n):
+    def panel(x0, truth, head_):
         q = dict(probs)[truth]
         out = [rect(x0, 20, 440, 270, fill=WHITE, stroke=EDGE, rx=8),
-               text(x0 + 220, 52, f"photo {n}: its label is {truth}", size=19, weight="bold")]
+               text(x0 + 220, 52, head_, size=19, weight="bold")]
         base = 230
         for i, (c, v) in enumerate(probs):
             x = x0 + 60 + i * 120
@@ -365,12 +449,12 @@ def loss() -> str:
                      fill=ALERT if hi else ACCENT, cls="" if hi else "accent-fill")]
         return out, l_
 
-    a, la = panel(20, "tiger", 1)
-    b_, lb = panel(540, "lion", 2)
-    cap = [text(500, 372, "the loss: minus the log of the probability given to the true class", size=16, fill=MUTED)]
+    a, la = panel(20, "low", "this wine's line is low")
+    b_, lb = panel(540, "medium", "a medium wine, the same output")
+    cap = [text(500, 372, "the loss: minus the log of the probability given to the true line", size=16, fill=MUTED)]
     return svg(W, H, [step(1, a), step(2, b_), step(3, cap)],
-               f"Cross-entropy loss on the same illustrative output (0.81, 0.15, 0.04): {la:.2f} for a tiger photo, "
-               f"{lb:.2f} for a lion photo (Prince 2023, section 5.5). Illustrative. " + LICENCE)
+               f"Cross-entropy loss on the same illustrative output: {la:.2f} for the example wine, whose line is low, "
+               f"{lb:.2f} for a medium wine (Prince 2023, section 5.5). Illustrative. " + LICENCE)
 
 
 def descent() -> str:
@@ -405,11 +489,10 @@ def descent() -> str:
                    f'<circle class="accent-fill" cx="{px(b_):.1f}" cy="{py(L(b_)):.1f}" r="7" fill="{ACCENT}"/>']
     steps_ += [text(px(2.0), py(L(1.2)) + 30, "each step: a little downhill", size=17, weight="bold", fill=ACCENT,
                     cls="accent-fill", anchor="start")]
-    cap = [text(500, 360, "training does this for every weight at once: 5.3 million in EfficientNet B0", size=17,
-                weight="bold")]
+    cap = [text(500, 360, "training moves every weight at once: GPT-3 has 175 billion", size=17, weight="bold")]
     return svg(W, H, [step(1, axes + start), step(2, steps_), step(3, cap)],
                "Gradient descent on an illustrative loss curve of one weight, five steps with a fixed step size; "
-               "EfficientNet B0's 5.3 million parameters from Tan and Le (2019), Table 2. Illustrative. " + LICENCE)
+               "GPT-3's 175 billion parameters from Brown et al. (2020), p. 5. Illustrative. " + LICENCE)
 
 
 def backprop() -> str:
@@ -421,18 +504,44 @@ def backprop() -> str:
     for x, n in zip(xs, names):
         boxes += [rect(x, 120, 150, 90, fill=WHITE, stroke=ACCENT, cls="accent-stroke"),
                   text(x + 75, 172, n, size=18, weight="bold")]
-    fwd = boxes + [line(60, 80, 800, 80, color=GREY_INK, w=2.4), text(430, 66, "forward: the photo to a score", size=17,
-                                                                         fill=GREY_INK)]
+    fwd = boxes + [line(60, 80, 800, 80, color=GREY_INK, w=2.4), text(430, 66, "forward: the inputs to the scores",
+                                                                         size=17, fill=GREY_INK)]
+    lw = -math.log(_probs()[0])
     l_ = [line(812, 165, 846, 165, color=INK, w=1.8),
           rect(850, 120, 120, 90, fill="#fdecee", stroke=ALERT, rx=8),
-          text(910, 160, "the loss", size=18, weight="bold", fill=ALERT), text(910, 186, "1.90", size=18, fill=ALERT)]
+          text(910, 160, "the loss", size=18, weight="bold", fill=ALERT), text(910, 186, f"{lw:.2f}", size=18, fill=ALERT)]
     back = [line(850, 250, 70, 250, color=ACCENT, w=2.8, marker="ahA", cls="accent-stroke", dash="9 6"),
             text(460, 284, "back: each weight gets its share of the error", size=18, weight="bold", fill=ACCENT,
                  cls="accent-fill")]
     back += [line(x + 75, 246, x + 75, 214, color=ACCENT, w=2, marker="ahA", cls="accent-stroke") for x in xs]
     return svg(W, H, [step(1, fwd), step(2, l_), step(3, back)],
-               "Back-propagation: a forward pass to the loss (1.90, the tiger photo of the loss slide), then the "
+               f"Back-propagation: a forward pass to the loss ({lw:.2f}, the example wine of the loss slide), then the "
                "error sent back layer by layer (Rumelhart et al. 1986; Prince 2023, chapter 7). Schematic. " + LICENCE)
+
+
+def loop() -> str:
+    """The training loop: forward, loss, backward, update, one batch at a time."""
+    W, H = 1000, 330
+    names = [("1 · forward", "a batch of examples", "to the scores"), ("2 · loss", "how wrong", "the batch is"),
+             ("3 · backward", "each weight's", "gradient"), ("4 · update", "every weight moves", "a small step")]
+    groups = []
+    for i, (t, a, b_) in enumerate(names):
+        x = 30 + i * 245
+        g = [rect(x, 60, 200, 120, fill=A_LIGHT if i == 3 else WHITE, stroke=ACCENT,
+                  cls="accent-a-light-fill accent-stroke" if i == 3 else "accent-stroke"),
+             text(x + 100, 98, t, size=20, weight="bold"), text(x + 100, 132, a, size=16, fill=MUTED),
+             text(x + 100, 154, b_, size=16, fill=MUTED)]
+        if i:
+            g.insert(0, line(x - 43, 120, x - 4, 120, color=INK, w=2))
+        groups.append(g)
+    back = [path("M 865 184 L 865 240 L 130 240 L 130 186", color=ACCENT, w=2.6, marker="ahA", cls="accent-stroke"),
+            text(497, 272, "then the next batch, until every example has been used", size=17, weight="bold",
+                 fill=ACCENT, cls="accent-fill")]
+    return svg(W, H, [step(1, groups[0]), step(2, groups[1]), step(3, groups[2]), step(4, groups[3]),
+                      step(5, back)],
+               "The training loop of stochastic gradient descent: forward pass on a batch, loss, backward pass, "
+               "update, repeated batch after batch (Prince 2023, sections 6.2 and 7.2; Zhang et al. 2023, section "
+               "3.4). " + LICENCE)
 
 
 def _curve(f, n, px, py):
@@ -440,7 +549,7 @@ def _curve(f, n, px, py):
 
 
 def epochs() -> str:
-    """One epoch is every training photo once; training runs many."""
+    """One epoch is every training example once; training runs many."""
     W, H = 1000, 390
     tiles = []
     for i in range(29):
@@ -448,7 +557,7 @@ def epochs() -> str:
         tiles.append(rect(x, 30, 24, 24, fill=A_LIGHT if i % 2 else WHITE, stroke=ACCENT,
                           cls="accent-a-light-fill accent-stroke" if i % 2 else "accent-stroke", rx=3, sw=1.2))
     tiles += [path("M 60 66 L 60 76 L 966 76 L 966 66", color=ACCENT, w=2, marker="", cls="accent-stroke"),
-              text(513, 100, "one epoch: every training photo seen once, a batch at a time", size=17, weight="bold",
+              text(513, 100, "one epoch: every training example seen once, a batch at a time", size=17, weight="bold",
                    fill=ACCENT, cls="accent-fill")]
     x0, x1, y0, y1, n = 80, 940, 140, 330, 20
 
@@ -466,7 +575,7 @@ def epochs() -> str:
     tr = [f'<polyline class="accent-stroke" points="{_curve(lambda e: 0.15 + 0.95 * math.exp(-e / 4), n, px, py)}" '
           f'fill="none" stroke="{ACCENT}" stroke-width="3"/>']
     return svg(W, H, [step(1, tiles), step(2, axes + tr)],
-               "One epoch over 29 tiles standing for the training photos, in batches; an illustrative training loss "
+               "One epoch over 29 tiles standing for the training examples, in batches of 8; an illustrative training loss "
                "over 20 epochs (Prince 2023, chapter 6). Illustrative. " + LICENCE)
 
 
@@ -550,26 +659,117 @@ def convolution() -> str:
                "the edge is (Prince 2023, chapter 10). Illustrative. " + LICENCE)
 
 
-# --- Parts 3 to 5: reused from the earlier draft -----------------------------------
+# --- Augmentation, a plain network on pixels, data sizes, test hygiene ------------
 def augment() -> str:
-    """The same photo, flipped, cropped and recoloured: new pixels, the same label."""
-    W, H = 1000, 250
+    """Varied copies with the same label: a photo flipped, a sentence with a synonym, a sound filtered."""
+    W, H = 1000, 330
 
-    def frame(x, label, inner, sub=""):
-        out = [rect(x - 85, 20, 170, 150, fill=WHITE, stroke=EDGE, rx=6, sw=1.6), inner,
-               text(x, 200, label, size=18, weight="bold")]
-        if sub:
-            out.append(text(x, 224, sub, size=15, fill=MUTED))
-        return out
+    def card(x, y, inner, w=280, h=96):
+        return [rect(x - w / 2, y, w, h, fill=WHITE, stroke=EDGE, rx=6, sw=1.6)] + inner
 
-    orig = frame(110, "a training photo", glyph(110, 100))
-    var = (frame(370, "flipped", glyph(370, 100, flip=True), "left to right")
-           + frame(610, "cropped", f'<g clip-path="url(#clipc)">{glyph(630, 110, s=1.45)}</g>', "75% of it kept, or more")
-           + frame(850, "recoloured", glyph(850, 100, fill="#f0c46a", cls=""), "hue, contrast, brightness"))
-    clip = '<clipPath id="clipc"><rect x="525" y="20" width="170" height="150" rx="6"/></clipPath>'
-    body = [clip, step(1, orig), step(2, [line(205, 95, 270, 95, color=ACCENT, w=2.4, marker="ahA", cls="accent-stroke")] + var)]
-    return svg(W, H, body, "Data augmentation: one abstract training image flipped, cropped (Dataiku's default minimum "
-               "kept ratio, 0.75) and recoloured; the label does not change. Illustrative. " + LICENCE)
+    def wave(x, y, amp, k=1.0):
+        pts = " ".join(f"{x - 120 + t * 4:.1f},{y + amp * (math.sin(t / 3.2) + 0.5 * k * math.sin(t / 1.1)):.1f}"
+                       for t in range(61))
+        return f'<polyline points="{pts}" fill="none" stroke="{ACCENT}" class="accent-stroke" stroke-width="2.4"/>'
+
+    cols = [170, 500, 830]
+    heads = ["a photo", "a sentence", "a sound"]
+    orig = [card(cols[0], 40, [glyph(cols[0], 88, s=0.55)]),
+            card(cols[1], 40, [text(cols[1], 82, "“The wine was excellent.”", size=17),
+                               text(cols[1], 108, "label: positive", size=14, fill=MUTED)]),
+            card(cols[2], 40, [wave(cols[2], 88, 14)])]
+    copy = [card(cols[0], 190, [glyph(cols[0], 238, s=0.55, flip=True)]),
+            card(cols[1], 190, [text(cols[1], 232, "“The wine was superb.”", size=17),
+                                text(cols[1], 258, "label: positive", size=14, fill=MUTED)]),
+            card(cols[2], 190, [wave(cols[2], 238, 14, k=0.25)])]
+    how = ["flipped", "a synonym", "filtered"]
+    groups = []
+    for i in range(3):
+        g = [text(cols[i], 26, heads[i], size=18, weight="bold")] + orig[i] + [
+            line(cols[i], 140, cols[i], 184, color=ACCENT, w=2.2, marker="ahA", cls="accent-stroke"),
+            text(cols[i] + 12, 168, how[i], size=15, fill=ACCENT, cls="accent-fill", anchor="start")] + copy[i]
+        groups.append(g)
+    same = [text(500, 318, "a new training example, with the same label", size=17, weight="bold")]
+    return svg(W, H, [step(1, groups[0]), step(2, groups[1]), step(3, groups[2]), step(4, same)],
+               "Data augmentation on three kinds of input: an image flipped, a sentence with a synonym, a sound with "
+               "a frequency band attenuated; the label does not change (Prince 2023, sections 9.3.6 and 9.3.8). "
+               "Drawn; illustrative. " + LICENCE)
+
+
+def flatten() -> str:
+    """A plain network reads a photo as one long list: neighbours in the grid end up far apart."""
+    W, H = 1000, 330
+    n, c, gx, gy = 4, 46, 40, 40
+    shade = [[0.15, 0.3, 0.55, 0.8], [0.2, 0.35, 0.6, 0.85], [0.25, 0.45, 0.7, 0.9], [0.3, 0.5, 0.75, 0.95]]
+    a_, b_ = (1, 1), (1, 2)                          # a pixel and the one below it
+
+    def grey(v):
+        g = int(60 + 180 * v)
+        return f"rgb({g},{g},{g})"
+
+    grid = [text(gx + n * c / 2, 26, "4 by 4 pixels", size=16, fill=MUTED)]
+    for j in range(n):
+        for i in range(n):
+            grid.append(rect(gx + i * c, gy + j * c, c, c, fill=grey(shade[j][i]), stroke=WHITE, rx=0, sw=1.5))
+    mark = [rect(gx + a_[0] * c, gy + a_[1] * c, c, c, fill="none", stroke=ALERT, rx=0, sw=3.5),
+            rect(gx + b_[0] * c, gy + b_[1] * c, c, c, fill="none", stroke=ALERT, rx=0, sw=3.5),
+            text(gx + n * c / 2, gy + n * c + 30, "neighbours: one above the other", size=16, fill=ALERT)]
+    lx, ly, lc = 290, 120, 42
+    row = [text(lx + 8 * lc, ly - 40, "the same pixels as one list, row after row", size=16, fill=MUTED),
+           line(gx + n * c + 12, gy + n * c / 2, lx - 12, ly + lc / 2, color=INK, w=1.8)]
+    for k in range(16):
+        j, i = divmod(k, n)
+        row.append(rect(lx + k * lc, ly, lc, lc, fill=grey(shade[j][i]), stroke=WHITE, rx=0, sw=1.5))
+    ka, kb = a_[1] * n + a_[0], b_[1] * n + b_[0]
+    apart = [rect(lx + ka * lc, ly, lc, lc, fill="none", stroke=ALERT, rx=0, sw=3.5),
+             rect(lx + kb * lc, ly, lc, lc, fill="none", stroke=ALERT, rx=0, sw=3.5),
+             path(f"M {lx + ka * lc + lc / 2} {ly + lc + 6} L {lx + ka * lc + lc / 2} {ly + lc + 22} "
+                  f"L {lx + kb * lc + lc / 2} {ly + lc + 22} L {lx + kb * lc + lc / 2} {ly + lc + 6}",
+                  color=ALERT, w=2, marker=""),
+             text(lx + (ka + kb + 1) * lc / 2, ly + lc + 46, "4 places apart here; 224 in a photo 224 pixels wide", size=16,
+                  fill=ALERT, weight="bold")]
+    note = [text(lx + 8 * lc, 290, "every input is wired to every neuron alike: nothing says which pixels touch",
+                 size=16, weight="bold")]
+    return svg(W, H, [step(1, grid), step(2, mark + row + apart), step(3, note)],
+               "A 4 by 4 patch unrolled row by row into the 16 inputs of a plain, fully connected layer: two vertical "
+               "neighbours land 4 places apart; fully connected networks have no notion of nearby pixels (Prince "
+               "2023, p. 161). Illustrative grey levels. " + LICENCE)
+
+
+def data_sizes() -> str:
+    """Training sets, from thousands of examples to hundreds of billions, on a log scale."""
+    W, H = 1000, 360
+    rows = [(1998, "MNIST", 6e4, "handwritten digits", "LeCun et al. 1998, p. 10"),
+            (2012, "ImageNet", 1.28e6, "labelled photos", "He et al. 2016, p. 4"),
+            (2018, "BERT", 3.3e9, "words of books and Wikipedia", "Devlin et al. 2019, p. 13"),
+            (2020, "GPT-3", 3e11, "tokens of text", "Brown et al. 2020, p. 8"),
+            (2021, "CLIP", 4e8, "photos with their captions", "Radford et al. 2021, p. 1")]
+    x0, x1, lo, hi = 210, 740, 4, 12
+
+    def px(v):
+        return x0 + (math.log10(v) - lo) / (hi - lo) * (x1 - x0)
+
+    axis = [line(x0, 318, x1, 318, color=MUTED, w=1.3, marker="")]
+    for e in range(lo, hi + 1, 2):
+        axis += [line(px(10 ** e), 312, px(10 ** e), 324, color=MUTED, w=1.2, marker=""),
+                 text(px(10 ** e), 344, f"10<tspan baseline-shift='super' font-size='11'>{e}</tspan>", size=15,
+                      fill=MUTED)]
+    axis.append(text(x1, 300, "training examples, log scale", size=14, fill=MUTED, anchor="end"))
+
+    def bar(i, r):
+        yr, name, v, unit, _ = r
+        y = 24 + i * 56
+        word = f"{v:,.0f}" if v < 1e6 else (f"{v / 1e6:g} million" if v < 1e9 else f"{v / 1e9:g} billion")
+        return [text(x0 - 14, y + 20, f"{yr} · {name}", size=16, weight="bold", anchor="end"),
+                rect(x0, y + 2, px(v) - x0, 28, fill=ACCENT if i < 2 else A_LIGHT, stroke=None, rx=3,
+                     cls="accent-fill" if i < 2 else "accent-a-light-fill"),
+                text(px(v) + 10, y + 22, f"{word} {unit}", size=15, anchor="start")]
+
+    imgs = sum((bar(i, r) for i, r in enumerate(rows[:2])), [])
+    txts = sum((bar(i + 2, r) for i, r in enumerate(rows[2:])), [])
+    return svg(W, H, [step(1, axis + imgs), step(2, txts)],
+               "Training-set sizes, log scale: " + "; ".join(f"{r[1]} {r[2]:g} {r[3]} ({r[4]})" for r in rows)
+               + ". Units differ: digits, photos, words, tokens, image and caption pairs. " + LICENCE)
 
 
 def hygiene() -> str:
@@ -596,7 +796,7 @@ def hygiene() -> str:
                "(8 of 65) and a mislabelled photo (2), as counted on the course copy. File names illustrative. " + LICENCE)
 
 
-# --- Part 3: borrowing a trained network -------------------------------------------
+# --- Pretrained networks ---------------------------------------------------------
 def lock(x, y, open_=False, color=GREY_INK):
     """A small padlock: closed for a frozen block, open for one that trains."""
     arc = (f"M {x - 7} {y} L {x - 7} {y - 8} A 7 7 0 0 1 {x + 7} {y - 8} L {x + 7} {y - 4}" if open_ else
@@ -617,7 +817,7 @@ def backbone(unlocked: int = 0) -> list[str]:
                 lock(x + 38, 182, open_=lit, color=ACCENT if lit else GREY_INK)]
         if i < 6:
             out.append(line(x + 78, 165, x + 90, 165, color=GREY_INK, w=1.4, marker=""))
-    out += [text(360, 90, "EfficientNet B0, trained on ImageNet", size=19, weight="bold"),
+    out += [text(360, 90, "a pretrained network: its layers, trained on a large dataset", size=19, weight="bold"),
             line(682, 165, 722, 165, color=INK, w=1.6)]
     return out
 
@@ -625,31 +825,62 @@ def backbone(unlocked: int = 0) -> list[str]:
 def head(lit=True):
     if not lit:
         return [rect(728, 110, 230, 110, fill=WHITE, stroke=GREY_INK, rx=8, sw=1.6),
-                text(843, 160, "1,000 outputs", size=19), text(843, 186, "ImageNet's classes", size=16, fill=MUTED)]
+                text(843, 152, "the old head", size=19), text(843, 180, "the original task's", size=16, fill=MUTED),
+                text(843, 200, "classes", size=16, fill=MUTED)]
     return [rect(728, 110, 230, 110, fill=A_LIGHT, stroke=ACCENT, rx=8, sw=2.4, cls="accent-a-light-fill accent-stroke"),
-            text(843, 152, "a new head", size=20, weight="bold"), text(843, 180, "lion, tiger", size=18),
-            text(843, 204, "learns from the photos", size=15, fill=MUTED)]
+            text(843, 152, "a new head", size=20, weight="bold"), text(843, 180, "your classes", size=18),
+            text(843, 204, "learns from your examples", size=15, fill=MUTED)]
 
 
 def transfer() -> str:
     """Keep the pretrained blocks frozen; replace the last layer by a new head."""
     W, H = 1000, 300
-    cap = [text(360, 258, "frozen: the weights learned on ImageNet stay as they are", size=17, fill=MUTED),
+    cap = [text(360, 258, "locked: the pretrained weights stay as they are", size=17, fill=MUTED),
            text(843, 258, "the only weights that learn", size=17, weight="bold", fill=ACCENT, cls="accent-fill")]
     body = [step(1, backbone(0)), step(1, head(lit=False), hide="2-end"), step(2, head()), step(3, cap)]
-    return svg(W, H, body, "Transfer learning: a backbone pretrained on ImageNet, frozen, its 1,000-class output "
-               "replaced by a new two-class head that alone is trained. Schematic. " + LICENCE)
+    return svg(W, H, body, "Transfer learning: a pretrained network's layers, locked, its original output layer "
+               "replaced by a new head for the new task's classes, the only part trained (Prince 2023, section 9.3.6; "
+               "Zhang et al. 2023, section 14.2). Schematic. " + LICENCE)
 
 
 def finetune() -> str:
     """The same network with its last two blocks unlocked: fine-tuning."""
     W, H = 1000, 300
     br = [path("M 500 240 L 500 250 L 674 250 L 674 240", color=ACCENT, w=2.2, marker="", cls="accent-stroke"),
-          text(587, 278, "fine-tuned: 2 blocks learn too", size=17, fill=ACCENT, cls="accent-fill", weight="bold"),
-          text(240, 278, "still frozen", size=17, fill=MUTED)]
+          text(587, 278, "fine-tuned: the last 2 learn too", size=17, fill=ACCENT, cls="accent-fill", weight="bold"),
+          text(240, 278, "still locked", size=17, fill=MUTED)]
     body = [step(1, backbone(0) + head()), step(2, backbone(2) + br)]
-    return svg(W, H, body, "Fine-tuning: the same backbone with its last two blocks unfrozen and trained with the "
-               "new head. Schematic. " + LICENCE)
+    return svg(W, H, body, "Fine-tuning: the same pretrained network with its last two blocks unlocked and trained "
+               "with the new head. Schematic. " + LICENCE)
+
+
+def general() -> str:
+    """A pretrained network: general features in its first layers, specific ones in its last."""
+    W, H = 1000, 320
+    blocks = []
+    for i in range(7):
+        x = 40 + i * 92
+        v = i / 6
+        blocks += [f'<rect class="accent-fill" x="{x}" y="70" width="76" height="110" rx="6" fill="{ACCENT}" '
+                   f'fill-opacity="{0.12 + 0.7 * v:.2f}"/>',
+                   rect(x, 70, 76, 110, fill="none", stroke=ACCENT, rx=6, sw=1.6, cls="accent-stroke"),
+                   text(x + 38, 132, f"{i + 1}", size=18, weight="bold", fill=INK if i < 4 else WHITE)]
+        if i < 6:
+            blocks.append(line(x + 78, 125, x + 90, 125, color=GREY_INK, w=1.4, marker=""))
+    blocks += [text(360, 50, "a pretrained network", size=19, weight="bold"),
+               line(682, 125, 722, 125, color=INK, w=1.6),
+               rect(728, 70, 230, 110, fill=WHITE, stroke=GREY_INK, rx=8, sw=1.6),
+               text(843, 120, "its head", size=19), text(843, 148, "the original classes", size=16, fill=MUTED)]
+    gen = [path("M 40 196 L 40 206 L 300 206 L 300 196", color=ACCENT, w=2.2, marker="", cls="accent-stroke"),
+           text(170, 234, "first layers: general", size=18, weight="bold", fill=ACCENT, cls="accent-fill"),
+           text(170, 258, "useful for other tasks too", size=16, fill=MUTED),
+           text(170, 280, "(for photos: edges, colours)", size=15, fill=MUTED)]
+    spec = [path("M 408 196 L 408 206 L 958 206 L 958 196", color=INK, w=2.2, marker=""),
+            text(683, 234, "last layers and head: specific", size=18, weight="bold"),
+            text(683, 258, "fitted to the task it was trained on", size=16, fill=MUTED)]
+    return svg(W, H, [step(1, blocks), step(2, gen), step(3, spec)],
+               "General first layers and specific last layers in a pretrained network (Yosinski et al. 2014, p. 1); "
+               "the shading only orders the blocks. Schematic. " + LICENCE)
 
 
 def dss_training() -> str:
@@ -680,44 +911,30 @@ def dss_training() -> str:
 
 
 def zeroshot() -> str:
-    """CLIP's zero-shot: the photo and each class name become vectors; the closest name wins."""
-    W, H = 1000, 340
-
-    def vec(x, y, lit=False):
-        return [rect(x + i * 18, y, 14, 22, fill=ACCENT if lit else A_LIGHT, stroke=None, rx=2,
-                     cls="accent-fill" if lit else "accent-a-light-fill") for i in range(6)]
-
-    def enc(y, name):
-        return [rect(200, y, 160, 46, fill=WHITE, stroke=ACCENT, cls="accent-stroke", rx=6),
-                text(280, y + 29, name, size=16, weight="bold")]
-
-    img = [rect(20, 14, 150, 100, fill=WHITE, stroke=EDGE, rx=6), glyph(95, 66, s=0.7),
-           line(172, 64, 196, 64, color=INK, w=1.6)] + enc(41, "image encoder") + [
-        line(362, 64, 392, 64, color=INK, w=1.6)] + vec(396, 53) + [
-        text(396, 36, "the photo, as numbers", size=15, fill=MUTED, anchor="start")]
-    names = [("lion", 0.21), ("tiger", 0.31), ("cat", 0.18)]
-    txt = []
-    for k, (n, _) in enumerate(names):
-        y = 160 + k * 60
-        txt += [rect(20, y, 150, 40, fill="#f4f6f7", stroke=EDGE, rx=20),
-                text(95, y + 26, f"“a photo of a {n}”", size=15),
-                line(172, y + 20, 196, y + 20, color=INK, w=1.6)] + enc(y - 3, "text encoder") + [
-            line(362, y + 20, 392, y + 20, color=INK, w=1.6)] + vec(396, y + 9)
-    match = []
-    for k, (n, s_) in enumerate(names):
-        y = 160 + k * 60
-        lit = n == "tiger"
-        match += [line(512, y + 20, 560, y + 20, color=MUTED, w=1.2, marker="", dash="3 3"),
-                  text(570, y + 26, f"closeness to the photo: {s_:.2f}", size=16, anchor="start",
-                       weight="bold" if lit else "normal", fill=ACCENT if lit else INK, cls="accent-fill" if lit else "")]
-    match += [text(570, 120, "the closest class name wins: tiger", size=19, weight="bold", anchor="start", fill=ACCENT,
-                   cls="accent-fill")]
-    return svg(W, H, [step(1, img), step(2, txt), step(3, match)],
-               "Zero-shot classification as in CLIP (Radford et al. 2021): an image encoder and a text encoder map the "
-               "photo and each class name to vectors, and the closest name wins. Illustrative values. " + LICENCE)
+    """Zero-shot: the task described in words to a pretrained model, with no example and no training."""
+    W, H = 1000, 320
+    prompt = [rect(30, 40, 430, 190, fill="#f4f6f7", stroke=EDGE, rx=10),
+              text(50, 76, "Is this review positive or negative?", size=17, weight="bold", anchor="start"),
+              text(50, 120, "“The bottle arrived broken, and", size=17, anchor="start"),
+              text(50, 146, "what was left tasted of cork.”", size=17, anchor="start"),
+              text(50, 200, "the task, in words; no labelled example", size=15, fill=MUTED, anchor="start")]
+    model = [line(466, 135, 540, 135, color=INK, w=2),
+             rect(546, 85, 190, 100, fill=WHITE, stroke=ACCENT, cls="accent-stroke"),
+             text(641, 128, "a pretrained", size=18, weight="bold"), text(641, 152, "language model", size=18,
+                                                                          weight="bold"),
+             text(641, 212, "no weight changes", size=15, fill=MUTED)]
+    answer = [line(742, 135, 800, 135, color=INK, w=2),
+              rect(806, 105, 160, 60, fill=A_LIGHT, stroke=ACCENT, rx=30, cls="accent-a-light-fill accent-stroke"),
+              text(886, 142, "negative", size=20, weight="bold")]
+    cap = [text(500, 292, "for photos, CLIP compares a photo with the class names written as text", size=16,
+                fill=MUTED)]
+    return svg(W, H, [step(1, prompt), step(2, model), step(3, answer), step(4, cap)],
+               "Zero-shot: a pretrained model given only a natural-language description of the task (Brown et al. "
+               "2020, p. 7); CLIP does the same for images from the class names (Radford et al. 2021, p. 6). The "
+               "review is invented. " + LICENCE)
 
 
-# --- Part 4: the lab --------------------------------------------------------------
+# --- Hands-on 4 --------------------------------------------------------------------
 def flow() -> str:
     """The Flow of Hands-on 4: two folders, listings, labels, the model, the score, the check."""
     W, H = 1000, 380
@@ -794,7 +1011,7 @@ def interval() -> str:
                "point of 10,000 test images (Recht et al. 2019). " + LICENCE)
 
 
-# --- Part 5: reading the result ----------------------------------------------------
+# --- Reading the result ------------------------------------------------------------
 def _heat(x0, S, n, scramble=False):
     cell = S / n
 
@@ -955,23 +1172,27 @@ def compute(part: int) -> str:
               text(_cx(2008.4), ly - 30, "one day of Lonestar 5", size=17, weight="bold", fill=ALERT, anchor="start"),
               text(_cx(2008.4), ly - 10, "at peak, in service 2016 to 2021", size=16, fill=ALERT, anchor="start"),
               line(_cx(2021.5), ly, _cx(2025.5), ly, color=ALERT, w=1.6, marker="", dash="4 4")]
+        pic = _picture(225, 26, 230, 154, "hazel-hen.jpg") + [
+            text(225, 200, "a Cray XC40, the model of Lonestar 5", size=14, fill=MUTED)]
         notes = [text(_cx(ax_) + 14, _cy(al) + 46, f"{mins:.0f} minutes of it", size=16, weight="bold", anchor="start"),
                  text(_cx(gx) - 12, _cy(gl) - 22, f"{yrs:.0f} years of it", size=17, weight="bold", anchor="end",
                       fill=ACCENT, cls="accent-fill")]
-        body = [step(1, _axes() + _dots(muted=True, only={"AlexNet", "GPT-3", "Llama 3.1"})), step(2, ls), step(3, notes)]
+        body = [step(1, _axes() + _dots(muted=True, only={"AlexNet", "GPT-3", "Llama 3.1"})), step(2, ls + pic),
+                step(3, notes)]
         what = (f"one day of Lonestar 5 at its peak of {LONESTAR5_PEAK:.3g} FLOP/s ({day:.3g} FLOP): AlexNet in "
                 f"{mins:.1f} minutes, GPT-3 in {yrs:.1f} years; peak and training arithmetic differ, so an order of "
-                f"magnitude only")
+                f"magnitude only; inset, HLRS Stuttgart's Cray XC40 Hazel Hen by Julian Herzog, CC BY 4.0")
     return svg(W, H, body, f"Training compute of milestone models, log scale, broken time axis; {what}. Data: Epoch AI, "
                "Data on Notable AI Models, CC BY 4.0 (src/compute.csv). " + LICENCE)
 
 
 def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
-    figures = {"deep-features.svg": deep_features, "timeline-1.svg": lambda: timeline(1),
-               "timeline-2.svg": lambda: timeline(2), "tasks.svg": tasks, "unit.svg": unit, "layers.svg": layers,
-               "forward.svg": forward, "softmax.svg": softmax, "loss.svg": loss, "descent.svg": descent,
-               "backprop.svg": backprop, "epochs.svg": epochs, "early-stop.svg": early_stop,
+    figures = {"timeline-1.svg": lambda: timeline(1), "timeline-2.svg": lambda: timeline(2),
+               "data-sizes.svg": data_sizes, "tasks.svg": tasks, "unit.svg": unit, "activation.svg": activation,
+               "layers.svg": layers, "forward.svg": forward, "softmax.svg": softmax, "loss.svg": loss,
+               "descent.svg": descent, "backprop.svg": backprop, "loop.svg": loop, "epochs.svg": epochs,
+               "early-stop.svg": early_stop, "flatten.svg": flatten, "general.svg": general,
                "convolution.svg": convolution, "augment.svg": augment, "hygiene.svg": hygiene,
                "transfer.svg": transfer, "finetune.svg": finetune, "dss-training.svg": dss_training, "zeroshot.svg": zeroshot,
                "flow.svg": flow, "interval.svg": interval, "saliency-map.svg": saliency_map,

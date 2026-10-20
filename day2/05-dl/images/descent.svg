@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Gradient descent on an illustrative loss curve of one weight, five steps with a fixed step size; EfficientNet B0's 5.3 million parameters from Tan and Le (2019), Table 2. Illustrative. Oscar Esteban, CC BY 4.0. -->
+<!-- Gradient descent on an illustrative loss curve of one weight, five steps with a fixed step size; GPT-3's 175 billion parameters from Brown et al. (2020), p. 5. Illustrative. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
@@ -27,6 +27,6 @@
 <text class="accent-fill" x="360.0" y="230.01999999999998" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">each step: a little downhill</text>
 </g>
 <g data-step="3">
-<text x="500" y="360" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">training does this for every weight at once: 5.3 million in EfficientNet B0</text>
+<text x="500" y="360" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">training moves every weight at once: GPT-3 has 175 billion</text>
 </g>
 </svg>

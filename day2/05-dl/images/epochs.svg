@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 390" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- One epoch over 29 tiles standing for the training photos, in batches; an illustrative training loss over 20 epochs (Prince 2023, chapter 6). Illustrative. Oscar Esteban, CC BY 4.0. -->
+<!-- One epoch over 29 tiles standing for the training examples, in batches of 8; an illustrative training loss over 20 epochs (Prince 2023, chapter 6). Illustrative. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
@@ -35,7 +35,7 @@
 <rect class="accent-a-light-fill accent-stroke" x="912" y="30" width="24" height="24" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.2"/>
 <rect class="accent-stroke" x="942" y="30" width="24" height="24" rx="3" fill="#ffffff" stroke="#00609c" stroke-width="1.2"/>
 <path class="accent-stroke" d="M 60 66 L 60 76 L 966 76 L 966 66" fill="none" stroke="#00609c" stroke-width="2" marker-end="url(#)"/>
-<text class="accent-fill" x="513" y="100" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">one epoch: every training photo seen once, a batch at a time</text>
+<text class="accent-fill" x="513" y="100" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">one epoch: every training example seen once, a batch at a time</text>
 </g>
 <g data-step="2">
 <line x1="80" y1="330" x2="950" y2="330" stroke="#556268" stroke-width="1.4" marker-end="url(#ah)"/>

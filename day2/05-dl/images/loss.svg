@@ -1,38 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Cross-entropy loss on the same illustrative output (0.81, 0.15, 0.04): 1.90 for a tiger photo, 0.21 for a lion photo (Prince 2023, section 5.5). Illustrative. Oscar Esteban, CC BY 4.0. -->
+<!-- Cross-entropy loss on the same illustrative output: 1.64 for the example wine, whose line is low, 0.44 for a medium wine (Prince 2023, section 5.5). Illustrative. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
 <rect x="20" y="20" width="440" height="270" rx="8" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
-<text x="240" y="52" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">photo 1: its label is tiger</text>
-<rect class="accent-a-light-fill" x="80" y="116.6" width="80" height="113.4" rx="3" fill="#8cb3cf"/>
-<text x="120" y="108.6" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.81</text>
-<text x="120" y="254" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">lion</text>
-<rect class="accent-fill" x="200" y="209.0" width="80" height="21.0" rx="3" fill="#00609c"/>
-<text x="240" y="201.0" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.15</text>
-<text x="240" y="254" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">tiger</text>
-<rect class="accent-a-light-fill" x="320" y="224.4" width="80" height="5.6000000000000005" rx="3" fill="#8cb3cf"/>
-<text x="360" y="216.4" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.04</text>
-<text x="360" y="254" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">cat</text>
-<text x="240" y="330" font-size="22" font-weight="bold" text-anchor="middle" fill="#da232f">loss = 1.90: high</text>
+<text x="240" y="52" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">this wine's line is low</text>
+<rect class="accent-fill" x="80" y="202.75653826851183" width="80" height="27.24346173148816" rx="3" fill="#00609c"/>
+<text x="120" y="194.75653826851183" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.19</text>
+<text x="120" y="254" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">low</text>
+<rect class="accent-a-light-fill" x="200" y="139.54852167136065" width="80" height="90.45147832863935" rx="3" fill="#8cb3cf"/>
+<text x="240" y="131.54852167136065" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.65</text>
+<text x="240" y="254" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">medium</text>
+<rect class="accent-a-light-fill" x="320" y="207.69494006012752" width="80" height="22.305059939872482" rx="3" fill="#8cb3cf"/>
+<text x="360" y="199.69494006012752" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.16</text>
+<text x="360" y="254" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">high</text>
+<text x="240" y="330" font-size="22" font-weight="bold" text-anchor="middle" fill="#da232f">loss = 1.64: high</text>
 </g>
 <g data-step="2">
 <rect x="540" y="20" width="440" height="270" rx="8" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
-<text x="760" y="52" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">photo 2: its label is lion</text>
-<rect class="accent-fill" x="600" y="116.6" width="80" height="113.4" rx="3" fill="#00609c"/>
-<text x="640" y="108.6" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.81</text>
-<text x="640" y="254" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">lion</text>
-<rect class="accent-a-light-fill" x="720" y="209.0" width="80" height="21.0" rx="3" fill="#8cb3cf"/>
-<text x="760" y="201.0" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.15</text>
-<text x="760" y="254" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">tiger</text>
-<rect class="accent-a-light-fill" x="840" y="224.4" width="80" height="5.6000000000000005" rx="3" fill="#8cb3cf"/>
-<text x="880" y="216.4" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.04</text>
-<text x="880" y="254" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">cat</text>
-<text class="accent-fill" x="760" y="330" font-size="22" font-weight="bold" text-anchor="middle" fill="#00609c">loss = 0.21: low</text>
+<text x="760" y="52" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">a medium wine, the same output</text>
+<rect class="accent-a-light-fill" x="600" y="202.75653826851183" width="80" height="27.24346173148816" rx="3" fill="#8cb3cf"/>
+<text x="640" y="194.75653826851183" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.19</text>
+<text x="640" y="254" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">low</text>
+<rect class="accent-fill" x="720" y="139.54852167136065" width="80" height="90.45147832863935" rx="3" fill="#00609c"/>
+<text x="760" y="131.54852167136065" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.65</text>
+<text x="760" y="254" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">medium</text>
+<rect class="accent-a-light-fill" x="840" y="207.69494006012752" width="80" height="22.305059939872482" rx="3" fill="#8cb3cf"/>
+<text x="880" y="199.69494006012752" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.16</text>
+<text x="880" y="254" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">high</text>
+<text class="accent-fill" x="760" y="330" font-size="22" font-weight="bold" text-anchor="middle" fill="#00609c">loss = 0.44: low</text>
 </g>
 <g data-step="3">
-<text x="500" y="372" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the loss: minus the log of the probability given to the true class</text>
+<text x="500" y="372" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the loss: minus the log of the probability given to the true line</text>
 </g>
 </svg>

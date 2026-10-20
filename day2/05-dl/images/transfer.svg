@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Transfer learning: a backbone pretrained on ImageNet, frozen, its 1,000-class output replaced by a new two-class head that alone is trained. Schematic. Oscar Esteban, CC BY 4.0. -->
+<!-- Transfer learning: a pretrained network's layers, locked, its original output layer replaced by a new head for the new task's classes, the only part trained (Prince 2023, section 9.3.6; Zhang et al. 2023, section 14.2). Schematic. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
@@ -32,22 +32,23 @@
 <rect x="592" y="110" width="76" height="110" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="1.6"/>
 <text x="630" y="150" font-size="18" font-weight="normal" text-anchor="middle" fill="#9aa4a8">7</text>
 <path d="M 623 182 L 623 174 A 7 7 0 0 1 637 174 L 637 182" fill="none" stroke="#9aa4a8" stroke-width="2.4"/><rect x="620" y="182" width="20" height="15" rx="2" fill="#9aa4a8"/>
-<text x="360" y="90" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">EfficientNet B0, trained on ImageNet</text>
+<text x="360" y="90" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">a pretrained network: its layers, trained on a large dataset</text>
 <line x1="682" y1="165" x2="722" y2="165" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
 </g>
 <g data-step="1" data-hide="2-end">
 <rect x="728" y="110" width="230" height="110" rx="8" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.6"/>
-<text x="843" y="160" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1,000 outputs</text>
-<text x="843" y="186" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">ImageNet's classes</text>
+<text x="843" y="152" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">the old head</text>
+<text x="843" y="180" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the original task's</text>
+<text x="843" y="200" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">classes</text>
 </g>
 <g data-step="2">
 <rect class="accent-a-light-fill accent-stroke" x="728" y="110" width="230" height="110" rx="8" fill="#8cb3cf" stroke="#00609c" stroke-width="2.4"/>
 <text x="843" y="152" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">a new head</text>
-<text x="843" y="180" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">lion, tiger</text>
-<text x="843" y="204" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">learns from the photos</text>
+<text x="843" y="180" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">your classes</text>
+<text x="843" y="204" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">learns from your examples</text>
 </g>
 <g data-step="3">
-<text x="360" y="258" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">frozen: the weights learned on ImageNet stay as they are</text>
+<text x="360" y="258" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">locked: the pretrained weights stay as they are</text>
 <text class="accent-fill" x="843" y="258" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">the only weights that learn</text>
 </g>
 </svg>
