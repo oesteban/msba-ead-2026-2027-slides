@@ -1010,7 +1010,7 @@ def interval() -> str:
                "point of 10,000 test images (Recht et al. 2019). " + LICENCE)
 
 
-# --- Reading the result ------------------------------------------------------------
+# --- Saliency maps ------------------------------------------------------------------
 def _heat(x0, S, n, scramble=False):
     cell = S / n
 
@@ -1042,7 +1042,7 @@ def saliency_map() -> str:
     def frame(x0):
         return rect(x0, 20, S, S, fill=WHITE, stroke=EDGE, rx=4, sw=1.6)
 
-    img = [frame(160), glyph(160 + S / 2, 20 + S / 2), text(160 + S / 2, 262, "an image the model calls tiger", size=17,
+    img = [frame(160), glyph(160 + S / 2, 20 + S / 2), text(160 + S / 2, 262, "an image the model classifies", size=17,
                                                           weight="bold")]
     grad = [line(382, 125, 618, 125, color=ACCENT, w=2.4, marker="ahA", cls="accent-stroke"),
             frame(630)] + _heat(630, S, n) + [text(630 + S / 2, 262, "its map: the pixels the score", size=17,
