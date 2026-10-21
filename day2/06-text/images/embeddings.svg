@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Embeddings: short dense vectors of 50 to 1,000 dimensions learned from text (Jurafsky & Martin 2026, chapter 5); positions and values illustrative. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="30" y="40" width="470" height="320" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="265" y="388" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">two of a few hundred dimensions</text>
+<circle class="accent-fill" cx="140" cy="260" r="6" fill="#00609c"/>
+<text x="150" y="266" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">battery</text>
+<circle class="accent-fill" cx="188" cy="295" r="6" fill="#00609c"/>
+<text x="198" y="301" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">charger</text>
+<circle class="accent-fill" cx="116" cy="310" r="6" fill="#00609c"/>
+<text x="126" y="316" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">power</text>
+<circle class="accent-fill" cx="360" cy="270" r="6" fill="#00609c"/>
+<text x="370" y="276" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">screen</text>
+<circle class="accent-fill" cx="412" cy="238" r="6" fill="#00609c"/>
+<text x="422" y="244" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">display</text>
+<circle class="accent-fill" cx="320" cy="102" r="6" fill="#00609c"/>
+<text x="330" y="108" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">great</text>
+<circle class="accent-fill" cx="272" cy="130" r="6" fill="#00609c"/>
+<text x="282" y="136" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">good</text>
+<circle class="accent-fill" cx="370" cy="138" r="6" fill="#00609c"/>
+<text x="380" y="144" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">excellent</text>
+<circle class="accent-fill" cx="130" cy="102" r="6" fill="#00609c"/>
+<text x="140" y="108" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">awful</text>
+<circle class="accent-fill" cx="90" cy="140" r="6" fill="#00609c"/>
+<text x="100" y="146" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">bad</text>
+<circle class="accent-fill" cx="160" cy="150" r="6" fill="#00609c"/>
+<text x="170" y="156" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">poor</text>
+</g>
+<g data-step="2">
+<text x="560" y="120" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">one token, one vector</text>
+<rect class="accent-stroke" x="560" y="140" width="400" height="70" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="760" y="184" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery → 0.21, −0.43, 0.07, … , 0.12</text>
+<text x="560" y="240" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">a few hundred numbers, learned from text;</text>
+<text x="560" y="266" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">close meanings lie close, but no single</text>
+<text x="560" y="292" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">number can be read on its own</text>
+</g>
+</svg>

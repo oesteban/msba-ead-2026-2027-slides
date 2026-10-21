@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 250" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Zero-shot classification by prompting (Brown et al. 2020, p. 7; Zhang et al. 2024). The review is the deck's; the answer is illustrative. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="20" y="30" width="470" height="180" rx="10" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="42" y="72" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">Is this review positive or negative?</text>
+<text x="42" y="116" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">“Great screen, but the battery</text>
+<text x="42" y="144" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">does not last a day.”</text>
+<text x="42" y="190" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">the task in words; no labelled example</text>
+</g>
+<g data-step="2">
+<line x1="496" y1="120" x2="552" y2="120" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
+<rect class="accent-stroke" x="558" y="72" width="200" height="96" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="658" y="112" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">a language</text>
+<text x="658" y="138" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">model</text>
+<text x="658" y="196" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">no weight changes</text>
+</g>
+<g data-step="3">
+<line x1="764" y1="120" x2="812" y2="120" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="818" y="90" width="160" height="60" rx="30" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<text x="898" y="128" font-size="21" font-weight="bold" text-anchor="middle" fill="#1c2e36">negative</text>
+</g>
+</svg>

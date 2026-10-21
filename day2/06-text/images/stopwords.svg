@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Stop lists on the deck's review: the 25-word list of Manning et al. (2008, Figure 2.5) holds 'the' and 'a'; the longer list is illustrative. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect class="accent-stroke" x="87.2899999999999" y="40" width="87.60000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="131.08999999999992" y="67.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">great</text>
+<rect class="accent-stroke" x="184.88999999999993" y="40" width="99.92" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="234.84999999999994" y="67.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+<rect class="accent-stroke" x="294.80999999999995" y="40" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="326.28999999999996" y="67.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">but</text>
+<rect class="accent-stroke" x="367.77" y="40" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="399.25" y="67.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">the</text>
+<rect class="accent-stroke" x="440.73" y="40" width="112.24000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="496.85" y="67.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery</text>
+<rect class="accent-stroke" x="562.97" y="40" width="75.28" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="600.61" y="67.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">does</text>
+<rect class="accent-stroke" x="648.25" y="40" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="679.73" y="67.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">not</text>
+<rect class="accent-stroke" x="721.21" y="40" width="70.22" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="756.32" y="67.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">last</text>
+<rect class="accent-stroke" x="801.4300000000001" y="40" width="38.32" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="820.59" y="67.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">a</text>
+<rect class="accent-stroke" x="849.7500000000001" y="40" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="881.2300000000001" y="67.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">day</text>
+</g>
+<g data-step="2">
+<text x="40" y="138" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">a short stop list, 25 words long, drops: the, a</text>
+<rect class="accent-stroke" x="87.2899999999999" y="150" width="87.60000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="131.08999999999992" y="177.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">great</text>
+<rect class="accent-stroke" x="184.88999999999993" y="150" width="99.92" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="234.84999999999994" y="177.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+<rect class="accent-stroke" x="294.80999999999995" y="150" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="326.28999999999996" y="177.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">but</text>
+<rect x="367.77" y="150" width="62.96" height="38.5" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="399.25" y="177.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#9aa4a8">the</text>
+<line x1="373.77" y1="169.25" x2="424.72999999999996" y2="169.25" stroke="#9aa4a8" stroke-width="2"/>
+<rect class="accent-stroke" x="440.73" y="150" width="112.24000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="496.85" y="177.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery</text>
+<rect class="accent-stroke" x="562.97" y="150" width="75.28" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="600.61" y="177.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">does</text>
+<rect class="accent-stroke" x="648.25" y="150" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="679.73" y="177.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">not</text>
+<rect class="accent-stroke" x="721.21" y="150" width="70.22" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="756.32" y="177.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">last</text>
+<rect x="801.4300000000001" y="150" width="38.32" height="38.5" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="820.59" y="177.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#9aa4a8">a</text>
+<line x1="807.4300000000001" y1="169.25" x2="833.7500000000001" y2="169.25" stroke="#9aa4a8" stroke-width="2"/>
+<rect class="accent-stroke" x="849.7500000000001" y="150" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="881.2300000000001" y="177.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">day</text>
+</g>
+<g data-step="3">
+<text x="40" y="248" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">a list that also holds but, does and not leaves: great screen battery last day</text>
+<rect class="accent-stroke" x="87.2899999999999" y="260" width="87.60000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="131.08999999999992" y="287.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">great</text>
+<rect class="accent-stroke" x="184.88999999999993" y="260" width="99.92" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="234.84999999999994" y="287.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+<rect x="294.80999999999995" y="260" width="62.96" height="38.5" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="326.28999999999996" y="287.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#9aa4a8">but</text>
+<line x1="300.80999999999995" y1="279.25" x2="351.7699999999999" y2="279.25" stroke="#9aa4a8" stroke-width="2"/>
+<rect x="367.77" y="260" width="62.96" height="38.5" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="399.25" y="287.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#9aa4a8">the</text>
+<line x1="373.77" y1="279.25" x2="424.72999999999996" y2="279.25" stroke="#9aa4a8" stroke-width="2"/>
+<rect class="accent-stroke" x="440.73" y="260" width="112.24000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="496.85" y="287.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery</text>
+<rect x="562.97" y="260" width="75.28" height="38.5" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="600.61" y="287.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#9aa4a8">does</text>
+<line x1="568.97" y1="279.25" x2="632.25" y2="279.25" stroke="#9aa4a8" stroke-width="2"/>
+<rect x="648.25" y="260" width="62.96" height="38.5" rx="6" fill="#e9edf0" stroke="#da232f" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="679.73" y="287.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#da232f">not</text>
+<line x1="654.25" y1="279.25" x2="705.21" y2="279.25" stroke="#9aa4a8" stroke-width="2"/>
+<rect class="accent-stroke" x="721.21" y="260" width="70.22" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="756.32" y="287.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">last</text>
+<rect x="801.4300000000001" y="260" width="38.32" height="38.5" rx="6" fill="#e9edf0" stroke="#9aa4a8" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="820.59" y="287.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#9aa4a8">a</text>
+<line x1="807.4300000000001" y1="279.25" x2="833.7500000000001" y2="279.25" stroke="#9aa4a8" stroke-width="2"/>
+<rect class="accent-stroke" x="849.7500000000001" y="260" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="881.2300000000001" y="287.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">day</text>
+</g>
+<g data-step="4">
+<text x="500" y="352" font-size="20" font-weight="bold" text-anchor="middle" fill="#da232f">the complaint is gone with “not”</text>
+</g>
+</svg>
