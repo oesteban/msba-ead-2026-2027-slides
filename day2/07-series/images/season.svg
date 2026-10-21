@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Monthly means of all rentals over both years; weekday means of casual and registered riders. Data: Capital Bikeshare daily rentals, 2011 and 2012, H. Fanaee-T (2013), UCI dataset 275, CC BY 4.0. Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="70" y="36" font-size="20" font-weight="bold" text-anchor="start" fill="#1c2e36">The year: all rentals, by month</text>
+<line x1="70" y1="70" x2="70" y2="350" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="64" y1="350.0" x2="70" y2="350.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="355.0" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="64" y1="220.76923076923077" x2="70" y2="220.76923076923077" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="225.76923076923077" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="64" y1="91.53846153846155" x2="70" y2="91.53846153846155" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="96.53846153846155" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<rect class="accent-fill" x="76.67213114754098" y="256.26461538461535" width="26" height="93.73538461538465" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="109.45901639344262" y="235.6307692307692" width="26" height="114.3692307692308" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="142.24590163934425" y="190.96" width="26" height="159.04" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="175.0327868852459" y="156.8" width="26" height="193.2" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="207.81967213114754" y="119.53846153846155" width="26" height="230.46153846153845" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="240.60655737704917" y="101.35999999999999" width="26" height="248.64000000000001" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="273.39344262295083" y="110.32" width="26" height="239.68" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="306.1803278688525" y="106.01230769230767" width="26" height="243.98769230769233" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="338.9672131147541" y="101.57538461538459" width="26" height="248.4246153846154" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="371.75409836065575" y="126.04307692307691" width="26" height="223.9569230769231" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="404.5409836065574" y="167.0523076923077" width="26" height="182.9476923076923" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="437.32786885245906" y="203.36615384615385" width="26" height="146.63384615384615" rx="2" fill="#00609c"/>
+<line x1="70" y1="350" x2="470" y2="350" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="89.67213114754098" y1="350" x2="89.67213114754098" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="89.67213114754098" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">J</text>
+<line x1="122.45901639344262" y1="350" x2="122.45901639344262" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="122.45901639344262" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">F</text>
+<line x1="155.24590163934425" y1="350" x2="155.24590163934425" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="155.24590163934425" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">M</text>
+<line x1="188.0327868852459" y1="350" x2="188.0327868852459" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="188.0327868852459" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">A</text>
+<line x1="220.81967213114754" y1="350" x2="220.81967213114754" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="220.81967213114754" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">M</text>
+<line x1="253.60655737704917" y1="350" x2="253.60655737704917" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="253.60655737704917" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">J</text>
+<line x1="286.39344262295083" y1="350" x2="286.39344262295083" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="286.39344262295083" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">J</text>
+<line x1="319.1803278688525" y1="350" x2="319.1803278688525" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="319.1803278688525" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">A</text>
+<line x1="351.9672131147541" y1="350" x2="351.9672131147541" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="351.9672131147541" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">S</text>
+<line x1="384.75409836065575" y1="350" x2="384.75409836065575" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="384.75409836065575" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">O</text>
+<line x1="417.5409836065574" y1="350" x2="417.5409836065574" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="417.5409836065574" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">N</text>
+<line x1="450.32786885245906" y1="350" x2="450.32786885245906" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="450.32786885245906" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">D</text>
+</g>
+<g data-step="2">
+<text x="570" y="36" font-size="20" font-weight="bold" text-anchor="start" fill="#1c2e36">The week: two kinds of riders</text>
+<line x1="570" y1="70" x2="570" y2="350" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="564" y1="350.0" x2="570" y2="350.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="560" y="355.0" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="564" y1="225.55555555555554" x2="570" y2="225.55555555555554" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="560" y="230.55555555555554" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">2,000</text>
+<line x1="564" y1="101.11111111111111" x2="570" y2="101.11111111111111" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="560" y="106.11111111111111" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">4,000</text>
+<polyline points="593.5,122.0 652.4,104.0 711.2,101.3 770.0,96.4 828.8,105.0 887.6,158.0 946.5,170.1" fill="none" stroke="#1c2e36" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="593.5" cy="122.0" r="4.5" fill="#1c2e36"/>
+<circle cx="652.4" cy="104.0" r="4.5" fill="#1c2e36"/>
+<circle cx="711.2" cy="101.3" r="4.5" fill="#1c2e36"/>
+<circle cx="770.0" cy="96.4" r="4.5" fill="#1c2e36"/>
+<circle cx="828.8" cy="105.0" r="4.5" fill="#1c2e36"/>
+<circle cx="887.6" cy="158.0" r="4.5" fill="#1c2e36"/>
+<circle cx="946.5" cy="170.1" r="4.5" fill="#1c2e36"/>
+<text x="711.1764705882352" y="85.29777777777778" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">registered</text>
+<polyline class="accent-stroke" points="593.5,308.1 652.4,315.4 711.2,315.7 770.0,313.2 828.8,303.2 887.6,258.8 946.5,266.7" fill="none" stroke="#00609c" stroke-width="3" stroke-linejoin="round"/>
+<circle class="accent-fill" cx="593.5" cy="308.1" r="4.5" fill="#00609c"/>
+<circle class="accent-fill" cx="652.4" cy="315.4" r="4.5" fill="#00609c"/>
+<circle class="accent-fill" cx="711.2" cy="315.7" r="4.5" fill="#00609c"/>
+<circle class="accent-fill" cx="770.0" cy="313.2" r="4.5" fill="#00609c"/>
+<circle class="accent-fill" cx="828.8" cy="303.2" r="4.5" fill="#00609c"/>
+<circle class="accent-fill" cx="887.6" cy="258.8" r="4.5" fill="#00609c"/>
+<circle class="accent-fill" cx="946.5" cy="266.7" r="4.5" fill="#00609c"/>
+<text class="accent-fill" x="711.1764705882352" y="299.71555555555557" font-size="16" font-weight="bold" text-anchor="middle" fill="#00609c">casual</text>
+<line x1="570" y1="350" x2="970" y2="350" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="593.5294117647059" y1="350" x2="593.5294117647059" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="593.5294117647059" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">Mon</text>
+<line x1="652.3529411764706" y1="350" x2="652.3529411764706" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="652.3529411764706" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">Tue</text>
+<line x1="711.1764705882352" y1="350" x2="711.1764705882352" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="711.1764705882352" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">Wed</text>
+<line x1="770.0" y1="350" x2="770.0" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="770.0" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">Thu</text>
+<line x1="828.8235294117646" y1="350" x2="828.8235294117646" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="828.8235294117646" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">Fri</text>
+<line x1="887.6470588235294" y1="350" x2="887.6470588235294" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="887.6470588235294" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">Sat</text>
+<line x1="946.4705882352941" y1="350" x2="946.4705882352941" y2="356" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="946.4705882352941" y="374" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">Sun</text>
+</g>
+</svg>

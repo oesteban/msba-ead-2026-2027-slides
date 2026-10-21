@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A drawing, not a capture, of Dataiku DSS's Window recipe: rows ordered by Date, a lag of 1 and 2 on Close; labels as in the DSS reference documentation, to be checked on DSS 15.0. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="20" y="20" width="220" height="340" rx="4" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="42" y="60" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">Windows definitions</text>
+<rect class="accent-a-light-fill" x="20" y="82" width="220" height="38" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="20" y="82" width="6" height="38" rx="0" fill="#00609c"/>
+<text x="42" y="106" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">Aggregations</text>
+<text x="42" y="152" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">Output</text>
+<rect x="256" y="20" width="724" height="100" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="276" y="56" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36">Windows definitions</text>
+<text x="276" y="96" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">Order columns</text>
+<rect class="accent-stroke" x="430" y="72" width="210" height="36" rx="4" fill="#ffffff" stroke="#00609c" stroke-width="2.4"/>
+<text x="444" y="96" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">Date, ascending</text>
+</g>
+<g data-step="2">
+<rect x="256" y="140" width="724" height="220" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="276" y="176" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36">Aggregations</text>
+<text x="296" y="222" font-size="17" font-weight="normal" text-anchor="start" fill="#9aa4a8">Open</text>
+<text x="296" y="266" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">Close</text>
+<text x="296" y="310" font-size="17" font-weight="normal" text-anchor="start" fill="#9aa4a8">Volume</text>
+<rect class="accent-a-light-fill accent-stroke" x="420" y="242" width="110" height="36" rx="4" fill="#8cb3cf" stroke="#00609c" stroke-width="2.4"/>
+<text x="475" y="266" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">Lag</text>
+<text x="560" y="266" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">offsets</text>
+<rect x="640" y="242" width="100" height="36" rx="4" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="690" y="266" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">1, 2</text>
+</g>
+<g data-step="3">
+<text x="276" y="344" font-size="15" font-weight="normal" text-anchor="start" fill="#556268" font-style="italic">new columns: Close one and two trading days before (names as the server shows them)</text>
+</g>
+</svg>

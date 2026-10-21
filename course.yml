@@ -67,3 +67,10 @@ days:
     replaces: 2026-10-23
     start: "10:30"
     title: "Text mining and sentiment analysis"
+
+  # the afternoon in two decks; this one reads a series, 13:15 to 14:45 (D58, D59)
+  - id: day2/07-series
+    date: 2026-10-23
+    replaces: 2026-10-23
+    start: "13:15"
+    title: "Reading a time series"
