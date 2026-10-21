@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A drawing, not a capture, of Dataiku DSS's Design, Features handling panel for a text column, labels and values as in the previous teacher's 2025 captures of the course server; to be checked on DSS 15.0. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="20" y="20" width="220" height="320" rx="4" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="42" y="60" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">Target</text>
+<text x="42" y="106" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">Train / Test set</text>
+<rect class="accent-a-light-fill" x="20" y="128" width="220" height="38" rx="0" fill="#8cb3cf"/>
+<rect class="accent-fill" x="20" y="128" width="6" height="38" rx="0" fill="#00609c"/>
+<text x="42" y="152" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">Features handling</text>
+<text x="42" y="198" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">Algorithms</text>
+<text x="42" y="244" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">Metrics</text>
+<rect x="256" y="20" width="210" height="320" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="276" y="62" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">TextSimple</text>
+<text x="276" y="106" font-size="17" font-weight="normal" text-anchor="start" fill="#9aa4a8">Text</text>
+<text x="446" y="106" font-size="13" font-weight="normal" text-anchor="end" fill="#9aa4a8">rejected</text>
+<text x="276" y="150" font-size="17" font-weight="normal" text-anchor="start" fill="#9aa4a8">URL</text>
+<text x="446" y="150" font-size="13" font-weight="normal" text-anchor="end" fill="#9aa4a8">rejected</text>
+<rect x="482" y="20" width="498" height="320" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="504" y="58" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">TextSimple · text</text>
+<text x="504" y="110" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">Text handling</text>
+<rect class="accent-stroke" x="684" y="86" width="276" height="38" rx="4" fill="#ffffff" stroke="#00609c" stroke-width="2.4"/>
+<text x="698" y="111" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">TF/IDF vectorization</text>
+</g>
+<g data-step="2">
+<text x="504" y="170" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">Min. rows fraction %</text>
+<rect x="800" y="145" width="120" height="36" rx="4" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="860" y="170" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.1</text>
+<text x="504" y="220" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">Max. rows fraction %</text>
+<rect x="800" y="195" width="120" height="36" rx="4" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="860" y="220" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">80</text>
+<text x="504" y="270" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">N-grams</text>
+<rect x="800" y="245" width="120" height="36" rx="4" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.6"/>
+<text x="860" y="270" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">1 to 2</text>
+</g>
+<g data-step="3">
+<text x="731" y="324" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268" font-style="italic">rarest and commonest terms cut; words and pairs</text>
+</g>
+</svg>

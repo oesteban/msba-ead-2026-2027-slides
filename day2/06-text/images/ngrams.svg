@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Word pairs (bi-grams) of the deck's reviews after stop words but 'not' are removed; 9 distinct pairs (Provost & Fawcett 2013, pp. 263 to 264). Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="40" y="48" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">review 1</text>
+<rect class="accent-stroke" x="217.05000000000007" y="60" width="87.60000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="260.8500000000001" y="87.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">great</text>
+<rect class="accent-stroke" x="318.6500000000001" y="60" width="99.92" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="368.61000000000007" y="87.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+<rect class="accent-stroke" x="432.5700000000001" y="60" width="112.24000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="488.6900000000001" y="87.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery</text>
+<rect class="accent-stroke" x="558.8100000000002" y="60" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="590.2900000000002" y="87.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">not</text>
+<rect class="accent-stroke" x="635.7700000000002" y="60" width="70.22" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="670.8800000000002" y="87.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">last</text>
+<rect class="accent-stroke" x="719.9900000000002" y="60" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="751.4700000000003" y="87.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">day</text>
+<text x="40" y="188" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">review 2</text>
+<rect class="accent-stroke" x="253.0" y="200" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="284.48" y="227.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">not</text>
+<rect class="accent-stroke" x="329.96000000000004" y="200" width="87.60000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="373.76000000000005" y="227.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">great</text>
+<rect class="accent-stroke" x="431.56000000000006" y="200" width="99.92" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="481.52000000000004" y="227.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+<rect class="accent-stroke" x="545.48" y="200" width="112.24000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="601.6" y="227.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery</text>
+<rect class="accent-stroke" x="671.72" y="200" width="75.28" height="38.5" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="709.36" y="227.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">good</text>
+</g>
+<g data-step="2">
+<path class="accent-stroke" d="M 558.8100000000002 110 L 558.8100000000002 122 L 705.9900000000002 122 L 705.9900000000002 110" fill="none" stroke="#00609c" stroke-width="2.4" marker-end="url(#)"/>
+<text class="accent-fill" x="632.4000000000002" y="150" font-size="21" font-weight="bold" text-anchor="middle" fill="#00609c">“not last”</text>
+<path class="accent-stroke" d="M 253.0 250 L 253.0 262 L 417.56000000000006 262 L 417.56000000000006 250" fill="none" stroke="#00609c" stroke-width="2.4" marker-end="url(#)"/>
+<text class="accent-fill" x="335.28000000000003" y="290" font-size="21" font-weight="bold" text-anchor="middle" fill="#00609c">“not great”</text>
+</g>
+<g data-step="3">
+<text x="500" y="352" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">the three reviews: 7 words, plus 9 pairs, make 16 columns</text>
+</g>
+</svg>

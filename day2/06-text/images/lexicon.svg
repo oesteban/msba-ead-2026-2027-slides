@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- VADER's lexicon and rules on the deck's review: valences 'good' 1.9 and 'great' 3.1 on a scale of -4 to +4; 'but', negation, capitals, '!' and degree words as heuristics (Hutto & Gilbert 2014, section 3). Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect class="accent-a-light-fill accent-stroke" x="43.36999999999995" y="110" width="88.92000000000002" height="38.5" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="87.82999999999996" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">Great</text>
+<rect x="142.28999999999996" y="110" width="99.92" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="192.24999999999997" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+<rect x="252.20999999999998" y="110" width="33.26" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="268.84" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">,</text>
+<rect x="295.46999999999997" y="110" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="326.95" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">but</text>
+<rect x="368.42999999999995" y="110" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="399.90999999999997" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">the</text>
+<rect x="441.39" y="110" width="112.24000000000001" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="497.51" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery</text>
+<rect x="563.63" y="110" width="75.28" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="601.27" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">does</text>
+<rect x="648.91" y="110" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="680.39" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">not</text>
+<rect x="721.87" y="110" width="70.22" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="756.98" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">last</text>
+<rect x="802.09" y="110" width="38.32" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="821.25" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">a</text>
+<rect x="850.4100000000001" y="110" width="62.96" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="881.8900000000001" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">day</text>
+<rect x="923.3700000000001" y="110" width="33.26" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="940.0000000000001" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">.</text>
+<text class="accent-fill" x="87.82999999999996" y="92" font-size="22" font-weight="bold" text-anchor="middle" fill="#00609c">+3.1</text>
+<text x="40" y="40" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">word scores from −4 to +4: “good” +1.9, “great” +3.1</text>
+</g>
+<g data-step="2">
+<rect class="accent-stroke" x="292.46999999999997" y="107" width="68.95999999999998" height="44" rx="7" fill="none" stroke="#00609c" stroke-width="2.6"/>
+<text class="accent-fill" x="292.46999999999997" y="92" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">“but”: what follows counts more</text>
+</g>
+<g data-step="3">
+<path d="M 441.39 162 L 441.39 236 L 956.6300000000001 236 L 956.6300000000001 162" fill="none" stroke="#da232f" stroke-width="2.2" marker-end="url(#)"/>
+<text x="699.01" y="268" font-size="19" font-weight="bold" text-anchor="middle" fill="#da232f">“not” flips the next listed word, but no word here is listed</text>
+</g>
+<g data-step="4">
+<text x="500" y="340" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">the verdict rests on “great” alone; rules for capitals, “!” and “very” have nothing to do here</text>
+</g>
+</svg>

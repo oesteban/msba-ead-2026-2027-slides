@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text mining and sentiment analysis | 23.10.2026</title>
+    <meta charset="utf-8">
+    <meta name="grammarly" content="false">
+    <meta name="google" content="notranslate">
+    <link rel="stylesheet" type="text/css" href="../../remark/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../remark/themes/hesso-master.css" />
+    <link rel="stylesheet" type="text/css" href="../../remark/ext/nav-controls.css" />
+  </head>
+  <body>
+<style>
+:root { --logo-url: url("../../assets/hes-so-logo.svg"); }
+.large.center { display: block; clear: both; }
+/* the textbook marker, on every slide that draws on Provost & Fawcett */
+.book { color: var(--accent); font-weight: 600; }
+.footnote .lic { color: #556268; }
+.footnote { right: 5.5em; }
+/* a centred slide (class: vcenter) centres its one body block under the title; the footnote and
+   the phase thumbnail are pinned, but each leaves an empty paragraph that would count as a block */
+.remark-slide-content.vcenter > p:has(> .footnote, > .phase-thumb) { margin: 0; }
+/* the case slides: a small copy of the coloured flowchart, its phase lit, left of the content */
+.phase-thumb { position: absolute; left: 80px; top: 112px; width: 100px; }
+.beside-thumb { margin-left: 132px; }
+.pull-right, .beside-thumb, .fullw { padding-right: 2.4em; box-sizing: border-box; }
+/* the outlook: one row per part of the deck */
+.cards.steps .card p { font-size: 0.92em; line-height: 1.35; }
+.cards.steps .card .part { color: var(--accent); font-weight: 700; }
+/* a row of small cards under a figure */
+.quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8em; margin-top: 0.9em; }
+.quad > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.5em 0.8em 0.6em; font-size: 0.95em; line-height: 1.4; }
+.quad b { display: block; color: var(--heading-color); }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1em; margin-top: 0.8em; }
+.duo > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.6em 0.9em 0.7em; font-size: 0.92em; line-height: 1.45; }
+.duo b.k { display: block; font-size: 1.08em; color: var(--heading-color); margin-bottom: 0.15em; }
+.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; margin-top: 0.8em; }
+.trio > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 1em 1.2em 1.2em; font-size: 1.22em; line-height: 1.55; min-height: 11em; }
+.trio > div.lit { background: #e6eff5; }
+.quad.big > div { font-size: 1.2em; padding: 0.9em 1em 1em; line-height: 1.45; min-height: 11.5em; }
+.quad > div.lit { background: #e6eff5; }
+.trio b.k { display: block; font-size: 1.12em; color: var(--heading-color); margin-bottom: 0.2em; }
+.trio .num { font-weight: 700; color: var(--accent); white-space: nowrap; }
+.duo.big > div { font-size: 1.05em; padding: 0.8em 1em 1em; }
+/* the content fills the height under the title: cards on a centred slide take larger type and taller cells */
+:is(.fullw, .beside-thumb) .duo.big > div { font-size: 1.32em; padding: 1.1em 1.3em 1.3em; min-height: 10em; }
+:is(.fullw, .beside-thumb) .facts.big > div { font-size: 1.45em; padding: 1.1em 1.3em 1.2em; min-height: 7.5em; }
+:is(.fullw, .beside-thumb) object { max-height: 470px; }
+.lead.big { font-size: 1.3em; margin-top: 1.1em; }
+.lead { font-size: 1.15em; margin: 0.7em 0 0.2em; line-height: 1.4; }
+/* the data slide: five rows, the target lit, and what a row and a column are */
+.terms table { font-size: 0.96em; margin: 0.2em 0 0; border-collapse: collapse; }
+.terms th, .terms td { padding: 0.3em 0.6em; border-bottom: 1px solid #d9d9d9; text-align: left; }
+.terms th.tgt, .terms td.tgt { background: #e6eff5; font-weight: 700; }
+.legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; margin-top: 1em; font-size: 0.86em; line-height: 1.35; }
+.legend > div { border-top: 3px solid var(--accent); padding-top: 0.3em; }
+.legend b { color: var(--heading-color); }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; margin-top: 1em; }
+.facts > div { background: #f4f6f7; border-radius: 6px; padding: 0.6em 0.9em; font-size: 0.86em; line-height: 1.35; }
+.facts .num { display: block; font-size: 1.9em; font-weight: 700; color: var(--accent); line-height: 1.1; }
+.facts.big > div { font-size: 1.15em; padding: 0.9em 1.1em 1em; line-height: 1.45; }
+.facts.big .num { font-size: 2.1em; margin-bottom: 0.15em; }
+/* the duplicates: two numbers, then the sets */
+.metric2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1em; margin-top: 0.4em; }
+.metric2 > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.5em 1em 0.7em; font-size: 0.95em; line-height: 1.4; }
+.metric2 > div.alert { border-top-color: #da232f; }
+.metric2 .num { display: block; font-size: 2.3em; font-weight: 700; color: var(--accent); line-height: 1.15; }
+.metric2 .alert .num { color: #da232f; }
+/* the hands-on: moves, then the time */
+.need { font-size: 1em; margin: 0.2em 0 0; line-height: 1.45; }
+.moves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8em; margin-top: 1em; }
+/* a question read right after the content, not pinned to the bottom */
+.admonition.near { position: relative; bottom: auto; left: auto; right: auto; margin-top: 1.2em; font-size: 1em; }
+.moves > div { border-top: 4px solid var(--accent); background: #f4f6f7; padding: 0.7em 0.9em 0.9em; font-size: 0.92em; line-height: 1.5; min-height: 11em; }
+.moves b { display: block; font-size: 1.18em; color: var(--heading-color); margin-bottom: 0.2em; }
+.moves code { font-size: 0.8em; }
+.time { font-size: 1em; margin-top: 1em; }
+.refs li { font-size: 0.72em; margin-bottom: 0.4em; }
+.refs ul { padding-right: 3.2em; }
+/* this deck's 25 references: two columns, smaller type */
+.refs.cols2 ul { column-count: 2; column-gap: 1.8em; margin-top: 0; }
+.refs.cols2 li { font-size: 0.56em; margin-bottom: 0.25em; break-inside: avoid; }
+/* a table row with what each column means */
+.terms table.big { font-size: 1.45em; margin-top: 1.2em; }
+.terms tr.meaning td { color: #556268; font-size: 0.85em; font-style: italic; }
+/* feature visualisations: one large, or four in a row */
+.feat { display: grid; gap: 1em; margin-top: 0.4em; }
+.feat.one { grid-template-columns: 1fr; width: 34%; margin: 0.4em auto 0; }
+.feat.four { grid-template-columns: repeat(4, 1fr); }
+.feat figure { margin: 0; }
+.feat img { width: 100%; display: block; border-radius: 4px; }
+.feat figcaption { text-align: center; font-weight: 600; color: var(--heading-color); margin-top: 0.4em; }
+.duo > div.lit { background: #e6eff5; }
+.lead.center { text-align: center; }
+.facts.two { grid-template-columns: repeat(2, 1fr); }
+/* the section mark of the lab: two openly licensed photos under the title */
+.pair { display: flex; justify-content: center; gap: 1.2em; margin-top: 0.2em; }
+.pair img { height: 230px; border-radius: 6px; }
+/* the data slide's lead line, the table's caption: centred over it, the target in the table's target tint */
+.data-lead { font-size: 1.4em; font-weight: 600; color: var(--heading-color); text-align: center; padding-bottom: 0.4em; }
+.data-lead .tgt-mark { background: var(--accent-tint, #e6eff5); padding: 0.05em 0.35em; border-radius: 3px; }
+.data-lead .tgt-mark code { background: none; padding: 0; }
+/* the types slide: the kinds of column, then what enters the model */
+.types { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8em 1em; margin-top: 0.3em; }
+.types > div { background: #f4f6f7; border-top: 4px solid var(--accent); padding: 0.5em 0.9em 0.6em; font-size: 0.8em; line-height: 1.55; }
+.types b { display: block; font-size: 1.2em; color: var(--heading-color); }
+.types b .n { color: var(--accent); margin-left: 0.3em; }
+.types p { margin: 0.25em 0 0; color: #3d4b51; }
+.types code { font-size: 0.92em; white-space: nowrap; }
+.types-after { font-size: 0.92em; margin: 0.9em 0 0; line-height: 1.45; }
+/* three kinds of column, one card each, filling the height */
+.types.three { grid-template-columns: repeat(3, 1fr); }
+:is(.fullw, .beside-thumb) .types.three > div { font-size: 1.12em; padding: 0.9em 1.1em 1em; min-height: 9em; }
+:is(.fullw, .beside-thumb) .types-after { font-size: 1.1em; margin-top: 1.1em; }
+</style>
+<script src="https://kit.fontawesome.com/015d4b01de.js" crossorigin="anonymous"></script>
+
+<textarea id="source">
+name: title
+layout: true
+class: cover
+---
+count: false
+
+.section-mark.center[
+## Text mining and sentiment analysis
+
+### From words to a table, and which reviews to read first
+
+<br />
+
+Oscar Esteban &lt;<code>oscar.esteban@hevs.ch</code>>
+
+<br />
+
+EAD · Exploration avancée de données et intelligence décisionnelle · 23.10.2026
+
+<div style="font-size: 0.8em; margin-top: 1.2em;"><a href="https://oesteban.github.io/msba-ead-2026-2027-slides/day2/06-text/index.html">
+https://oesteban.github.io/msba-ead-2026-2027-slides/day2/06-text/index.html
+</a></div>
+]
+
+???
+
+**This deck turns text into a table a model can read, sets four ways to score sentiment side by side, and ends with Hands-on 5 on film reviews.** In text mining the general strategy is to "use the simplest (least expensive) technique that works" (Provost & Fawcett, 2013, p. 251, verbatim): the deck starts from counted words, then asks what each more elaborate method adds. Hands-on 5 compares a model trained in Dataiku DSS with a ready-made sentiment plugin.
+
+
+---
+name: newsection
+layout: true
+
+.perma-sidebar[
+<p class="rotate">
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0; height: 20px; padding-top: 6px;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+  <span style="padding-left: 10px; font-weight: 600;">Text mining and sentiment analysis (23.10.2026)</span>
+</p>
+]
+
+---
+class: vcenter
+# Outline
+.cards.steps[
+.card[
+.enum[1]
+
+<span class="part">Text as data.</span> What firms read text for; a review as a string of characters; its opinions, one per aspect. Slides 2 to 4.
+]
+.card[
+.enum[2]
+
+<span class="part">From text to a table of words.</span> Normalisation, stop words, stemming; the bag of words, word pairs, TF-IDF. Slides 5 to 10.
+]
+.card[
+.enum[3]
+
+<span class="part">Scoring sentiment.</span> Lexicons, a model on words, tokens and embeddings, pretrained transformers, prompted language models; how accurate, and how to choose. Slides 11 to 20.
+]
+.card[
+.enum[4]
+
+<span class="part">Hands-on 5: film reviews.</span> The care team's costs, the IMDb reviews, Dataiku and the Flow; a trained model against a plugin; the heaviest terms; time series next. Slides 21 to 31.
+]
+]
+
+???
+
+**Four parts: text as data, from text to a table of words, scoring sentiment, then a hands-on on film reviews.** *Deep learning for decisions* closed on the question this deck answers: which features can a classifier read from words? Slides 2 to 4 show what firms read text for and what one review holds; slides 5 to 10 turn texts into term columns; slides 11 to 20 compare four ways to score sentiment and how to choose one. The deck ends on a hands-on in Dataiku.
+
+
+---
+class: vcenter
+# Text in a firm
+
+.fullw[
+<div class="trio">
+<div><b class="k">Records</b>Complaint logs, product inquiries, repair records: written for people, not for computers.</div>
+<div><b class="k">Reviews</b>Review sites summarise them, and could catch a rating that contradicts its own review.</div>
+<div class="lit"><b class="k">Intelligence</b>"Why aren't consumers buying our laptop?" Sales figures alone cannot answer.</div>
+</div>
+
+.lead.big.center[Firms hold more text than anyone can read.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 250.] B. Pang and L. Lee (2008), sections 2.1 and 2.3.]
+
+???
+
+**Firms hold more text than anyone can read.** Complaint logs, product inquiries and repair records are written for people, not computers, and "understanding customer feedback often requires understanding text" (Provost & Fawcett, 2013, p. 250, verbatim). Opinion mining helps review sites summarise reviews and catch a rating at odds with its own review, and helps a laptop maker learn why its laptop does not sell, without reading hundreds of versions of the same complaint (Pang & Lee, 2008, sections 2.1 and 2.3). Slide 3 shows one review.
+
+
+---
+class: stepwise-svg, vcenter
+# A review
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/review.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The review Great screen, but the battery does not last a day, then the same review as a row of single characters"></object></div>
+.step-3.lead.big.center[A text has no columns: a string of characters, of any length.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 250.] The review is written for this deck, as are all the reviews of slides 3 to 20.]
+
+???
+
+**A text has no columns: to a model, it is a string of characters, of any length.** The deck's review, written for it, is 50 characters in a row, and the next review has another length. Text is called unstructured because it lacks "tables of records with fields having fixed meanings" (Provost & Fawcett, 2013, p. 250, verbatim): its structure is linguistic, meant for people, and texts vary in their number of words (p. 250). Slide 4 names what a reader wants from it: the opinion.
+
+
+---
+class: stepwise-svg, vcenter
+# Sentiment analysis
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/aspects.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The review split in two: Great screen, positive about the screen; but the battery does not last a day, negative about the battery"></object></div>
+.step-4.lead.big.center[The opinion a text expresses; one review can hold two.]
+]
+
+.footnote[B. Pang and L. Lee (2008); W. Zhang et al. (2024): aspect-level tasks.]
+
+???
+
+**Sentiment analysis reads the opinion a text expresses, positive or negative; one review can hold two, one per aspect.** Labelling a whole text as positive or negative overall is polarity classification, much studied on reviews (Pang & Lee, 2008, section 4.1.1). Aspect-level classification finds the sentiment towards each aspect a sentence names, since one sentence can judge two targets differently (Zhang et al., 2024, section 3.1). The deck's review praises the screen and condemns the battery: one label for the whole loses one of the two. Slide 5 starts turning it into terms.
+
+
+---
+class: stepwise-svg, vcenter
+# Normalisation
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/normalise.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The review cut into words and punctuation, then written in lower case without punctuation"></object></div>
+.step-5.lead.big.center[Each word written one way, so that "Screen" and "screen" are one term.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 253.] C. D. Manning, P. Raghavan and H. Schütze (2008), section 2.2.]
+
+???
+
+**Normalisation writes each word one way, so that "Screen" and "screen" count as one term; every step throws something away.** Cutting the review into words, then folding case and dropping punctuation, turns "Great" into "great" and loses a comma and a full stop; folding can also merge words better kept apart, such as "Fed" and "fed" (Manning et al., 2008, sections 2.2.1 and 2.2.3). Case is folded so that "words like Skype and SKYPE are counted as the same thing" (Provost & Fawcett, 2013, p. 253, verbatim). Slide 6 drops whole words.
+
+
+---
+class: stepwise-svg, vcenter
+# Stop words
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/stopwords.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The review's ten words; a short stop list drops the and a; a longer list also drops but, does and not, leaving great screen battery last day"></object></div>
+.step-5.lead.big.center[Frequent words are often dropped, but "not" can carry the verdict.]
+]
+
+.footnote[C. D. Manning et al. (2008), Figure 2.5 and section 2.2.2; the longer list illustrative. .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 254.]]
+
+???
+
+**Frequent words are often dropped as stop words, but in a review a stop word such as "not" can carry the verdict.** The 25-word stop list of Manning et al. (2008, Figure 2.5) drops only "the" and "a" from the review; the longer list, which is illustrative, also drops "not", and the complaint is gone. Retrieval systems went from stop lists of 200 to 300 terms to 7 to 12, then to none (section 2.2.2), and "stopword elimination is not always a good idea" (Provost & Fawcett, 2013, p. 254, verbatim). Slide 7 cuts the words that remain.
+
+
+---
+class: stepwise-svg, vcenter
+# Stemming
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/stemming.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Porter's stemmer turns generalizations into generalization, generalize, general, then gener; battery becomes batteri, day dai, does doe, screen stays screen"></object></div>
+.step-3.lead.big.center[Words cut to a common stem, by rule; a stem need not be a word.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 253.] M. F. Porter (1980); C. D. Manning et al. (2008), section 2.2.4.]
+
+???
+
+**Stemming cuts words to a common stem by rule, and a stem need not be a word.** Suffixes are removed so that "announces", "announced" and "announcing" all count as "announc" (Provost & Fawcett, 2013, p. 253). Porter's stemmer does so in ordered steps, from "generalizations" down to "gener" (Porter, 1980). In English search it raises recall, lowers precision and helps little overall (Manning et al., 2008, section 2.2.4); that evidence is not from sentiment, and the movie-review study of slide 13 did not stem (Pang et al., 2002, section 6.1).
+
+
+---
+class: stepwise-svg, vcenter
+# Bag of words
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/bow.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three reviews as a table of term counts, one row per review and one column per term: battery, day, good, great, last, not, screen"></object></div>
+.step-4.lead.big.center[One column per term, one row per text: the word order is gone.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 252 to 253.] Normalised, stop words but "not" removed, not stemmed.]
+
+???
+
+**A bag of words gives each term a column and each text a row, with a count in each cell; the word order is gone.** Each text becomes a feature vector, and the approach "ignores grammar, word order, sentence structure, and (usually) punctuation" (Provost & Fawcett, 2013, p. 252, verbatim); the counts are term frequencies (pp. 252 to 253). Reviews 1 and 2 both hold "not" and "great", yet one faults the battery and the other the screen: the counts cannot say what "not" negates. Slide 9 keeps some of the order.
+
+
+---
+class: stepwise-svg, vcenter
+# N-grams
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/ngrams.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Reviews 1 and 2 as words; the pairs not last and not great become terms; 7 words and 9 pairs make 16 columns"></object></div>
+.step-4.lead.big.center[Pairs of adjacent words keep a little order, at the cost of many more columns.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 263 to 264.] B. Pang, L. Lee and S. Vaithyanathan (2002); X. Zhang, J. Zhao and Y. LeCun (2015).]
+
+???
+
+**Pairs of adjacent words, n-grams, keep a little of the order: "not great" becomes a term, at the cost of many more columns.** N-grams "greatly increase the size of the feature set" (Provost & Fawcett, 2013, p. 264, verbatim): here 7 words and 9 pairs make 16 columns. On 1,400 movie reviews, adding pairs to words did not raise accuracy (Pang et al., 2002, Figure 3); on Yelp polarity, with 280,000 training reviews per class, n-grams cut a logistic regression's error from 7.76% to 4.36% (Zhang et al., 2015, Table 4). Slide 10 weighs the columns.
+
+
+---
+class: stepwise-svg, vcenter
+# TF-IDF
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/tfidf.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The inverse document frequency of each term, then the three reviews' counts weighted by it: battery and screen weigh least, day, last and good most"></object></div>
+.step-4.lead.big.center[A term weighs most when frequent in this text and rare in the others.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 254 to 256, with the natural logarithm.] G. Salton and C. Buckley (1988).]
+
+???
+
+**TF-IDF weighs a term most when it is frequent in this text and rare in the others.** The figure uses the textbook's formula, count times IDF(t) = 1 + log(N / documents containing t), with the natural logarithm (Provost & Fawcett, 2013, pp. 255 to 256). IDF is "the boost a term gets for being rare" (Provost & Fawcett, 2013, p. 255, verbatim): "battery" and "screen", in all three reviews, keep 1.00; "day" and "last", in one, get 2.10. Salton and Buckley (1988, p. 516) give the same reasoning for retrieval. Slide 11 turns to sentiment.
+
+
+---
+class: vcenter
+
+# Four ways to score sentiment
+
+.fullw[
+<div class="quad big">
+<div><b>1 · A lexicon</b>Listed words with scores, and rules; no labelled example, every verdict readable.</div>
+<div class="lit"><b>2 · A model on words</b>A weight per term, learned from labelled texts; the weights can be read.</div>
+<div><b>3 · A pretrained network</b>A new head, or fine-tuned, on labelled texts; hard to read.</div>
+<div><b>4 · A prompted language model</b>The classes described in words; no training, hard to read.</div>
+</div>
+.lead.big.center[They differ in the labels they need and in how far a verdict can be read.]
+]
+
+.footnote[J. Hartmann et al. (2023); C. Hutto and E. Gilbert (2014); J. Devlin et al. (2019); W. Zhang et al. (2024).]
+
+???
+
+**Four ways to score sentiment differ in the labelled texts they need and in how far a verdict can be read.** A lexicon such as VADER needs no labelled data (Hutto & Gilbert, 2014), and each verdict traces back to its words; a model on words learns from labelled texts (Hartmann et al., 2023, p. 78). BERT is pretrained on unlabelled text, then fine-tuned with one added output layer (Devlin et al., 2019, p. 1); a prompted model gets only a description of the task (Zhang et al., 2024, section 4.2). Slides 12 to 18 take them in turn.
+
+
+---
+class: stepwise-svg, vcenter
+# Lexicons
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/lexicon.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The review word by word: great scores plus 3.1; but makes what follows count more; not flips the next listed word, but the complaint holds no listed word"></object></div>
+.step-5.lead.big.center[A lexicon scores the words it lists, with rules for "but", "not", capitals and "!".]
+]
+
+.footnote[C. Hutto and E. Gilbert (2014), section 3: the word scores and the rules.]
+
+???
+
+**A lexicon scores the words it lists, with rules for "but", "not", capitals and "!"; a complaint in unlisted words scores nothing.** VADER rates just over 7,500 features from -4 to +4, "great" 3.1; the clause after "but" dominates, a negation among the three words before a listed word flips it, and "!", capitals and degree words raise intensity (Hutto & Gilbert, 2014, section 3). In the deck's review only "great" is listed, so the verdict rests on the praise and the battery complaint counts for nothing. Slide 13 tests word lists made by hand.
+
+
+---
+class: vcenter
+
+# Word lists by hand
+
+.fullw[
+<div class="facts big">
+<div><span class="num">58%</span>five positive and five negative words chosen by one person, on 1,400 movie reviews.</div>
+<div><span class="num">64%</span>a second person's longer lists, on the same reviews.</div>
+<div><span class="num">69%</span>seven words each way read off the reviews' counts, "?" and "!" among them.</div>
+</div>
+.lead.big.center[Intuition missed what the data shows: learned classifiers reached 83%.]
+]
+
+.footnote[B. Pang, L. Lee and S. Vaithyanathan (2002), Figures 1 and 2, and Figure 3: 82.9%. Half the reviews positive: 50% by chance.]
+
+???
+
+**Word lists chosen by intuition scored 58% and 64% on movie reviews, below every classifier learned from the data.** Two graduate students proposed indicator words; counting them on 700 positive and 700 negative reviews, where chance gives 50%, scored 58% and 64% (Pang et al., 2002, Figure 1). Seven words each way, picked partly from the reviews' own counts, reached 69% (Figure 2); learned classifiers scored 72.8% to 82.9% (Figure 3). The authors conclude that features are better selected from the data than by intuition (section 4). Slide 14 shows such a model.
+
+
+---
+class: stepwise-svg, vcenter
+# A linear model on words
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/linear.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Review 1's six terms, each with a weight towards negative, summed to plus 0.2, then the logistic function: a probability of 0.55 that the review is negative"></object></div>
+.step-5.lead.big.center[One weight per term, learned from labelled texts; the score adds them up.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 85 and 97 to 98.] D. Jurafsky and J. H. Martin (2026), chapter 4 and p. 534. *Evaluating a classifier*, slide 3. Weights illustrative.]
+
+???
+
+**A linear model on words gives each term a weight learned from labelled texts and adds them up: the logistic regression of the first day.** A linear model is "a weighted sum of the attribute values" (Provost & Fawcett, 2013, p. 85, verbatim); logistic regression reads that sum as log-odds and turns it into a probability (pp. 97 to 98), as on slide 3 of *Evaluating a classifier*. Here the weights are illustrative: review 1's sum of +0.2 gives P(negative) 0.55. Trained on much labelled text like the texts to score, it is hard to beat (Jurafsky & Martin, 2026, p. 534).
+
+
+---
+class: stepwise-svg, vcenter
+# Tokens
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/tokens.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="screen is one token; lower becomes low and er; GRPO becomes four letters"></object></div>
+.step-4.lead.big.center[A language model reads tokens learned from text: words, or pieces of words.]
+]
+
+.footnote[D. Jurafsky and J. H. Martin (2026), section 2.4: "lower" and "GRPO"; the single token for "screen" illustrative.]
+
+???
+
+**A language model reads tokens learned from text: most are words, others pieces of words, so an unseen word becomes known pieces.** Its tokenizer learns a vocabulary from a training corpus, for instance by byte-pair encoding, instead of using words as slide 5 cut them (Jurafsky & Martin, 2026, section 2.4). A model that never saw "lower" reads "low" and "er", and a very rare acronym such as "GRPO" may become single letters (p. 43). The single token for "screen" is illustrative. Slide 16 turns each token into numbers.
+
+
+---
+class: stepwise-svg, vcenter
+# Embeddings
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/embeddings.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Words placed in two dimensions: battery, charger and power together, screen and display together, great, good and excellent together, awful, bad and poor together; battery as a vector of numbers"></object></div>
+.step-3.lead.big.center[Close meanings lie close, but no single number can be read.]
+]
+
+.footnote[D. Jurafsky and J. H. Martin (2026), chapter 5: 50 to 1,000 dimensions. Positions and values illustrative.]
+
+???
+
+**An embedding turns a token or a text into a few hundred numbers where close meanings lie close; unlike a TF-IDF column, no single number can be read.** Embeddings are learned from how words are distributed in texts: words in similar contexts tend to mean similar things (Jurafsky & Martin, 2026, p. 127). They have 50 to 1,000 dimensions with no clear interpretation, where TF-IDF gives one sparse column per term (p. 136). The RAG workshop's documents were embedded this way; the figure's positions and values are illustrative.
+
+
+---
+class: stepwise-svg, vcenter
+# Pretrained transformers
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/transfer-text.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A review as tokens enters a pretrained network of seven locked blocks, then a new head that outputs positive or negative"></object></div>
+.step-4.lead.big.center[Pretrained on text, given a new head for sentiment: transfer learning again.]
+]
+
+.footnote[J. Devlin et al. (2019), pp. 1 and 5. *Deep learning for decisions*, slides 23 and 24.]
+
+???
+
+**A transformer pretrained on unlabelled text and given a new head for sentiment is transfer learning again, as with the photos of the deep-learning deck.** BERT reads each word with its context on both sides and is fine-tuned for a task with one added output layer (Devlin et al., 2019, p. 1). It was pretrained on 800 million words of books and 2,500 million of English Wikipedia (p. 5). In the figure the blocks stay locked under a new head, as on slide 23 of *Deep learning for decisions*; unlocking some is the fine-tuning of its slide 24.
+
+
+---
+class: stepwise-svg, vcenter
+# Prompted language models
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/prompt.svg" style="width: 86%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The question positive or negative and the review go to a language model, with no weight change; it answers negative"></object></div>
+<div class="facts two step-4">
+<div><span class="num">97%</span>of a fine-tuned model's accuracy, on average, on two-class polarity tasks.</div>
+<div><span class="num">52% against 66%</span>on five-star Yelp reviews: the fine-tuned model far ahead.</div>
+</div>
+.step-5.lead.center[Close to a fine-tuned model on two classes, far behind it on five.]
+]
+
+.footnote[W. Zhang et al. (2024); T. Brown et al. (2020), p. 7. The answer is illustrative.]
+
+???
+
+**A prompted language model labels a text from the classes described in words: close to a fine-tuned model on two classes, far behind it on five.** It gets only an instruction describing the task and answers with forward passes alone (Brown et al., 2020, p. 7). Zero-shot ChatGPT reached on average 97% of a fine-tuned model's accuracy on polarity, but 52.4 against 65.6 on five-class Yelp reviews; prompts and model versions move such scores (Zhang et al., 2024). Commercial models change without notice and may reuse what they are sent (Chae & Davidson, 2025). The answer shown is illustrative.
+
+
+---
+class: vcenter
+
+# How accurate
+
+.fullw[
+<div class="facts big">
+<div><span class="num">69%</span>lexicons, on average, across 1,188 published accuracy figures.</div>
+<div><span class="num">+9</span>points for traditional machine learning, such as a model on words.</div>
+<div><span class="num">+20</span>points for transfer learning: a pretrained network, fine-tuned.</div>
+</div>
+.lead.big.center[Each step up adds points; every figure shrinks on a firm's own texts.]
+]
+
+.footnote[J. Hartmann et al. (2023): 69.23%, +9.45 and +20.22 points; transformers about 89% on applied data, 95 to 97% on SST-2. J. Devlin et al. (2019).]
+
+???
+
+**Across 1,188 published accuracy figures, lexicons average about 69%, models on words about 9 points more and fine-tuned transformers about 20 more; every figure shrinks on applied data.** The meta-analysis gives 69.23%, then 9.45 and 20.22 points more; three classes instead of two cost 12.7 points (Hartmann et al., 2023). Fine-tuned transformers reach a median of about 89% on applied datasets, against 95 to 97% on SST-2, single movie-review sentences (Hartmann et al., 2023; Devlin et al., 2019). These are levels, not a ranking.
+
+
+---
+class: vcenter
+
+# Choosing one
+
+.fullw[
+<div class="quad big">
+<div><b>Labels</b>How many labelled texts exist, or can be made?</div>
+<div><b>Domain</b>How far are your texts from those the method learned on?</div>
+<div><b>Explanation</b>Must each verdict be explained to someone?</div>
+<div class="lit"><b>Where the texts go</b>May they be sent to a provider's model?</div>
+</div>
+.lead.big.center[No method wins everywhere: measure it on a labelled sample of your own texts.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 251.] J. Hartmann et al. (2023); B. Pang and L. Lee (2008); Y. Chae and T. Davidson (2025).]
+
+???
+
+**No method wins everywhere: whatever the method, its figure comes from a labelled sample of the firm's own texts.** Without labels, only a lexicon or a prompted model applies; only traditional machine learning gains significantly from more (Hartmann et al., 2023). Domain matters: "unpredictable" praises a plot and condemns a car's steering (Pang & Lee, 2008, section 4.4.1). Commercial models may reuse the texts sent to them, and every approach needs an annotated test sample (Chae & Davidson, 2025). The textbook advises starting with the cheapest technique that does the job (Provost & Fawcett, 2013, p. 251).
+
+
+---
+.section-mark[
+# Hands-on 5:<br />the IMDb reviews
+]
+
+???
+
+**Hands-on 5 trains a model on 2,000 IMDb reviews, then sets it against Dataiku's sentiment plugin on 2,000 reviews from another source.** The training reviews are a subset of the 50,000 that Maas et al. (2011) released for sentiment classification, all clear verdicts. The second set, Pang and Lee's polarity dataset, written before 2002 (Pang & Lee, 2004), serves only after the checkpoint. Slides 22 to 25 set the case and the data before any model is trained.
+
+
+---
+class: stepwise-svg, vcenter
+
+# The case
+
+<img class="phase-thumb" src="images/phase-bu.svg" alt="The CRISP-DM phases, business understanding lit" />
+
+.beside-thumb[
+<div class="step-1"><object type="image/svg+xml" data="images/costs.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A missed unhappy review costs 4, a wasted reading costs 1; on the probability axis, the default threshold 0.5 and the cost threshold 0.2"></object></div>
+.step-4.lead.big.center[A care team reads unhappy reviews first: every review from 0.2 up.]
+]
+
+.footnote[A scenario, not data. .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 195 to 196.] *Evaluating a classifier*, slide 17: the costs give the threshold.]
+
+???
+
+**A streaming service's care team reads unhappy reviews first; a missed one costs four wasted readings, so the team reads every review scored 0.2 or more.** In this scenario the unhappy review is the positive class; a missed one costs 4, a wasted reading of a happy one costs 1. The threshold 1 / (1 + 4) = 0.2 is the rule of *Evaluating a classifier*, slide 17, and of the textbook's mailing example (Provost & Fawcett, 2013, pp. 195 to 196). The costs come from the business: "usually the values must come from external domain knowledge" (Provost & Fawcett, 2013, p. 195, verbatim).
+
+
+---
+class: vcenter
+
+# The data
+
+<img class="phase-thumb" src="images/phase-du.svg" alt="The CRISP-DM phases, data understanding lit" />
+
+.beside-thumb.terms[
+<table style="width: 100%;">
+<caption class="data-lead"><b>Features</b> and <span class="tgt-mark"><b>target</b> (<code>unhappy</code>)</span></caption>
+<tr><th>URL, the film</th><th>Text</th><th class="tgt">unhappy</th></tr>
+<tr><td><code>…/title/tt0210075/…</code></td><td><i>a review of 95 words</i></td><td class="tgt">0</td></tr>
+<tr><td><code>…/title/tt0337640/…</code></td><td><i>a review of 200 words</i></td><td class="tgt">0</td></tr>
+<tr><td><code>…/title/tt0780595/…</code></td><td><i>a review of 128 words</i></td><td class="tgt">1</td></tr>
+<tr><td><code>…/title/tt0291547/…</code></td><td><i>a review of 104 words</i></td><td class="tgt">1</td></tr>
+</table>
+
+<div class="legend">
+<div><b>A row</b>: one review of one film, written on IMDb.</div>
+<div><b>A column</b>: <code>Text</code>, which the model reads; <code>URL</code>, which names the film.</div>
+<div><b>The target</b>: <code>unhappy</code>, 1 for a negative review.</div>
+</div>
+
+<div class="facts">
+<div><span class="num">2,000</span>reviews, 1,000 unhappy: always guessing one class is right half the time.</div>
+<div><span class="num">177</span>words in the median review; from 14 to 1,827.</div>
+<div><span class="num">1,247</span>films, up to 7 reviews each.</div>
+</div>
+]
+
+.footnote[A subset of the 50,000 reviews of A. L. Maas et al. (2011); counts on the course file. The texts are not shown: their licence is not recorded.]
+
+???
+
+**The data are 2,000 IMDb reviews, half of them unhappy: a row is one review of one film, its text the only input, its target `unhappy`.** The 50,000 reviews of Maas et al. (2011), of which these are a subset, hold only clear verdicts, 4 or less out of 10 or 7 or more, and at most 30 per film. Always guessing one class is right half the time. The course file drops the copy of the opening sentence at the end of most texts and strips 161 stated ratings ("8/10"), which give the label away.
+
+
+---
+class: vcenter
+
+# Column types
+
+<img class="phase-thumb" src="images/phase-du.svg" alt="The CRISP-DM phases, data understanding lit" />
+
+.beside-thumb[
+<div class="types three">
+<div><b>Free text<span class="n">1</span></b><code>Text</code>
+<p>One column, a review each: as terms, it becomes thousands of columns.</p></div>
+<div><b>An identifier<span class="n">1</span></b><code>URL</code>
+<p>It names the film: no feature, but it keeps a film's reviews together (slide 25).</p></div>
+<div><b>The target<span class="n">1</span></b><code>unhappy</code>
+<p>1 or 0: the class the care team looks for is 1.</p></div>
+</div>
+
+<p class="types-after">Only <code>Text</code> enters the model: as one string it means nothing, as terms it can be read (slides 8 to 10).</p>
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 252.] Dataiku (2024), *Text variables*. The course file's columns; the original labels POS and NEG became <code>unhappy</code>.]
+
+???
+
+**One text column becomes thousands of term columns; the URL names the film and is no feature, and the target is `unhappy`.** Each review is one row, but "we don't know in advance what the features will be" (Provost & Fawcett, 2013, p. 252, verbatim): the reviews' terms decide them. Dataiku turns a text column into counts, TF/IDF, hashed features or embeddings (Dataiku, 2024, *Text variables*). `URL` stays out of the model but keeps each film's reviews together (slide 25).
+
+
+---
+class: vcenter
+
+# Several reviews per film
+
+<img class="phase-thumb" src="images/phase-du.svg" alt="The CRISP-DM phases, data understanding lit" />
+
+.beside-thumb[
+<div class="facts big">
+<div><span class="num">1,225</span>of the 2,000 reviews share their film with another.</div>
+<div><span class="num">7</span>reviews of one film, at most.</div>
+<div><span class="num">5 folds</span>grouped by film: no film in its own test fold.</div>
+</div>
+.lead.big.center[Reviews of one film share its names: keep them in one fold.]
+]
+
+.footnote[Counts on the course file; A. L. Maas et al. (2011). *Model selection and cross-validation*, slides 10 and 11: rows from one site.]
+
+???
+
+**Reviews of one film share its names, so a model can score by recognising the film; folds grouped by film keep them together.** In the course file, 1,225 of the 2,000 reviews share their film with another. In Pang and Lee's reviews, about half of each published test fold had a same-film, same-label review in training, so a learner could score by memorising a film's own words, such as character names (Maas et al., 2011). Grouped folds keep each film on one side, as leaving one site out did on *Model selection and cross-validation*, slides 10 and 11.
+
+
+---
+class: stepwise-svg, vcenter
+
+# In Dataiku
+
+<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
+
+.beside-thumb[
+<div class="step-1"><object type="image/svg+xml" data="images/dss-text.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A drawing of Dataiku's Design, Features handling panel: TextSimple as text, TF/IDF vectorization, minimum rows fraction 0.1%, maximum 80%, n-grams 1 to 2; Text and URL rejected"></object></div>
+.step-4.lead.big.center[TF-IDF on words and pairs; folds grouped by film.]
+]
+
+.footnote[Drawn after Dataiku DSS's **Design → Features handling** panel, not a capture; Dataiku (2024), *Text variables*. .book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 256.]]
+
+???
+
+**In Dataiku, the simplified text is set to TF-IDF on words and pairs, with the rarest and commonest terms cut, and the folds are grouped by film.** TF/IDF vectorization is one of Dataiku's text handlings (Dataiku, 2024, *Text variables*); words and pairs are slide 9's n-grams. The minimum of 0.1% and maximum of 80% are "minimum and maximum thresholds of term counts" (Provost & Fawcett, 2013, p. 256, verbatim), which keep the number of columns down. `URL` only groups the five folds. The **Design → Features handling** panel is a drawing, not a screen capture.
+
+
+---
+class: stepwise-svg, vcenter
+
+# The Flow
+
+<img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
+
+.beside-thumb[
+<div class="step-1"><object type="image/svg+xml" data="images/flow.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The Flow: the IMDb reviews, a Prepare recipe, the Lab, the model; Pang and Lee's reviews through a copied Prepare, the Score recipe and a count; the same reviews through the sentiment plugin and a count"></object></div>
+]
+
+.footnote[Drawn after a Dataiku DSS Flow; the sheet *Hands-on 5*, panels 1 to 4. Recipe colours schematic.]
+
+???
+
+**The Flow trains the model on the prepared IMDb reviews, then scores Pang and Lee's reviews twice, with the model and with the plugin, and counts each one's errors.** A copy of the Prepare recipe gives the new reviews the `TextSimple` column the model learned from; the plugin reads the raw `Text` (sheet *Hands-on 5*, panel 4). The new set holds 1,000 positive and 1,000 negative reviews written before 2002 (Pang & Lee, 2004). Recipe colours are schematic.
+
+
+---
+class: vcenter
+
+# Hands-on 5: unhappy first
+
+<img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
+
+.beside-thumb[
+.need[**The need.** A care team can read only some of the reviews it receives. Can a model trained on 2,000 labelled reviews pick the ones to read first, at the team's costs?]
+
+<div class="moves">
+<div><b>1. Prepare</b>Simplify the text; check what happens to "not".<br /><code>+ Recipe → Prepare</code>, <code>Simplify text</code>; panel 1</div>
+<div><b>2. Train</b>Target <code>unhappy</code>; TF-IDF on words and pairs; 5 folds by <code>URL</code>.<br /><code>Lab → AutoML prediction → Design</code>; panel 2</div>
+<div><b>3. Threshold</b>0.2, from the costs; the confusion matrix there.<br /><code>Results → Performance</code>; panel 3</div>
+<div><b>4. Read</b>The heaviest terms, each way.<br /><code>Results → model → Regression coefficients</code>; panel 3</div>
+</div>
+
+.time[Sheet *Hands-on 5*, panels 1 to 3. Groups of three. 25 minutes.]
+]
+
+.footnote[Steps as on the sheet; Dataiku (2024), *Text variables*.]
+
+???
+
+**In the 25 minutes of the core, groups simplify the reviews, train a logistic regression on TF-IDF with folds grouped by film, set the threshold at 0.2 and read the heaviest terms.** Panel 1 checks whether "not", slide 6's stop word, survives Simplify text. Panel 2 trains in **Lab → AutoML prediction** with slide 26's settings. Panel 3 prices the confusion matrix of **Results → Performance** at 0.2 and at 0.5, 4 per missed unhappy review and 1 per wasted reading, then reads **Results → model → Regression coefficients**.
+
+
+---
+class: vcenter
+
+# Hands-on 5, continued
+
+<img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
+
+.beside-thumb[
+<div class="moves">
+<div><b>5. Score</b>Pang and Lee's 2,000 reviews with the model, after a copy of the Prepare recipe.<br /><code>+ Recipe → Score</code>; panel 4</div>
+<div><b>6. Plugin</b>The same reviews through Dataiku's sentiment plugin.<br /><code>+ Recipe → Plugins → Sentiment Analysis</code>; panel 4</div>
+<div><b>7. Count</b>TP, FP, FN, TN of each, and the cost 4 × FN + FP.<br /><code>Prepare → Formula</code>; panel 4</div>
+<div><b>8. Decide</b>Which scorer goes to the care team?<br />Panel 5</div>
+</div>
+
+.admonition.question.near[
+<i class="fa-solid fa-circle-question"></i> **Buy or build: the plugin, or the model you trained?**
+]
+
+.time[Sheet panels 4 and 5. 12 minutes.]
+]
+
+.footnote[B. Pang and L. Lee (2004): polarity dataset v2.0. Dataiku (2024), *Sentiment analysis*: a plugin marked not supported.]
+
+???
+
+**In 12 minutes past the checkpoint, groups score reviews from another source with their model and with the plugin, count each one's errors at the same costs, then decide.** The polarity reviews date from before 2002 (Pang & Lee, 2004), and sentiment classifiers can depend on the domain and period of their texts (Pang & Lee, 2008, section 4.4.1). Dataiku's page marks its offline English sentiment plugin not supported and states no method (Dataiku, 2024, *Sentiment analysis*). True and false positives and negatives (TP, FP, FN, TN) give each scorer's cost, 4 × FN + FP.
+
+
+---
+class: vcenter
+
+# The heaviest terms
+
+<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
+
+.beside-thumb[
+<div class="duo big">
+<div><b class="k">Where to look</b>In the model's results, the regression coefficients: each term with its weight, the largest first.</div>
+<div class="lit"><b class="k">What to ask of each</b>Is it an opinion, such as "bad" or "waste", or the name of a film or an actor?</div>
+</div>
+
+.lead.big.center[Every term keeps a weight that can be read: check what the model learned.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 273.] D. Jurafsky and J. H. Martin (2026), chapter 4; B. Pang et al. (2002), Figure 2: "bad", "waste"; A. L. Maas et al. (2011).]
+
+???
+
+**Under TF-IDF each term keeps a weight that can be read: check that the words pushing towards "unhappy" are opinions, not names.** A weight's size shows why a logistic regression decides as it does, and a term found in one class only can get a very high weight (Jurafsky & Martin, 2026, p. 121). The telling words of movie reviews include "bad" and "waste" (Pang et al., 2002, Figure 2), but a learner can also memorise character names (Maas et al., 2011). Among the textbook's stock-news terms, econtent and edesign reflect their late-1990s corpus (Provost & Fawcett, 2013, p. 273).
+
+
+---
+class: vcenter
+
+# Time series
+
+.fullw[
+<div class="duo big">
+<div><b class="k">Values in order</b>One value per day or month: the order is the data, as word order was for text.</div>
+<div><b class="k">Read before forecasting</b>Trend, season and the change from one step to the next, on the Dow Jones.</div>
+</div>
+
+.lead.big.center[After lunch, the same question for values ordered in time.]
+]
+
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 252.] R. J. Hyndman and G. Athanasopoulos (2021), sections 2.3 and 5.4.]
+
+???
+
+**After lunch, the same question turns to values ordered in time: what a model can read from them.** The bag of words of slide 8 drops the word order (Provost & Fawcett, 2013, p. 252); in a time series the order is the data. A trend is a long-term rise or fall; a seasonal pattern has a fixed, known period, such as a week (Hyndman & Athanasopoulos, 2021, section 2.3). For stock indexes such as the Dow Jones, the last value is often the best forecast, leaving the change from one step to the next (section 5.4).
+
+
+---
+
+# References
+
+.refs.cols2[
+- Brown, T. B. et al. (2020). Language models are few-shot learners. *Advances in Neural Information Processing Systems* 33, 1877 to 1901.
+- Chae, Y. and Davidson, T. (2025). Large language models for text classification: from zero-shot learning to instruction-tuning. *Sociological Methods & Research* 55(2):501 to 567.
+- Dataiku (2024). *Sentiment analysis*. Dataiku DSS 13 reference documentation.
+- Dataiku (2024). *Text variables*. Dataiku DSS 13 reference documentation.
+- Devlin, J., Chang, M.-W., Lee, K. and Toutanova, K. (2019). BERT: pre-training of deep bidirectional transformers for language understanding. *NAACL-HLT 2019*, 4171 to 4186.
+- Hartmann, J., Heitmann, M., Siebert, C. and Schamp, C. (2023). More than a feeling: accuracy and application of sentiment analysis. *International Journal of Research in Marketing* 40(1):75 to 87.
+- Hutto, C. and Gilbert, E. (2014). VADER: a parsimonious rule-based model for sentiment analysis of social media text. *ICWSM 2014*, 216 to 225.
+- Hyndman, R. J. and Athanasopoulos, G. (2021). *Forecasting: Principles and Practice*, 3rd ed. OTexts, Melbourne.
+- Jurafsky, D. and Martin, J. H. (2026). *Speech and Language Processing*, 3rd ed., draft.
+- Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y. and Potts, C. (2011). Learning word vectors for sentiment analysis. *ACL-HLT 2011*, 142 to 150.
+- Manning, C. D., Raghavan, P. and Schütze, H. (2008). *Introduction to Information Retrieval*. Cambridge University Press.
+- Pang, B. and Lee, L. (2004). A sentimental education: sentiment analysis using subjectivity summarization based on minimum cuts. *ACL 2004*, 271 to 278.
+- Pang, B. and Lee, L. (2008). Opinion mining and sentiment analysis. *Foundations and Trends in Information Retrieval* 2(1 to 2):1 to 135.
+- Pang, B., Lee, L. and Vaithyanathan, S. (2002). Thumbs up? Sentiment classification using machine learning techniques. *EMNLP 2002*, 79 to 86.
+- Porter, M. F. (1980). An algorithm for suffix stripping. *Program* 14(3):130 to 137.
+- Provost, F. and Fawcett, T. (2013). *Data Science for Business*. O'Reilly.
+- Salton, G. and Buckley, C. (1988). Term-weighting approaches in automatic text retrieval. *Information Processing & Management* 24(5):513 to 523.
+- Zhang, W., Deng, Y., Liu, B., Pan, S. J. and Bing, L. (2024). Sentiment analysis in the era of large language models: a reality check. *Findings of NAACL 2024*, 3881 to 3906.
+- Zhang, X., Zhao, J. and LeCun, Y. (2015). Character-level convolutional networks for text classification. *Advances in Neural Information Processing Systems* 28, 649 to 657.
+]
+
+???
+
+**These are the works the deck's footnotes cite; Provost and Fawcett (2013, chapter 10), Pang and Lee (2008) and Jurafsky and Martin (2026) are the places to start.** The textbook's chapter builds the bag of words, "usually the first choice of data scientists for a new text mining problem" (Provost & Fawcett, 2013, p. 263, verbatim). Pang and Lee survey opinion mining; Jurafsky and Martin's draft covers logistic regression, embeddings and fine-tuning (chapters 4, 5 and 9). Hartmann et al. (2023) gather the accuracy evidence.
+
+
+---
+.section-mark[
+# End
+
+.large[
+Next: 23.10.2026 @ 13h15 (in <span class="timer" data-until="2026-10-23T13:15:00+02:00"></span>)
+
+[<i class="fa-solid fa-circle-left"></i>](../05-dl/index.html)
+[<i class="fa-solid fa-home"></i>](#1)
+<i class="fa-solid fa-circle-right" style="opacity: 20%"></i>
+]
+]
+
+???
+
+
+</textarea>
+
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script src="../../remark/core/engine.js"></script>
+    <script src="../../remark/ext/svg-preload.js"></script>
+    <script src="../../remark/ext/svg-theme.js"></script>
+    <script src="../../remark/ext/stepwise-svg.js"></script>
+    <script src="../../remark/ext/nav-controls.js"></script>
+    <script src="../../remark/ext/timer.js"></script>
+  </body>
+</html>
+

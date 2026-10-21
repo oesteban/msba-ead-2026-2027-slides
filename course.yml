@@ -60,3 +60,10 @@ days:
     replaces: 2026-10-23
     start: "08:45"
     title: "Deep learning for decisions"
+
+  # text and sentiment share the second block, 10:30 to 12:00 (D41, D56)
+  - id: day2/06-text
+    date: 2026-10-23
+    replaces: 2026-10-23
+    start: "10:30"
+    title: "Text mining and sentiment analysis"

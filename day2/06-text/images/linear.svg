@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A linear model on the terms of review 1: illustrative weights summed to +0.2, a probability of 0.55 through the logistic function (Jurafsky & Martin 2026, chapter 4). Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="60" y="36" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">review 1's terms</text>
+<rect class="accent-stroke" x="60" y="54" width="150" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="135.0" y="79.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">great</text>
+<rect class="accent-stroke" x="60" y="104" width="150" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="135.0" y="129.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+<rect class="accent-stroke" x="60" y="154" width="150" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="135.0" y="179.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery</text>
+<rect class="accent-stroke" x="60" y="204" width="150" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="135.0" y="229.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">not</text>
+<rect class="accent-stroke" x="60" y="254" width="150" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="135.0" y="279.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">last</text>
+<rect class="accent-stroke" x="60" y="304" width="150" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="135.0" y="329.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">day</text>
+</g>
+<g data-step="2">
+<text x="260" y="36" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">weights, towards negative</text>
+<text class="accent-fill" x="300" y="80" font-size="22" font-weight="bold" text-anchor="middle" fill="#00609c">-1.5</text>
+<text x="300" y="130" font-size="22" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.0</text>
+<text x="300" y="180" font-size="22" font-weight="bold" text-anchor="middle" fill="#1c2e36">+0.1</text>
+<text x="300" y="230" font-size="22" font-weight="bold" text-anchor="middle" fill="#da232f">+1.1</text>
+<text x="300" y="280" font-size="22" font-weight="bold" text-anchor="middle" fill="#1c2e36">+0.2</text>
+<text x="300" y="330" font-size="22" font-weight="bold" text-anchor="middle" fill="#1c2e36">+0.3</text>
+</g>
+<g data-step="3">
+<line x1="345" y1="72" x2="520" y2="190" stroke="#c9cfd2" stroke-width="1.4"/>
+<line x1="345" y1="122" x2="520" y2="190" stroke="#c9cfd2" stroke-width="1.4"/>
+<line x1="345" y1="172" x2="520" y2="190" stroke="#c9cfd2" stroke-width="1.4"/>
+<line x1="345" y1="222" x2="520" y2="190" stroke="#c9cfd2" stroke-width="1.4"/>
+<line x1="345" y1="272" x2="520" y2="190" stroke="#c9cfd2" stroke-width="1.4"/>
+<line x1="345" y1="322" x2="520" y2="190" stroke="#c9cfd2" stroke-width="1.4"/>
+<circle class="accent-stroke" cx="560" cy="190" r="40" fill="#ffffff" stroke="#00609c" stroke-width="2.4"/>
+<text x="560" y="200" font-size="30" font-weight="bold" text-anchor="middle" fill="#1c2e36">Σ</text>
+<text x="560" y="258" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">sum = +0.2</text>
+</g>
+<g data-step="4">
+<line x1="602" y1="190" x2="690" y2="190" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="696" y="140" width="260" height="100" rx="10" fill="#8cb3cf" stroke="#00609c" stroke-width="2.2"/>
+<text x="826" y="182" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">P(negative)</text>
+<text x="826" y="220" font-size="30" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.55</text>
+<text x="826" y="274" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the logistic function of the sum</text>
+</g>
+</svg>

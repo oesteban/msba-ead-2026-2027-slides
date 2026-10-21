@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- One review holding two opinions, one per aspect (Pang & Lee 2008; Zhang et al. 2024, aspect-level tasks). The review is written for the deck. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="60" y="30" width="880" height="86" rx="10" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="500" y="85" font-size="28" font-weight="normal" text-anchor="middle" fill="#1c2e36">Great screen, but the battery does not last a day.</text>
+</g>
+<g data-step="2">
+<rect class="accent-stroke" x="60" y="170" width="300" height="74" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="2.2"/>
+<text x="210" y="216" font-size="26" font-weight="normal" text-anchor="middle" fill="#1c2e36">Great screen,</text>
+<text class="accent-fill" x="210" y="284" font-size="21" font-weight="bold" text-anchor="middle" fill="#00609c">the screen: positive</text>
+</g>
+<g data-step="3">
+<rect x="400" y="170" width="540" height="74" rx="8" fill="#ffffff" stroke="#da232f" stroke-width="2.2"/>
+<text x="670" y="216" font-size="26" font-weight="normal" text-anchor="middle" fill="#1c2e36">but the battery does not last a day.</text>
+<text x="670" y="284" font-size="21" font-weight="bold" text-anchor="middle" fill="#da232f">the battery: negative</text>
+</g>
+</svg>

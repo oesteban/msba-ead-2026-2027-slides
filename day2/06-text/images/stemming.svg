@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Porter's chain for 'generalizations' (Porter 1980), and Porter stems of the review's words. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect class="accent-stroke" x="44.85500000000002" y="74" width="187.91000000000005" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="138.81000000000006" y="99.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">generalizations</text>
+<line x1="238.7650000000001" y1="92" x2="282.7650000000001" y2="92" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="260.7650000000001" y="74" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">step 1</text>
+<rect class="accent-stroke" x="288.7650000000001" y="74" width="176.15000000000003" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="376.84000000000015" y="99.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">generalization</text>
+<line x1="470.9150000000002" y1="92" x2="514.9150000000002" y2="92" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="492.9150000000002" y="74" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">step 2</text>
+<rect class="accent-stroke" x="520.9150000000002" y="74" width="133.94" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="587.8850000000002" y="99.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">generalize</text>
+<line x1="660.8550000000002" y1="92" x2="704.8550000000002" y2="92" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="682.8550000000002" y="74" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">step 3</text>
+<rect class="accent-stroke" x="710.8550000000002" y="74" width="103.49000000000001" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="762.6000000000003" y="99.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">general</text>
+<line x1="820.3450000000003" y1="92" x2="864.3450000000003" y2="92" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="842.3450000000003" y="74" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">step 4</text>
+<rect class="accent-a-light-fill accent-stroke" x="870.3450000000003" y="74" width="84.80000000000001" height="36.75" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="912.7450000000002" y="99.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">gener</text>
+<text x="40" y="40" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">Porter's stemmer, step by step</text>
+</g>
+<g data-step="2">
+<text x="40" y="196" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">the review's words</text>
+<text x="130" y="250" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery</text>
+<line x1="90" y1="268" x2="90" y2="298" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="70" y="304" width="120" height="36.75" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="130.0" y="329.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">batteri</text>
+<text x="375" y="250" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">day</text>
+<line x1="335" y1="268" x2="335" y2="298" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="315" y="304" width="120" height="36.75" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="375.0" y="329.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">dai</text>
+<text x="620" y="250" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">does</text>
+<line x1="580" y1="268" x2="580" y2="298" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="560" y="304" width="120" height="36.75" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="620.0" y="329.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">doe</text>
+<text x="865" y="250" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+<line x1="825" y1="268" x2="825" y2="298" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect class="accent-stroke" x="805" y="304" width="120" height="36.75" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
+<text x="865.0" y="329.935" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+</g>
+</svg>
