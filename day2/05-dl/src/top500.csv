@@ -1,0 +1,68 @@
+list,system,rmax,rpeak,unit_on_page
+1993-06,"CM-5/1024, Thinking Machines Corporation Los Alamos National Laboratory United States",59.70,131.00,G
+1993-11,"Numerical Wind Tunnel, Fujitsu National Aerospace Laboratory of Japan Japan",124.00,235.79,G
+1994-06,"XP/S140, Intel Sandia National Laboratories United States",143.40,184.00,G
+1994-11,"Numerical Wind Tunnel, Fujitsu National Aerospace Laboratory of Japan Japan",170.00,235.79,G
+1995-06,"Numerical Wind Tunnel, Fujitsu National Aerospace Laboratory of Japan Japan",170.00,235.79,G
+1995-11,"Numerical Wind Tunnel, Fujitsu National Aerospace Laboratory of Japan Japan",170.00,235.79,G
+1996-06,"SR2201/1024, Hitachi University of Tokyo Japan",220.40,307.20,G
+1996-11,"CP-PACS/2048, Hitachi/Tsukuba Center for Computational Sciences, University of Tsukuba Japan",368.20,614.40,G
+1997-06,"ASCI Red, Intel Sandia National Laboratories United States",1068.00,1453.00,G
+1997-11,"ASCI Red, Intel Sandia National Laboratories United States",1338.00,1830.40,G
+1998-06,"ASCI Red, Intel Sandia National Laboratories United States",1338.00,1830.40,G
+1998-11,"ASCI Red, Intel Sandia National Laboratories United States",1338.00,1830.40,G
+1999-06,"ASCI Red, Intel Sandia National Laboratories United States",2121.00,3154.00,G
+1999-11,"ASCI Red, Intel Sandia National Laboratories United States",2379.00,3207.00,G
+2000-06,"ASCI Red, Intel Sandia National Laboratories United States",2379.00,3207.00,G
+2000-11,"ASCI White, SP Power3 375 MHz, IBM Lawrence Livermore National Laboratory United States",4938.00,12288.00,G
+2001-06,"ASCI White, SP Power3 375 MHz, IBM Lawrence Livermore National Laboratory United States",7226.00,12288.00,G
+2001-11,"ASCI White, SP Power3 375 MHz, IBM Lawrence Livermore National Laboratory United States",7226.00,12288.00,G
+2002-06,"Earth-Simulator, NEC Japan Agency for Marine-Earth Science and Technology Japan",35860.00,40960.00,G
+2002-11,"Earth-Simulator, NEC Japan Agency for Marine-Earth Science and Technology Japan",35860.00,40960.00,G
+2003-06,"Earth-Simulator, NEC Japan Agency for Marine-Earth Science and Technology Japan",35860.00,40960.00,G
+2003-11,"Earth-Simulator, NEC Japan Agency for Marine-Earth Science and Technology Japan",35860.00,40960.00,G
+2004-06,"Earth-Simulator, NEC Japan Agency for Marine-Earth Science and Technology Japan",35860.00,40960.00,G
+2004-11,"BlueGene/L beta-System - BlueGene/L DD2 beta-System (0.7 GHz PowerPC 440), IBM IBM/DOE United States",70720.00,91750.00,G
+2005-06,"BlueGene/L - eServer Blue Gene Solution, IBM DOE/NNSA/LLNL United States",136.80,183.50,T
+2005-11,"BlueGene/L - eServer Blue Gene Solution, IBM DOE/NNSA/LLNL United States",280.60,367.00,T
+2006-06,"BlueGene/L - eServer Blue Gene Solution, IBM DOE/NNSA/LLNL United States",280.60,367.00,T
+2006-11,"BlueGene/L - eServer Blue Gene Solution, IBM DOE/NNSA/LLNL United States",280.60,367.00,T
+2007-06,"BlueGene/L - eServer Blue Gene Solution, IBM DOE/NNSA/LLNL United States",280.60,367.00,T
+2007-11,"BlueGene/L - eServer Blue Gene Solution, IBM DOE/NNSA/LLNL United States",478.20,596.38,T
+2008-06,"Roadrunner - BladeCenter QS22/LS21 Cluster, PowerXCell 8i 3.2 Ghz / Opteron DC 1.8 GHz, Voltaire Infiniband, IBM DOE/NNSA/LANL United States",1026.00,1375.78,T
+2008-11,"Roadrunner - BladeCenter QS22/LS21 Cluster, PowerXCell 8i 3.2 Ghz / Opteron DC 1.8 GHz, Voltaire Infiniband, IBM DOE/NNSA/LANL United States",1105.00,1456.70,T
+2009-06,"Roadrunner - BladeCenter QS22/LS21 Cluster, PowerXCell 8i 3.2 Ghz / Opteron DC 1.8 GHz, Voltaire Infiniband, IBM DOE/NNSA/LANL United States",1105.00,1456.70,T
+2009-11,"Jaguar - Cray XT5-HE Opteron 6-core 2.6 GHz, Cray/HPE DOE/SC/Oak Ridge National Laboratory United States",1759.00,2331.00,T
+2010-06,"Jaguar - Cray XT5-HE Opteron 6-core 2.6 GHz, Cray/HPE DOE/SC/Oak Ridge National Laboratory United States",1759.00,2331.00,T
+2010-11,"Tianhe-1A - NUDT TH MPP, X5670 2.93Ghz 6C, NVIDIA GPU, FT-1000 8C, NUDT National Supercomputing Center in Tianjin China",2566.00,4701.00,T
+2011-06,"K computer, SPARC64 VIIIfx 2.0GHz, Tofu interconnect, Fujitsu RIKEN Advanced Institute for Computational Science (AICS) Japan",8162.00,8773.63,T
+2011-11,"K computer, SPARC64 VIIIfx 2.0GHz, Tofu interconnect, Fujitsu RIKEN Advanced Institute for Computational Science (AICS) Japan",10510.00,11280.38,T
+2012-06,"Sequoia - BlueGene/Q, Power BQC 16C 1.60 GHz, Custom, IBM DOE/NNSA/LLNL United States",16324.75,20132.66,T
+2012-11,"Titan - Cray XK7, Opteron 6274 16C 2.200GHz, Cray Gemini interconnect, NVIDIA K20x, Cray/HPE DOE/SC/Oak Ridge National Laboratory United States",17590.00,27112.55,T
+2013-06,"Tianhe-2A - TH-IVB-FEP Cluster, Intel Xeon E5-2692 12C 2.200GHz, TH Express-2, Intel Xeon Phi 31S1P, NUDT National Super Computer Center in Guangzhou China",33862.70,54902.40,T
+2013-11,"Tianhe-2A - TH-IVB-FEP Cluster, Intel Xeon E5-2692 12C 2.200GHz, TH Express-2, Intel Xeon Phi 31S1P, NUDT National Super Computer Center in Guangzhou China",33862.70,54902.40,T
+2014-06,"Tianhe-2A - TH-IVB-FEP Cluster, Intel Xeon E5-2692 12C 2.200GHz, TH Express-2, Intel Xeon Phi 31S1P, NUDT National Super Computer Center in Guangzhou China",33862.70,54902.40,T
+2014-11,"Tianhe-2A - TH-IVB-FEP Cluster, Intel Xeon E5-2692 12C 2.200GHz, TH Express-2, Intel Xeon Phi 31S1P, NUDT National Super Computer Center in Guangzhou China",33862.70,54902.40,T
+2015-06,"Tianhe-2A - TH-IVB-FEP Cluster, Intel Xeon E5-2692 12C 2.200GHz, TH Express-2, Intel Xeon Phi 31S1P, NUDT National Super Computer Center in Guangzhou China",33862.70,54902.40,T
+2015-11,"Tianhe-2A - TH-IVB-FEP Cluster, Intel Xeon E5-2692 12C 2.200GHz, TH Express-2, Intel Xeon Phi 31S1P, NUDT National Super Computer Center in Guangzhou China",33862.70,54902.40,T
+2016-06,"Sunway TaihuLight - Sunway MPP, Sunway SW26010 260C 1.45GHz, Sunway, NRCPC National Supercomputing Center in Wuxi China",93014.59,125435.90,T
+2016-11,"Sunway TaihuLight - Sunway MPP, Sunway SW26010 260C 1.45GHz, Sunway, NRCPC National Supercomputing Center in Wuxi China",93014.59,125435.90,T
+2017-06,"Sunway TaihuLight - Sunway MPP, Sunway SW26010 260C 1.45GHz, Sunway, NRCPC National Supercomputing Center in Wuxi China",93014.59,125435.90,T
+2017-11,"Sunway TaihuLight - Sunway MPP, Sunway SW26010 260C 1.45GHz, Sunway, NRCPC National Supercomputing Center in Wuxi China",93014.59,125435.90,T
+2018-06,"Summit - IBM Power System AC922, IBM POWER9 22C 3.07GHz, NVIDIA Volta GV100, Dual-rail Mellanox EDR Infiniband, IBM DOE/SC/Oak Ridge National Laboratory United States",122300.00,187659.27,T
+2018-11,"Summit - IBM Power System AC922, IBM POWER9 22C 3.07GHz, NVIDIA Volta GV100, Dual-rail Mellanox EDR Infiniband, IBM DOE/SC/Oak Ridge National Laboratory United States",143500.00,200794.88,G
+2019-06,"Summit - IBM Power System AC922, IBM POWER9 22C 3.07GHz, NVIDIA Volta GV100, Dual-rail Mellanox EDR Infiniband, IBM DOE/SC/Oak Ridge National Laboratory United States",148.60,200.79,P
+2019-11,"Summit - IBM Power System AC922, IBM POWER9 22C 3.07GHz, NVIDIA Volta GV100, Dual-rail Mellanox EDR Infiniband, IBM DOE/SC/Oak Ridge National Laboratory United States",148.60,200.79,P
+2020-06,"Supercomputer Fugaku - Supercomputer Fugaku, A64FX 48C 2.2GHz, Tofu interconnect D, Fujitsu RIKEN Center for Computational Science Japan",415.53,513.85,P
+2020-11,"Supercomputer Fugaku - Supercomputer Fugaku, A64FX 48C 2.2GHz, Tofu interconnect D, Fujitsu RIKEN Center for Computational Science Japan",442.01,537.21,P
+2021-06,"Supercomputer Fugaku - Supercomputer Fugaku, A64FX 48C 2.2GHz, Tofu interconnect D, Fujitsu RIKEN Center for Computational Science Japan",442.01,537.21,P
+2021-11,"Supercomputer Fugaku - Supercomputer Fugaku, A64FX 48C 2.2GHz, Tofu interconnect D, Fujitsu RIKEN Center for Computational Science Japan",442.01,537.21,P
+2022-06,"Frontier - HPE Cray EX235a, AMD Optimized 3rd Generation EPYC 64C 2GHz, AMD Instinct MI250X, Slingshot-11, HPE DOE/SC/Oak Ridge National Laboratory United States",1102.00,1685.65,P
+2022-11,"Frontier - HPE Cray EX235a, AMD Optimized 3rd Generation EPYC 64C 2GHz, AMD Instinct MI250X, Slingshot-11, HPE DOE/SC/Oak Ridge National Laboratory United States",1102.00,1685.65,P
+2023-06,"Frontier - HPE Cray EX235a, AMD Optimized 3rd Generation EPYC 64C 2GHz, AMD Instinct MI250X, Slingshot-11, HPE DOE/SC/Oak Ridge National Laboratory United States",1194.00,1679.82,P
+2023-11,"Frontier - HPE Cray EX235a, AMD Optimized 3rd Generation EPYC 64C 2GHz, AMD Instinct MI250X, Slingshot-11, HPE DOE/SC/Oak Ridge National Laboratory United States",1194.00,1679.82,P
+2024-06,"Frontier - HPE Cray EX235a, AMD Optimized 3rd Generation EPYC 64C 2GHz, AMD Instinct MI250X, Slingshot-11, HPE DOE/SC/Oak Ridge National Laboratory United States",1206.00,1714.81,P
+2024-11,"El Capitan - HPE Cray EX255a, AMD 4th Gen EPYC 24C 1.8GHz, AMD Instinct MI300A, Slingshot-11, TOSS, HPE DOE/NNSA/LLNL United States",1742.00,2746.38,P
+2025-06,"El Capitan - HPE Cray EX255a, AMD 4th Gen EPYC 24C 1.8GHz, AMD Instinct MI300A, Slingshot-11, TOSS, HPE DOE/NNSA/LLNL United States",1742.00,2746.38,P
+2025-11,"El Capitan - HPE Cray EX255a, AMD 4th Gen EPYC 24C 1.8GHz, AMD Instinct MI300A, Slingshot-11, TOSS, HPE DOE/NNSA/LLNL United States",1809.00,2821.10,P
+2026-06,"LineShine - LingKun, LX2 304C 1.55GHz, LingQi, Kylin OS, Shenzhen Cloud Computing Center Co., Ltd. National Supercomputing Centre in Shenzhen (NSCS) China",2198.40,2735.82,P

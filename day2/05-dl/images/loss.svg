@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Cross-entropy loss on the same illustrative output: 1.64 for the example wine, whose line is low, 0.44 for a medium wine (Prince 2023, section 5.5). Illustrative. Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Cross-entropy loss on the same illustrative output, natural logarithm: 1.66 for the example wine, whose class is low, 0.43 for a medium wine (Prince 2023, section 5.5). Illustrative. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
 <rect x="20" y="20" width="440" height="270" rx="8" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
-<text x="240" y="52" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">this wine's line is low</text>
+<text x="240" y="52" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">this wine's class is low</text>
 <rect class="accent-fill" x="80" y="202.75653826851183" width="80" height="27.24346173148816" rx="3" fill="#00609c"/>
 <text x="120" y="194.75653826851183" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.19</text>
 <text x="120" y="254" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">low</text>
@@ -16,7 +16,7 @@
 <rect class="accent-a-light-fill" x="320" y="207.69494006012752" width="80" height="22.305059939872482" rx="3" fill="#8cb3cf"/>
 <text x="360" y="199.69494006012752" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.16</text>
 <text x="360" y="254" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">high</text>
-<text x="240" y="330" font-size="22" font-weight="bold" text-anchor="middle" fill="#da232f">loss = 1.64: high</text>
+<text x="240" y="330" font-size="22" font-weight="bold" text-anchor="middle" fill="#da232f">−log 0.19 = 1.66: high</text>
 </g>
 <g data-step="2">
 <rect x="540" y="20" width="440" height="270" rx="8" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
@@ -30,9 +30,9 @@
 <rect class="accent-a-light-fill" x="840" y="207.69494006012752" width="80" height="22.305059939872482" rx="3" fill="#8cb3cf"/>
 <text x="880" y="199.69494006012752" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.16</text>
 <text x="880" y="254" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">high</text>
-<text class="accent-fill" x="760" y="330" font-size="22" font-weight="bold" text-anchor="middle" fill="#00609c">loss = 0.44: low</text>
+<text class="accent-fill" x="760" y="330" font-size="22" font-weight="bold" text-anchor="middle" fill="#00609c">−log 0.65 = 0.43: low</text>
 </g>
 <g data-step="3">
-<text x="500" y="372" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the loss: minus the log of the probability given to the true line</text>
+<text x="500" y="384" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">loss = −log (the probability given to the true class)</text>
 </g>
 </svg>

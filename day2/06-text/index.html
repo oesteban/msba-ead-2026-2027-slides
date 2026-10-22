@@ -452,11 +452,11 @@ class: stepwise-svg, vcenter
 .step-4.lead.big.center[Pretrained on text, given a new head for sentiment: transfer learning again.]
 ]
 
-.footnote[J. Devlin et al. (2019), pp. 1 and 5. *Deep learning for decisions*, slides 23 and 24.]
+.footnote[J. Devlin et al. (2019), pp. 1 and 5. *Deep learning for decisions*, slides 28 and 29.]
 
 ???
 
-**A transformer pretrained on unlabelled text and given a new head for sentiment is transfer learning again, as with the photos of the deep-learning deck.** BERT reads each word with its context on both sides and is fine-tuned for a task with one added output layer (Devlin et al., 2019, p. 1). It was pretrained on 800 million words of books and 2,500 million of English Wikipedia (p. 5). In the figure the blocks stay locked under a new head, as on slide 23 of *Deep learning for decisions*; unlocking some is the fine-tuning of its slide 24.
+**A transformer pretrained on unlabelled text and given a new head for sentiment is transfer learning again, as with the photos of the deep-learning deck.** BERT reads each word with its context on both sides and is fine-tuned for a task with one added output layer (Devlin et al., 2019, p. 1). It was pretrained on 800 million words of books and 2,500 million of English Wikipedia (p. 5). In the figure the blocks stay locked under a new head, as on slide 28 of *Deep learning for decisions*; unlocking some is the fine-tuning of its slide 29.
 
 
 ---
@@ -469,14 +469,14 @@ class: stepwise-svg, vcenter
 <div><span class="num">97%</span>of a fine-tuned model's accuracy, on average, on two-class polarity tasks.</div>
 <div><span class="num">52% against 66%</span>on five-star Yelp reviews: the fine-tuned model far ahead.</div>
 </div>
-.step-5.lead.center[Close to a fine-tuned model on two classes, far behind it on five.]
+.step-5.lead.center[Zero-shot: close to a fine-tuned model on two classes, far behind it on five.]
 ]
 
 .footnote[W. Zhang et al. (2024); T. Brown et al. (2020), p. 7. The answer is illustrative.]
 
 ???
 
-**A prompted language model labels a text from the classes described in words: close to a fine-tuned model on two classes, far behind it on five.** It gets only an instruction describing the task and answers with forward passes alone (Brown et al., 2020, p. 7). Zero-shot ChatGPT reached on average 97% of a fine-tuned model's accuracy on polarity, but 52.4 against 65.6 on five-class Yelp reviews; prompts and model versions move such scores (Zhang et al., 2024). Commercial models change without notice and may reuse what they are sent (Chae & Davidson, 2025). The answer shown is illustrative.
+**A prompted language model labels a text from the classes described in words: close to a fine-tuned model on two classes, far behind it on five.** With no labelled example, this is called zero-shot. The model gets only an instruction describing the task and answers with forward passes alone (Brown et al., 2020, p. 7). Zero-shot ChatGPT reached on average 97% of a fine-tuned model's accuracy on polarity, but 52.4 against 65.6 on five-class Yelp reviews; prompts and model versions move such scores (Zhang et al., 2024). Commercial models change without notice and may reuse what they are sent (Chae & Davidson, 2025). The answer shown is illustrative.
 
 
 ---

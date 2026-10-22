@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A weight of the first layer changes the loss only through the layers after it, the ripple effect of Prince (2023), p. 97. Schematic. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect class="accent-stroke" x="40" y="90" width="150" height="100" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="115" y="120" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">layer 1</text>
+<rect class="accent-stroke" x="230" y="90" width="150" height="100" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="305" y="120" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">layer 2</text>
+<rect class="accent-stroke" x="420" y="90" width="150" height="100" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="495" y="120" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">layer 3</text>
+<rect class="accent-stroke" x="610" y="90" width="150" height="100" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="685" y="120" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">last layer</text>
+<line x1="194" y1="140" x2="226" y2="140" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
+<line x1="384" y1="140" x2="416" y2="140" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
+<line x1="574" y1="140" x2="606" y2="140" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
+<line x1="764" y1="140" x2="800" y2="140" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect x="804" y="95" width="150" height="90" rx="8" fill="#fdecee" stroke="#da232f" stroke-width="1.6"/>
+<text x="879" y="135" font-size="18" font-weight="bold" text-anchor="middle" fill="#da232f">the loss</text>
+<text x="879" y="160" font-size="15" font-weight="normal" text-anchor="middle" fill="#da232f">measured here</text>
+</g>
+<g data-step="2">
+<circle cx="115" cy="160" r="11" fill="#da232f"/>
+<text x="115" y="230" font-size="17" font-weight="bold" text-anchor="middle" fill="#da232f">one weight here</text>
+</g>
+<g data-step="3">
+<rect x="226" y="86" width="158" height="108" rx="10" fill="none" stroke="#da232f" stroke-width="2.4" stroke-dasharray="7 5"/>
+<rect x="416" y="86" width="158" height="108" rx="10" fill="none" stroke="#da232f" stroke-width="2.4" stroke-dasharray="7 5"/>
+<rect x="606" y="86" width="158" height="108" rx="10" fill="none" stroke="#da232f" stroke-width="2.4" stroke-dasharray="7 5"/>
+<line x1="194" y1="140" x2="226" y2="140" stroke="#da232f" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="384" y1="140" x2="416" y2="140" stroke="#da232f" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="574" y1="140" x2="606" y2="140" stroke="#da232f" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="764" y1="140" x2="800" y2="140" stroke="#da232f" stroke-width="3" marker-end="url(#ah)"/>
+<text x="500" y="50" font-size="18" font-weight="bold" text-anchor="middle" fill="#da232f">a small change ripples through every layer after it</text>
+</g>
+<g data-step="4">
+<text class="accent-fill" x="500" y="300" font-size="19" font-weight="bold" text-anchor="middle" fill="#00609c">which share of the error is this weight's? Only the layers after it can say</text>
+</g>
+</svg>

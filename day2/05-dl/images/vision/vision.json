@@ -1,0 +1,36 @@
+{
+ "classifier": "torchvision ResNet-18, IMAGENET1K_V1",
+ "map_blocks": "4 by 4 pixels",
+ "photo1": {
+  "top": "tiger",
+  "p_top": 0.676,
+  "p_tiger": 0.676
+ },
+ "randomised": {
+  "layers": "layer4 and fc re-initialised",
+  "rank_corr_gradient": 0.196,
+  "rank_corr_guided": 0.957,
+  "rank_corr_gradient_blocks": 0.255,
+  "rank_corr_guided_blocks": 0.946
+ },
+ "photo2": {
+  "size": [
+   1200,
+   800
+  ],
+  "top": "tiger",
+  "p_top": 0.878
+ },
+ "detection": {
+  "model": "torchvision Mask R-CNN ResNet-50 FPN, COCO_V1",
+  "coco_label": "zebra",
+  "score": 0.999,
+  "box_xyxy": [
+   272.1,
+   280.3,
+   1036.9,
+   666.3
+  ],
+  "mask_share": 0.158
+ }
+}

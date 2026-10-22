@@ -35,7 +35,7 @@ No crop, no other change.
 
 `tiger-224.jpg` is `tiger-1.jpg` cropped to a centred square and resized to 224 by 224 by `../../src/draw.py`, for the pixel patch of `pixels.svg`; same author and licence.
 
-## The timeline and Lonestar 5 (slides 5, 6 and 10)
+## The timeline (slides 5 and 6)
 
 Checked at the source on 2026-10-20 through the Wikimedia Commons API (`prop=imageinfo`,
 `iiprop=extmetadata`). Each was cropped where noted, resized and re-encoded under 300 KB.
@@ -75,11 +75,8 @@ A crop of a CC BY-SA photo stays under CC BY-SA 4.0.
 - Shows: a GeForce GTX 580 board, its cooler lifted, with the GF110 chip
 - Changes: cropped to the board, resized to 460x258 px.
 
-### hazel-hen.jpg
+## Figures adapted from the tiger photos
 
-- Commons file: File:High Performance Computing Center Stuttgart HLRS 2015 09 Cray XC40 Hazel Hen.jpg
-- URL: https://commons.wikimedia.org/wiki/File:High_Performance_Computing_Center_Stuttgart_HLRS_2015_09_Cray_XC40_Hazel_Hen.jpg
-- Author (as Commons gives it): Julian Herzog
-- Licence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0
-- Shows: Hazel Hen, a Cray XC40 at HLRS Stuttgart; TACC's Lonestar 5 was a Cray XC40 (TACC 2015)
-- Changes: resized to 600x401 px.
+`tiger-224.jpg` and `tiger-2.jpg` are adapted, under their own licences (CC BY-SA 2.5 and 4.0), by
+`../../src/draw.py` (the pixel patch, its colour channels, the flattened patch, the augmented copy,
+the filter windows) and `../../src/vision.py` (saliency maps, box and mask, in `../vision/`).

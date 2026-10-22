@@ -2,11 +2,11 @@
 // hands-on-4-lions.typ: the group's sheet for Hands-on 4, 23.10.2026 AM.
 //
 // One sheet per group of three, both sides. Page 1 is the data card. The core
-// (steps 1 to 3, about 25 minutes) follows slide 47 of "Deep learning for
-// decisions", and the Flow it builds is drawn on slide 46: the group loads the
+// (steps 1 to 3, about 25 minutes) follows slide 53 of "Deep learning for
+// decisions", and the Flow it builds is drawn on slide 52: the group loads the
 // photos and reads their labels from the file names, trains a new head on a
-// borrowed network (zero fine-tuned layers), follows its training, scores the
-// 57 test photos and counts the errors. Below the checkpoint bar (slide 48)
+// pretrained network (zero fine-tuned layers), follows its training, scores the
+// 57 test photos and counts the errors. Below the checkpoint bar (slide 54)
 // the group fine-tunes two layers and compares, adds the cats, a third and
 // larger class, then decides. The flow follows the previous teacher's 2025 lab.
 //
@@ -30,7 +30,7 @@
 #import "../../templates/ead-worksheet.typ": *
 
 #show: worksheet.with(
-  title: "Hands-on 4 · Day 2 / Morning · Group's sheet\nLion or tiger: what can 58 photos teach a borrowed network?",
+  title: "Hands-on 4 · Day 2 / Morning · Group's sheet\nLion or tiger: what can 58 photos teach a pretrained network?",
   date: datetime(year: 2026, month: 10, day: 23),
 )
 
@@ -102,10 +102,10 @@ trusted?
 
 #v(5pt)
 
-#panel("Step 2 · Train a new head on a borrowed network")[
+#panel("Step 2 · Train a new head on a pretrained network")[
   #step(1, "Create the analysis")[Select the labelled dataset, then #dss("Lab", "Image classification"): target `label`, the images in the folder `train`.]
   #v(2pt)
-  #step(2, "Borrow, do not fine-tune")[#dss("Design", "Train/Test set"): *Split the dataset*, train ratio 0.8. #dss("Design", "Training"): pretrained model *EfficientNet B0*, *Number of fine-tuned layers* 0; leave the epochs at their default. *Train*.]
+  #step(2, "Reuse it, do not fine-tune")[#dss("Design", "Train/Test set"): *Split the dataset*, train ratio 0.8. #dss("Design", "Training"): pretrained model *EfficientNet B0*, *Number of fine-tuned layers* 0; leave the epochs at their default. *Train*.]
   Training time: #rule(1.6cm) #h(8pt) epochs run: #rule(1.2cm)
   #v(2pt)
   #step(3, "Follow the training, then read its own test")[#dss("Results"): the training curve, if shown, then the confusion matrix; click a cell to see its photos in the image feed.]
@@ -130,7 +130,7 @@ trusted?
 
 #checkpoint(
   msg: [Reached this line? Stop here: the debrief reads every group's test score, with its 1.75 points a photo.],
-  note: [Panels 4 to 6 follow slide 48 of *Deep learning for decisions*.],
+  note: [Panels 4 to 6 follow slide 54 of *Deep learning for decisions*.],
 )
 
 #v(6pt)

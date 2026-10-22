@@ -39,6 +39,10 @@
 <text x="309.55" y="279.91806226408914" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">back-propagation</text>
 <circle cx="379.3" cy="226.1" r="6" fill="#00609c" class="accent-fill"/>
 <text x="389.2999999999995" y="231.12613220997503" font-size="15" font-weight="normal" text-anchor="start" fill="#1c2e36">LeNet-5</text>
+<text x="110" y="84" font-size="16" font-weight="bold" text-anchor="start" fill="#1c2e36">FLOP: floating-point operations,</text>
+<text x="110" y="106" font-size="16" font-weight="normal" text-anchor="start" fill="#1c2e36">a computer's additions and multiplications</text>
+<text x="110" y="152" font-size="16" font-weight="normal" text-anchor="start" fill="#556268">log scale: each gridline is</text>
+<text x="110" y="174" font-size="16" font-weight="normal" text-anchor="start" fill="#556268">100,000 times the one below</text>
 </g>
 <g data-step="2">
 <circle cx="599.2" cy="155.7" r="6" fill="#00609c" class="accent-fill"/>

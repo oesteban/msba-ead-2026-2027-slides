@@ -1,36 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 390" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Softmax of three illustrative line scores [0.4, 1.6, 0.2] into 0.19, 0.65, 0.16. Illustrative. Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Softmax of three illustrative class scores [0.4, 1.6, 0.2]: e raised to each score, divided by their sum, gives 0.19, 0.65, 0.16 (Prince 2023, section 5.5). Illustrative. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
-<text x="150" y="40" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">the last layer's scores</text>
-<rect class="accent-stroke" x="40" y="80" width="220" height="60" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
-<text x="150" y="118" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">low: +0.4</text>
-<rect class="accent-stroke" x="40" y="166" width="220" height="60" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
-<text x="150" y="204" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">medium: +1.6</text>
-<rect class="accent-stroke" x="40" y="252" width="220" height="60" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
-<text x="150" y="290" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">high: +0.2</text>
+<text x="130" y="30" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">the last layer's scores</text>
+<rect class="accent-stroke" x="30" y="56" width="200" height="56" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="130" y="92" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">low: +0.4</text>
+<rect class="accent-stroke" x="30" y="132" width="200" height="56" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="130" y="168" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">medium: +1.6</text>
+<rect class="accent-stroke" x="30" y="208" width="200" height="56" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="130" y="244" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">high: +0.2</text>
 </g>
 <g data-step="2">
-<line class="accent-stroke" x1="300" y1="190" x2="450" y2="190" stroke="#00609c" stroke-width="2.6" marker-end="url(#ahA)"/>
-<text x="375" y="170" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">softmax</text>
-<text x="375" y="222" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">e to each score,</text>
-<text x="375" y="242" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">divided by their sum</text>
-<text x="740" y="40" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">probabilities, summing to 1</text>
-<line x1="510" y1="300" x2="960" y2="300" stroke="#556268" stroke-width="1.4"/>
-<rect class="accent-a-light-fill" x="520" y="253.2969227460203" width="100" height="46.70307725397971" rx="3" fill="#8cb3cf"/>
-<text x="570" y="243.2969227460203" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.19</text>
-<text x="570" y="328" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">low</text>
-<rect class="accent-fill" x="670" y="144.94032286518967" width="100" height="155.05967713481033" rx="3" fill="#00609c"/>
-<text x="720" y="134.94032286518967" font-size="21" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.65</text>
-<text x="720" y="328" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">medium</text>
-<rect class="accent-a-light-fill" x="820" y="261.76275438879003" width="100" height="38.23724561120997" rx="3" fill="#8cb3cf"/>
-<text x="870" y="251.76275438879003" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.16</text>
-<text x="870" y="328" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">high</text>
+<rect x="262" y="70" width="210" height="150" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="367" y="104" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">softmax</text>
+<text x="367" y="146" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">p = e<tspan baseline-shift='super' font-size='14'>score</tspan></text>
+<line x1="300" y1="162" x2="434" y2="162" stroke="#1c2e36" stroke-width="1.6"/>
+<text x="367" y="192" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">sum of e<tspan baseline-shift='super' font-size='14'>score</tspan></text>
+<line class="accent-stroke" x1="474" y1="145" x2="510" y2="145" stroke="#00609c" stroke-width="2.6" marker-end="url(#ahA)"/>
+<text x="745" y="30" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">probabilities, summing to 1</text>
+<line x1="530" y1="270" x2="960" y2="270" stroke="#556268" stroke-width="1.4"/>
+<rect class="accent-a-light-fill" x="540" y="227.1888458505186" width="96" height="42.811154149481396" rx="3" fill="#8cb3cf"/>
+<text x="588" y="217.1888458505186" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.19</text>
+<text x="588" y="298" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">low</text>
+<rect class="accent-fill" x="685" y="127.86196262642386" width="96" height="142.13803737357614" rx="3" fill="#00609c"/>
+<text x="733" y="117.86196262642386" font-size="21" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.65</text>
+<text x="733" y="298" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">medium</text>
+<rect class="accent-a-light-fill" x="830" y="234.94919152305752" width="96" height="35.05080847694247" rx="3" fill="#8cb3cf"/>
+<text x="878" y="224.94919152305752" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.16</text>
+<text x="878" y="298" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">high</text>
 </g>
 <g data-step="3">
-<text class="accent-fill" x="740" y="378" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">the most probable line wins, unless the costs say otherwise</text>
+<text x="500" y="346" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">e<tspan baseline-shift='super' font-size='13'>0.4</tspan> = 1.49,   e<tspan baseline-shift='super' font-size='13'>1.6</tspan> = 4.95,   e<tspan baseline-shift='super' font-size='13'>0.2</tspan> = 1.22:   sum 7.67</text>
+<text class="accent-fill" x="500" y="380" font-size="19" font-weight="bold" text-anchor="middle" fill="#00609c">medium: 4.95 / 7.67 = 0.65</text>
 </g>
 </svg>

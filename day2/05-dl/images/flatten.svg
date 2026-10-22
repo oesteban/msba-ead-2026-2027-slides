@@ -1,27 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- A 4 by 4 patch unrolled row by row into the 16 inputs of a plain, fully connected layer: two vertical neighbours land 4 places apart; fully connected networks have no notion of nearby pixels (Prince 2023, p. 161). Illustrative grey levels. Oscar Esteban, CC BY 4.0. -->
+<!-- Four by four of the tiger photo's pixels, read from its 224 by 224 copy, unrolled row by row into the 16 inputs of a plain, fully connected layer: two vertical neighbours land 4 places apart (Prince 2023, p. 161). Adapted from S. Taheri's photo, edited by Fir0002, CC BY-SA 2.5. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
-<text x="132.0" y="26" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">4 by 4 pixels</text>
-<rect x="40" y="40" width="46" height="46" rx="0" fill="rgb(87,87,87)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="86" y="40" width="46" height="46" rx="0" fill="rgb(114,114,114)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="132" y="40" width="46" height="46" rx="0" fill="rgb(159,159,159)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="178" y="40" width="46" height="46" rx="0" fill="rgb(204,204,204)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="40" y="86" width="46" height="46" rx="0" fill="rgb(96,96,96)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="86" y="86" width="46" height="46" rx="0" fill="rgb(123,123,123)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="132" y="86" width="46" height="46" rx="0" fill="rgb(168,168,168)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="178" y="86" width="46" height="46" rx="0" fill="rgb(213,213,213)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="40" y="132" width="46" height="46" rx="0" fill="rgb(105,105,105)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="86" y="132" width="46" height="46" rx="0" fill="rgb(141,141,141)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="132" y="132" width="46" height="46" rx="0" fill="rgb(186,186,186)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="178" y="132" width="46" height="46" rx="0" fill="rgb(222,222,222)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="40" y="178" width="46" height="46" rx="0" fill="rgb(114,114,114)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="86" y="178" width="46" height="46" rx="0" fill="rgb(150,150,150)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="132" y="178" width="46" height="46" rx="0" fill="rgb(195,195,195)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="178" y="178" width="46" height="46" rx="0" fill="rgb(231,231,231)" stroke="#ffffff" stroke-width="1.5"/>
+<text x="132.0" y="26" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">4 by 4 of the tiger's pixels</text>
+<rect x="40" y="40" width="46" height="46" rx="0" fill="rgb(234,163,85)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="86" y="40" width="46" height="46" rx="0" fill="rgb(207,142,74)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="132" y="40" width="46" height="46" rx="0" fill="rgb(149,92,47)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="178" y="40" width="46" height="46" rx="0" fill="rgb(75,26,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="40" y="86" width="46" height="46" rx="0" fill="rgb(221,153,78)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="86" y="86" width="46" height="46" rx="0" fill="rgb(183,123,60)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="132" y="86" width="46" height="46" rx="0" fill="rgb(94,42,2)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="178" y="86" width="46" height="46" rx="0" fill="rgb(50,3,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="40" y="132" width="46" height="46" rx="0" fill="rgb(201,138,67)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="86" y="132" width="46" height="46" rx="0" fill="rgb(142,90,30)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="132" y="132" width="46" height="46" rx="0" fill="rgb(66,18,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="178" y="132" width="46" height="46" rx="0" fill="rgb(80,31,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="40" y="178" width="46" height="46" rx="0" fill="rgb(154,95,27)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="86" y="178" width="46" height="46" rx="0" fill="rgb(120,71,13)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="132" y="178" width="46" height="46" rx="0" fill="rgb(94,48,12)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="178" y="178" width="46" height="46" rx="0" fill="rgb(104,54,21)" stroke="#ffffff" stroke-width="1.5"/>
 </g>
 <g data-step="2">
 <rect x="86" y="86" width="46" height="46" rx="0" fill="none" stroke="#da232f" stroke-width="3.5"/>
@@ -29,22 +29,22 @@
 <text x="132.0" y="254" font-size="16" font-weight="normal" text-anchor="middle" fill="#da232f">neighbours: one above the other</text>
 <text x="626" y="80" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the same pixels as one list, row after row</text>
 <line x1="236" y1="132.0" x2="278" y2="141.0" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
-<rect x="290" y="120" width="42" height="42" rx="0" fill="rgb(87,87,87)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="332" y="120" width="42" height="42" rx="0" fill="rgb(114,114,114)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="374" y="120" width="42" height="42" rx="0" fill="rgb(159,159,159)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="416" y="120" width="42" height="42" rx="0" fill="rgb(204,204,204)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="458" y="120" width="42" height="42" rx="0" fill="rgb(96,96,96)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="500" y="120" width="42" height="42" rx="0" fill="rgb(123,123,123)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="542" y="120" width="42" height="42" rx="0" fill="rgb(168,168,168)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="584" y="120" width="42" height="42" rx="0" fill="rgb(213,213,213)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="626" y="120" width="42" height="42" rx="0" fill="rgb(105,105,105)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="668" y="120" width="42" height="42" rx="0" fill="rgb(141,141,141)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="710" y="120" width="42" height="42" rx="0" fill="rgb(186,186,186)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="752" y="120" width="42" height="42" rx="0" fill="rgb(222,222,222)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="794" y="120" width="42" height="42" rx="0" fill="rgb(114,114,114)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="836" y="120" width="42" height="42" rx="0" fill="rgb(150,150,150)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="878" y="120" width="42" height="42" rx="0" fill="rgb(195,195,195)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="920" y="120" width="42" height="42" rx="0" fill="rgb(231,231,231)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="290" y="120" width="42" height="42" rx="0" fill="rgb(234,163,85)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="332" y="120" width="42" height="42" rx="0" fill="rgb(207,142,74)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="374" y="120" width="42" height="42" rx="0" fill="rgb(149,92,47)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="416" y="120" width="42" height="42" rx="0" fill="rgb(75,26,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="458" y="120" width="42" height="42" rx="0" fill="rgb(221,153,78)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="500" y="120" width="42" height="42" rx="0" fill="rgb(183,123,60)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="542" y="120" width="42" height="42" rx="0" fill="rgb(94,42,2)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="584" y="120" width="42" height="42" rx="0" fill="rgb(50,3,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="626" y="120" width="42" height="42" rx="0" fill="rgb(201,138,67)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="668" y="120" width="42" height="42" rx="0" fill="rgb(142,90,30)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="710" y="120" width="42" height="42" rx="0" fill="rgb(66,18,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="752" y="120" width="42" height="42" rx="0" fill="rgb(80,31,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="794" y="120" width="42" height="42" rx="0" fill="rgb(154,95,27)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="836" y="120" width="42" height="42" rx="0" fill="rgb(120,71,13)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="878" y="120" width="42" height="42" rx="0" fill="rgb(94,48,12)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="920" y="120" width="42" height="42" rx="0" fill="rgb(104,54,21)" stroke="#ffffff" stroke-width="1.5"/>
 <rect x="500" y="120" width="42" height="42" rx="0" fill="none" stroke="#da232f" stroke-width="3.5"/>
 <rect x="668" y="120" width="42" height="42" rx="0" fill="none" stroke="#da232f" stroke-width="3.5"/>
 <path d="M 521.0 168 L 521.0 184 L 689.0 184 L 689.0 168" fill="none" stroke="#da232f" stroke-width="2" marker-end="url(#)"/>

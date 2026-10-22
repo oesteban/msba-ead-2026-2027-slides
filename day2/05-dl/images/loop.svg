@@ -1,38 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- The training loop of stochastic gradient descent: forward pass on a batch, loss, backward pass, update, repeated batch after batch (Prince 2023, sections 6.2 and 7.2; Zhang et al. 2023, section 3.4). Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A batch drawn at random from the training examples, then the training loop of stochastic gradient descent: forward pass on the batch, loss, backward pass, update, repeated batch after batch (Prince 2023, pp. 85 to 86, sections 6.2 and 7.2; Zhang et al. 2023, section 3.4). Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
-<rect class="accent-stroke" x="30" y="60" width="200" height="120" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
-<text x="130" y="98" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">1 · forward</text>
-<text x="130" y="132" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">a batch of examples</text>
-<text x="130" y="154" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">to the scores</text>
+<rect x="150" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="175" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect class="accent-a-light-fill accent-stroke" x="200" y="14" width="20" height="20" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<rect x="225" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="250" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="275" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="300" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect class="accent-a-light-fill accent-stroke" x="325" y="14" width="20" height="20" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<rect x="350" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="375" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="400" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect class="accent-a-light-fill accent-stroke" x="425" y="14" width="20" height="20" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<rect x="450" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="475" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="500" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="525" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect class="accent-a-light-fill accent-stroke" x="550" y="14" width="20" height="20" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<rect x="575" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="600" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="625" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect class="accent-a-light-fill accent-stroke" x="650" y="14" width="20" height="20" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<rect x="675" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="700" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="725" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="750" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect class="accent-a-light-fill accent-stroke" x="775" y="14" width="20" height="20" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<rect x="800" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect x="825" y="14" width="20" height="20" rx="3" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="140" y="30" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">training examples</text>
+<text class="accent-fill" x="500" y="58" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">a batch: a few examples drawn at random from the training set</text>
 </g>
 <g data-step="2">
-<line x1="232" y1="120" x2="271" y2="120" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
-<rect class="accent-stroke" x="275" y="60" width="200" height="120" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
-<text x="375" y="98" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">2 · loss</text>
-<text x="375" y="132" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">how wrong</text>
-<text x="375" y="154" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the batch is</text>
+<rect class="accent-stroke" x="30" y="110" width="200" height="120" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="130" y="148" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">1 · forward</text>
+<text x="130" y="182" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the batch</text>
+<text x="130" y="204" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">to its scores</text>
 </g>
 <g data-step="3">
-<line x1="477" y1="120" x2="516" y2="120" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
-<rect class="accent-stroke" x="520" y="60" width="200" height="120" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
-<text x="620" y="98" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">3 · backward</text>
-<text x="620" y="132" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">each weight's</text>
-<text x="620" y="154" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">gradient</text>
+<line x1="232" y1="170" x2="271" y2="170" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
+<rect class="accent-stroke" x="275" y="110" width="200" height="120" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="375" y="148" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">2 · loss</text>
+<text x="375" y="182" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">how wrong</text>
+<text x="375" y="204" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the batch is</text>
 </g>
 <g data-step="4">
-<line x1="722" y1="120" x2="761" y2="120" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
-<rect class="accent-a-light-fill accent-stroke" x="765" y="60" width="200" height="120" rx="8" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
-<text x="865" y="98" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">4 · update</text>
-<text x="865" y="132" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">every weight moves</text>
-<text x="865" y="154" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">a small step</text>
+<line x1="477" y1="170" x2="516" y2="170" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
+<rect class="accent-stroke" x="520" y="110" width="200" height="120" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="620" y="148" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">3 · backward</text>
+<text x="620" y="182" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">each weight's</text>
+<text x="620" y="204" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">gradient</text>
 </g>
 <g data-step="5">
-<path class="accent-stroke" d="M 865 184 L 865 240 L 130 240 L 130 186" fill="none" stroke="#00609c" stroke-width="2.6" marker-end="url(#ahA)"/>
-<text class="accent-fill" x="497" y="272" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">then the next batch, until every example has been used</text>
+<line x1="722" y1="170" x2="761" y2="170" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill accent-stroke" x="765" y="110" width="200" height="120" rx="8" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
+<text x="865" y="148" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">4 · update</text>
+<text x="865" y="182" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">every weight moves</text>
+<text x="865" y="204" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">a small step</text>
+</g>
+<g data-step="6">
+<path class="accent-stroke" d="M 865 234 L 865 290 L 130 290 L 130 236" fill="none" stroke="#00609c" stroke-width="2.6" marker-end="url(#ahA)"/>
+<text class="accent-fill" x="497" y="322" font-size="17" font-weight="bold" text-anchor="middle" fill="#00609c">then the next batch, until every example has been used</text>
 </g>
 </svg>

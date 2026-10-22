@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Deck 4's example wine, whose grade of 5 puts it in the low class, against the illustrative output of the softmax slide (0.19, 0.65, 0.16): the loss is that mismatch as one number (Prince 2023, pp. 56 and 77). Illustrative. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="20" y="40" width="250" height="200" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="145" y="72" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">one training wine</text>
+<text x="145" y="104" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">alcohol: 12.0</text>
+<text x="145" y="130" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">volatile acidity: 0.27</text>
+<text x="145" y="156" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">sulphates: 0.56</text>
+<rect x="70" y="186" width="150" height="36" rx="18" fill="#fdecee" stroke="#da232f" stroke-width="1.6"/>
+<text x="145" y="210" font-size="17" font-weight="bold" text-anchor="middle" fill="#da232f">its class: low</text>
+</g>
+<g data-step="2">
+<line x1="274" y1="140" x2="318" y2="140" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
+<rect class="accent-stroke" x="322" y="90" width="170" height="100" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="1.6"/>
+<text x="407" y="130" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">the network</text>
+<text x="407" y="156" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">weights still random</text>
+<line x1="496" y1="140" x2="540" y2="140" stroke="#1c2e36" stroke-width="2" marker-end="url(#ah)"/>
+<rect class="accent-a-light-fill" x="560" y="193.02673050726605" width="92" height="36.973269492733934" rx="3" fill="#8cb3cf"/>
+<text x="606" y="183.02673050726605" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.19</text>
+<text x="606" y="256" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">low</text>
+<rect class="accent-a-light-fill" x="700" y="107.24442226827516" width="92" height="122.75557773172484" rx="3" fill="#8cb3cf"/>
+<text x="746" y="97.24442226827516" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.65</text>
+<text x="746" y="256" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">medium</text>
+<rect class="accent-a-light-fill" x="840" y="199.72884722445878" width="92" height="30.271152775541225" rx="3" fill="#8cb3cf"/>
+<text x="886" y="189.72884722445878" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.16</text>
+<text x="886" y="256" font-size="18" font-weight="normal" text-anchor="middle" fill="#1c2e36">high</text>
+</g>
+<g data-step="3">
+<rect x="552" y="153.02673050726605" width="108" height="114.97326949273393" rx="8" fill="none" stroke="#da232f" stroke-width="3"/>
+<text x="606" y="292" font-size="17" font-weight="bold" text-anchor="middle" fill="#da232f">the true class gets 0.19</text>
+</g>
+<g data-step="4">
+<text class="accent-fill" x="500" y="350" font-size="20" font-weight="bold" text-anchor="middle" fill="#00609c">to learn, the network needs one number for how wrong this is</text>
+</g>
+</svg>
