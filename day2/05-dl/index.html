@@ -498,7 +498,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Neither all the examples at once nor one by one: training takes a batch at a time.** Why not all at once? Each step would need the gradient over the whole training set: exact, but slow, and the path down is then set by where it starts (Prince, 2023, p. 85). Why not one example at a time? Each step is cheap but very noisy, and the computer does many small sums one after another, paying an overhead each time (Zhang et al., 2023, section 12.5.2). A batch is a few examples drawn at random from the training set (Prince, 2023, p. 85), and a graphics card computes it in one go. Averaging its gradients reduces the noise without removing it, and the noise left can even help the path out of a poor valley (pp. 85 to 86). The batch size is chosen to fit in the card's memory (Zhang et al., 2023, section 12.5.2). How does training run through the batches?
+**Neither all the examples at once nor one by one: training takes a batch at a time.** Why not all at once? Each step would need the gradient over the whole training set: exact, but slow. And even then training takes many steps, because no formula gives a network's weights in one go: the standard methods are iterative (Prince, 2023, p. 77). Why not one example at a time? Each step is cheap but very noisy, and the computer does many small sums one after another, paying an overhead each time (Zhang et al., 2023, section 12.5.2). A batch is a few examples drawn at random from the training set (Prince, 2023, p. 85), and a graphics card computes it in one go. Averaging its gradients reduces the noise without removing it, and the noise left can even help the path out of a poor valley (pp. 85 to 86). How does training run through the batches?
 
 
 ---
@@ -878,24 +878,20 @@ class: stepwise-svg, vcenter
 
 
 ---
-class: vcenter
+class: stepwise-svg, vcenter
 
 # First layers
 
-
 .fullw[
-<div class="feat one">
-<figure><img src="images/features/features-edges.png" alt="Feature visualisation of a first layer: edges" /><figcaption>what one first-layer filter responds to most</figcaption></figure>
-</div>
-
-.lead.big.center[A picture changed until one filter responds most: the first layers look for edges.]
+<div class="step-1"><object type="image/svg+xml" data="images/visualise.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A starting picture, changed step by step so that one filter of the first layer responds more and more; after 2,560 steps it shows what the filter looks for: edges. Not the filter's weights, nor a photo"></object></div>
+.step-5.lead.big.center[To see what a filter looks for, change a picture until the filter responds most.]
 ]
 
-.footnote[C. Olah, A. Mordvintsev and L. Schubert (2017), *Feature Visualization*, *Distill*, doi:10.23915/distill.00007, .lic[CC BY 4.0]; J. Yosinski et al. (2014).]
+.footnote[C. Olah, A. Mordvintsev and L. Schubert (2017), *Feature Visualization*, *Distill*, doi:10.23915/distill.00007, .lic[CC BY 4.0]: GoogLeNet, layer conv2d0; J. Yosinski et al. (2014). The starting picture is drawn.]
 
 ???
 
-**This picture is what one filter of the first layer responds to most: edges.** A layer runs many filters side by side, each giving its own map (Prince, 2023, p. 165). What does a trained filter look for? Its weights do not show it. So Olah et al. ask GoogLeNet, a network trained on ImageNet. They start a picture from scratch, then "use derivatives to iteratively tweak the input" (Olah et al., 2017, verbatim) until the filter responds strongly. It is the gradient of part 2, used the other way round: the weights stay fixed, and the pixels change (Simonyan et al., 2014, p. 2). What remains is what the filter looks for: fine stripes at one angle, that is, edges. Networks trained on photos learn similar first layers whatever the dataset (Yosinski et al., 2014, p. 1). What do the deeper layers build from these edges?
+**To see what a filter looks for, we change a picture until the filter responds most.** A layer runs many filters side by side, each giving its own map (Prince, 2023, p. 165). A filter's weights do not show what it looks for, so Olah et al. ask the network itself. They take a starting picture, then "use derivatives to iteratively tweak the input" (Olah et al., 2017, verbatim), 2,560 times, until one filter of GoogLeNet's first layer responds as strongly as it can. It is the gradient of part 2, used the other way round: the weights stay fixed, and the pixels change (Simonyan et al., 2014, p. 2). The picture that remains is neither the filter's weights nor a photo. It shows what the filter looks for: fine stripes at one angle, that is, edges. Networks trained on photos learn similar first layers whatever the dataset (Yosinski et al., 2014, p. 1). What do the deeper layers build from these edges?
 
 
 ---

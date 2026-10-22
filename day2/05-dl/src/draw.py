@@ -637,7 +637,7 @@ def batches() -> str:
     W, H = 1000, 390
     rnd = random.Random(7)
 
-    def panel(x0, title, lines_, steps, lr, noise):
+    def panel(x0, title, lines_, steps, lr, noise, dots=False):
         cx, cy, a, b = x0 + 150, 150, 130, 70            # the bowl's centre and half-axes, in pixels
         out = [text(cx, 26, title, size=19, weight="bold")]
         out += [f'<ellipse cx="{cx}" cy="{cy}" rx="{a * k / 4:.1f}" ry="{b * k / 4:.1f}" fill="none" '
@@ -653,15 +653,18 @@ def batches() -> str:
         out += [f'<polyline class="accent-stroke" points="{path_}" fill="none" stroke="{ACCENT}" stroke-width="2.4"/>',
                 f'<circle cx="{cx + a * pts[0][0]:.1f}" cy="{cy - b * pts[0][1]:.1f}" r="6" fill="{INK}"/>',
                 f'<circle cx="{cx}" cy="{cy}" r="5" fill="{ALERT}"/>']
+        if dots:
+            out += [f'<circle class="accent-fill" cx="{cx + a * px:.1f}" cy="{cy - b * py:.1f}" r="3.2" fill="{ACCENT}"/>'
+                    for px, py in pts[1:]]
         out += [text(cx, 262 + 24 * i, s_, size=16 if i == 0 else 15, weight="bold" if i == 0 else "normal",
                      fill=INK if i == 0 else MUTED) for i, s_ in enumerate(lines_)]
         return out
 
-    full = panel(20, "all the examples", ["each step: the whole set", "exact, but each step is slow,",
-                                           "and the start decides the end"], 12, 0.3, 0.0)
-    one = panel(350, "one example", ["each step: one example", "cheap, but very noisy, and the card",
+    full = panel(20, "all the examples", ["each step: the whole set", "exact, but slow, and still many steps:",
+                                           "no formula gives a network's weights"], 26, 0.15, 0.0, dots=True)
+    one = panel(680, "one example", ["each step: one example", "cheap, but very noisy, and the card",
                                      "computes one small sum at a time"], 45, 0.1, 1.5)
-    batch = panel(680, "a batch", ["each step: a few dozen", "computed together on the card;",
+    batch = panel(350, "a batch", ["each step: a few dozen", "computed together on the card;",
                                    "less noise, but some left"], 24, 0.22, 0.45)
     return svg(W, H, [step(1, full), step(2, one), step(3, batch)],
                "Paths down an illustrative, elongated loss from the same start (black) to the lowest point (red): "
@@ -895,6 +898,39 @@ def sharing() -> str:
                "places drawn by hand. Adapted, CC BY-SA 2.5.")
 
 
+def visualise() -> str:
+    """How a feature picture is made: a starting picture, changed step by step until one filter responds most."""
+    import random
+    W, H, S = 1000, 360, 220
+    rnd = random.Random(3)
+    cells = 20
+    start = [text(150, 26, "1 · a starting picture", size=18, weight="bold")]
+    for i in range(cells):
+        for j in range(cells):
+            r, g, b = (rnd.randint(90, 200) for _ in range(3))
+            start.append(f'<rect x="{40 + i * S / cells:.1f}" y="{40 + j * S / cells:.1f}" width="{S / cells + 0.5:.1f}" '
+                         f'height="{S / cells + 0.5:.1f}" fill="rgb({r},{g},{b})"/>')
+    start.append(rect(40, 40, S, S, fill="none", stroke=EDGE, rx=0, sw=1.2))
+    change = [line(285, 150, 715, 150, color=ACCENT, w=3, marker="ahA", cls="accent-stroke"),
+              text(500, 26, "2 · change its pixels, step by step", size=18, weight="bold"),
+              text(500, 108, "so that one filter of the first layer", size=16),
+              text(500, 130, "responds more and more", size=16),
+              text(500, 186, "the gradient of part 2, taken for the pixels:", size=15, fill=MUTED),
+              text(500, 206, "the network's weights stay as they are", size=15, fill=MUTED)]
+    result = [text(850, 26, "3 · after 2,560 steps", size=18, weight="bold"),
+              f'<image href="features/features-edges.png" x="740" y="40" width="{S}" height="{S}"/>',
+              rect(740, 40, S, S, fill="none", stroke=EDGE, rx=0, sw=1.2),
+              text(850, 292, "what this filter looks for: edges", size=17, weight="bold", fill=ACCENT,
+                   cls="accent-fill")]
+    note = [text(500, 340, "not the filter's weights, nor a photo: a picture made for one filter", size=17,
+                 weight="bold", fill=ALERT)]
+    return svg(W, H, [step(1, start), step(2, change), step(3, result), step(4, note)],
+               "Feature visualisation by optimisation (Olah et al. 2017): a picture changed by gradient steps, 2,560 "
+               "of them for the article's images, until one channel of GoogLeNet's first layer (conv2d0) responds "
+               "most. The starting picture is drawn, illustrative; the result is the article's tile, CC BY 4.0 "
+               "(images/features/CREDITS.md). " + LICENCE)
+
+
 # --- Augmentation, a plain network on pixels, data sizes, test hygiene ------------
 def augment() -> str:
     """Varied copies with the same label: the tiger photo flipped, a sentence with a synonym, a sound filtered."""
@@ -952,8 +988,8 @@ def flatten() -> str:
     gx, gy = 60, 124
     grid = [text(gx + 60, 28, "4 by 4 of the tiger's pixels:", size=15, fill=MUTED),
             text(gx + 60, 48, "three planes of numbers", size=15, fill=MUTED)]
-    for k in (2, 1, 0):                                # the planes behind, blue at the back
-        ox, oy = 18 * k, -18 * k
+    for k in (2, 1, 0):                                # the planes behind the colours: red, then green, blue at the back
+        ox, oy = 16 * (k + 1), -16 * (k + 1)
         _, col = names[k]
         for j in range(n):
             for i in range(n):
@@ -967,10 +1003,10 @@ def flatten() -> str:
     mark = [rect(gx + a_[0] * c, gy + a_[1] * c, c, c, fill="none", stroke=ALERT, rx=0, sw=3.5),
             rect(gx + b_[0] * c, gy + b_[1] * c, c, c, fill="none", stroke=ALERT, rx=0, sw=3.5),
             text(gx + n * c / 2 + 10, gy + n * c + 30, "neighbours: one above the other", size=15, fill=ALERT)]
-    lx, ly, lc, rh = 360, 112, 38, 40
+    lx, ly, lc, rh = 372, 112, 38, 40
     row = [text(lx + 8 * lc, 58, "the same pixels as one list of 48 numbers, row after row,", size=15, fill=MUTED),
            text(lx + 8 * lc, 76, "plane after plane: 16 reds, then 16 greens, then 16 blues", size=15, fill=MUTED),
-           line(gx + n * c + 44, ly + 1.5 * rh, lx - 58, ly + 1.5 * rh, color=INK, w=1.8)]
+           line(gx + n * c + 58, ly + 1.5 * rh, lx - 58, ly + 1.5 * rh, color=INK, w=1.8)]
     ka, kb = a_[1] * n + a_[0], b_[1] * n + b_[0]
     for k, (name, col) in enumerate(names):
         y = ly + k * rh
@@ -1491,7 +1527,7 @@ def main(out: Path) -> int:
                "convolution.svg": convolution, "sharing.svg": sharing, "augment.svg": augment, "hygiene.svg": hygiene,
                "transfer.svg": transfer, "finetune.svg": finetune, "dss-training.svg": dss_training,
                "flow.svg": flow, "interval.svg": interval, "saliency-map.svg": saliency_map,
-               "saliency-scrambled.svg": saliency_scrambled, "compute-1.svg": lambda: compute(1),
+               "saliency-scrambled.svg": saliency_scrambled, "visualise.svg": visualise, "compute-1.svg": lambda: compute(1),
                "compute-2.svg": lambda: compute(2), "compute-3.svg": lambda: compute(3)}
     photo = out / "photos" / "tiger-1.jpg"
     if photo.is_file():
