@@ -1,41 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Embeddings: short dense vectors of 50 to 1,000 dimensions learned from text (Jurafsky & Martin 2026, chapter 5); positions and values illustrative. Oscar Esteban, CC BY 4.0. -->
+<!-- GloVe vectors, 50 dimensions, 6 billion tokens (Pennington et al. 2014), of eleven words, run by text.py: their first two principal components (51% of their spread) and cosine similarities (Jurafsky & Martin 2026, p. 135). Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
 <rect x="30" y="40" width="470" height="320" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
-<text x="265" y="388" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">two of a few hundred dimensions</text>
-<circle class="accent-fill" cx="140" cy="260" r="6" fill="#00609c"/>
-<text x="150" y="266" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">battery</text>
-<circle class="accent-fill" cx="188" cy="295" r="6" fill="#00609c"/>
-<text x="198" y="301" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">charger</text>
-<circle class="accent-fill" cx="116" cy="310" r="6" fill="#00609c"/>
-<text x="126" y="316" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">power</text>
-<circle class="accent-fill" cx="360" cy="270" r="6" fill="#00609c"/>
-<text x="370" y="276" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">screen</text>
-<circle class="accent-fill" cx="412" cy="238" r="6" fill="#00609c"/>
-<text x="422" y="244" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">display</text>
-<circle class="accent-fill" cx="320" cy="102" r="6" fill="#00609c"/>
-<text x="330" y="108" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">great</text>
-<circle class="accent-fill" cx="272" cy="130" r="6" fill="#00609c"/>
-<text x="282" y="136" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">good</text>
-<circle class="accent-fill" cx="370" cy="138" r="6" fill="#00609c"/>
-<text x="380" y="144" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">excellent</text>
-<circle class="accent-fill" cx="130" cy="102" r="6" fill="#00609c"/>
-<text x="140" y="108" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">awful</text>
-<circle class="accent-fill" cx="90" cy="140" r="6" fill="#00609c"/>
-<text x="100" y="146" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">bad</text>
-<circle class="accent-fill" cx="160" cy="150" r="6" fill="#00609c"/>
-<text x="170" y="156" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">poor</text>
+<text x="265" y="388" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">a flat view of 50 numbers per word: distances only roughly kept</text>
+<circle class="accent-fill" cx="92.6" cy="314.4" r="6" fill="#00609c"/>
+<text x="102.60884353741497" y="320.36013320647004" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">battery</text>
+<circle class="accent-fill" cx="70.0" cy="327.9" r="6" fill="#00609c"/>
+<text x="76.0" y="357.8591817316841" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">charger</text>
+<circle class="accent-fill" cx="241.8" cy="232.3" r="6" fill="#00609c"/>
+<text x="231.79251700680274" y="238.29543292102758" font-size="19" font-weight="normal" text-anchor="end" fill="#1c2e36">power</text>
+<circle class="accent-fill" cx="200.5" cy="80.0" r="6" fill="#00609c"/>
+<text x="190.50680272108843" y="86.0" font-size="19" font-weight="normal" text-anchor="end" fill="#1c2e36">screen</text>
+<circle class="accent-fill" cx="218.7" cy="84.7" r="6" fill="#00609c"/>
+<text x="228.66326530612244" y="90.69790675547097" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">display</text>
+<circle class="accent-fill" cx="386.4" cy="185.5" r="6" fill="#00609c"/>
+<text x="396.35034013605446" y="191.49476688867745" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">great</text>
+<circle class="accent-fill" cx="410.0" cy="214.5" r="6" fill="#00609c"/>
+<text x="420.0" y="220.51474785918174" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">good</text>
+<circle class="accent-fill" cx="326.9" cy="179.2" r="6" fill="#00609c"/>
+<text x="316.9081632653061" y="185.19124643196955" font-size="19" font-weight="normal" text-anchor="end" fill="#1c2e36">excellent</text>
+<circle class="accent-fill" cx="372.0" cy="314.4" r="6" fill="#00609c"/>
+<text x="362.01020408163265" y="320.36013320647004" font-size="19" font-weight="normal" text-anchor="end" fill="#1c2e36">awful</text>
+<circle class="accent-fill" cx="403.4" cy="330.0" r="6" fill="#00609c"/>
+<text x="413.40816326530614" y="336.0" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">bad</text>
+<circle class="accent-fill" cx="397.3" cy="269.6" r="6" fill="#00609c"/>
+<text x="407.33673469387753" y="275.6408182683159" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">poor</text>
 </g>
 <g data-step="2">
-<text x="560" y="120" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">one token, one vector</text>
-<rect class="accent-stroke" x="560" y="140" width="400" height="70" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<text x="760" y="184" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery → 0.21, −0.43, 0.07, … , 0.12</text>
-<text x="560" y="240" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">a few hundred numbers, learned from text;</text>
-<text x="560" y="266" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">close meanings lie close, but no single</text>
-<text x="560" y="292" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">number can be read on its own</text>
+<text x="560" y="70" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">how close, on all 50 numbers (cosine):</text>
+<text x="560" y="96" font-size="16" font-weight="normal" text-anchor="start" fill="#556268">1 when they point the same way, 0 when unrelated</text>
+<text x="580" y="140" font-size="20" font-weight="normal" text-anchor="start" fill="#1c2e36">good and great</text>
+<text x="940" y="140" font-size="22" font-weight="bold" text-anchor="end" fill="#00609c">0.80</text>
+<text x="580" y="180" font-size="20" font-weight="normal" text-anchor="start" fill="#1c2e36">good and bad</text>
+<text x="940" y="180" font-size="22" font-weight="bold" text-anchor="end" fill="#da232f">0.80</text>
+<text x="580" y="220" font-size="20" font-weight="normal" text-anchor="start" fill="#1c2e36">good and battery</text>
+<text x="940" y="220" font-size="22" font-weight="bold" text-anchor="end" fill="#1c2e36">0.23</text>
+</g>
+<g data-step="3">
+<text x="560" y="290" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">one word, one vector, learned from 6 billion tokens:</text>
+<text x="560" y="322" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">battery → 0.22, −0.09, 1.27, 0.49, … (50 numbers)</text>
 </g>
 </svg>

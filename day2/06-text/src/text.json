@@ -1,0 +1,193 @@
+{
+ "reviews": [
+  "Great screen, but the battery does not last a day.",
+  "Not a great screen, but the battery is good.",
+  "Good battery, good screen."
+ ],
+ "vader": {
+  "lexicon": {
+   "good": 1.9,
+   "great": 3.1
+  },
+  "reviews": [
+   {
+    "text": "Great screen, but the battery does not last a day.",
+    "neg": 0.0,
+    "neu": 0.779,
+    "pos": 0.221,
+    "compound": 0.3716
+   },
+   {
+    "text": "Not a great screen, but the battery is good.",
+    "neg": 0.165,
+    "neu": 0.539,
+    "pos": 0.296,
+    "compound": 0.4025
+   },
+   {
+    "text": "Good battery, good screen.",
+    "neg": 0.0,
+    "neu": 0.256,
+    "pos": 0.744,
+    "compound": 0.7003
+   }
+  ],
+  "clauses": [
+   {
+    "text": "Great screen,",
+    "neg": 0.0,
+    "neu": 0.196,
+    "pos": 0.804,
+    "compound": 0.6249
+   },
+   {
+    "text": "but the battery does not last a day.",
+    "neg": 0.0,
+    "neu": 1.0,
+    "pos": 0.0,
+    "compound": 0.0
+   }
+  ]
+ },
+ "porter": {
+  "battery": "batteri",
+  "batteries": "batteri",
+  "day": "dai",
+  "days": "dai",
+  "does": "doe",
+  "last": "last",
+  "lasts": "last",
+  "lasting": "last",
+  "screen": "screen",
+  "screens": "screen",
+  "great": "great",
+  "generalizations": "gener"
+ },
+ "wordpiece": {
+  "review": [
+   "great",
+   "screen",
+   ",",
+   "but",
+   "the",
+   "battery",
+   "does",
+   "not",
+   "last",
+   "a",
+   "day",
+   "."
+  ],
+  "smartphone": [
+   "smartphone"
+  ],
+  "unchargeable": [
+   "un",
+   "##cha",
+   "##rge",
+   "##able"
+  ],
+  "overheating": [
+   "over",
+   "##hea",
+   "##ting"
+  ],
+  "touchscreen": [
+   "touch",
+   "##screen"
+  ],
+  "vocabulary": 30522
+ },
+ "masked": {
+  "text": "Great screen, but the battery does not last a [MASK].",
+  "top": [
+   {
+    "word": "second",
+    "p": 0.4258
+   },
+   {
+    "word": "minute",
+    "p": 0.1399
+   },
+   {
+    "word": "moment",
+    "p": 0.0829
+   },
+   {
+    "word": "day",
+    "p": 0.0779
+   },
+   {
+    "word": "week",
+    "p": 0.0676
+   }
+  ]
+ },
+ "glove": {
+  "dimensions": 50,
+  "explained": [
+   0.342,
+   0.171
+  ],
+  "points": {
+   "battery": [
+    -3.303,
+    -1.415
+   ],
+   "charger": [
+    -3.694,
+    -1.642
+   ],
+   "power": [
+    -0.723,
+    -0.035
+   ],
+   "screen": [
+    -1.437,
+    2.526
+   ],
+   "display": [
+    -1.123,
+    2.447
+   ],
+   "great": [
+    1.777,
+    0.752
+   ],
+   "good": [
+    2.186,
+    0.264
+   ],
+   "excellent": [
+    0.749,
+    0.858
+   ],
+   "awful": [
+    1.529,
+    -1.415
+   ],
+   "bad": [
+    2.072,
+    -1.678
+   ],
+   "poor": [
+    1.967,
+    -0.663
+   ]
+  },
+  "cosine": {
+   "good bad": 0.796,
+   "good great": 0.798,
+   "good excellent": 0.806,
+   "bad awful": 0.793,
+   "battery charger": 0.568,
+   "good battery": 0.233
+  },
+  "battery": [
+   0.22,
+   -0.09,
+   1.27,
+   0.49
+  ]
+ }
+}

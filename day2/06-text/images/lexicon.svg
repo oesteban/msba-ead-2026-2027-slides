@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- VADER's lexicon and rules on the deck's review: valences 'good' 1.9 and 'great' 3.1 on a scale of -4 to +4; 'but', negation, capitals, '!' and degree words as heuristics (Hutto & Gilbert 2014, section 3). Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 390" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- VADER (Hutto & Gilbert 2014, section 3; the vaderSentiment package) run on the deck's review by text.py: 'great' 3.1, the compound score, between -1 and +1, +0.3716. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
@@ -30,17 +30,18 @@
 <rect x="923.3700000000001" y="110" width="33.26" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
 <text x="940.0000000000001" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">.</text>
 <text class="accent-fill" x="87.82999999999996" y="92" font-size="22" font-weight="bold" text-anchor="middle" fill="#00609c">+3.1</text>
-<text x="40" y="40" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">word scores from −4 to +4: “good” +1.9, “great” +3.1</text>
+<text x="40" y="40" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">VADER lists about 7,500 entries, each scored from −4 to +4; of this review it lists “great” alone</text>
 </g>
 <g data-step="2">
 <rect class="accent-stroke" x="292.46999999999997" y="107" width="68.95999999999998" height="44" rx="7" fill="none" stroke="#00609c" stroke-width="2.6"/>
-<text class="accent-fill" x="292.46999999999997" y="92" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">“but”: what follows counts more</text>
+<text class="accent-fill" x="292.46999999999997" y="92" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">“but”: the clause after it dominates</text>
 </g>
 <g data-step="3">
 <path d="M 441.39 162 L 441.39 236 L 956.6300000000001 236 L 956.6300000000001 162" fill="none" stroke="#da232f" stroke-width="2.2" marker-end="url(#)"/>
-<text x="699.01" y="268" font-size="19" font-weight="bold" text-anchor="middle" fill="#da232f">“not” flips the next listed word, but no word here is listed</text>
+<text x="699.01" y="268" font-size="19" font-weight="bold" text-anchor="middle" fill="#da232f">no listed word: the complaint scores 0</text>
 </g>
 <g data-step="4">
-<text x="500" y="340" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">the verdict rests on “great” alone; rules for capitals, “!” and “very” have nothing to do here</text>
+<rect class="accent-a-light-fill accent-stroke" x="250" y="304" width="500" height="64" rx="10" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="500" y="345" font-size="24" font-weight="bold" text-anchor="middle" fill="#1c2e36">VADER's verdict: +0.37, positive</text>
 </g>
 </svg>
