@@ -41,7 +41,7 @@
 <text x="940" y="220" font-size="22" font-weight="bold" text-anchor="end" fill="#1c2e36">0.23</text>
 </g>
 <g data-step="3">
-<text x="560" y="290" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">one word, one vector, learned from 6 billion tokens:</text>
+<text x="560" y="290" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">one word, one vector, from 6 billion words and marks:</text>
 <text x="560" y="322" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">battery → 0.22, −0.09, 1.27, 0.49, … (50 numbers)</text>
 </g>
 </svg>

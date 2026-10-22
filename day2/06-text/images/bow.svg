@@ -1,97 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- A bag of words of the deck's three reviews, cut into words and nothing else: 15 columns, as term counts (Provost & Fawcett 2013, pp. 252 to 253). Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A bag of words of the deck's three reviews: normalised, stop words but 'not' removed, not stemmed, as term counts (Provost & Fawcett 2013, pp. 252 to 253). Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
-<text x="40" y="30" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">1   Great screen, but the battery does not last a day.</text>
-<text x="40" y="60" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">2   Not a great screen, but the battery is good.</text>
-<text x="40" y="90" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">3   Good battery, good screen.</text>
+<text x="60" y="40" font-size="20" font-weight="normal" text-anchor="start" fill="#1c2e36">1   Great screen, but the battery does not last a day.</text>
+<text x="60" y="74" font-size="20" font-weight="normal" text-anchor="start" fill="#1c2e36">2   Not a great screen, but the battery is good.</text>
+<text x="60" y="108" font-size="20" font-weight="normal" text-anchor="start" fill="#1c2e36">3   Good battery, good screen.</text>
 </g>
 <g data-step="2">
-<line x1="40" y1="214" x2="990" y2="214" stroke="#1c2e36" stroke-width="1.4"/>
-<text x="40" y="122" font-size="16" font-weight="normal" text-anchor="start" fill="#556268">one column per term, here each word as written</text>
-<text x="174.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 174.0 200)">Great</text>
-<text x="230.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 230.0 200)">screen</text>
-<text x="286.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 286.0 200)">but</text>
-<text x="342.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 342.0 200)">the</text>
-<text x="398.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 398.0 200)">battery</text>
-<text x="454.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 454.0 200)">does</text>
-<text x="510.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 510.0 200)">not</text>
-<text x="566.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 566.0 200)">last</text>
-<text x="622.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 622.0 200)">a</text>
-<text x="678.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 678.0 200)">day</text>
-<text x="734.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 734.0 200)">Not</text>
-<text x="790.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 790.0 200)">great</text>
-<text x="846.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 846.0 200)">is</text>
-<text x="902.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 902.0 200)">good</text>
-<text x="958.0" y="200" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36" transform="rotate(-50 958.0 200)">Good</text>
-<text x="40" y="244" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 1</text>
-<text x="178.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="234.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="290.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="346.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="402.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="458.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="514.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="570.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="626.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="682.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="738.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="794.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="850.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="906.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="962.0" y="244" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<line x1="40" y1="262" x2="990" y2="262" stroke="#c9cfd2" stroke-width="1"/>
-<text x="40" y="288" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 2</text>
-<text x="178.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="234.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="290.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="346.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="402.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="458.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="514.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="570.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="626.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="682.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="738.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="794.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="850.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="906.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="962.0" y="288" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<line x1="40" y1="306" x2="990" y2="306" stroke="#c9cfd2" stroke-width="1"/>
-<text x="40" y="332" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 3</text>
-<text x="178.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="234.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="290.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="346.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="402.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="458.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="514.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="570.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="626.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="682.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="738.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="794.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="850.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="906.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<text x="962.0" y="332" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
-<line x1="40" y1="350" x2="990" y2="350" stroke="#c9cfd2" stroke-width="1"/>
+<text x="266.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">battery</text>
+<text x="378.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">day</text>
+<text x="490.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">good</text>
+<text x="602.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">great</text>
+<text x="714.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">last</text>
+<text x="826.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">not</text>
+<text x="938.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">screen</text>
+<line x1="60" y1="192" x2="994" y2="192" stroke="#1c2e36" stroke-width="1.4"/>
+<text x="60" y="222" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 1</text>
+<text x="266.0" y="222" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="378.0" y="222" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="490.0" y="222" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="602.0" y="222" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="714.0" y="222" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="826.0" y="222" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="938.0" y="222" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<line x1="60" y1="240" x2="994" y2="240" stroke="#c9cfd2" stroke-width="1"/>
+<text x="60" y="266" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 2</text>
+<text x="266.0" y="266" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="378.0" y="266" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="490.0" y="266" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="602.0" y="266" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="714.0" y="266" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="826.0" y="266" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="938.0" y="266" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<line x1="60" y1="284" x2="994" y2="284" stroke="#c9cfd2" stroke-width="1"/>
+<text x="60" y="310" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 3</text>
+<text x="266.0" y="310" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="378.0" y="310" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="490.0" y="310" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">2</text>
+<text x="602.0" y="310" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="714.0" y="310" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="826.0" y="310" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="938.0" y="310" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">1</text>
+<line x1="60" y1="328" x2="994" y2="328" stroke="#c9cfd2" stroke-width="1"/>
 </g>
 <g data-step="3">
-<rect class="accent-a-light-fill" x="155.0" y="220" width="46" height="36" rx="4" fill="#8cb3cf"/>
-<text x="178.0" y="244" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">1</text>
-<rect class="accent-a-light-fill" x="771.0" y="220" width="46" height="36" rx="4" fill="#8cb3cf"/>
-<text x="794.0" y="244" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0</text>
-<rect class="accent-a-light-fill" x="155.0" y="264" width="46" height="36" rx="4" fill="#8cb3cf"/>
-<text x="178.0" y="288" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0</text>
-<rect class="accent-a-light-fill" x="771.0" y="264" width="46" height="36" rx="4" fill="#8cb3cf"/>
-<text x="794.0" y="288" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">1</text>
-<rect class="accent-a-light-fill" x="155.0" y="308" width="46" height="36" rx="4" fill="#8cb3cf"/>
-<text x="178.0" y="332" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0</text>
-<rect class="accent-a-light-fill" x="771.0" y="308" width="46" height="36" rx="4" fill="#8cb3cf"/>
-<text x="794.0" y="332" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="500" y="412" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">“Great” and “great”: one word, two columns</text>
+<rect class="accent-a-light-fill" x="216" y="198" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="266.0" y="222" font-size="21" font-weight="bold" text-anchor="middle" fill="#1c2e36">1</text>
+<rect class="accent-a-light-fill" x="888" y="198" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="938.0" y="222" font-size="21" font-weight="bold" text-anchor="middle" fill="#1c2e36">1</text>
+<rect class="accent-a-light-fill" x="216" y="242" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="266.0" y="266" font-size="21" font-weight="bold" text-anchor="middle" fill="#1c2e36">1</text>
+<rect class="accent-a-light-fill" x="888" y="242" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="938.0" y="266" font-size="21" font-weight="bold" text-anchor="middle" fill="#1c2e36">1</text>
+<rect class="accent-a-light-fill" x="216" y="286" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="266.0" y="310" font-size="21" font-weight="bold" text-anchor="middle" fill="#1c2e36">1</text>
+<rect class="accent-a-light-fill" x="888" y="286" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="938.0" y="310" font-size="21" font-weight="bold" text-anchor="middle" fill="#1c2e36">1</text>
+<text x="500" y="398" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">“battery” and “screen” are in every review</text>
 </g>
 </svg>

@@ -30,7 +30,7 @@
 <rect x="923.3700000000001" y="110" width="33.26" height="38.5" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
 <text x="940.0000000000001" y="137.17" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">.</text>
 <text class="accent-fill" x="87.82999999999996" y="92" font-size="22" font-weight="bold" text-anchor="middle" fill="#00609c">+3.1</text>
-<text x="40" y="40" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">VADER lists about 7,500 entries, each scored from −4 to +4; of this review it lists “great” alone</text>
+<text x="40" y="40" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">VADER, a lexicon of about 7,500 entries scored from −4 to +4, lists “great” alone of this review</text>
 </g>
 <g data-step="2">
 <rect class="accent-stroke" x="292.46999999999997" y="107" width="68.95999999999998" height="44" rx="7" fill="none" stroke="#00609c" stroke-width="2.6"/>

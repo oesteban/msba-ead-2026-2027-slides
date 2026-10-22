@@ -14,6 +14,8 @@ into `~/.cache/ead-text/`. Neither enters git. It writes one small JSON file:
 - `porter`: stems by Porter's original algorithm (M. F. Porter 1980; NLTK's implementation).
 - `wordpiece`: BERT's WordPiece tokens of the review and of a few rarer words.
 - `masked`: BERT's five likeliest words for a hidden word of the review, with their probabilities.
+- `context`: BERT's last-layer vector for "great" in the two reviews that use it, and their cosine;
+  a GloVe vector is the same in both, a cosine of 1.
 - `glove`: the deck's words in two dimensions (principal components of their 50-dimension GloVe
   vectors), with the cosine similarities the slide names.
 """
@@ -59,7 +61,7 @@ def porter() -> dict:
     return {w: s.stem(w) for w in STEM_WORDS}
 
 
-def bert() -> tuple[dict, dict]:
+def bert() -> tuple[dict, dict, dict]:
     import torch
     from transformers import AutoModelForMaskedLM, AutoTokenizer
     torch.manual_seed(0)
@@ -75,7 +77,17 @@ def bert() -> tuple[dict, dict]:
     top = torch.topk(p, 5)
     guesses = [{"word": tok.convert_ids_to_tokens(int(i)), "p": round(float(v), 4)}
                for v, i in zip(top.values, top.indices)]
-    return pieces, {"text": MASKED, "top": guesses}
+    # one word read in two sentences: BERT's last layer gives "great" a vector per sentence
+    def word_vector(sentence, word):
+        e = tok(sentence, return_tensors="pt")
+        with torch.no_grad():
+            h = model.bert(**e).last_hidden_state[0]
+        ids = e["input_ids"][0].tolist()
+        return h[ids.index(tok.convert_tokens_to_ids(word))]
+    a, b = (word_vector(s, "great") for s in REVIEWS[:2])
+    context = {"word": "great", "sentences": REVIEWS[:2],
+               "cosine": round(float(torch.nn.functional.cosine_similarity(a, b, dim=0)), 3)}
+    return pieces, {"text": MASKED, "top": guesses}, context
 
 
 def glove() -> dict:
@@ -113,9 +125,9 @@ def glove() -> dict:
 
 
 def main(out: Path) -> int:
-    pieces, masked = bert()
+    pieces, masked, context = bert()
     data = {"reviews": REVIEWS, "vader": vader(), "porter": porter(), "wordpiece": pieces, "masked": masked,
-            "glove": glove()}
+            "context": context, "glove": glove()}
     out.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n")
     print(json.dumps(data, indent=1, ensure_ascii=False))
     return 0

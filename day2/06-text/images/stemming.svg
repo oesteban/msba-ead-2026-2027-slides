@@ -41,6 +41,6 @@
 <text x="40" y="316" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">their stem, by Porter's rules</text>
 </g>
 <g data-step="3">
-<text x="500" y="368" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">“batteri” and “dai” are not words: a stem only has to be the same for every form</text>
+<text x="500" y="368" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">9 forms become 4 terms; “batteri” and “dai” are not words, and need not be</text>
 </g>
 </svg>

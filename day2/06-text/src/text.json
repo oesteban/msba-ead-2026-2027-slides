@@ -123,6 +123,14 @@
    }
   ]
  },
+ "context": {
+  "word": "great",
+  "sentences": [
+   "Great screen, but the battery does not last a day.",
+   "Not a great screen, but the battery is good."
+  ],
+  "cosine": 0.625
+ },
  "glove": {
   "dimensions": 50,
   "explained": [

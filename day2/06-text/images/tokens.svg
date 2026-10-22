@@ -51,6 +51,6 @@
 <text x="584.3999999999999" y="292.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">##ting</text>
 </g>
 <g data-step="4">
-<text x="500" y="346" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">BERT's vocabulary: 30,522 tokens; “##” marks a piece that continues a word</text>
+<text x="500" y="346" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">the vocabulary of BERT, a language model: 30,522 tokens; “##” marks a piece that continues a word</text>
 </g>
 </svg>
