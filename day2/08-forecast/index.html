@@ -150,7 +150,7 @@ https://oesteban.github.io/msba-ead-2026-2027-slides/day2/08-forecast/index.html
 
 ???
 
-**This deck forecasts a series and judges the forecast: the simple forecasts first, every model set beside them on days it has not seen.** It follows *Reading a time series*, which ended on the last value as the benchmark every model must beat (slide 26). Slides 2 to 13 hold for any series and are shown on Capital Bikeshare's daily rentals and on drawn sketches; slides 14 to 25 forecast the Dow Jones in Dataiku.
+**This deck forecasts a series and judges the forecast: the simple forecasts first, every model set beside them on days it has not seen.** It follows *Reading a time series*, which ended on the random walk, whose best forecast is its last value: the benchmark every model must beat. Slides 2 to 13 hold for any series and are shown on Capital Bikeshare's daily rentals and on drawn sketches; slides 14 to 25 forecast the Dow Jones in Dataiku.
 
 
 ---
@@ -329,7 +329,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Test on the future only: train on the past, test on the next horizon, and repeat from several origins.** This is "evaluation on a rolling forecasting origin" (Hyndman & Athanasopoulos, 2021, section 5.10, verbatim); it keeps the order that *Reading a time series* (slide 4) called the data and the shuffled folds of *Model selection and cross-validation* (slide 5) broke. One origin is "susceptible to corruption by occurrences unique to that origin" (Tashman, 2000, section 3.1, verbatim). Dataiku's K-fold cross-test tests the last horizon first, then one horizon earlier per fold (Dataiku, 2024); the lab's fold offset adds a horizon between tests.
+**Test on the future only: train on the past, test on the next horizon, and repeat from several origins.** This is "evaluation on a rolling forecasting origin" (Hyndman & Athanasopoulos, 2021, section 5.10, verbatim); it keeps the order that *Reading a time series* called the data and the shuffled folds of *Model selection and cross-validation* (slide 5) broke. One origin is "susceptible to corruption by occurrences unique to that origin" (Tashman, 2000, section 3.1, verbatim). Dataiku's K-fold cross-test tests the last horizon first, then one horizon earlier per fold (Dataiku, 2024); the lab's fold offset adds a horizon between tests.
 
 
 ---
@@ -415,7 +415,7 @@ class: vcenter
 
 ???
 
-**The treasury team asks for next week's closes; a model earns its place only if it beats the last value on the same days.** The team, a scenario as in *Reading a time series*, now looks seven days ahead; that deck ended on the last value as the benchmark (slide 26 there). On stock market data, close to a random walk, the naive forecast is that benchmark: "without comparing against it, quality of more complex models cannot be meaningfully assessed" (Hewamalage et al., 2023, section 3.2, verbatim).
+**The treasury team asks for next week's closes; a model earns its place only if it beats the last value on the same days.** The team, a scenario as in *Reading a time series*, now looks seven days ahead; that deck ended on the random walk, whose best forecast is the last value. On stock market data, close to a random walk, the naive forecast is that benchmark: "without comparing against it, quality of more complex models cannot be meaningfully assessed" (Hewamalage et al., 2023, section 3.2, verbatim).
 
 
 ---
@@ -535,7 +535,7 @@ class: vcenter
 
 ???
 
-**In 10 more minutes, in panels 4 and 5, groups run the same session on the casual riders, then write what the treasury team is told.** Panel 4 opens a new session on `Casual` of `bike-rentals.csv`, with the same settings, and trains Trivial identity, Seasonal naive and ETS. Casual riders ride most at weekends, 1,465 on an average Saturday against 551 on a Wednesday (*Reading a time series*, slide 7; Fanaee-T, 2013): a weekly season, beside an index that showed none. Panel 5 writes the decision; slides 20 to 25 read the results.
+**In 10 more minutes, in panels 4 and 5, groups run the same session on the casual riders, then write what the treasury team is told.** Panel 4 opens a new session on `Casual` of `bike-rentals.csv`, with the same settings, and trains Trivial identity, Seasonal naive and ETS. Casual riders ride most at weekends, 1,465 on an average Saturday against 551 on a Wednesday (*Reading a time series*; Fanaee-T, 2013): a weekly season, beside an index that showed none. Panel 5 writes the decision; slides 20 to 25 read the results.
 
 
 ---
@@ -611,7 +611,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**On the casual riders, whose week repeats, the weekly forecasts beat the last value on 7 folds of 10.** The seasonal naive scores 0.95 (± 0.84), ETS 0.96 (± 1.44), the last value 1.24 (± 1.27). ETS chose (M,A,M) on every fold, a season that grows with the level (*Reading a time series*, slide 8). On a seasonal series the seasonal naive is the benchmark (Hewamalage et al., 2023, section 3.2), and ETS does not beat it. Computed with statsmodels on the course file, not by Dataiku; the server's scores are read in class.
+**On the casual riders, whose week repeats, the weekly forecasts beat the last value on 7 folds of 10.** The seasonal naive scores 0.95 (± 0.84), ETS 0.96 (± 1.44), the last value 1.24 (± 1.27). ETS chose (M,A,M) on every fold, a season that grows with the level, as *Reading a time series* found for casual riders. On a seasonal series the seasonal naive is the benchmark (Hewamalage et al., 2023, section 3.2), and ETS does not beat it. Computed with statsmodels on the course file, not by Dataiku; the server's scores are read in class.
 
 
 ---
