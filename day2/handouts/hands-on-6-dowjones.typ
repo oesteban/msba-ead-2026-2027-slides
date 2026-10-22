@@ -2,12 +2,12 @@
 // hands-on-6-dowjones.typ: the group's sheet for Hands-on 6, 23.10.2026 PM.
 //
 // One sheet per group of three, both sides. Page 1 is the data card. The core
-// (steps 1 to 3, about 22 minutes) follows slide 21 of "Reading a time series",
-// and the Flow it builds is drawn on slide 20: the group charts the Dow Jones
+// (steps 1 to 3, about 22 minutes) and the tail follow the Flow, slide 26 of
+// "Reading a time series", which draws what they build: the group charts the Dow Jones
 // close, puts each trading day beside the two before with the Window recipe,
 // correlates the close with the day before and the change with the change
 // before, and averages the change by weekday against its spread. From
-// panel 4 (slide 22) the group runs the same check on the bike rentals,
+// panel 4 the group runs the same check on the bike rentals,
 // by weekday and by month, then decides what the treasury team is told. The
 // index is the previous teacher's 2025 file; his lab forecast it, which this
 // course does after the break.
@@ -22,10 +22,11 @@
 // Prepare processors, Group recipe, Statistics worksheets) and the previous
 // teacher's 2025 captures of the course server (date parsing). AUTHORING.md
 // F1: to be run on the course server and corrected before printing, in
-// particular whether `Date` needs parsing, the Window recipe's lag labels and
+// particular the Window recipe's lag labels and
 // output column names, the Statistics correlation card and its Pearson
 // setting, and the Group
-// recipe's standard deviation. Server: DSS 15.0.0. Verified on: DSS ____ ,
+// recipe's standard deviation. `Date` is read as a date on upload (meaning
+// "Date only", Oscar, 23.10.2026): no parsing step. Server: DSS 15.0.0. Verified on: DSS ____ ,
 // __.__.2026.
 //
 // Handed out, kept by the group, never collected: it carries no name.
@@ -95,19 +96,19 @@ weekday stand out?
   #step(1, "Upload the index")[In a new project: #dss("+ Dataset", "Upload your files"), `dowjones102425.csv`.]
   Rows: #rule(1.6cm) #h(8pt) first and last `Date`: #rule(3.6cm)
   #v(2pt)
-  #step(2, "Read the date as a date")[The Window recipe orders rows by a date. If `Date` does not show the meaning *Date*: #dss("+ Recipe", "Prepare"), a step *Parse to standard date format* on `Date`, format `yyyy-MM-dd`, in place; *Run*.]
+  #step(2, "Check that the date is a date")[In the dataset, under each column's name, Dataiku shows the kind of value it found there. Under `Date` it should read *Date only* (it may show *Text* for a moment): the chart's time axis and the weekday in step 2.2 need a date.]
   #v(2pt)
-  #step(3, "Chart the close")[On the dated dataset: #dss("Charts"), a *Lines* chart, `Date` on the X axis, `Close` on the Y axis.]
+  #step(3, "Chart the close")[On the dataset: #dss("Charts"), a *Lines* chart, `Date` on the X axis, `Close` on the Y axis.]
   Does the close come back to one level, or wander? #rule(5.2cm)
 ]
 
 #v(5pt)
 
 #panel("Step 2 · Put each day beside the days before")[
-  #step(1, "Lag the close")[On the dated dataset: #dss("+ Recipe", "Window"). In *Windows definitions*, order the rows by `Date`, ascending; in *Aggregations*, on `Close`, tick *Lag* with offsets `1,2`; *Run*.]
+  #step(1, "Lag the close")[On the uploaded dataset: #dss("+ Recipe", "Window"). In *Windows definitions*, order the rows by `Date`, ascending; in *Aggregations*, on `Close`, tick *Lag* with offsets `1,2`; *Run*.]
   Names of the two new columns: #rule(5.2cm)
   #v(2pt)
-  #step(2, "Compute the changes")[On the lagged dataset: #dss("+ Recipe", "Prepare"), a step *Formula* `change` = `Close` minus the lag-1 column, a step *Formula* `previous_change` = the lag-1 column minus the lag-2 column, then *Extract date components* on `Date`, the day of week; *Run*. Then #dss("Charts"): a *Lines* chart of `change` by `Date`.]
+  #step(2, "Compute the changes")[On the lagged dataset: #dss("+ Recipe", "Prepare"), a step *Formula* `change` = `Close` minus the lag-1 column, a step *Formula* `previous_change` = the lag-1 column minus the lag-2 column, then *Extract date elements* on `Date`, the day of week; *Run*. Then #dss("Charts"): a *Lines* chart of `change` by `Date`.]
   #v(2pt)
   #step(3, "Correlate")[On the dataset of changes: #dss("Statistics", "+ Card", "Correlation matrix") on `Close`, the lag-1 column, `change` and `previous_change`; in the card's settings, *Pearson* (Spearman is the default).]
   Close with the day before: #rule(1.6cm) #h(8pt) change with the change before: #rule(1.6cm)
@@ -131,7 +132,7 @@ weekday stand out?
 #v(5pt)
 
 #panel("4 · Run the same check on the bike rentals")[
-  #step(1, "Upload and date the rentals")[#dss("+ Dataset", "Upload your files"), `bike-rentals.csv`; then #dss("+ Recipe", "Prepare"): parse `Date` as in step 1 if needed, and *Extract date components* on `Date`, the day of week and the month; *Run*.]
+  #step(1, "Upload the rentals and read their dates")[#dss("+ Dataset", "Upload your files"), `bike-rentals.csv` (its `Date` reads *Date only*, as in step 1.2); then #dss("+ Recipe", "Prepare"): *Extract date elements* on `Date`, the day of week and the month; *Run*.]
   #v(2pt)
   #step(2, "Average by weekday, then by month")[#dss("+ Recipe", "Group") grouped by the day of week, on `Rentals`: *Avg* and *Std. dev.*; then a second Group recipe on the same dataset, grouped by the month.]
   #table(
