@@ -670,7 +670,7 @@ class: vcenter
 
 ???
 
-**In the hands-on, we train a sentiment model in Dataiku and set it against a ready-made scorer.** We train on 2,000 film reviews from IMDb, the Internet Movie Database, drawn from 50,000 that researchers collected there. After the checkpoint, our model and Dataiku's sentiment plugin both score 2,000 reviews from another collection, Pang and Lee's, so the two are compared on the same texts. What does one row of our file hold?
+**In the hands-on, we train a sentiment model in Dataiku and test it on reviews from another collection.** We train on 2,000 film reviews from IMDb, the Internet Movie Database, drawn from 50,000 that researchers collected there. In panels 4 and 5, our model scores 2,000 reviews from another collection, Pang and Lee's, written before 2002, so we see whether it holds beyond the reviews it learned from. What does one row of our file hold?
 
 
 ---
@@ -829,15 +829,15 @@ class: stepwise-svg, vcenter
 <img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
 
 .beside-thumb[
-<div class="step-1"><object type="image/svg+xml" data="images/flow.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The Flow: the IMDb reviews, a Prepare recipe, the Lab, the model; Pang and Lee's reviews through a copied Prepare, the Score recipe and a count; the same reviews through the sentiment plugin and a count"></object></div>
-.step-4.lead.big.center[The model and a plugin then score the same new reviews.]
+<div class="step-1"><object type="image/svg+xml" data="images/flow.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The Flow: the IMDb reviews, a Prepare recipe, the Lab, the model; Pang and Lee's reviews through a copied Prepare, the Score recipe and a count"></object></div>
+.step-3.lead.big.center[The model then scores reviews from another collection.]
 ]
 
-.footnote[Drawn after a Dataiku DSS Flow; recipe colours schematic. Dataiku (2024), *Sentiment analysis*; B. Pang and L. Lee (2004).]
+.footnote[Drawn after a Dataiku DSS Flow; recipe colours schematic. B. Pang and L. Lee (2004).]
 
 ???
 
-**The model and a plugin then score the same new reviews.** The Flow is Dataiku's map of a project. On top, a Prepare recipe writes `TextSimple` and the Lab trains the model. Below, Pang and Lee's reviews take two paths: a copy of the Prepare recipe and the Score recipe give them our model's probability, while Dataiku's sentiment plugin, an add-on, reads the raw text. Both paths end by counting true and false positives and negatives, TP, FP, FN and TN, priced at 4 per missed unhappy review and 1 per wasted reading. Now to Dataiku, with the sheet: panels 1 to 3 build the top path, panels 4 and 5 the rest, and the decision. Buy or build?
+**The model then scores reviews from another collection.** The Flow is Dataiku's map of a project. On top, a Prepare recipe writes `TextSimple` and the Lab trains the model. Below, Pang and Lee's reviews go through a copy of the Prepare recipe, so that they get the same `TextSimple`, and the Score recipe gives each our model's probability of an unhappy review. The path ends by counting true and false positives and negatives, TP, FP, FN and TN, priced as on IMDb at 4 per missed unhappy review and 1 per wasted reading. Now to Dataiku, with the sheet: panels 1 to 3 build the top path, panels 4 and 5 the rest, and the decision. Does a model trained on one collection hold on another?
 
 
 ---
@@ -847,7 +847,6 @@ class: stepwise-svg, vcenter
 .refs.cols2[
 - Brown, T. B. et al. (2020). Language models are few-shot learners. *Advances in Neural Information Processing Systems* 33, 1877 to 1901.
 - Chae, Y. and Davidson, T. (2025). Large language models for text classification: from zero-shot learning to instruction-tuning. *Sociological Methods & Research* 55(2):501 to 567.
-- Dataiku (2024). *Sentiment analysis*. Dataiku DSS 13 reference documentation.
 - Dataiku (2024). *Text variables*. Dataiku DSS 13 reference documentation.
 - Devlin, J., Chang, M.-W., Lee, K. and Toutanova, K. (2019). BERT: pre-training of deep bidirectional transformers for language understanding. *NAACL-HLT 2019*, 4171 to 4186.
 - Hartmann, J., Heitmann, M., Siebert, C. and Schamp, C. (2023). More than a feeling: accuracy and application of sentiment analysis. *International Journal of Research in Marketing* 40(1):75 to 87.

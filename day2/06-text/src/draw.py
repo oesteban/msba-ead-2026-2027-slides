@@ -684,8 +684,8 @@ def dss_text() -> str:
 
 
 def flow() -> str:
-    """The Flow of Hands-on 5: the IMDb reviews to a model; Pang and Lee's reviews scored twice."""
-    W, H = 1000, 400
+    """The Flow of Hands-on 5: the IMDb reviews to a model; Pang and Lee's reviews scored by it."""
+    W, H = 1000, 310
 
     def dataset(x, y, name, sub=""):
         out = [rect(x, y, 56, 50, fill=A_LIGHT, stroke=ACCENT, rx=6, cls="accent-a-light-fill accent-stroke"),
@@ -705,7 +705,7 @@ def flow() -> str:
     def arr(x1, y1, x2, y2):
         return line(x1, y1, x2, y2, color=INK, w=1.6)
 
-    y1, y2, y3 = 50, 200, 320
+    y1, y2 = 50, 200
     row1 = (dataset(20, y1, "imdb-reviews") + [arr(80, y1 + 25, 124, y1 + 25)] + recipe(146, y1 + 25, "Prepare")
             + [arr(168, y1 + 25, 212, y1 + 25)] + dataset(216, y1, "prepared", "TextSimple")
             + [arr(276, y1 + 25, 330, y1 + 25)] + recipe(352, y1 + 25, "Lab", fill="#8fd19e")
@@ -719,14 +719,9 @@ def flow() -> str:
             + [arr(594, y2 + 25, 640, y2 + 25)] + recipe(662, y2 + 25, "Prepare")
             + [arr(684, y2 + 25, 730, y2 + 25)] + dataset(734, y2, "counted", "TP, FP, FN, TN")
             + [text(20, y2 - 26, "panel 4", size=15, weight="bold", fill=ACCENT, cls="accent-fill", anchor="start")])
-    row3 = ([path(f"M 50 {y2 + 96} L 50 {y3 + 25} L 124 {y3 + 25}", color=INK, w=1.6)]
-            + recipe(146, y3 + 25, "Sentiment plugin", fill="#c9a7e0", below=True) + [arr(168, y3 + 25, 530, y3 + 25)]
-            + dataset(534, y3, "plugin-scored", "positive or negative")
-            + [arr(594, y3 + 25, 640, y3 + 25)] + recipe(662, y3 + 25, "Prepare")
-            + [arr(684, y3 + 25, 730, y3 + 25)] + dataset(734, y3, "counted", "TP, FP, FN, TN"))
     shift = lambda items: [f'<g transform="translate(40,0)">' + "\n".join(items) + "</g>"]
-    return svg(W, H, [step(1, shift(row1)), step(2, shift(row2)), step(3, shift(row3))],
-               "The Flow of Hands-on 5, drawn after Dataiku DSS's Flow (datasets, recipes, a model, a plugin recipe), "
+    return svg(W, H, [step(1, shift(row1)), step(2, shift(row2))],
+               "The Flow of Hands-on 5, drawn after Dataiku DSS's Flow (datasets, recipes, a model), "
                "with the sheet's panels; recipe colours schematic. " + LICENCE)
 
 
