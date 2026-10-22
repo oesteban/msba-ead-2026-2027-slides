@@ -506,7 +506,7 @@ def lm_sizes() -> str:
 
 
 def zeroshot() -> str:
-    """Zero-shot and one-shot prompts on the deck's review, after Brown et al. (2020), Fig. 2.1."""
+    """A one-shot prompt on the deck's review, then the same with the example dropped: zero-shot (Brown et al. 2020)."""
     W, H = 1000, 420
 
     def prompt(x, y, title, lines, sub):
@@ -517,19 +517,19 @@ def zeroshot() -> str:
         out.append(label(x, y + 66 + 30 * len(lines), sub, size=15))
         return out
 
-    a = prompt(40, 60, "zero-shot", [("Is this review positive or negative?", True),
+    a = prompt(520, 60, "zero-shot", [("Is this review positive or negative?", True),
                                      ("Review: Great screen, but the battery", False),
                                      ("does not last a day.", False), ("Answer:", False)],
                "the task in words; no labelled example")
-    b = prompt(520, 60, "one-shot", [("Is this review positive or negative?", True),
+    b = prompt(40, 60, "one-shot", [("Is this review positive or negative?", True),
                                      ("Review: Good battery, good screen.", False), ("Answer: positive", False),
                                      ("Review: Great screen, but the battery", False),
                                      ("does not last a day.", False), ("Answer:", False)],
                "one labelled example, in the prompt itself")
     c = [rect(250, 352, 500, 56, fill=A_LIGHT, stroke=ACCENT, rx=10, sw=2, cls="accent-a-light-fill accent-stroke"),
          text(500, 387, "the model writes the answer; no weight changes", size=20, weight="bold")]
-    return svg(W, H, [step(1, a), step(2, b), step(3, c)],
-               "Zero-shot and one-shot prompts on the deck's reviews, after Brown et al. (2020), Fig. 2.1, p. 6. "
+    return svg(W, H, [step(1, b), step(2, a), step(3, c)],
+               "One-shot and zero-shot prompts on the deck's reviews, after Brown et al. (2020), Fig. 2.1, p. 6. "
                "Drawn; any answer is illustrative. " + LICENCE)
 
 

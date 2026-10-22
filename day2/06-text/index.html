@@ -627,7 +627,7 @@ class: stepwise-svg, vcenter
 # Zero-shot
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/zeroshot.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Two prompts: zero-shot, the question positive or negative and the review, no labelled example; one-shot, the same with one labelled review first; the model writes the answer, no weight changes"></object></div>
+<div class="step-1"><object type="image/svg+xml" data="images/zeroshot.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Two prompts: one-shot, the question positive or negative, one labelled review, then our review; zero-shot, the same with the labelled review dropped; the model writes the answer, no weight changes"></object></div>
 .step-4.lead.big.center[Zero-shot: the task described in words, with no labelled example.]
 ]
 
@@ -635,7 +635,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Zero-shot: the task described in words, with no labelled example.** The text we send, the prompt, holds an instruction and our review; the model writes the answer, and none of its weights change. Put one labelled review in the prompt first and it is one-shot; a few, few-shot. GPT-2 showed in 2019 that a language model could do tasks zero-shot, and GPT-3's authors named these three settings. The answer is illustrative: how well this works depends on the model, the task and the wording of the prompt. Which models are we talking about when we ask?
+**Zero-shot: the task described in words, with no labelled example.** The text we send a generative model, the prompt, can show it the task by example: here, one review labelled positive, then our review, and the model writes the answer. That is one-shot; with a few examples, few-shot. Now drop the example: the instruction alone describes the task, and that is zero-shot. In both, none of the model's weights change. GPT-2 showed in 2019 that a language model could do tasks zero-shot, and GPT-3's authors named these settings. The answer is illustrative: how well this works depends on the model, the task and the wording of the prompt. Which models are we talking about when we ask?
 
 
 ---
