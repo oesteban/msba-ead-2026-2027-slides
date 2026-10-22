@@ -784,7 +784,7 @@
 </g>
 <g data-step="3">
 <text class="accent-fill" x="578" y="66" font-size="22" font-weight="bold" text-anchor="start" fill="#00609c">correlation 0.85</text>
-<text x="578" y="90" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">1: on a rising line; 0: no line</text>
+<text x="578" y="90" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">1: a rising line; 0: no line; −1: a falling line</text>
 </g>
 <g data-step="4">
 <text x="60" y="416" font-size="24" font-weight="bold" text-anchor="start" fill="#1c2e36">r<tspan baseline-shift='sub' font-size='15'>k</tspan> =</text>

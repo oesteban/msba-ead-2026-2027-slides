@@ -359,7 +359,7 @@ def lag() -> str:
           label(760, 412, "the day before", size=15, anchor="middle"), label(560, 18, "rentals", size=15)]
     r1 = [text(578, 66, esc(f"correlation {N['bike']['lag1_corr']:.2f}"), size=22, weight="bold", fill=ACCENT,
                anchor="start", cls="accent-fill"),
-          label(578, 90, "1: on a rising line; 0: no line", size=15)]
+          label(578, 90, "1: a rising line; 0: no line; −1: a falling line", size=15)]
     yb = "ȳ"
     rk = [text(60, 416, "r" + sub("k", 15) + " =", size=24, weight="bold", anchor="start"),
           text(285, 400, f"Σ (y{sub('t')} − {yb}) (y{sub('t−k')} − {yb})", size=21),

@@ -158,7 +158,7 @@ https://oesteban.github.io/msba-ead-2026-2027-slides/day2/07-series/index.html
 
 ???
 
-NOTE
+**This afternoon, we'll read a time series before anyone forecasts it.** This morning, in *Text mining and sentiment analysis*, each row of our data was a review. Now each row is a moment in time: a day of bike rentals, a day's closing price of a stock index, each following the one before. Firms forecast such numbers to plan staff, stock and purchases, and a forecast of tomorrow can only use what came before it. So before any model, we look at what the past of a series holds. What can the past of a series tell us about its next value?
 
 
 ---
@@ -200,7 +200,7 @@ class: vcenter
 
 ???
 
-NOTE
+**We'll go in four parts.** A forecast built from data assumes that some patterns of the past will continue, so before forecasting we need to know which patterns a series carries. First, what a time series is, and why the order of its rows is itself information. Second, the two patterns we can name and separate: the trend, a long-run direction, and the season, a pattern that repeats with the calendar. Third, autocorrelation: how much each value tells us about the next. Last, the hands-on in Dataiku, where we run these checks on one year of the Dow Jones, a stock index. So, first: what is a time series?
 
 
 ---
@@ -214,7 +214,7 @@ NOTE
 
 ???
 
-NOTE
+**Part 1 is about what a time series is: numbers recorded one after another in time.** We'll see which such numbers firms record and why they forecast them, how the decision a forecast serves sets how far ahead it must look, what exactly a series is, and the bike rentals we'll use all afternoon. Then we'll shuffle those rentals to see what their order holds. First: what do firms record in time?
 
 
 ---
@@ -235,7 +235,7 @@ class: vcenter
 
 ???
 
-NOTE
+**Firms forecast what they record in time, to set stock, staff and budgets.** A firm records numbers as they happen: units sold each day, calls each hour, a share's price at each close, a machine's temperature many times a second. A call centre rosters next week's staff on a forecast of next week's calls: with too few agents, callers wait; with too many, the firm pays for idle time. An energy firm decides whether to build a power plant on a forecast of demand five years ahead. A week for the roster, five years for the plant: what decides how far ahead a forecast must look?
 
 
 ---
@@ -256,7 +256,7 @@ class: vcenter
 
 ???
 
-NOTE
+**The decision fixes the horizon: how far ahead the forecast must see.** The horizon is the time from the moment we forecast to the moment we predict. Scheduling staff, production or transport needs forecasts hours to days ahead. Buying raw materials, hiring people or ordering machines takes months, so their forecasts must see months ahead. Choosing sites and capacity, the long-term strategy, needs years. The machine-learning canvas of *From a business question to a first model* already asks for the horizon, in its prediction-task box: how long we wait before the outcome is observed. So far, a series has meant any numbers recorded in time. What exactly counts as a time series?
 
 
 ---
@@ -272,7 +272,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**A time series is one quantity measured at regular steps, in order.** In the widest sense, anything observed one value after another over time is a time series; we keep to series measured at regular steps, so that one step back always means the same span of time. Our main example is a city's bike rentals: one value a day, the bikes rented that day, for 731 days. The step can be far shorter. An electrocardiogram, ECG, measures a heart 360 times a second; an electroencephalogram, EEG, measures a brain 160 times a second; a functional MRI scan measures each 4-millimetre cube of a brain, called a voxel, every 2.5 seconds. What does such a series look like as a table?
 
 
 ---
@@ -301,7 +301,7 @@ class: vcenter
 
 ???
 
-NOTE
+**Our example series is Capital Bikeshare in Washington DC: one row a day, the bikes rented that day.** The file covers every day of 2011 and 2012, 731 days with none missing: one value at each regular step. The system records each trip's member type, so the rentals are counted apart for registered users and for casual users; the two add up to the day's rentals. The researchers who published the data saw the system as a network of sensors of how people move through the city, so an event in the city should show in its counts. This file carries the next two parts, and you'll upload it in the hands-on. What would we lose if we shuffled its rows?
 
 
 ---
@@ -317,7 +317,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**Shuffle the rows and the series is gone.** The shuffled panel holds the same 731 values, with the same mean and spread. But the rise from 2011 to 2012, the summers and the winters have disappeared: they were in the order, not in the values. On the first day, each row was one credit, independent of the others, so k-fold in *Model selection and cross-validation* could put any row in any fold. In a series, neighbouring rows are related: a busy day tends to follow a busy day. This sets a time series apart from data whose rows can be taken as independent, and it is why, after the break, forecasts are tested on the days after those they learned from. So what does the order hold?
 
 
 ---
@@ -331,7 +331,7 @@ NOTE
 
 ???
 
-NOTE
+**Part 2 is about the patterns a series can carry, and how to separate them.** A series can have a trend, a long-run direction, and a season, a pattern that repeats with the calendar, both mixed in the same numbers. We'll split the series into parts, look at each part on the bike rentals, see that a season can keep its size or grow with the level, and run a method that does the split. But why would anyone take a series apart?
 
 
 ---
@@ -354,7 +354,7 @@ class: vcenter
 
 ???
 
-NOTE
+**Since the 1920s, statisticians have split series into parts, to read a figure without its season.** Monthly unemployment rises every year when school leavers look for work, and it rises in a recession; an economist wants to see the second rise, not the first. So official statistics publish it seasonally adjusted, with the season taken out, and most agencies use variants of X-11, a method of the US Census Bureau from the 1950s and 1960s. The split writes each value as the sum of three parts: the trend-cycle T, the long-run direction plus any rise and fall of no fixed period, called a cycle; the season S, which repeats with a fixed period; and the remainder R, what is left. In the bike rentals, how do we pull out the long-run direction alone?
 
 
 ---
@@ -370,7 +370,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**A trend is the long-run direction of a series.** The rentals jump from day to day and swing with the seasons, so how do we see their direction? The blue line gives each day the mean of the 365 days around it. Every such window holds one whole year, every summer and every winter, so the yearly season cancels out and the direction remains. The line can start only where a full year lies around a day, on 2 July 2011, and there it equals 2011's mean, 3,406 rentals a day; a year later it reaches 5,609. A trend need not be straight, and two years cannot tell it from a cycle, which usually lasts two years or more. What do the yearly swings look like on their own?
 
 
 ---
@@ -386,7 +386,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**A season repeats with a fixed period set by the calendar: the year, the week.** Its period is fixed and known, so we know in advance when the next summer and the next Saturday come. In the rentals, a January day averages 2,176 rentals, a day from May to September between 5,350 and 5,772. The week is a second season, and our two kinds of riders show it in opposite ways. Registered users ride most from Monday to Friday; casual users ride at weekends, 1,465 a day on Saturdays against 551 on Wednesdays. Added up, the two weekly seasons largely cancel: the total's weekday means stay between 4,229 and 4,690. A total can hide the seasons of its parts. Do the casual riders' weekends add as many riders in winter as in summer?
 
 
 ---
@@ -402,7 +402,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**Additive swings keep their size; multiplicative swings grow with the level.** The two sketches are drawn, not data. In an additive series, the parts add up, so a weekend would add about as many riders in winter as in summer. In a multiplicative series, the parts multiply, so the weekend adds a share: the busier the month, the larger the swing. Our casual riders are multiplicative: their weekend mean stays between 1.6 and 3.0 times their weekday mean in every month, while the gap grows from 84 riders a day in January 2011 to 1,729 in May 2012. Logarithms turn a product into a sum, so an additive method can still split such a series. But a few strange days pull at the trend and the season: how does a method keep them out?
 
 
 ---
@@ -418,7 +418,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**STL's remainder shows the days that broke the pattern.** STL stands for Seasonal and Trend decomposition using Loess, a smoother that fits, around each point, a simple line to its nearest neighbours. Unlike X-11, built for monthly and quarterly figures, STL takes any period, here 7 days for the casual riders, and lets the season change slowly over time. Its robust option keeps a few unusual days from pulling the trend-cycle and the season, so they land in the remainder. The circled day, 29 October 2012, had the fewest rentals of the two years, 22: the data's authors, who wanted to detect such events, tied it to Hurricane Sandy. Beyond the patterns we can name, how much does each value tell about the next?
 
 
 ---
@@ -432,7 +432,7 @@ NOTE
 
 ???
 
-NOTE
+**Part 3 measures how much each value of a series tells about the next.** That measure is the autocorrelation. We'll compute it on the rentals, read a heartbeat's rhythm from it, see what a series with nothing to tell looks like, and read a trend and a season in it. Then we'll ask what a model needs from a series, and how to give it that. First: does today's number tell us anything about tomorrow's?
 
 
 ---
@@ -448,7 +448,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**Autocorrelation is the correlation of a series with itself k steps earlier, at lag k.** A forecast built from past values works only if today tells us something about tomorrow. How much? Put each day beside the day before: 730 pairs. Plotted, they lie close to a rising line. The correlation measures how close: 1 when the points lie on a rising line, 0 when no line fits, negative when one tends to fall as the other rises. Here it is 0.85. The number of steps back is the lag, k. The formula measures each value and the value k steps earlier from the mean of the whole series, ȳ. All the lags together, r₁, r₂ and so on, form the autocorrelation function, ACF. What does it show for a series with a rhythm?
 
 
 ---
@@ -464,7 +464,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**The autocorrelation peaks at the time between two beats.** This is ten seconds of a heart's ECG, 360 values a second, from the MIT-BIH Arrhythmia Database, heart recordings in which cardiologists marked every beat. At small lags each value is close to its neighbour, so the autocorrelation starts high, then falls. When the lag reaches the time between two beats, each beat lines up with the next, and the autocorrelation rises again: its highest peak is at 0.81 seconds, 74 beats a minute. Over the same ten seconds, the cardiologists' marks give a mean interval of 0.806 seconds. We read the heart's period from the series alone, without telling the computer what a beat is. Any pattern that repeats makes the autocorrelation peak at its period. And a series with no pattern at all?
 
 
 ---
@@ -480,7 +480,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**White noise is a series of independent values: nothing in it to forecast.** Each of these 731 values was drawn at random, independently of the others, so no value says anything about the next. Its autocorrelations should be zero, yet the bars are not exactly zero: in a finite series, chance alone makes small correlations. How small? For a series of T values, about 95% of white noise's autocorrelations fall within ±1.96/√T: here, with 731 values, ±0.072, the grey band. So about one bar in twenty falls outside by chance, and here one of 28 does, at lag 15, just over the edge. The band is our test: a bar well outside it shows a real autocorrelation. What do a trend and a season do to these bars?
 
 
 ---
@@ -496,7 +496,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**A trend decays slowly; a season spikes at its period.** All rentals have an autocorrelation of 0.85 at lag 1, and still 0.65 four weeks later. With a trend, two days a few weeks apart usually sit on the same side of the series' mean, both above in the summer of 2012, both below in the winter of 2011, so their products in the formula stay positive and the bars fall only slowly. The casual riders spike at 7, 14, 21 and 28 days, 0.73 at one week, because a Saturday resembles the Saturdays before: their weekly season. All these bars lie far outside the band of noise. With a trend, next year will not look like last year: what does that do to a model that learns from the past?
 
 
 ---
@@ -512,7 +512,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**A stationary series keeps the same mean and spread over time.** A model learns from the past, and what it learned holds only if the series keeps behaving the same way. Trained on 2011 alone, a model would meet in 2012 many days busier than any it had seen, and many machine-learning models predict poorly beyond the range of values they learned from. A series is stationary when its statistical properties do not depend on when we observe it: a trend or a season rules that out, while white noise is stationary. On the left, the rentals' 30-day mean drifts with the year. On the right, their change from the day before keeps its mean near zero, but its spread, the pale band, swings from about 400 to 1,900: closer to stationary, not fully. Why does the change steady the mean?
 
 
 ---
@@ -528,7 +528,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**Differencing removes a trend, and at a lag of 7 days, a weekly season.** Differencing replaces each value by its change. The change from the day before, the first difference, no longer carries the level, so the trend drops out. The change from the same day a week before, a seasonal difference, sets each Saturday against the last, so what all Saturdays share drops out, and the casual riders' spikes at 14, 21 and 28 days go. The negative bars left, −0.29 at lag 1 and −0.465 at lag 7, come from differencing itself: a rainy day makes the change into it negative and the change out of it, one step later, positive. So we take as few differences as we need, rarely more than two. What do these checks say about a series a firm would like to forecast?
 
 
 ---
@@ -542,7 +542,7 @@ NOTE
 
 ???
 
-NOTE
+**In the hands-on, we run this afternoon's checks on one year of the Dow Jones, in Dataiku.** The Dow Jones Industrial Average is a stock index, one number computed from the share prices of 30 companies. A firm's treasury team, which manages its cash, has a question about it, and we'll answer it with the checks of parts 2 and 3: is there a season, how much does each day tell about the next, and how does the change from one day to the next behave? We build no model: we read the series first. What does one row of the file hold?
 
 
 ---
@@ -576,7 +576,7 @@ class: vcenter
 
 ???
 
-NOTE
+**Each row is one trading day of the Dow Jones.** A trading day is a day the market is open, and the series we read is the close, the index's value at the day's end, quoted in points. The file holds 256 trading days, from 1 October 2024 to 8 October 2025. Weekends and 11 holidays are absent, so a step is a trading day: Monday's change is Monday's close minus Friday's. The series is regular in trading days, not in calendar days. The close moved 292 points a day on average, up or down: the size of an ordinary day's move. You'll chart the values yourselves in Dataiku. Who wants to know where this series goes next, and why?
 
 
 ---
@@ -599,7 +599,7 @@ class: vcenter
 
 ???
 
-NOTE
+**If the past days tell the next one, the team can pick its day.** In our scenario, the treasury team buys an index fund once a month, a fund whose value follows the Dow Jones, on any day it chooses. If the days before could tell that tomorrow's close will be lower, the team would wait a day and buy cheaper. So the decision fixes the horizon at one trading day, the shortest of the horizons we met at the start. The question for you: do the past days' moves say whether the next trading day will be lower? To answer it, which of the file's six columns do we need, and as what?
 
 
 ---
@@ -626,7 +626,7 @@ class: vcenter
 
 ???
 
-NOTE
+**Two columns carry the question: the date, which orders the rows, and the close, the series we read.** Everything this afternoon rests on the order, so Dataiku must read `Date` as a date, not as text. On the course server it does so on upload: under the column's name, where Dataiku shows the kind of value it found, `Date` reads *Date only*, after *Text* for a moment. `Close` is read twice: as its level, and as its change from the day before, the first difference. The day's opening, highest and lowest prices and its volume are left aside, since the question is about one close and the next. No column is a target: we train no model yet. How do we put each day's close beside the closes before it?
 
 
 ---
@@ -645,7 +645,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**The Window recipe puts each day's close beside the closes one and two trading days before.** An autocorrelation needs pairs: each day beside the day before. A Group recipe would turn all the rows of a group into one; a Window recipe keeps one row per day and adds, as new columns, values taken from neighbouring rows. We order the rows by `Date`, oldest first, and ask, on `Close`, for its lag: the value one row back and two rows back. With both lags, a Prepare recipe computes each day's change, the close minus the close before, and the change before it, the close before minus the one before that: two changes side by side, ready to be correlated. Where does this recipe sit in the whole hands-on?
 
 
 ---
@@ -663,7 +663,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**The Flow lags the index, computes its changes and averages them by weekday.** On top, the Window recipe adds the lags, and a Prepare recipe computes the change and the change before, then extracts each date's day of the week. A correlation card, in the dataset's Statistics, reads the close against the close before and the change against the change before. A Group recipe averages the change by weekday, with its standard deviation, to look for a weekly season. Below, panel 4 runs the same means on the bike rentals, by weekday and by month, to show what a season looks like where one exists. Now to Dataiku, with the sheet: steps 1 to 3 build the top path, panel 4 the bottom one, and panel 5 decides what the team is told. Does today's change say anything about tomorrow's?
 
 
 ---
@@ -682,7 +682,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**Each close is almost the day before's, while each change says almost nothing about the next.** The close's autocorrelation is 0.96 at lag 1 and falls slowly, as a trend's does. Your Statistics card showed 0.97: the usual, Pearson, correlation measures each column from its own mean, the autocorrelation both from the mean of the whole series. The change's is −0.02. With 256 days, the band of white noise is ±0.12; of the ten bars only lag 4, at −0.15, is just outside, and among ten bars chance often puts one there. Your weekday table agrees: mean changes from −56 points on Thursdays to +110 on Wednesdays, against standard deviations of 317 to 557, so no weekday stands out of its spread. One year cannot show a yearly season. A level that wanders while its change is noise: has that a name?
 
 
 ---
@@ -698,7 +698,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-NOTE
+**In a random walk, the best forecast of the next value is the last one.** Each value is the last one plus a random change, ε, drawn as white noise; this walk is simulated. Its change is white noise, then, while its level wanders in long stretches that look like trends: the pattern you found in the Dow Jones. Since the next change is as likely up as down, the best forecast for any day ahead is today's value, the naive forecast, and no day is known in advance to be cheaper. Bachelier first stated this model for prices in 1900, and was ignored for sixty years. In 1953, Kendall found that British share indices looked "as if once a week the Demon of Chance drew a random number" (Fama, 1970, p. 390, verbatim) and added it to the price. Why would prices behave so?
 
 
 ---
@@ -718,7 +718,7 @@ class: vcenter
 
 ???
 
-NOTE
+**What past prices could tell is already in today's price.** In an efficient market, prices reflect all the information available. If past prices showed that tomorrow would be higher, buyers would act on it today, and today's price would already hold the rise. So trading rules built on past prices should earn no more than buying and holding. For the 30 stocks of the Dow Jones, from about 1957 to 1962, the correlations between one day's change and the next were always close to zero. Filter rules buy after a rise of some per cent and sell after a fall of as much; the smallest, of about one per cent, beat buying and holding before costs, but even the minimum costs a floor trader pays wiped out their edge. If today's close is the best forecast of tomorrow's, can any model beat it?
 
 
 ---
