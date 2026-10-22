@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- The Flow of Hands-on 5, drawn after Dataiku DSS's Flow (datasets, recipes, a model, a plugin recipe), with the sheet's panels; recipe colours schematic. Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 310" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- The Flow of Hands-on 5, drawn after Dataiku DSS's Flow (datasets, recipes, a model), with the sheet's panels; recipe colours schematic. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
@@ -47,21 +47,5 @@
 <text x="762" y="272" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">counted</text>
 <text x="762" y="290" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">TP, FP, FN, TN</text>
 <text class="accent-fill" x="20" y="174" font-size="15" font-weight="bold" text-anchor="start" fill="#00609c">panel 4</text></g>
-</g>
-<g data-step="3">
-<g transform="translate(40,0)"><path d="M 50 296 L 50 345 L 124 345" fill="none" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
-<circle cx="146" cy="345" r="20" fill="#c9a7e0" stroke="#1c2e36" stroke-width="1.2"/>
-<text x="146" y="389" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">Sentiment plugin</text>
-<line x1="168" y1="345" x2="530" y2="345" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
-<rect class="accent-a-light-fill accent-stroke" x="534" y="320" width="56" height="50" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
-<text x="562" y="392" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">plugin-scored</text>
-<text x="562" y="410" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">positive or negative</text>
-<line x1="594" y1="345" x2="640" y2="345" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
-<circle cx="662" cy="345" r="20" fill="#f0c46a" stroke="#1c2e36" stroke-width="1.2"/>
-<text x="662" y="315" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">Prepare</text>
-<line x1="684" y1="345" x2="730" y2="345" stroke="#1c2e36" stroke-width="1.6" marker-end="url(#ah)"/>
-<rect class="accent-a-light-fill accent-stroke" x="734" y="320" width="56" height="50" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="1.6"/>
-<text x="762" y="392" font-size="15" font-weight="normal" text-anchor="middle" fill="#1c2e36">counted</text>
-<text x="762" y="410" font-size="13" font-weight="normal" text-anchor="middle" fill="#556268">TP, FP, FN, TN</text></g>
 </g>
 </svg>

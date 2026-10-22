@@ -1,41 +1,98 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Embeddings: short dense vectors of 50 to 1,000 dimensions learned from text (Jurafsky & Martin 2026, chapter 5); positions and values illustrative. Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Cosine similarities of GloVe's 50-dimension vectors, 6 billion tokens (Pennington et al. 2014), among six words, computed by text.py (Jurafsky & Martin 2026, p. 135). Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
-<rect x="30" y="40" width="470" height="320" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
-<text x="265" y="388" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">two of a few hundred dimensions</text>
-<circle class="accent-fill" cx="140" cy="260" r="6" fill="#00609c"/>
-<text x="150" y="266" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">battery</text>
-<circle class="accent-fill" cx="188" cy="295" r="6" fill="#00609c"/>
-<text x="198" y="301" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">charger</text>
-<circle class="accent-fill" cx="116" cy="310" r="6" fill="#00609c"/>
-<text x="126" y="316" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">power</text>
-<circle class="accent-fill" cx="360" cy="270" r="6" fill="#00609c"/>
-<text x="370" y="276" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">screen</text>
-<circle class="accent-fill" cx="412" cy="238" r="6" fill="#00609c"/>
-<text x="422" y="244" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">display</text>
-<circle class="accent-fill" cx="320" cy="102" r="6" fill="#00609c"/>
-<text x="330" y="108" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">great</text>
-<circle class="accent-fill" cx="272" cy="130" r="6" fill="#00609c"/>
-<text x="282" y="136" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">good</text>
-<circle class="accent-fill" cx="370" cy="138" r="6" fill="#00609c"/>
-<text x="380" y="144" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">excellent</text>
-<circle class="accent-fill" cx="130" cy="102" r="6" fill="#00609c"/>
-<text x="140" y="108" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">awful</text>
-<circle class="accent-fill" cx="90" cy="140" r="6" fill="#00609c"/>
-<text x="100" y="146" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">bad</text>
-<circle class="accent-fill" cx="160" cy="150" r="6" fill="#00609c"/>
-<text x="170" y="156" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">poor</text>
+<text x="40" y="30" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">how close two words lie in GloVe (cosine: 1 the same direction, 0 unrelated)</text>
+<text x="266.0" y="64" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">great</text>
+<text x="378.0" y="64" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">good</text>
+<text x="490.0" y="64" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">bad</text>
+<text x="602.0" y="64" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">awful</text>
+<text x="714.0" y="64" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">battery</text>
+<text x="826.0" y="64" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">charger</text>
+<text x="194" y="108.0" font-size="19" font-weight="bold" text-anchor="end" fill="#1c2e36">great</text>
+<text x="194" y="154.0" font-size="19" font-weight="bold" text-anchor="end" fill="#1c2e36">good</text>
+<text x="194" y="200.0" font-size="19" font-weight="bold" text-anchor="end" fill="#1c2e36">bad</text>
+<text x="194" y="246.0" font-size="19" font-weight="bold" text-anchor="end" fill="#1c2e36">awful</text>
+<text x="194" y="292.0" font-size="19" font-weight="bold" text-anchor="end" fill="#1c2e36">battery</text>
+<text x="194" y="338.0" font-size="19" font-weight="bold" text-anchor="end" fill="#1c2e36">charger</text>
+<rect x="213" y="81" width="106" height="40" rx="4" fill="#e9edf0"/>
+<text x="266.0" y="108.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36"></text>
+<rect x="325" y="81" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.52)"/>
+<text x="378.0" y="108.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.80</text>
+<rect x="437" y="81" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.43)"/>
+<text x="490.0" y="108.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.64</text>
+<rect x="549" y="81" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.36)"/>
+<text x="602.0" y="108.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.51</text>
+<rect x="661" y="81" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.20)"/>
+<text x="714.0" y="108.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.21</text>
+<rect x="773" y="81" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.10)"/>
+<text x="826.0" y="108.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.03</text>
+<rect x="213" y="127" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.52)"/>
+<text x="266.0" y="154.0" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.80</text>
+<rect x="325" y="127" width="106" height="40" rx="4" fill="#e9edf0"/>
+<text x="378.0" y="154.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36"></text>
+<rect x="437" y="127" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.52)"/>
+<text x="490.0" y="154.0" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.80</text>
+<rect x="549" y="127" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.44)"/>
+<text x="602.0" y="154.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.65</text>
+<rect x="661" y="127" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.21)"/>
+<text x="714.0" y="154.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.23</text>
+<rect x="773" y="127" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.10)"/>
+<text x="826.0" y="154.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.03</text>
+<rect x="213" y="173" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.43)"/>
+<text x="266.0" y="200.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.64</text>
+<rect x="325" y="173" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.52)"/>
+<text x="378.0" y="200.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.80</text>
+<rect x="437" y="173" width="106" height="40" rx="4" fill="#e9edf0"/>
+<text x="490.0" y="200.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36"></text>
+<rect x="549" y="173" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.51)"/>
+<text x="602.0" y="200.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.79</text>
+<rect x="661" y="173" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.23)"/>
+<text x="714.0" y="200.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.27</text>
+<rect x="773" y="173" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.10)"/>
+<text x="826.0" y="200.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.03</text>
+<rect x="213" y="219" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.36)"/>
+<text x="266.0" y="246.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.51</text>
+<rect x="325" y="219" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.44)"/>
+<text x="378.0" y="246.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.65</text>
+<rect x="437" y="219" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.51)"/>
+<text x="490.0" y="246.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.79</text>
+<rect x="549" y="219" width="106" height="40" rx="4" fill="#e9edf0"/>
+<text x="602.0" y="246.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36"></text>
+<rect x="661" y="219" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.11)"/>
+<text x="714.0" y="246.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.05</text>
+<rect x="773" y="219" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.08)"/>
+<text x="826.0" y="246.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">−0.03</text>
+<rect x="213" y="265" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.20)"/>
+<text x="266.0" y="292.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.21</text>
+<rect x="325" y="265" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.21)"/>
+<text x="378.0" y="292.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.23</text>
+<rect x="437" y="265" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.23)"/>
+<text x="490.0" y="292.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.27</text>
+<rect x="549" y="265" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.11)"/>
+<text x="602.0" y="292.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.05</text>
+<rect x="661" y="265" width="106" height="40" rx="4" fill="#e9edf0"/>
+<text x="714.0" y="292.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36"></text>
+<rect x="773" y="265" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.39)"/>
+<text x="826.0" y="292.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.57</text>
+<rect x="213" y="311" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.10)"/>
+<text x="266.0" y="338.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.03</text>
+<rect x="325" y="311" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.10)"/>
+<text x="378.0" y="338.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.03</text>
+<rect x="437" y="311" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.10)"/>
+<text x="490.0" y="338.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.03</text>
+<rect x="549" y="311" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.08)"/>
+<text x="602.0" y="338.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">−0.03</text>
+<rect x="661" y="311" width="106" height="40" rx="4" fill="rgba(0, 96, 156, 0.39)"/>
+<text x="714.0" y="338.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.57</text>
+<rect x="773" y="311" width="106" height="40" rx="4" fill="#e9edf0"/>
+<text x="826.0" y="338.0" font-size="19" font-weight="normal" text-anchor="middle" fill="#1c2e36"></text>
 </g>
 <g data-step="2">
-<text x="560" y="120" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">one token, one vector</text>
-<rect class="accent-stroke" x="560" y="140" width="400" height="70" rx="8" fill="#ffffff" stroke="#00609c" stroke-width="2"/>
-<text x="760" y="184" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery → 0.21, −0.43, 0.07, … , 0.12</text>
-<text x="560" y="240" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">a few hundred numbers, learned from text;</text>
-<text x="560" y="266" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">close meanings lie close, but no single</text>
-<text x="560" y="292" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">number can be read on its own</text>
+<rect x="60" y="360" width="880" height="58" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="84" y="396" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">“the battery is good”, “the battery is bad”: the same neighbours, so close vectors</text>
 </g>
 </svg>

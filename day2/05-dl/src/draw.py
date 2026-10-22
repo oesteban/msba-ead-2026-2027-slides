@@ -1206,58 +1206,8 @@ def dss_training() -> str:
 
 
 # --- Hands-on 4 --------------------------------------------------------------------
-def flow() -> str:
-    """The Flow of Hands-on 4: two folders, listings, labels, the model, the score, the check."""
-    W, H = 1000, 380
-
-    def folder(x, y, name):
-        return [f'<path class="accent-stroke" d="M {x} {y + 8} L {x + 22} {y + 8} L {x + 30} {y} L {x + 64} {y} '
-                f'L {x + 64} {y + 50} L {x} {y + 50} Z" fill="{WHITE}" stroke="{ACCENT}" stroke-width="2"/>',
-                text(x + 32, y + 74, name, size=15)]
-
-    def dataset(x, y, name, sub=""):
-        out = [rect(x, y, 56, 50, fill=A_LIGHT, stroke=ACCENT, rx=6, cls="accent-a-light-fill accent-stroke"),
-               text(x + 28, y + 74, name, size=15)]
-        if sub:
-            out.append(text(x + 28, y + 92, sub, size=13, fill=MUTED))
-        return out
-
-    def recipe(x, y, name, fill="#f0c46a", below=False):
-        return [f'<circle cx="{x}" cy="{y}" r="20" fill="{fill}" stroke="{INK}" stroke-width="1.2"/>',
-                text(x, y + 42 if below else y - 30, name, size=14, fill=MUTED)]
-
-    def model(x, y):
-        return [f'<polygon class="accent-fill" points="{x},{y - 30} {x + 30},{y} {x},{y + 30} {x - 30},{y}" '
-                f'fill="{ACCENT}"/>', text(x + 40, y + 6, "the model", size=15, weight="bold", anchor="start")]
-
-    def arr(x1, y1, x2, y2):
-        return line(x1, y1, x2, y2, color=INK, w=1.6)
-
-    y1, y2 = 60, 250
-    row1 = (folder(20, y1, "train") + [arr(88, y1 + 25, 128, y1 + 25)] + recipe(150, y1 + 25, "List")
-            + [arr(172, y1 + 25, 212, y1 + 25)] + dataset(216, y1, "listing")
-            + [arr(276, y1 + 25, 316, y1 + 25)] + recipe(338, y1 + 25, "Prepare")
-            + [arr(360, y1 + 25, 400, y1 + 25)] + dataset(404, y1, "labelled", "label from the name")
-            + [text(20, 30, "steps 1 and 2", size=15, weight="bold", fill=ACCENT, cls="accent-fill", anchor="start")])
-    lab = ([arr(464, y1 + 25, 520, y1 + 25)] + recipe(542, y1 + 25, "Lab", fill="#8fd19e")
-           + [arr(564, y1 + 25, 610, y1 + 25)] + model(642, y1 + 25))
-    row2 = (folder(20, y2, "test") + [arr(88, y2 + 25, 128, y2 + 25)] + recipe(150, y2 + 25, "List")
-            + [arr(172, y2 + 25, 212, y2 + 25)] + dataset(216, y2, "listing")
-            + [arr(276, y2 + 25, 316, y2 + 25)] + recipe(338, y2 + 25, "Prepare")
-            + [arr(360, y2 + 25, 400, y2 + 25)] + dataset(404, y2, "labelled")
-            + [arr(464, y2 + 25, 620, y2 + 25)] + recipe(642, y2 + 25, "Score", fill="#8fd19e", below=True)
-            + [arr(642, y1 + 57, 642, y2 + 3)]
-            + [arr(664, y2 + 25, 700, y2 + 25)] + dataset(704, y2, "scored", "a prediction per photo")
-            + [text(20, y2 - 30, "step 3", size=15, weight="bold", fill=ACCENT, cls="accent-fill", anchor="start")])
-    check = ([arr(764, y2 + 25, 800, y2 + 25)] + recipe(822, y2 + 25, "Prepare")
-             + [arr(844, y2 + 25, 880, y2 + 25)] + dataset(884, y2, "checked", "right or wrong"))
-    return svg(W, H, [step(1, row1), step(2, lab), step(3, row2), step(4, check)],
-               "The Flow of Hands-on 4, drawn after Dataiku DSS's Flow (folders, recipes, datasets, a model), with "
-               "the sheet's steps; recipe colours schematic. " + LICENCE)
-
-
 def interval() -> str:
-    """51 right of 57 is 89%, and could be anything from 78% to 96%."""
+    """50 right of 56 is 89%, and could be anything from 78% to 96%."""
     W, H = 1000, 330
     x0, x1 = 50, 950
 
@@ -1267,18 +1217,18 @@ def interval() -> str:
     axis = [line(x0, 140, x1, 140, color=MUTED, w=1.8, marker="")]
     axis += [line(px(v), 132, px(v), 148, color=MUTED, w=1.6, marker="") for v in range(70, 101, 5)]
     axis += [text(px(v), 178, f"{v}%", size=20, fill=MUTED) for v in range(70, 101, 5)]
-    pt = [f'<circle class="accent-fill" cx="{px(89.5):.1f}" cy="140" r="14" fill="{ACCENT}"/>',
-          text(px(89.5), 104, "51 of 57 right: 89%", size=24, weight="bold")]
-    ci = [rect(px(78.5), 129, px(96.0) - px(78.5), 22, fill=ACCENT, stroke=None, rx=11, cls="accent-fill",
+    pt = [f'<circle class="accent-fill" cx="{px(89.3):.1f}" cy="140" r="14" fill="{ACCENT}"/>',
+          text(px(89.3), 104, "50 of 56 right: 89%", size=24, weight="bold")]
+    ci = [rect(px(78.1), 129, px(96.0) - px(78.1), 22, fill=ACCENT, stroke=None, rx=11, cls="accent-fill",
                extra=' fill-opacity="0.3"'),
-          text(px(78.5), 216, "78%", size=23, weight="bold", fill=ACCENT, cls="accent-fill"),
+          text(px(78.1), 216, "78%", size=23, weight="bold", fill=ACCENT, cls="accent-fill"),
           text(px(96.0), 216, "96%", size=23, weight="bold", fill=ACCENT, cls="accent-fill"),
           text(px(87.2), 254, "a 95% interval: the score could be anywhere here", size=22, fill=ACCENT,
                cls="accent-fill")]
     big = [rect(px(89.0), 290, px(90.0) - px(89.0), 16, fill=INK, stroke=None, rx=5),
            text(px(89.0) - 16, 304, "with 10,000 test photos: about 1 point either way", size=20, anchor="end")]
     return svg(W, H, [step(1, axis + pt), step(2, ci), step(3, big)],
-               "An observed 51 of 57 (89%) with its 95% Clopper-Pearson interval, 78% to 96%, against the at most 1 "
+               "An observed 50 of 56 (89%) with its 95% Clopper-Pearson interval, 78% to 96%, against the at most 1 "
                "point of 10,000 test images (Recht et al. 2019). " + LICENCE)
 
 
@@ -1526,7 +1476,7 @@ def main(out: Path) -> int:
                "early-stop.svg": early_stop, "flatten.svg": flatten, "general.svg": general,
                "convolution.svg": convolution, "sharing.svg": sharing, "augment.svg": augment, "hygiene.svg": hygiene,
                "transfer.svg": transfer, "finetune.svg": finetune, "dss-training.svg": dss_training,
-               "flow.svg": flow, "interval.svg": interval, "saliency-map.svg": saliency_map,
+               "interval.svg": interval, "saliency-map.svg": saliency_map,
                "saliency-scrambled.svg": saliency_scrambled, "visualise.svg": visualise, "compute-1.svg": lambda: compute(1),
                "compute-2.svg": lambda: compute(2), "compute-3.svg": lambda: compute(3)}
     photo = out / "photos" / "tiger-1.jpg"

@@ -5,7 +5,7 @@
 // the data card. The core (panels 1 to 3, about 25 minutes) follows slide 13 of
 // "Beyond binary classification": the group explores the wines, removes the
 // copies, trains a multiclass model on the seven grades and reads it class by
-// class. Below the checkpoint bar (slide 14, 15 minutes) the group regroups the
+// class. From panel 4 (slide 14, 15 minutes) the group regroups the
 // grades into three lines, meets the leak, and decides what the winery deploys.
 //
 // The data: winequality_all.csv, the two UCI Wine Quality files (dataset 186,
@@ -116,14 +116,7 @@ such a model can be trusted, class by class.
   #writing(1)
 ]
 
-#v(6pt)
-
-#checkpoint(
-  msg: [Reached this line? Stop here: the group reports in the debrief.],
-  note: [Panels 4 and 5 follow slide 14 of *Beyond binary classification*.],
-)
-
-#v(6pt)
+#v(5pt)
 
 #panel("4 · Three lines instead of seven grades")[
   #step(1, "Regroup the grades")[On the distinct dataset: #dss("+ Recipe", "Prepare"), add a *Formula* step with output column `grade`, then run the recipe:]

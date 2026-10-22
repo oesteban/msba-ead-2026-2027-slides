@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Parameters of BERT large (Devlin et al. 2019), GPT-2 XL, GPT-3 and Llama 3.1 405B (Jurafsky & Martin 2026, Fig. 7.24, p. 205); frontier models undisclosed (p. 204). Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<line x1="150" y1="330" x2="900" y2="330" stroke="#1c2e36" stroke-width="1.6"/>
+<line x1="150" y1="330" x2="150" y2="40" stroke="#1c2e36" stroke-width="1.6"/>
+<line x1="144" y1="330.0" x2="900" y2="330.0" stroke="#c9cfd2" stroke-width="1"/>
+<text x="138" y="336.0" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">100 million</text>
+<line x1="144" y1="260.0" x2="900" y2="260.0" stroke="#c9cfd2" stroke-width="1"/>
+<text x="138" y="266.0" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">1 billion</text>
+<line x1="144" y1="190.0" x2="900" y2="190.0" stroke="#c9cfd2" stroke-width="1"/>
+<text x="138" y="196.0" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">10 billion</text>
+<line x1="144" y1="120.0" x2="900" y2="120.0" stroke="#c9cfd2" stroke-width="1"/>
+<text x="138" y="126.0" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">100 billion</text>
+<line x1="144" y1="50.0" x2="900" y2="50.0" stroke="#c9cfd2" stroke-width="1"/>
+<text x="138" y="56.0" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">1 trillion</text>
+<text x="40" y="30" font-size="17" font-weight="normal" text-anchor="start" fill="#556268">parameters, the numbers a network learns (log scale)</text>
+<rect class="accent-a-light-fill" x="230" y="292.79647580704216" width="110" height="37.20352419295784" rx="4" fill="#8cb3cf"/>
+<text x="285" y="282.79647580704216" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">0.34 billion</text>
+<text x="285" y="358" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">BERT</text>
+<text x="285" y="380" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2018</text>
+<rect class="accent-a-light-fill" x="405" y="247.6736118661023" width="110" height="82.3263881338977" rx="4" fill="#8cb3cf"/>
+<text x="460" y="237.6736118661023" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">1.5 billion</text>
+<text x="460" y="358" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">GPT-2</text>
+<text x="460" y="380" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2019</text>
+</g>
+<g data-step="2">
+<rect class="accent-a-light-fill" x="580" y="102.98733659195938" width="110" height="227.01266340804062" rx="4" fill="#8cb3cf"/>
+<text x="635" y="92.98733659195938" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">175 billion</text>
+<text x="635" y="358" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">GPT-3</text>
+<text x="635" y="380" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2020</text>
+<rect class="accent-fill" x="755" y="77.47814837497316" width="110" height="252.52185162502684" rx="4" fill="#00609c"/>
+<text x="810" y="67.47814837497316" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">405 billion</text>
+<text x="810" y="358" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">Llama 3.1</text>
+<text x="810" y="380" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">2024</text>
+</g>
+<g data-step="3">
+<text x="900" y="30" font-size="16" font-weight="normal" text-anchor="end" fill="#1c2e36">GPT-5, Claude, Gemini: size not disclosed</text>
+</g>
+</svg>

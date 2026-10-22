@@ -8,14 +8,18 @@ The drawing helpers and the phase thumbnails are the intro deck's
 deck's (`day2/05-dl/src/draw.py`), both loaded from there so the decks draw
 alike. The general figures run on three short reviews of a phone written for
 this deck; no review of the course's files is drawn, since their licences are
-not recorded. Stop lists, stems, word scores and accuracy figures come from the
-works named in each figure's comment; weights, positions and the language
-model's answer are illustrative, and say so in the comment and on the slide.
+not recorded. Stop lists and accuracy figures come from the works named in each
+figure's comment. What real tools make of the review (VADER's scores, Porter's
+stems, BERT's tokens and its guesses for a hidden word, GloVe's vectors) is
+computed by `text.py` into `text.json`, read here. The linear model's weights and
+the prompted model's answer are illustrative, and say so in the comment and on
+the slide.
 """
 
 from __future__ import annotations
 
 import importlib.util
+import json
 import math
 import re
 import sys
@@ -42,7 +46,13 @@ LICENCE = "Oscar Esteban, CC BY 4.0."
 # the deck's running review, then the two others of its small collection
 REVIEW = "Great screen, but the battery does not last a day."
 REVIEWS = [REVIEW, "Not a great screen, but the battery is good.", "Good battery, good screen."]
-# after normalisation and a stop list that keeps "not" (slides 5 and 6)
+# what real tools make of them, computed by text.py
+T = json.loads((HERE / "text.json").read_text(encoding="utf-8"))
+assert T["reviews"] == REVIEWS, "text.json was computed on other reviews: rerun text.py"
+# cut into words, nothing else done: the bag of words before any choice of what counts as one term
+WORDS = [[w.strip(",.") for w in r.split()] for r in REVIEWS]
+RAW_TERMS = list(dict.fromkeys(w for ws in WORDS for w in ws))
+# after normalisation and a stop list that keeps "not"
 BAGS = [["great", "screen", "battery", "not", "last", "day"],
         ["not", "great", "screen", "battery", "good"],
         ["good", "battery", "good", "screen"]]
@@ -156,7 +166,7 @@ LONG_STOP = SHORT_STOP | {"but", "does", "not"}
 
 def stopwords() -> str:
     """A short stop list drops two words; a longer one may drop the verdict."""
-    W, H = 1000, 380
+    W, H = 1000, 470
     r1, _ = chip_row(NORM, 40, size=22, gap=10)
     r2, _ = chip_row(NORM, 150, size=22, gap=10, style=lambda i, s: ghost() if s in SHORT_STOP else {})
     s2 = [label(40, 138, "a short stop list, 25 words long, drops: the, a")] + r2
@@ -165,40 +175,39 @@ def stopwords() -> str:
                      else ghost() if s in LONG_STOP else {})
     s3 = [label(40, 248, "a list that also holds but, does and not leaves: great screen battery last day")] + r3
     s4 = [text(500, 352, "the complaint is gone with “not”", size=20, weight="bold", fill=ALERT)]
-    return svg(W, H, [step(1, r1), step(2, s2), step(3, s3), step(4, s4)],
+    hist = [rect(60, 384, 880, 70, fill=PANEL, stroke=EDGE, rx=8),
+            label(84, 414, "stop lists in search systems:", size=18, fill=INK, weight="bold"),
+            label(84, 440, "200 to 300 words, then 7 to 12, then none", size=18, fill=INK)]
+    return svg(W, H, [step(1, r1), step(2, s2), step(3, s3), step(4, s4), step(5, hist)],
                "Stop lists on the deck's review: the 25-word list of Manning et al. (2008, Figure 2.5) holds 'the' "
-               "and 'a'; the longer list is illustrative. " + LICENCE)
+               "and 'a'; the longer list is illustrative; search systems' lists over time, Manning et al. (2008), "
+               "section 2.2.2. " + LICENCE)
 
 
-PORTER = [("generalizations", ""), ("generalization", "step 1"), ("generalize", "step 2"), ("general", "step 3"),
-          ("gener", "step 4")]
-STEMS = [("battery", "batteri"), ("day", "dai"), ("does", "doe"), ("screen", "screen")]
+STEM_GROUPS = [["battery", "batteries"], ["day", "days"], ["last", "lasts", "lasting"], ["screen", "screens"]]
 
 
 def stemming() -> str:
-    """Porter's steps cut a word to its stem; a stem need not be a word."""
-    W, H = 1000, 360
-    size, gap = 21, 56
-    widths = [tw(w, size) + 26 for w, _ in PORTER]
-    x = 500 - (sum(widths) + gap * (len(PORTER) - 1)) / 2
-    s1 = []
-    for i, ((w, st), wd) in enumerate(zip(PORTER, widths)):
-        if i:
-            s1 += [line(x - gap + 6, 92, x - 6, 92, color=INK, w=1.6), label(x - gap / 2, 74, st, size=14,
-                                                                             anchor="middle")]
-        c, _ = chip(x, 74, w, size=size, w=wd, **(lit() if i == len(PORTER) - 1 else {}))
-        s1 += c
-        x += wd + gap
-    s1.append(label(40, 40, "Porter's stemmer, step by step"))
-    s2 = [label(40, 196, "the review's words")]
-    for i, (w, st) in enumerate(STEMS):
-        cx = 130 + i * 245
-        s2 += [text(cx, 250, esc(w), size=22), line(cx - 40, 268, cx - 40, 298, color=INK, w=1.6, marker="ah")]
-        c, _ = chip(cx - 60, 304, st, size=21, w=120, **(lit() if st != w else {}))
+    """The forms of one word cut to one stem by Porter's rules; a stem need not be a word."""
+    W, H = 1000, 390
+    s1, s2 = [label(40, 34, "forms of the review's words", size=17)], []
+    for i, grp in enumerate(STEM_GROUPS):
+        cx = 130 + i * 247
+        for k, w in enumerate(grp):
+            c, _ = chip(cx - 75, 52 + k * 46, w, size=20, w=150)
+            s1 += c
+        stem = T["porter"][grp[0]]
+        assert all(T["porter"][w] == stem for w in grp), grp
+        s2 += [line(cx, 196, cx, 238, color=INK, w=1.6)]
+        c, _ = chip(cx - 75, 244, stem, size=21, w=150, **(lit() if stem not in grp else {}))
         s2 += c
-    return svg(W, H, [step(1, s1), step(2, s2)],
-               "Porter's chain for 'generalizations' (Porter 1980), and Porter stems of the review's words. "
-               + LICENCE)
+    s2.append(label(40, 316, "their stem, by Porter's rules", size=17))
+    n_forms = sum(len(g) for g in STEM_GROUPS)
+    s3 = [label(500, 368, f"{n_forms} forms become {len(STEM_GROUPS)} terms; “batteri” and “dai” are not words, "
+                "and need not be", anchor="middle", fill=INK)]
+    return svg(W, H, [step(1, s1), step(2, s2), step(3, s3)],
+               "Porter's original algorithm (Porter 1980), as implemented by NLTK and run by text.py, on forms of the "
+               "review's words. " + LICENCE)
 
 
 def _table(x0, y0, rows, cols, cell, colw, rowh=44, first=150, head_size=19, size=21, styles=None, marked=False):
@@ -238,15 +247,14 @@ def _sentences(y0):
 
 
 def bow() -> str:
-    """One column per term, one row per review, a count in each cell."""
+    """One column per term, one row per review, a count in each cell, after the preprocessing."""
     W, H = 1000, 430
     counts = [[b.count(t) for t in TERMS] for b in BAGS]
     tab = _table(60, 178, [f"review {i + 1}" for i in range(3)], TERMS, lambda r, c: str(counts[r][c]), 112)
-    hit = {TERMS.index("not"), TERMS.index("great")}
+    hit = {TERMS.index("battery"), TERMS.index("screen")}
     marks = _table(60, 178, [f"review {i + 1}" for i in range(3)], TERMS, lambda r, c: str(counts[r][c]), 112,
-                   styles=lambda r, c: (A_LIGHT, "accent-a-light-fill") if r < 2 and c in hit else None, marked=True)
-    cap = [label(500, 398, "reviews 1 and 2 both hold “not” and “great”: the table cannot say what “not” negates",
-                 anchor="middle", fill=INK)]
+                   styles=lambda r, c: (A_LIGHT, "accent-a-light-fill") if c in hit else None, marked=True)
+    cap = [label(500, 398, "“battery” and “screen” are in every review", anchor="middle", fill=INK)]
     return svg(W, H, [step(1, _sentences(40)), step(2, tab), step(3, marks + cap)],
                "A bag of words of the deck's three reviews: normalised, stop words but 'not' removed, not stemmed, "
                "as term counts (Provost & Fawcett 2013, pp. 252 to 253). " + LICENCE)
@@ -268,11 +276,12 @@ def ngrams() -> str:
         out2 += [path(f"M {x0} {y + 50} L {x0} {y + 62} L {x1} {y + 62} L {x1} {y + 50}", color=ACCENT, w=2.4,
                       marker="", cls="accent-stroke"),
                  text((x0 + x1) / 2, y + 90, f"“{key}”", size=21, weight="bold", fill=ACCENT, cls="accent-fill")]
-    n_pairs = len({p for b in BAGS for p in pairs(b)})
-    cap = [label(500, 352, f"the three reviews: {len(TERMS)} words, plus {n_pairs} pairs, make "
-                 f"{len(TERMS) + n_pairs} columns", anchor="middle", fill=INK)]
+    n_words = len({w for b in BAGS[:2] for w in b})
+    n_pairs = len({p for b in BAGS[:2] for p in pairs(b)})
+    cap = [label(500, 352, f"reviews 1 and 2: {n_words} words, plus {n_pairs} pairs, make "
+                 f"{n_words + n_pairs} terms", anchor="middle", fill=INK)]
     return svg(W, H, [step(1, out1), step(2, out2), step(3, cap)],
-               f"Word pairs (bi-grams) of the deck's reviews after stop words but 'not' are removed; {n_pairs} "
+               f"Word pairs (bi-grams) of the deck's reviews 1 and 2 after stop words but 'not' are removed; {n_pairs} "
                "distinct pairs (Provost & Fawcett 2013, pp. 263 to 264). " + LICENCE)
 
 
@@ -282,47 +291,58 @@ def idf(t: str) -> float:
 
 
 def tfidf() -> str:
-    """A term weighs most when frequent in this review and rare in the others."""
-    W, H = 1000, 430
+    """A term weighs most when frequent in this review and rare in the others: count times IDF."""
+    W, H = 1000, 500
     w = [[b.count(t) * idf(t) for t in TERMS] for b in BAGS]
-    head = _table(60, 50, ["IDF"], TERMS, lambda r, c: f"{idf(TERMS[c]):.2f}", 112, size=20)
-    tab = _table(60, 178, [f"review {i + 1}" for i in range(3)], TERMS,
+    form = [text(500, 36, "TF-IDF: term frequency × inverse document frequency (IDF)", size=22, weight="bold"),
+            text(500, 72, "count in the review × IDF,    IDF = 1 + ln(N / reviews holding the term)", size=21)]
+    head = _table(60, 158, ["IDF"], TERMS, lambda r, c: f"{idf(TERMS[c]):.2f}", 112, size=20)
+    head.append(label(500, 112, f"“day” is in 1 of the N = {len(BAGS)} reviews: IDF = 1 + ln 3 = {idf('day'):.2f}",
+                      anchor="middle", size=19))
+    tab = _table(60, 252, [f"review {i + 1}" for i in range(3)], TERMS,
                  lambda r, c: f"{w[r][c]:.2f}" if w[r][c] else "0", 112, size=20)
     common = {TERMS.index("battery"), TERMS.index("screen")}
     top = {(r, c) for r in range(3) for c in range(len(TERMS)) if w[r][c] and w[r][c] == max(w[r])}
-    marks = _table(60, 178, [f"review {i + 1}" for i in range(3)], TERMS,
+    marks = _table(60, 252, [f"review {i + 1}" for i in range(3)], TERMS,
                    lambda r, c: f"{w[r][c]:.2f}" if w[r][c] else "0", 112, size=20,
                    styles=lambda r, c: (A_LIGHT, "accent-a-light-fill") if (r, c) in top
                    else (GREY, "") if c in common else None, marked=True)
-    cap = [label(500, 400, "in every review, battery and screen weigh least; a term of one review weighs most",
-                 anchor="middle", fill=INK)]
-    return svg(W, H, [step(1, head), step(2, tab), step(3, marks + cap)],
+    cap = []
+    use = [rect(100, 430, 800, 58, fill=A_LIGHT, stroke=ACCENT, rx=10, sw=2, cls="accent-a-light-fill accent-stroke"),
+           text(500, 466, "each review's heaviest terms set it apart: these weights are the model's columns", size=20,
+                weight="bold")]
+    return svg(W, H, [step(1, form), step(2, head), step(3, tab), step(4, marks + cap), step(5, use)],
                "TF-IDF of the deck's three reviews: term count times IDF(t) = 1 + ln(N / documents containing t), "
                "Provost & Fawcett (2013), pp. 255 to 256, with the natural logarithm. " + LICENCE)
 
 
 # --- Part 3 -----------------------------------------------------------------------
 def lexicon() -> str:
-    """A lexicon scores the words it lists, with rules for but, not, capitals and '!'."""
-    W, H = 1000, 380
+    """VADER scores the words it lists; the review's complaint holds none, so the verdict is positive."""
+    W, H = 1000, 390
+    lex = T["vader"]["lexicon"]
+    rv, cl = T["vader"]["reviews"][0], T["vader"]["clauses"]
     row, spans = chip_row(RAW, 110, size=22, gap=10,
-                          style=lambda i, s: lit() if s == "Great" else {"stroke": GREY_INK, "cls": ""})
+                          style=lambda i, s: lit() if s.lower() in lex else {"stroke": GREY_INK, "cls": ""})
     g = spans[0]
-    s1 = row + [text((g[0] + g[1]) / 2, 92, "+3.1", size=22, weight="bold", fill=ACCENT, cls="accent-fill"),
-                label(40, 40, "word scores from −4 to +4: “good” +1.9, “great” +3.1")]
+    s1 = row + [text((g[0] + g[1]) / 2, 92, f"+{lex['great']}", size=22, weight="bold", fill=ACCENT,
+                     cls="accent-fill"),
+                label(40, 40, "VADER, a lexicon of about 7,500 entries scored from −4 to +4, lists “great” alone "
+                      "of this review")]
     b = spans[RAW.index("but")]
     s2 = [rect(b[0] - 3, 107, b[1] - b[0] + 6, 44, fill="none", stroke=ACCENT, rx=7, sw=2.6, cls="accent-stroke"),
-          label(b[0] - 3, 92, "“but”: what follows counts more", fill=ACCENT, cls="accent-fill", weight="bold")]
+          label(b[0] - 3, 92, "what follows “but” counts more", fill=ACCENT, cls="accent-fill",
+                weight="bold")]
     n0, n1 = spans[RAW.index("battery")][0], spans[-1][1]
+    assert cl[1]["compound"] == 0
     s3 = [path(f"M {n0} 162 L {n0} 236 L {n1} 236 L {n1} 162", color=ALERT, w=2.2, marker=""),
-          text((n0 + n1) / 2, 268, "“not” flips the next listed word, but no word here is listed", size=19,
-               fill=ALERT, weight="bold")]
-    s4 = [label(500, 340, "the verdict rests on “great” alone; rules for capitals, “!” and “very” have nothing "
-                "to do here", anchor="middle", fill=INK)]
+          text((n0 + n1) / 2, 268, "no listed word: the complaint scores 0", size=19, fill=ALERT, weight="bold")]
+    s4 = [rect(250, 304, 500, 64, fill=A_LIGHT, stroke=ACCENT, rx=10, sw=2, cls="accent-a-light-fill accent-stroke"),
+          text(500, 345, f"VADER's verdict: {rv['compound']:+.2f}, positive", size=24, weight="bold")]
     return svg(W, H, [step(1, s1), step(2, s2), step(3, s3), step(4, s4)],
-               "VADER's lexicon and rules on the deck's review: valences 'good' 1.9 and 'great' 3.1 on a scale of -4 "
-               "to +4; 'but', negation, capitals, '!' and degree words as heuristics (Hutto & Gilbert 2014, "
-               "section 3). " + LICENCE)
+               f"VADER (Hutto & Gilbert 2014, section 3; the vaderSentiment package) run on the deck's review by "
+               f"text.py: 'great' {lex['great']}, the compound score, between -1 and +1, "
+               f"{rv['compound']:+.4f}. " + LICENCE)
 
 
 WEIGHTS = {"great": -1.5, "screen": 0.0, "battery": 0.1, "not": 1.1, "last": 0.2, "day": 0.3}   # illustrative
@@ -356,54 +376,161 @@ def linear() -> str:
                f"{p:.2f} through the logistic function (Jurafsky & Martin 2026, chapter 4). " + LICENCE)
 
 
-TOKENS = [("screen", ["screen"], "a common word: one token"),
-          ("lower", ["low", "er"], "not seen in training: known pieces"),
-          ("GRPO", ["G", "R", "P", "O"], "very rare: in the worst case, letters")]
-
-
 def tokens() -> str:
-    """A language model reads tokens learned from data: words or pieces of words."""
-    W, H = 1000, 330
+    """BERT reads WordPiece tokens: whole common words, and known pieces of rarer ones."""
+    W, H = 1000, 360
+    wp = T["wordpiece"]
+    rows = [("the review", wp["review"], "every word and mark is one token"),
+            ("“touchscreen”", wp["touchscreen"], "a rarer word: two known pieces"),
+            ("“overheating”", wp["overheating"], "pieces need not mean anything")]
     steps = []
-    for i, (w, toks, why) in enumerate(TOKENS):
-        y = 50 + i * 96
-        out = [text(190, y + 30, f"“{w}”", size=25, anchor="end"), line(210, y + 21, 268, y + 21, color=INK, w=1.8)]
-        x = 282
-        for t in toks:
-            c, wd = chip(x, y, t, size=22, **lit())
-            out += c
-            x += wd + 8
-        out.append(label(560, y + 28, why, size=19, fill=INK))
-        steps.append(step(i + 1, out))
+    for i, (name, toks, why) in enumerate(rows):
+        y = 40 + i * 104
+        r, _ = chip_row(toks, y + 20, size=20, gap=8, style=lambda k, s: lit() if i else {})
+        steps.append(step(i + 1, [label(40, y + 6, name, size=18, fill=INK, weight="bold"),
+                                  label(960, y + 6, why, size=17, anchor="end")] + r))
+    steps.append(step(4, [label(500, 346, f"the vocabulary of BERT, a language model: {wp['vocabulary']:,} tokens; “##” "
+                                "marks a piece that continues a word", anchor="middle", fill=INK)]))
     return svg(W, H, steps,
-               "Subword tokens: 'lower' as 'low' and 'er', a very rare acronym such as 'GRPO' as letters (Jurafsky & "
-               "Martin 2026, section 2.4); the split of 'screen' illustrative. " + LICENCE)
+               f"BERT base uncased's WordPiece tokenizer (Devlin et al. 2019, p. 4), run by text.py: lower case, then "
+               f"whole words or pieces from a vocabulary of {wp['vocabulary']:,}. " + LICENCE)
 
 
-EMB = [("battery", 120, 250), ("charger", 168, 285), ("power", 96, 300),
-       ("screen", 340, 260), ("display", 392, 228),
-       ("great", 300, 92), ("good", 252, 120), ("excellent", 350, 128),
-       ("awful", 110, 92), ("bad", 70, 130), ("poor", 140, 140)]
+def language_model() -> str:
+    """A language model guesses a hidden word from the words around it; BERT's five guesses for the review."""
+    W, H = 1000, 400
+    m = T["masked"]
+    before = REVIEW.rsplit(" ", 1)[0]
+    xb = 40 + tw(before, 25) * 0.86 + 12
+    s1 = [text(40, 52, esc(before), size=25, anchor="start"),
+          rect(xb, 22, 110, 44, fill=WHITE, stroke=ACCENT, rx=6, sw=2.4, cls="accent-stroke",
+               extra=' stroke-dasharray="6 4"'),
+          text(xb + 55, 52, "?", size=26, weight="bold", fill=ACCENT, cls="accent-fill"),
+          text(xb + 118, 52, ".", size=25)]
+    s2 = [label(40, 112, "BERT's five likeliest words, with their probabilities", size=18)]
+    for k, g in enumerate(m["top"]):
+        y = 136 + k * 44
+        own = g["word"] == "day"
+        s2 += [text(250, y + 26, esc(g["word"]), size=22, anchor="end", weight="bold" if own else "normal"),
+               rect(266, y + 6, 620 * g["p"], 30, fill=A_LIGHT if not own else ACCENT, stroke=None, rx=4,
+                    cls="accent-a-light-fill" if not own else "accent-fill"),
+               label(276 + 620 * g["p"], y + 28, f"{g['p']:.2f}", size=19, fill=INK)]
+    s3 = [label(500, 378, "the review's own word, “day”, comes fourth; no label was ever needed", anchor="middle",
+                fill=INK)]
+    return svg(W, H, [step(1, s1), step(2, s2), step(3, s3)],
+               "BERT base uncased (Devlin et al. 2019), pretrained to guess hidden words, run by text.py on the deck's "
+               "review with its last word hidden: the five likeliest tokens and their probabilities. " + LICENCE)
 
 
 def embeddings() -> str:
-    """Close meanings lie close; no single number can be read."""
+    """GloVe vectors compared by cosine: the judging words together, the device words together."""
+    W, H = 1000, 430
+    g = T["glove"]
+    words, m = g["table"]["words"], g["table"]["cosine"]
+    x0, y0, cw, ch = 210, 64, 112, 46
+    head = [label(40, 30, "how close two words lie in GloVe (cosine: 1 the same direction, 0 unrelated)", size=17)]
+    cells = []
+    for j, w in enumerate(words):
+        head.append(text(x0 + cw * j + cw / 2, y0, esc(w), size=19, weight="bold"))
+    for i, a in enumerate(words):
+        y = y0 + 14 + ch * i
+        head.append(text(x0 - 16, y + ch / 2 + 7, esc(a), size=19, weight="bold", anchor="end"))
+        for j in range(len(words)):
+            v = m[i][j]
+            shade = max(0.0, min(1.0, v))
+            fill = f"rgba(0, 96, 156, {0.08 + 0.55 * shade:.2f})" if i != j else GREY
+            cells += [rect(x0 + cw * j + 3, y + 3, cw - 6, ch - 6, fill=fill, stroke=None, rx=4),
+                      text(x0 + cw * j + cw / 2, y + ch / 2 + 7, "" if i == j else f"{v:.2f}".replace("-", "−"),
+                           size=19, weight="bold" if (a, words[j]) in (("good", "great"), ("good", "bad")) else "normal")]
+    why = [rect(60, 360, 880, 58, fill=PANEL, stroke=EDGE, rx=8),
+           label(84, 396, "“the battery is good”, “the battery is bad”: the same neighbours, so close vectors", size=19,
+                 fill=INK)]
+    return svg(W, H, [step(1, head + cells), step(2, why)],
+               f"Cosine similarities of GloVe's 50-dimension vectors, 6 billion tokens (Pennington et al. 2014), among "
+               f"six words, computed by text.py (Jurafsky & Martin 2026, p. 135). " + LICENCE)
+
+
+LM_HISTORY = [("1948", "Shannon", ["next words predicted", "from counts of the ones before"]),
+              ("1975 to 1985", "IBM, speech recognition", ["the term “language model”;", "n-gram models"]),
+              ("2003", "Bengio et al.", ["a neural network", "predicts the next word"]),
+              ("2013", "word2vec", ["embeddings learned", "by predicting neighbours"]),
+              ("2018", "ELMo", ["one language model", "reused for many tasks"])]
+
+
+def lm_history() -> str:
+    """Language models before they were large, from Shannon to ELMo."""
+    W, H = 1000, 340
+    y = 160
+    steps = [step(1, [line(50, y, 950, y, color=INK, w=2, marker="")])]
+    for k, (yr, who, what) in enumerate(LM_HISTORY):
+        x = 140 + k * 180
+        up = k % 2 == 0
+        ty = y - 112 if up else y + 50
+        out = [f'<circle class="accent-fill" cx="{x}" cy="{y}" r="9" fill="{ACCENT}"/>',
+               line(x, y - 10 if up else y + 10, x, ty + (70 if up else -18), color=EDGE, w=1.4, marker=""),
+               text(x, ty, yr, size=20, weight="bold", fill=ACCENT, cls="accent-fill"),
+               text(x, ty + 24, esc(who), size=18, weight="bold")]
+        for i, s in enumerate(what):
+            out.append(text(x, ty + 46 + 20 * i, esc(s), size=16, fill=INK))
+        steps.append(step(k + 1, out) if k else step(1, out))
+    return svg(W, H, steps,
+               "Landmarks of language models before they became large, after Jurafsky & Martin (2026), pp. 13, 89, "
+               "137, 150 and 207. Drawn. " + LICENCE)
+
+
+LM_SIZES = [("BERT", "2018", 0.34e9), ("GPT-2", "2019", 1.5e9), ("GPT-3", "2020", 175e9), ("Llama 3.1", "2024", 405e9)]
+
+
+def lm_sizes() -> str:
+    """Parameters of four language models, on a log scale."""
     W, H = 1000, 400
-    frame = [rect(30, 40, 470, 320, fill=PANEL, stroke=EDGE, rx=8), label(265, 388, "two of a few hundred dimensions",
-                                                                           anchor="middle", size=16)]
-    pts = []
-    for w, x, y in EMB:
-        pts += [f'<circle class="accent-fill" cx="{x + 20}" cy="{y + 10}" r="6" fill="{ACCENT}"/>',
-                text(x + 30, y + 16, w, size=19, anchor="start")]
-    vec = [label(560, 120, "one token, one vector", fill=INK, weight="bold", size=19),
-           rect(560, 140, 400, 70, fill=WHITE, stroke=ACCENT, rx=8, sw=2, cls="accent-stroke"),
-           text(760, 184, "battery → 0.21, −0.43, 0.07, … , 0.12", size=21),
-           label(560, 240, "a few hundred numbers, learned from text;", size=18),
-           label(560, 266, "close meanings lie close, but no single", size=18),
-           label(560, 292, "number can be read on its own", size=18)]
-    return svg(W, H, [step(1, frame + pts), step(2, vec)],
-               "Embeddings: short dense vectors of 50 to 1,000 dimensions learned from text (Jurafsky & Martin 2026, "
-               "chapter 5); positions and values illustrative. " + LICENCE)
+    x0, y0, y1 = 150, 330, 50          # the axis: 10^8 at y0, 10^12 at y1
+    ly = lambda v: y0 - (math.log10(v) - 8) / 4 * (y0 - y1)
+    ax = [line(x0, y0, 900, y0, color=INK, w=1.6, marker=""), line(x0, y0, x0, y1 - 10, color=INK, w=1.6, marker="")]
+    for v, s in ((1e8, "100 million"), (1e9, "1 billion"), (1e10, "10 billion"), (1e11, "100 billion"), (1e12, "1 trillion")):
+        ax += [line(x0 - 6, ly(v), 900, ly(v), color=EDGE, w=1, marker=""), label(x0 - 12, ly(v) + 6, s, size=15,
+                                                                                     anchor="end")]
+    ax.append(label(40, 30, "parameters, the numbers a network learns (log scale)", size=17))
+    bars = {1: [], 2: []}
+    for k, (name, yr, v) in enumerate(LM_SIZES):
+        x = 230 + k * 175
+        bars[1 if k < 2 else 2] += [
+            rect(x, ly(v), 110, y0 - ly(v), fill=A_LIGHT if k < 3 else ACCENT, stroke=None, rx=4,
+                 cls="accent-a-light-fill" if k < 3 else "accent-fill"),
+            text(x + 55, ly(v) - 10, f"{v / 1e9:g} billion", size=17, weight="bold"),
+            text(x + 55, y0 + 28, esc(name), size=18, weight="bold"), text(x + 55, y0 + 50, yr, size=15, fill=MUTED)]
+    note = [label(900, 30, "GPT-5, Claude, Gemini: size not disclosed", size=16, anchor="end", fill=INK)]
+    return svg(W, H, [step(1, ax + bars[1]), step(2, bars[2]), step(3, note)],
+               "Parameters of BERT large (Devlin et al. 2019), GPT-2 XL, GPT-3 and Llama 3.1 405B (Jurafsky & Martin "
+               "2026, Fig. 7.24, p. 205); frontier models undisclosed (p. 204). " + LICENCE)
+
+
+def zeroshot() -> str:
+    """A one-shot prompt on the deck's review, then the same with the example dropped: zero-shot (Brown et al. 2020)."""
+    W, H = 1000, 420
+
+    def prompt(x, y, title, lines, sub):
+        out = [label(x, y - 14, title, size=19, fill=ACCENT, weight="bold", cls="accent-fill"),
+               rect(x, y, 440, 40 + 30 * len(lines), fill=PANEL, stroke=EDGE, rx=8)]
+        for i, (s, bold) in enumerate(lines):
+            out.append(label(x + 18, y + 32 + 30 * i, s, size=17, fill=INK, weight="bold" if bold else "normal"))
+        out.append(label(x, y + 66 + 30 * len(lines), sub, size=15))
+        return out
+
+    a = prompt(520, 60, "zero-shot", [("Is this review positive or negative?", True),
+                                     ("Review: Great screen, but the battery", False),
+                                     ("does not last a day.", False), ("Answer:", False)],
+               "the task in words; no labelled example")
+    b = prompt(40, 60, "one-shot", [("Is this review positive or negative?", True),
+                                     ("Review: Good battery, good screen.", False), ("Answer: positive", False),
+                                     ("Review: Great screen, but the battery", False),
+                                     ("does not last a day.", False), ("Answer:", False)],
+               "one labelled example, in the prompt itself")
+    c = [rect(250, 352, 500, 56, fill=A_LIGHT, stroke=ACCENT, rx=10, sw=2, cls="accent-a-light-fill accent-stroke"),
+         text(500, 387, "the model writes the answer; no weight changes", size=20, weight="bold")]
+    return svg(W, H, [step(1, b), step(2, a), step(3, c)],
+               "One-shot and zero-shot prompts on the deck's reviews, after Brown et al. (2020), Fig. 2.1, p. 6. "
+               "Drawn; any answer is illustrative. " + LICENCE)
 
 
 def transfer_text() -> str:
@@ -439,6 +566,60 @@ def prompt() -> str:
     return svg(W, H, [step(1, p), step(2, m), step(3, a)],
                "Zero-shot classification by prompting (Brown et al. 2020, p. 7; Zhang et al. 2024). The review is the "
                "deck's; the answer is illustrative. " + LICENCE)
+
+
+def context() -> str:
+    """A transformer reads a word with its neighbours: 'great' gets a vector per sentence."""
+    W, H = 1000, 400
+    c = T["context"]
+    s1 = []
+    for k, s in enumerate(c["sentences"]):
+        y = 30 + k * 64
+        words = s.rstrip(".").replace(",", "").split()
+        row, _ = chip_row(words, y, size=20, gap=8,
+                          style=lambda i, w: lit() if w.lower() == "great" else {"stroke": GREY_INK, "cls": ""})
+        s1 += row
+    s2 = [rect(60, 186, 410, 150, fill=PANEL, stroke=EDGE, rx=10),
+          label(84, 222, "one fixed vector per word (GloVe)", size=19, fill=INK, weight="bold"),
+          label(84, 252, "“great” is the same in both", size=18),
+          text(265, 312, "cosine 1.00", size=28, weight="bold")]
+    s3 = [rect(530, 186, 410, 150, fill=A_LIGHT, stroke=ACCENT, rx=10, sw=2, cls="accent-a-light-fill accent-stroke"),
+          label(554, 222, "read with its neighbours (BERT)", size=19, fill=INK, weight="bold"),
+          label(554, 252, "“great” after “not a” moves away", size=18),
+          text(735, 312, f"cosine {c['cosine']:.2f}", size=28, weight="bold")]
+    s4 = [label(500, 380, "each layer of a transformer mixes into a word's numbers those of the words around it",
+                anchor="middle", fill=INK)]
+    return svg(W, H, [step(1, s1), step(2, s2), step(3, s3), step(4, s4)],
+               "BERT base uncased's last-layer vectors for 'great' in the deck's reviews 1 and 2, compared by cosine, "
+               "computed by text.py; a GloVe vector does not depend on the sentence. " + LICENCE)
+
+
+def generate() -> str:
+    """A generative language model writes by predicting the next word, again and again."""
+    W, H = 1000, 400
+    words = ["Great", "screen,", "but", "the", "battery"]
+    nxt = ["does", "not", "last"]
+    s1 = [label(40, 40, "the text so far", size=17)]
+    row, spans = chip_row(words, 54, size=21, gap=8, cx=330, style=lambda i, w: {"stroke": GREY_INK, "cls": ""})
+    s1 += row
+    x1 = spans[-1][1]
+    s2 = [line(x1 + 8, 72, x1 + 54, 72, color=INK, w=2),
+          rect(x1 + 60, 46, 150, 52, fill=WHITE, stroke=ACCENT, rx=8, sw=2, cls="accent-stroke"),
+          text(x1 + 135, 79, "the model", size=19, weight="bold"),
+          line(x1 + 212, 72, x1 + 252, 72, color=INK, w=2)]
+    c, _ = chip(x1 + 258, 54, nxt[0], size=21, **lit())
+    s2 += c + [label(x1 + 60, 128, "predicts the next word", size=16)]
+    s3 = [label(40, 186, "the word is added, and the model predicts again", size=17)]
+    row, _ = chip_row(words + nxt, 200, size=21, gap=8, cx=420,
+                      style=lambda i, w: lit() if i >= len(words) else {"stroke": GREY_INK, "cls": ""})
+    s3 += row + [text(900, 226, "…", size=26, fill=MUTED)]
+    s4 = [rect(60, 292, 880, 84, fill=PANEL, stroke=EDGE, rx=8),
+          label(84, 324, "trained further on hundreds of thousands of questions and answers (instruction tuning),",
+                size=18, fill=INK),
+          label(84, 352, "it continues a question with its answer", size=18, fill=INK, weight="bold")]
+    return svg(W, H, [step(1, s1), step(2, s2), step(3, s3), step(4, s4)],
+               "A language model used to generate text, schematic after Jurafsky & Martin (2026), Fig. 1.3, p. 6, and "
+               "instruction tuning, p. 10; the words generated are illustrative. " + LICENCE)
 
 
 # --- Part 4 -----------------------------------------------------------------------
@@ -503,8 +684,8 @@ def dss_text() -> str:
 
 
 def flow() -> str:
-    """The Flow of Hands-on 5: the IMDb reviews to a model; Pang and Lee's reviews scored twice."""
-    W, H = 1000, 400
+    """The Flow of Hands-on 5: the IMDb reviews to a model; Pang and Lee's reviews scored by it."""
+    W, H = 1000, 310
 
     def dataset(x, y, name, sub=""):
         out = [rect(x, y, 56, 50, fill=A_LIGHT, stroke=ACCENT, rx=6, cls="accent-a-light-fill accent-stroke"),
@@ -524,7 +705,7 @@ def flow() -> str:
     def arr(x1, y1, x2, y2):
         return line(x1, y1, x2, y2, color=INK, w=1.6)
 
-    y1, y2, y3 = 50, 200, 320
+    y1, y2 = 50, 200
     row1 = (dataset(20, y1, "imdb-reviews") + [arr(80, y1 + 25, 124, y1 + 25)] + recipe(146, y1 + 25, "Prepare")
             + [arr(168, y1 + 25, 212, y1 + 25)] + dataset(216, y1, "prepared", "TextSimple")
             + [arr(276, y1 + 25, 330, y1 + 25)] + recipe(352, y1 + 25, "Lab", fill="#8fd19e")
@@ -538,14 +719,9 @@ def flow() -> str:
             + [arr(594, y2 + 25, 640, y2 + 25)] + recipe(662, y2 + 25, "Prepare")
             + [arr(684, y2 + 25, 730, y2 + 25)] + dataset(734, y2, "counted", "TP, FP, FN, TN")
             + [text(20, y2 - 26, "panel 4", size=15, weight="bold", fill=ACCENT, cls="accent-fill", anchor="start")])
-    row3 = ([path(f"M 50 {y2 + 96} L 50 {y3 + 25} L 124 {y3 + 25}", color=INK, w=1.6)]
-            + recipe(146, y3 + 25, "Sentiment plugin", fill="#c9a7e0", below=True) + [arr(168, y3 + 25, 530, y3 + 25)]
-            + dataset(534, y3, "plugin-scored", "positive or negative")
-            + [arr(594, y3 + 25, 640, y3 + 25)] + recipe(662, y3 + 25, "Prepare")
-            + [arr(684, y3 + 25, 730, y3 + 25)] + dataset(734, y3, "counted", "TP, FP, FN, TN"))
     shift = lambda items: [f'<g transform="translate(40,0)">' + "\n".join(items) + "</g>"]
-    return svg(W, H, [step(1, shift(row1)), step(2, shift(row2)), step(3, shift(row3))],
-               "The Flow of Hands-on 5, drawn after Dataiku DSS's Flow (datasets, recipes, a model, a plugin recipe), "
+    return svg(W, H, [step(1, shift(row1)), step(2, shift(row2))],
+               "The Flow of Hands-on 5, drawn after Dataiku DSS's Flow (datasets, recipes, a model), "
                "with the sheet's panels; recipe colours schematic. " + LICENCE)
 
 
@@ -562,8 +738,9 @@ def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
     figures = {"review.svg": review, "aspects.svg": aspects, "normalise.svg": normalise, "stopwords.svg": stopwords,
                "stemming.svg": stemming, "bow.svg": bow, "ngrams.svg": ngrams, "tfidf.svg": tfidf,
-               "lexicon.svg": lexicon, "linear.svg": linear, "tokens.svg": tokens, "embeddings.svg": embeddings,
-               "transfer-text.svg": transfer_text, "prompt.svg": prompt, "costs.svg": costs, "dss-text.svg": dss_text,
+               "lexicon.svg": lexicon, "linear.svg": linear, "lm.svg": language_model, "tokens.svg": tokens, "embeddings.svg": embeddings,
+               "transfer-text.svg": transfer_text, "context.svg": context, "generate.svg": generate,
+               "lm-history.svg": lm_history, "lm-sizes.svg": lm_sizes, "zeroshot.svg": zeroshot, "costs.svg": costs, "dss-text.svg": dss_text,
                "flow.svg": flow}
     for name, lit_ in (("bu", {"BU"}), ("du", {"DU"}), ("mo", {"MO"}), ("ev", {"EV"}), ("du-mo", {"DU", "DP", "MO"})):
         figures[f"phase-{name}.svg"] = lambda lit_=lit_: d.phase_thumb(lit_)

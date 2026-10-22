@@ -59,6 +59,10 @@ The checks, and the bug each one is a memorial to:
    linter that is red on a clean tree stops being read, and then checks 1 to 5
    stop being read with it. AUTHORING.md G1.
 
+   The EAD sheets (`hands-on-*`) carry no checkpoint box (Oscar, 22.10.2026):
+   the core is the panels titled "Step N", the extensions are numbered on from
+   there, and a `#checkpoint` on such a sheet is an error.
+
 7. *(warning)* **A console block with no flag table.** AUTHORING.md B2: every
    argument of every command line is explained. Three separate commits on
    2026-09-20 went back and added tables that should have been in the first
@@ -77,7 +81,8 @@ The checks, and the bug each one is a memorial to:
    An error, not a warning, with an explicit exemption list: the five sheets
    delivered before this rule existed keep their cores, because rewriting a
    printed instrument after the fact is not a lint fix. New sheets have no
-   excuse and get none.
+   excuse and get none. On the EAD sheets, which have no bar, the core is
+   counted by its "Step N" titles.
 
 8. *(warning)* **Rejected title forms.** AUTHORING.md A1 and A2. Not a grammar
    check: an explicit list of the constructions that were actually rejected,
@@ -253,20 +258,28 @@ def check(path, errors, warnings):
                    "returned; one of the two has to be stated")
 
     # -- 6. the checkpoint bar ---------------------------------------------
-    if base.startswith(("ulab", "hands-on")):
-        if "checkpoint" not in src:
-            warn(1, "a ulab worksheet with no checkpoint bar: no boundary between "
-                    "the ten-minute core and the extensions (AUTHORING.md G1)")
+    if base.startswith("ulab") and "#checkpoint" not in src:
+        warn(1, "a ulab worksheet with no checkpoint bar: no boundary between "
+                "the ten-minute core and the extensions (AUTHORING.md G1)")
+    if base.startswith("hands-on") and "#checkpoint" in src:
+        err(lineno(src, src.index("#checkpoint")),
+            "an EAD sheet carries no checkpoint box (Oscar, 22.10.2026): "
+            "the core's \"Step N\" titles mark where it ends")
 
     # -- 9. the core is at most three panels -------------------------------
-    if base.startswith(("ulab", "hands-on")) and "checkpoint" in src:
+    core, where = [], 1
+    if base.startswith("hands-on"):
+        core = [p for p in panels if p[1].lstrip().lower().startswith("step ")]
+        where = core[-1][2] if core else 1
+    elif base.startswith("ulab") and "#checkpoint" in src:
         bar = src.index("#checkpoint")
         core = [p for p in panels if lineno(src, src.index(f'"{p[1]}"')) <= lineno(src, bar)]
-        if len(core) > CORE_CAP and rel.replace(os.sep, "/") not in CORE_CAP_EXEMPT:
-            err(lineno(src, bar),
-                f"{len(core)} panels above the checkpoint bar, at most {CORE_CAP} "
-                f"allowed: a ten-minute core does not hold more "
-                f"(AUTHORING.md G1). Move the rest below the bar")
+        where = lineno(src, bar)
+    if len(core) > CORE_CAP and rel.replace(os.sep, "/") not in CORE_CAP_EXEMPT:
+        err(where,
+            f"{len(core)} core panels, at most {CORE_CAP} allowed: a ten-minute "
+            f"core does not hold more (AUTHORING.md G1). Move the rest into the "
+            f"extensions")
 
     # -- 7. console block with no flag table (warning) ---------------------
     for m in re.finditer(r'#raw\(\s*"((?:[^"\\]|\\.)*)"', src):

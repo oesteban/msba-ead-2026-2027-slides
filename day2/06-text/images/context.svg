@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- BERT base uncased's last-layer vectors for 'great' in the deck's reviews 1 and 2, compared by cosine, computed by text.py; a GloVe vector does not depend on the sentence. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect class="accent-a-light-fill accent-stroke" x="117.29999999999995" y="30" width="83.2" height="35.0" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="158.89999999999995" y="54.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">Great</text>
+<rect x="208.49999999999994" y="30" width="93.2" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="255.09999999999994" y="54.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+<rect x="309.69999999999993" y="30" width="59.6" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="339.49999999999994" y="54.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">but</text>
+<rect x="377.29999999999995" y="30" width="59.6" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="407.09999999999997" y="54.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">the</text>
+<rect x="444.9" y="30" width="104.4" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="497.09999999999997" y="54.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery</text>
+<rect x="557.3" y="30" width="70.80000000000001" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="592.6999999999999" y="54.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">does</text>
+<rect x="636.0999999999999" y="30" width="59.6" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="665.8999999999999" y="54.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">not</text>
+<rect x="703.6999999999999" y="30" width="66.2" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="736.8" y="54.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">last</text>
+<rect x="777.9" y="30" width="37.2" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="796.5" y="54.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">a</text>
+<rect x="823.1" y="30" width="59.6" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="852.9" y="54.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">day</text>
+<rect x="162.29999999999995" y="94" width="60.800000000000004" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="192.69999999999996" y="118.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">Not</text>
+<rect x="231.09999999999997" y="94" width="37.2" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="249.69999999999996" y="118.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">a</text>
+<rect class="accent-a-light-fill accent-stroke" x="276.29999999999995" y="94" width="82.0" height="35.0" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="317.29999999999995" y="118.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">great</text>
+<rect x="366.29999999999995" y="94" width="93.2" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="412.9" y="118.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">screen</text>
+<rect x="467.49999999999994" y="94" width="59.6" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="497.29999999999995" y="118.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">but</text>
+<rect x="535.0999999999999" y="94" width="59.6" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="564.8999999999999" y="118.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">the</text>
+<rect x="602.6999999999999" y="94" width="104.4" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="654.9" y="118.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">battery</text>
+<rect x="715.0999999999999" y="94" width="43.800000000000004" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="736.9999999999999" y="118.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">is</text>
+<rect x="766.8999999999999" y="94" width="70.80000000000001" height="35.0" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="2"/>
+<text x="802.2999999999998" y="118.7" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">good</text>
+</g>
+<g data-step="2">
+<rect x="60" y="186" width="410" height="150" rx="10" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.6"/>
+<text x="84" y="222" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">one fixed vector per word (GloVe)</text>
+<text x="84" y="252" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">“great” is the same in both</text>
+<text x="265" y="312" font-size="28" font-weight="bold" text-anchor="middle" fill="#1c2e36">cosine 1.00</text>
+</g>
+<g data-step="3">
+<rect class="accent-a-light-fill accent-stroke" x="530" y="186" width="410" height="150" rx="10" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="554" y="222" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">read with its neighbours (BERT)</text>
+<text x="554" y="252" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">“great” after “not a” moves away</text>
+<text x="735" y="312" font-size="28" font-weight="bold" text-anchor="middle" fill="#1c2e36">cosine 0.62</text>
+</g>
+<g data-step="4">
+<text x="500" y="380" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">each layer of a transformer mixes into a word's numbers those of the words around it</text>
+</g>
+</svg>

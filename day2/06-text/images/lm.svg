@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- BERT base uncased (Devlin et al. 2019), pretrained to guess hidden words, run by text.py on the deck's review with its last word hidden: the five likeliest tokens and their probabilities. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="40" y="52" font-size="25" font-weight="normal" text-anchor="start" fill="#1c2e36">Great screen, but the battery does not last a</text>
+<rect class="accent-stroke" x="545.6399999999999" y="22" width="110" height="44" rx="6" fill="#ffffff" stroke="#00609c" stroke-width="2.4" stroke-dasharray="6 4"/>
+<text class="accent-fill" x="600.6399999999999" y="52" font-size="26" font-weight="bold" text-anchor="middle" fill="#00609c">?</text>
+<text x="663.6399999999999" y="52" font-size="25" font-weight="normal" text-anchor="middle" fill="#1c2e36">.</text>
+</g>
+<g data-step="2">
+<text x="40" y="112" font-size="18" font-weight="normal" text-anchor="start" fill="#556268">BERT's five likeliest words, with their probabilities</text>
+<text x="250" y="162" font-size="22" font-weight="normal" text-anchor="end" fill="#1c2e36">second</text>
+<rect class="accent-a-light-fill" x="266" y="142" width="263.996" height="30" rx="4" fill="#8cb3cf"/>
+<text x="539.996" y="164" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">0.43</text>
+<text x="250" y="206" font-size="22" font-weight="normal" text-anchor="end" fill="#1c2e36">minute</text>
+<rect class="accent-a-light-fill" x="266" y="186" width="86.738" height="30" rx="4" fill="#8cb3cf"/>
+<text x="362.738" y="208" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">0.14</text>
+<text x="250" y="250" font-size="22" font-weight="normal" text-anchor="end" fill="#1c2e36">moment</text>
+<rect class="accent-a-light-fill" x="266" y="230" width="51.398" height="30" rx="4" fill="#8cb3cf"/>
+<text x="327.398" y="252" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">0.08</text>
+<text x="250" y="294" font-size="22" font-weight="bold" text-anchor="end" fill="#1c2e36">day</text>
+<rect class="accent-fill" x="266" y="274" width="48.297999999999995" height="30" rx="4" fill="#00609c"/>
+<text x="324.298" y="296" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">0.08</text>
+<text x="250" y="338" font-size="22" font-weight="normal" text-anchor="end" fill="#1c2e36">week</text>
+<rect class="accent-a-light-fill" x="266" y="318" width="41.912" height="30" rx="4" fill="#8cb3cf"/>
+<text x="317.912" y="340" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">0.07</text>
+</g>
+<g data-step="3">
+<text x="500" y="378" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">the review's own word, “day”, comes fourth; no label was ever needed</text>
+</g>
+</svg>

@@ -1,90 +1,98 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" font-family="Inter, Arimo, Helvetica, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" font-family="Inter, Arimo, Helvetica, sans-serif">
 <!-- TF-IDF of the deck's three reviews: term count times IDF(t) = 1 + ln(N / documents containing t), Provost & Fawcett (2013), pp. 255 to 256, with the natural logarithm. Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
-<text x="266.0" y="50" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">battery</text>
-<text x="378.0" y="50" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">day</text>
-<text x="490.0" y="50" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">good</text>
-<text x="602.0" y="50" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">great</text>
-<text x="714.0" y="50" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">last</text>
-<text x="826.0" y="50" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">not</text>
-<text x="938.0" y="50" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">screen</text>
-<line x1="60" y1="64" x2="994" y2="64" stroke="#1c2e36" stroke-width="1.4"/>
-<text x="60" y="94" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">IDF</text>
-<text x="266.0" y="94" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<text x="378.0" y="94" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">2.10</text>
-<text x="490.0" y="94" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
-<text x="602.0" y="94" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
-<text x="714.0" y="94" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">2.10</text>
-<text x="826.0" y="94" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
-<text x="938.0" y="94" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<line x1="60" y1="112" x2="994" y2="112" stroke="#c9cfd2" stroke-width="1"/>
+<text x="500" y="36" font-size="22" font-weight="bold" text-anchor="middle" fill="#1c2e36">TF-IDF: term frequency × inverse document frequency (IDF)</text>
+<text x="500" y="72" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">count in the review × IDF,    IDF = 1 + ln(N / reviews holding the term)</text>
 </g>
 <g data-step="2">
-<text x="266.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">battery</text>
-<text x="378.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">day</text>
-<text x="490.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">good</text>
-<text x="602.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">great</text>
-<text x="714.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">last</text>
-<text x="826.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">not</text>
-<text x="938.0" y="178" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">screen</text>
-<line x1="60" y1="192" x2="994" y2="192" stroke="#1c2e36" stroke-width="1.4"/>
-<text x="60" y="222" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 1</text>
-<text x="266.0" y="222" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<text x="378.0" y="222" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">2.10</text>
-<text x="490.0" y="222" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="602.0" y="222" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
-<text x="714.0" y="222" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">2.10</text>
-<text x="826.0" y="222" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
-<text x="938.0" y="222" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<line x1="60" y1="240" x2="994" y2="240" stroke="#c9cfd2" stroke-width="1"/>
-<text x="60" y="266" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 2</text>
-<text x="266.0" y="266" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<text x="378.0" y="266" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="490.0" y="266" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
-<text x="602.0" y="266" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
-<text x="714.0" y="266" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="826.0" y="266" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
-<text x="938.0" y="266" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<line x1="60" y1="284" x2="994" y2="284" stroke="#c9cfd2" stroke-width="1"/>
-<text x="60" y="310" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 3</text>
-<text x="266.0" y="310" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<text x="378.0" y="310" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="490.0" y="310" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">2.81</text>
-<text x="602.0" y="310" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="714.0" y="310" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="826.0" y="310" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
-<text x="938.0" y="310" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<line x1="60" y1="328" x2="994" y2="328" stroke="#c9cfd2" stroke-width="1"/>
+<text x="266.0" y="158" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">battery</text>
+<text x="378.0" y="158" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">day</text>
+<text x="490.0" y="158" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">good</text>
+<text x="602.0" y="158" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">great</text>
+<text x="714.0" y="158" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">last</text>
+<text x="826.0" y="158" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">not</text>
+<text x="938.0" y="158" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">screen</text>
+<line x1="60" y1="172" x2="994" y2="172" stroke="#1c2e36" stroke-width="1.4"/>
+<text x="60" y="202" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">IDF</text>
+<text x="266.0" y="202" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<text x="378.0" y="202" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">2.10</text>
+<text x="490.0" y="202" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
+<text x="602.0" y="202" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
+<text x="714.0" y="202" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">2.10</text>
+<text x="826.0" y="202" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
+<text x="938.0" y="202" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<line x1="60" y1="220" x2="994" y2="220" stroke="#c9cfd2" stroke-width="1"/>
+<text x="500" y="112" font-size="19" font-weight="normal" text-anchor="middle" fill="#556268">“day” is in 1 of the N = 3 reviews: IDF = 1 + ln 3 = 2.10</text>
 </g>
 <g data-step="3">
-<rect x="216" y="198" width="100" height="36" rx="4" fill="#e9edf0"/>
-<text x="266.0" y="222" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<rect class="accent-a-light-fill" x="328" y="198" width="100" height="36" rx="4" fill="#8cb3cf"/>
-<text x="378.0" y="222" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">2.10</text>
-<rect class="accent-a-light-fill" x="664" y="198" width="100" height="36" rx="4" fill="#8cb3cf"/>
-<text x="714.0" y="222" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">2.10</text>
-<rect x="888" y="198" width="100" height="36" rx="4" fill="#e9edf0"/>
-<text x="938.0" y="222" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<rect x="216" y="242" width="100" height="36" rx="4" fill="#e9edf0"/>
-<text x="266.0" y="266" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<rect class="accent-a-light-fill" x="440" y="242" width="100" height="36" rx="4" fill="#8cb3cf"/>
-<text x="490.0" y="266" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">1.41</text>
-<rect class="accent-a-light-fill" x="552" y="242" width="100" height="36" rx="4" fill="#8cb3cf"/>
-<text x="602.0" y="266" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">1.41</text>
-<rect class="accent-a-light-fill" x="776" y="242" width="100" height="36" rx="4" fill="#8cb3cf"/>
-<text x="826.0" y="266" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">1.41</text>
-<rect x="888" y="242" width="100" height="36" rx="4" fill="#e9edf0"/>
-<text x="938.0" y="266" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<rect x="216" y="286" width="100" height="36" rx="4" fill="#e9edf0"/>
-<text x="266.0" y="310" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<rect class="accent-a-light-fill" x="440" y="286" width="100" height="36" rx="4" fill="#8cb3cf"/>
-<text x="490.0" y="310" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">2.81</text>
-<rect x="888" y="286" width="100" height="36" rx="4" fill="#e9edf0"/>
-<text x="938.0" y="310" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
-<text x="500" y="400" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">in every review, battery and screen weigh least; a term of one review weighs most</text>
+<text x="266.0" y="252" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">battery</text>
+<text x="378.0" y="252" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">day</text>
+<text x="490.0" y="252" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">good</text>
+<text x="602.0" y="252" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">great</text>
+<text x="714.0" y="252" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">last</text>
+<text x="826.0" y="252" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">not</text>
+<text x="938.0" y="252" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">screen</text>
+<line x1="60" y1="266" x2="994" y2="266" stroke="#1c2e36" stroke-width="1.4"/>
+<text x="60" y="296" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 1</text>
+<text x="266.0" y="296" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<text x="378.0" y="296" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">2.10</text>
+<text x="490.0" y="296" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="602.0" y="296" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
+<text x="714.0" y="296" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">2.10</text>
+<text x="826.0" y="296" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
+<text x="938.0" y="296" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<line x1="60" y1="314" x2="994" y2="314" stroke="#c9cfd2" stroke-width="1"/>
+<text x="60" y="340" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 2</text>
+<text x="266.0" y="340" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<text x="378.0" y="340" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="490.0" y="340" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
+<text x="602.0" y="340" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
+<text x="714.0" y="340" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="826.0" y="340" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.41</text>
+<text x="938.0" y="340" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<line x1="60" y1="358" x2="994" y2="358" stroke="#c9cfd2" stroke-width="1"/>
+<text x="60" y="384" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">review 3</text>
+<text x="266.0" y="384" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<text x="378.0" y="384" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="490.0" y="384" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">2.81</text>
+<text x="602.0" y="384" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="714.0" y="384" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="826.0" y="384" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">0</text>
+<text x="938.0" y="384" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<line x1="60" y1="402" x2="994" y2="402" stroke="#c9cfd2" stroke-width="1"/>
+</g>
+<g data-step="4">
+<rect x="216" y="272" width="100" height="36" rx="4" fill="#e9edf0"/>
+<text x="266.0" y="296" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<rect class="accent-a-light-fill" x="328" y="272" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="378.0" y="296" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">2.10</text>
+<rect class="accent-a-light-fill" x="664" y="272" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="714.0" y="296" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">2.10</text>
+<rect x="888" y="272" width="100" height="36" rx="4" fill="#e9edf0"/>
+<text x="938.0" y="296" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<rect x="216" y="316" width="100" height="36" rx="4" fill="#e9edf0"/>
+<text x="266.0" y="340" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<rect class="accent-a-light-fill" x="440" y="316" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="490.0" y="340" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">1.41</text>
+<rect class="accent-a-light-fill" x="552" y="316" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="602.0" y="340" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">1.41</text>
+<rect class="accent-a-light-fill" x="776" y="316" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="826.0" y="340" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">1.41</text>
+<rect x="888" y="316" width="100" height="36" rx="4" fill="#e9edf0"/>
+<text x="938.0" y="340" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<rect x="216" y="360" width="100" height="36" rx="4" fill="#e9edf0"/>
+<text x="266.0" y="384" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+<rect class="accent-a-light-fill" x="440" y="360" width="100" height="36" rx="4" fill="#8cb3cf"/>
+<text x="490.0" y="384" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">2.81</text>
+<rect x="888" y="360" width="100" height="36" rx="4" fill="#e9edf0"/>
+<text x="938.0" y="384" font-size="20" font-weight="normal" text-anchor="middle" fill="#1c2e36">1.00</text>
+</g>
+<g data-step="5">
+<rect class="accent-a-light-fill accent-stroke" x="100" y="430" width="800" height="58" rx="10" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
+<text x="500" y="466" font-size="20" font-weight="bold" text-anchor="middle" fill="#1c2e36">each review's heaviest terms set it apart: these weights are the model's columns</text>
 </g>
 </svg>
