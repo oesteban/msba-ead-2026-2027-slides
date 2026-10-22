@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- The weights simple exponential smoothing gives the last twelve days, α(1 - α)^k, for α = 0.8 and 0.2 (R. J. Hyndman and G. Athanasopoulos 2021, section 8.1). Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="30" y="100" font-size="24" font-weight="bold" text-anchor="start" fill="#1c2e36">α = 0.8</text>
+<text x="30" y="128" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">the weight of each past day</text>
+<line x1="250" y1="170.0" x2="950" y2="170.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect class="accent-fill" x="900.8333333333334" y="57.058823529411754" width="40" height="112.94117647058825" rx="2" fill="#00609c"/>
+<text x="920.8333333333334" y="49.058823529411754" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.80</text>
+<rect class="accent-fill" x="842.5" y="147.41176470588235" width="40" height="22.588235294117652" rx="2" fill="#00609c"/>
+<text x="862.5" y="139.41176470588235" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.16</text>
+<rect class="accent-fill" x="784.1666666666666" y="165.4823529411765" width="40" height="4.517647058823513" rx="2" fill="#00609c"/>
+<text x="804.1666666666666" y="157.4823529411765" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.03</text>
+<rect class="accent-fill" x="725.8333333333334" y="169.0964705882353" width="40" height="1" rx="2" fill="#00609c"/>
+<text x="745.8333333333334" y="161.0964705882353" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.01</text>
+<rect class="accent-fill" x="667.5" y="169.81929411764705" width="40" height="1" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="609.1666666666666" y="169.96385882352942" width="40" height="1" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="550.8333333333333" y="169.99277176470588" width="40" height="1" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="492.5" y="169.99855435294117" width="40" height="1" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="434.1666666666667" y="169.99971087058825" width="40" height="1" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="375.83333333333337" y="169.99994217411765" width="40" height="1" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="317.5" y="169.99998843482354" width="40" height="1" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="259.1666666666667" y="169.99999768696472" width="40" height="1" rx="2" fill="#00609c"/>
+<text x="920.8333333333334" y="194.0" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">the last day</text>
+<text x="279.1666666666667" y="194.0" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">11 days before</text>
+</g>
+<g data-step="2">
+<text x="30" y="275" font-size="24" font-weight="bold" text-anchor="start" fill="#1c2e36">α = 0.2</text>
+<text x="30" y="303" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">the weight of each past day</text>
+<line x1="250" y1="345.0" x2="950" y2="345.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<rect class="accent-fill" x="900.8333333333334" y="316.7647058823529" width="40" height="28.235294117647072" rx="2" fill="#00609c"/>
+<text x="920.8333333333334" y="308.7647058823529" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.20</text>
+<rect class="accent-fill" x="842.5" y="322.4117647058823" width="40" height="22.58823529411768" rx="2" fill="#00609c"/>
+<text x="862.5" y="314.4117647058823" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.16</text>
+<rect class="accent-fill" x="784.1666666666666" y="326.9294117647059" width="40" height="18.07058823529411" rx="2" fill="#00609c"/>
+<text x="804.1666666666666" y="318.9294117647059" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.13</text>
+<rect class="accent-fill" x="725.8333333333334" y="330.5435294117647" width="40" height="14.456470588235277" rx="2" fill="#00609c"/>
+<text x="745.8333333333334" y="322.5435294117647" font-size="14" font-weight="normal" text-anchor="middle" fill="#1c2e36">0.10</text>
+<rect class="accent-fill" x="667.5" y="333.43482352941174" width="40" height="11.565176470588256" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="609.1666666666666" y="335.7478588235294" width="40" height="9.252141176470616" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="550.8333333333333" y="337.59828705882353" width="40" height="7.40171294117647" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="492.5" y="339.07862964705885" width="40" height="5.921370352941153" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="434.1666666666667" y="340.2629037176471" width="40" height="4.737096282352923" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="375.83333333333337" y="341.2103229741176" width="40" height="3.7896770258823835" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="317.5" y="341.9682583792941" width="40" height="3.0317416207058727" rx="2" fill="#00609c"/>
+<rect class="accent-fill" x="259.1666666666667" y="342.5746067034353" width="40" height="2.425393296564721" rx="2" fill="#00609c"/>
+<text x="920.8333333333334" y="369.0" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">the last day</text>
+<text x="279.1666666666667" y="369.0" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">11 days before</text>
+</g>
+<g data-step="3">
+<text x="500" y="400" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">α = 1: all the weight on the last day, the naive forecast;   α near 0: almost equal weights, close to the mean</text>
+</g>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Daily rentals to 2011-04-30 (grey) and the two-week point forecasts of three exponential smoothing forms fitted to them with statsmodels (R. J. Hyndman and G. Athanasopoulos 2021, sections 8.4 and 8.5). Data: Capital Bikeshare daily rentals, 2011 and 2012, H. Fanaee-T (2013), UCI dataset 275, CC BY 4.0. Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="500" y="26" font-size="16" font-weight="normal" text-anchor="middle" fill="#1c2e36">the letters: error, trend, season; N none, A additive, M multiplicative</text>
+<rect x="10" y="50" width="320" height="300" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="30" y="82" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ETS(A,N,N)</text>
+<text x="30" y="104" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">no trend, no season</text>
+<line x1="70" y1="116" x2="70" y2="312" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="64" y1="312.0" x2="70" y2="312.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="317.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="64" y1="230.33333333333331" x2="70" y2="230.33333333333331" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="235.33333333333331" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="64" y1="148.66666666666666" x2="70" y2="148.66666666666666" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="153.66666666666666" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="248.07272727272726" y1="116" x2="248.07272727272726" y2="312" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="70.0,244.7 74.3,255.5 78.6,238.4 82.9,254.3 87.2,261.2 91.5,251.8 95.7,244.1 100.0,265.9 104.3,256.8 108.6,246.0 112.9,270.2 117.2,266.1 121.5,251.4 125.8,250.7 130.1,223.6 134.4,227.2 138.7,263.1 142.9,235.6 147.2,226.5 151.5,272.0 155.8,245.2 160.1,233.2 164.4,220.9 168.7,256.6 173.0,253.1 177.3,223.1 181.6,226.9 185.9,290.4 190.1,210.1 194.4,218.7 198.7,224.8 203.0,204.6 207.3,198.0 211.6,266.2 215.9,202.1 220.2,197.9 224.5,201.1 228.8,192.2 233.1,206.6 237.3,201.5 241.6,186.9 245.9,167.4" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="250.2,192.0 254.5,192.0 258.8,192.0 263.1,192.0 267.4,192.0 271.7,192.0 276.0,192.0 280.3,192.0 284.5,192.0 288.8,192.0 293.1,192.0 297.4,192.0 301.7,192.0 306.0,192.0" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+<g data-step="2">
+<rect x="340" y="50" width="320" height="300" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="360" y="82" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ETS(A,A,N)</text>
+<text x="360" y="104" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">a trend</text>
+<line x1="400" y1="116" x2="400" y2="312" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="394" y1="312.0" x2="400" y2="312.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="390" y="317.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="394" y1="230.33333333333331" x2="400" y2="230.33333333333331" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="390" y="235.33333333333331" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="394" y1="148.66666666666666" x2="400" y2="148.66666666666666" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="390" y="153.66666666666666" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="578.0727272727272" y1="116" x2="578.0727272727272" y2="312" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="400.0,244.7 404.3,255.5 408.6,238.4 412.9,254.3 417.2,261.2 421.5,251.8 425.7,244.1 430.0,265.9 434.3,256.8 438.6,246.0 442.9,270.2 447.2,266.1 451.5,251.4 455.8,250.7 460.1,223.6 464.4,227.2 468.7,263.1 472.9,235.6 477.2,226.5 481.5,272.0 485.8,245.2 490.1,233.2 494.4,220.9 498.7,256.6 503.0,253.1 507.3,223.1 511.6,226.9 515.9,290.4 520.1,210.1 524.4,218.7 528.7,224.8 533.0,204.6 537.3,198.0 541.6,266.2 545.9,202.1 550.2,197.9 554.5,201.1 558.8,192.2 563.1,206.6 567.3,201.5 571.6,186.9 575.9,167.4" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="580.2,189.9 584.5,188.0 588.8,186.1 593.1,184.2 597.4,182.3 601.7,180.4 606.0,178.5 610.3,176.6 614.5,174.7 618.8,172.8 623.1,170.9 627.4,169.0 631.7,167.1 636.0,165.2" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+<g data-step="3">
+<rect x="670" y="50" width="320" height="300" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="690" y="82" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ETS(A,A,A)</text>
+<text x="690" y="104" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">a trend and a weekly season</text>
+<line x1="730" y1="116" x2="730" y2="312" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="724" y1="312.0" x2="730" y2="312.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="720" y="317.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="724" y1="230.33333333333331" x2="730" y2="230.33333333333331" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="720" y="235.33333333333331" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="724" y1="148.66666666666666" x2="730" y2="148.66666666666666" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="720" y="153.66666666666666" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="908.0727272727272" y1="116" x2="908.0727272727272" y2="312" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="730.0,244.7 734.3,255.5 738.6,238.4 742.9,254.3 747.2,261.2 751.5,251.8 755.7,244.1 760.0,265.9 764.3,256.8 768.6,246.0 772.9,270.2 777.2,266.1 781.5,251.4 785.8,250.7 790.1,223.6 794.4,227.2 798.7,263.1 802.9,235.6 807.2,226.5 811.5,272.0 815.8,245.2 820.1,233.2 824.4,220.9 828.7,256.6 833.0,253.1 837.3,223.1 841.6,226.9 845.9,290.4 850.1,210.1 854.4,218.7 858.7,224.8 863.0,204.6 867.3,198.0 871.6,266.2 875.9,202.1 880.2,197.9 884.5,201.1 888.8,192.2 893.1,206.6 897.3,201.5 901.6,186.9 905.9,167.4" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="910.2,186.8 914.5,186.1 918.8,182.8 923.1,180.9 927.4,182.9 931.7,181.0 936.0,173.8 940.3,171.0 944.5,170.3 948.8,167.0 953.1,165.1 957.4,167.1 961.7,165.2 966.0,158.0" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+</svg>

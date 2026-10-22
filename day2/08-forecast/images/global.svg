@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A drawn sketch, not data. The deep models in Dataiku DSS train a single model on all the series at once (DSS 13 documentation; D. Salinas et al. 2020). Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="30" y="34" font-size="21" font-weight="bold" text-anchor="start" fill="#1c2e36">Many related series</text>
+<polyline class="accent-stroke" points="30.0,85.3 37.0,85.2 44.1,82.5 51.1,86.9 58.1,83.7 65.2,80.6 72.2,75.6 79.3,83.2 86.3,81.5 93.3,84.3 100.4,82.9 107.4,83.9 114.4,78.4 121.5,77.0 128.5,85.4 135.6,84.0 142.6,82.5 149.6,83.4 156.7,84.1 163.7,74.0 170.7,77.2 177.8,84.4 184.8,83.3 191.9,84.3 198.9,84.1 205.9,84.0 213.0,74.2 220.0,77.2" fill="none" stroke="#00609c" stroke-width="1.6" stroke-linejoin="round"/>
+<line x1="232" y1="78" x2="300" y2="200" stroke="#9aa4a8" stroke-width="1.2" marker-end="url(#ah)"/>
+<polyline class="accent-stroke" points="30.0,131.5 37.0,130.7 44.1,128.7 51.1,132.1 58.1,132.7 65.2,121.8 72.2,127.7 79.3,132.3 86.3,130.7 93.3,128.3 100.4,133.2 107.4,135.4 114.4,124.5 121.5,126.3 128.5,132.3 135.6,131.1 142.6,131.4 149.6,131.3 156.7,132.4 163.7,123.6 170.7,123.2 177.8,131.7 184.8,132.4 191.9,130.6 198.9,131.0 205.9,133.3 213.0,126.2 220.0,123.9" fill="none" stroke="#00609c" stroke-width="1.6" stroke-linejoin="round"/>
+<line x1="232" y1="130" x2="300" y2="200" stroke="#9aa4a8" stroke-width="1.2" marker-end="url(#ah)"/>
+<polyline class="accent-stroke" points="30.0,180.1 37.0,180.5 44.1,179.7 51.1,180.1 58.1,180.0 65.2,176.6 72.2,171.1 79.3,179.7 86.3,181.3 93.3,178.5 100.4,179.5 107.4,180.0 114.4,172.2 121.5,170.4 128.5,179.2 135.6,177.6 142.6,176.8 149.6,181.5 156.7,180.8 163.7,172.6 170.7,176.3 177.8,180.4 184.8,178.1 191.9,178.4 198.9,179.1 205.9,182.8 213.0,170.2 220.0,172.9" fill="none" stroke="#00609c" stroke-width="1.6" stroke-linejoin="round"/>
+<line x1="232" y1="182" x2="300" y2="200" stroke="#9aa4a8" stroke-width="1.2" marker-end="url(#ah)"/>
+<polyline class="accent-stroke" points="30.0,227.1 37.0,227.5 44.1,230.8 51.1,230.4 58.1,230.1 65.2,219.1 72.2,223.2 79.3,228.6 86.3,228.6 93.3,227.4 100.4,227.5 107.4,227.8 114.4,223.9 121.5,226.7 128.5,228.0 135.6,227.8 142.6,226.4 149.6,228.4 156.7,229.2 163.7,221.4 170.7,224.3 177.8,229.8 184.8,229.8 191.9,227.8 198.9,225.1 205.9,227.1 213.0,220.3 220.0,221.6" fill="none" stroke="#00609c" stroke-width="1.6" stroke-linejoin="round"/>
+<line x1="232" y1="234" x2="300" y2="200" stroke="#9aa4a8" stroke-width="1.2" marker-end="url(#ah)"/>
+<polyline class="accent-stroke" points="30.0,276.1 37.0,277.2 44.1,276.9 51.1,280.1 58.1,278.3 65.2,272.2 72.2,269.0 79.3,275.5 86.3,274.8 93.3,274.2 100.4,277.0 107.4,274.9 114.4,267.3 121.5,270.3 128.5,274.9 135.6,276.7 142.6,278.9 149.6,276.3 156.7,277.7 163.7,270.1 170.7,270.9 177.8,276.0 184.8,279.7 191.9,273.4 198.9,274.5 205.9,277.0 213.0,271.6 220.0,270.2" fill="none" stroke="#00609c" stroke-width="1.6" stroke-linejoin="round"/>
+<line x1="232" y1="286" x2="300" y2="200" stroke="#9aa4a8" stroke-width="1.2" marker-end="url(#ah)"/>
+<polyline class="accent-stroke" points="30.0,323.7 37.0,324.1 44.1,324.1 51.1,327.7 58.1,326.4 65.2,316.5 72.2,318.1 79.3,327.0 86.3,326.1 93.3,326.9 100.4,326.3 107.4,323.0 114.4,318.8 121.5,316.8 128.5,324.5 135.6,327.0 142.6,325.7 149.6,321.3 156.7,325.9 163.7,320.1 170.7,316.6 177.8,324.6 184.8,324.8 191.9,322.5 198.9,327.4 205.9,324.1 213.0,320.1 220.0,320.6" fill="none" stroke="#00609c" stroke-width="1.6" stroke-linejoin="round"/>
+<line x1="232" y1="338" x2="300" y2="200" stroke="#9aa4a8" stroke-width="1.2" marker-end="url(#ah)"/>
+<rect x="306" y="155" width="170" height="90" rx="10" fill="#f4f6f7" stroke="#1c2e36" stroke-width="1.6"/>
+<text x="391" y="195" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">one network</text>
+<text x="391" y="223" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">learnt across all</text>
+</g>
+<g data-step="2">
+<text x="560" y="34" font-size="21" font-weight="bold" text-anchor="start" fill="#1c2e36">One series</text>
+<polyline class="accent-stroke" points="560.0,198.7 567.0,195.7 574.1,197.7 581.1,200.3 588.1,199.2 595.2,188.9 602.2,189.7 609.3,199.2 616.3,193.8 623.3,198.1 630.4,199.3 637.4,197.7 644.4,189.8 651.5,188.8 658.5,195.9 665.6,198.2 672.6,198.4 679.6,199.7 686.7,197.6 693.7,192.2 700.7,190.9 707.8,199.4 714.8,198.3 721.9,198.9 728.9,199.3 735.9,199.3 743.0,192.8 750.0,193.1" fill="none" stroke="#00609c" stroke-width="1.6" stroke-linejoin="round"/>
+<line x1="762" y1="202" x2="800" y2="202" stroke="#9aa4a8" stroke-width="1.2" marker-end="url(#ah)"/>
+<rect x="806" y="157" width="170" height="90" rx="10" fill="#f4f6f7" stroke="#1c2e36" stroke-width="1.6"/>
+<text x="891" y="197" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">one network</text>
+<text x="891" y="225" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">nothing to share</text>
+</g>
+</svg>

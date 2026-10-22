@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Time-ordered evaluation: each fold trains on all the days before its test set (light) and tests on the next horizon (dark); grey days are not used by that fold. After R. J. Hyndman and G. Athanasopoulos (2021), section 5.10, and the K-fold cross-test of the Dataiku DSS 13 documentation. A drawn sketch, not data. Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="150.0" y="44" font-size="16" font-weight="normal" text-anchor="start" fill="#556268">the first day</text>
+<text x="970.0" y="44" font-size="16" font-weight="normal" text-anchor="end" fill="#556268">the last day</text>
+<text x="30" y="297" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">a split</text>
+<rect class="accent-a-light-fill accent-stroke" x="150.0" y="268" width="779.0" height="44" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.2"/>
+<rect class="accent-fill" x="929.0" y="268" width="41.0" height="44" rx="3" fill="#00609c"/>
+
+<text x="847.0" y="297" font-size="17" font-weight="bold" text-anchor="middle" fill="#1c2e36">train</text>
+<text x="921.0" y="260" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">test: one horizon</text>
+</g>
+<g data-step="2">
+<rect class="accent-a-light-fill accent-stroke" x="150.0" y="70" width="533.0" height="44" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.2"/>
+<rect class="accent-fill" x="683.0" y="70" width="41.0" height="44" rx="3" fill="#00609c"/>
+<rect x="724.0" y="70" width="246.0" height="44" rx="3" fill="#e9edf0"/>
+<rect class="accent-a-light-fill accent-stroke" x="150.0" y="136" width="615.0" height="44" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.2"/>
+<rect class="accent-fill" x="765.0" y="136" width="41.0" height="44" rx="3" fill="#00609c"/>
+<rect x="806.0" y="136" width="164.0" height="44" rx="3" fill="#e9edf0"/>
+<rect class="accent-a-light-fill accent-stroke" x="150.0" y="202" width="697.0" height="44" rx="3" fill="#8cb3cf" stroke="#00609c" stroke-width="1.2"/>
+<rect class="accent-fill" x="847.0" y="202" width="41.0" height="44" rx="3" fill="#00609c"/>
+<rect x="888.0" y="202" width="82.0" height="44" rx="3" fill="#e9edf0"/>
+<text x="30" y="99" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">more folds</text>
+<text x="560" y="400" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">DSS: the last horizon tests first, each next fold one horizon earlier; fold offset: one more horizon between tests</text>
+</g>
+</svg>

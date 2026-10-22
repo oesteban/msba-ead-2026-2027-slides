@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A drawn sketch, not data. With a one-day time step, Dataiku DSS fills the days without a close by the chosen interpolation method (DSS 13 documentation). Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<line x1="120" y1="300" x2="920" y2="300" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="200.0" y1="300" x2="200.0" y2="306" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="200.0" y="324" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">Thu</text>
+<line x1="360.0" y1="300" x2="360.0" y2="306" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="360.0" y="324" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">Fri</text>
+<line x1="520.0" y1="300" x2="520.0" y2="306" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="520.0" y="324" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">Sat</text>
+<line x1="680.0" y1="300" x2="680.0" y2="306" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="680.0" y="324" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">Sun</text>
+<line x1="840.0" y1="300" x2="840.0" y2="306" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="840.0" y="324" font-size="17" font-weight="normal" text-anchor="middle" fill="#556268">Mon</text>
+<circle cx="200.0" cy="161.3" r="9" fill="#1c2e36"/>
+<circle cx="360.0" cy="196.0" r="9" fill="#1c2e36"/>
+<circle cx="840.0" cy="109.3" r="9" fill="#1c2e36"/>
+<circle cx="520.0" cy="196.0" r="9" fill="none" stroke="#9aa4a8" stroke-width="2" stroke-dasharray="4 3"/>
+<circle cx="680.0" cy="196.0" r="9" fill="none" stroke="#9aa4a8" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="600.0" y="274.0" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">no close: the market is shut</text>
+</g>
+<g data-step="2">
+<polyline class="accent-stroke" points="360.0,196.0 520.0,196.0 680.0,196.0" fill="none" stroke="#00609c" stroke-width="3" stroke-linejoin="round"/>
+<circle class="accent-fill" cx="520.0" cy="196.0" r="9" fill="#00609c"/>
+<circle class="accent-fill" cx="680.0" cy="196.0" r="9" fill="#00609c"/>
+<text class="accent-fill" x="600.0" y="232.0" font-size="18" font-weight="bold" text-anchor="middle" fill="#00609c">previous: Friday's close repeated</text>
+</g>
+<g data-step="3">
+<line x1="360.0" y1="196.0" x2="840.0" y2="109.33333333333331" stroke="#da232f" stroke-width="2.4" stroke-dasharray="7 5"/>
+<circle cx="520.0" cy="167.1" r="8" fill="#da232f"/>
+<circle cx="680.0" cy="138.2" r="8" fill="#da232f"/>
+<text x="600.0" y="66.0" font-size="18" font-weight="bold" text-anchor="middle" fill="#da232f">linear: a line to Monday's close, not known on Saturday</text>
+</g>
+</svg>

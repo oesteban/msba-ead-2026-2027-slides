@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- A drawn sketch, not data. Smoothing, decomposition or normalisation over the whole series before it is split leaks the test period into training (H. Hewamalage et al. 2023, section 3.4). Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="694.6153846153846" y="60" width="265.38461538461536" height="230" rx="0" fill="#e9edf0"/>
+<line x1="694.6153846153846" y1="50" x2="694.6153846153846" y2="290" stroke="#1c2e36" stroke-width="2"/>
+<text x="682.6153846153846" y="42" font-size="17" font-weight="normal" text-anchor="end" fill="#1c2e36">training</text>
+<text x="706.6153846153846" y="42" font-size="17" font-weight="normal" text-anchor="start" fill="#1c2e36">test</text>
+<polyline class="accent-stroke" points="60.0,189.9 83.1,169.6 106.2,204.1 129.2,171.2 152.3,190.4 175.4,189.2 198.5,152.3 221.5,179.6 244.6,181.6 267.7,167.6 290.8,159.8 313.8,177.5 336.9,166.0 360.0,190.3 383.1,179.1 406.2,178.9 429.2,192.3 452.3,193.9 475.4,194.5 498.5,170.4 521.5,168.0 544.6,169.1 567.7,161.4 590.8,183.1 613.8,161.2 636.9,154.7 660.0,144.9 683.1,169.8" fill="none" stroke="#00609c" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="683.1,169.8 706.2,161.2 729.2,186.4 752.3,160.3 775.4,186.8 798.5,172.7 821.5,130.0 844.6,182.9 867.7,132.3 890.8,138.7 913.8,147.9 936.9,133.9 960.0,131.5" fill="none" stroke="#9aa4a8" stroke-width="2" stroke-linejoin="round"/>
+</g>
+<g data-step="2">
+<rect x="613.8461538461539" y="66" width="161.53846153846143" height="218" rx="4" fill="none" stroke="#da232f" stroke-width="2.4"/>
+<text x="694.6153846153846" y="320" font-size="16" font-weight="normal" text-anchor="middle" fill="#da232f">a seven-day average for day 27 reads days 28 to 30, in the test</text>
+</g>
+<g data-step="3">
+<text x="500" y="380" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">Every step is fitted on each fold's training days only, then applied to its test days</text>
+</g>
+</svg>
