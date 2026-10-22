@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 460" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Daily rentals from 2012-10-28 to 2012-11-03, the week of hurricane Sandy, and the naive forecast from 2012-10-27; the errors in rentals and in percent of each day's rentals (R. J. Hyndman and G. Athanasopoulos 2021, section 5.8). Data: Capital Bikeshare daily rentals, 2011 and 2012, H. Fanaee-T (2013), UCI dataset 275, CC BY 4.0. Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<line x1="150" y1="40" x2="150" y2="240" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="144" y1="240.0" x2="150" y2="240.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="140" y="245.0" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="144" y1="151.11111111111111" x2="150" y2="151.11111111111111" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="140" y="156.11111111111111" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">4,000</text>
+<line x1="144" y1="62.22222222222223" x2="150" y2="62.22222222222223" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="140" y="67.22222222222223" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">8,000</text>
+<text x="150" y="26" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">rentals a day</text>
+<rect class="accent-fill" x="171.33333333333334" y="140.9111111111111" width="64" height="99.0888888888889" rx="2" fill="#00609c"/>
+<text x="203.33333333333334" y="264" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">28.10</text>
+<rect class="accent-fill" x="260.2222222222223" y="239.51111111111112" width="64" height="1.5" rx="2" fill="#00609c"/>
+<text x="292.2222222222223" y="264" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">29.10</text>
+<rect class="accent-fill" x="349.11111111111114" y="215.64444444444445" width="64" height="24.355555555555554" rx="2" fill="#00609c"/>
+<text x="381.11111111111114" y="264" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">30.10</text>
+<rect class="accent-fill" x="438.00000000000006" y="116.3111111111111" width="64" height="123.6888888888889" rx="2" fill="#00609c"/>
+<text x="470.00000000000006" y="264" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">31.10</text>
+<rect class="accent-fill" x="526.8888888888889" y="106.97777777777779" width="64" height="133.0222222222222" rx="2" fill="#00609c"/>
+<text x="558.8888888888889" y="264" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">01.11</text>
+<rect class="accent-fill" x="615.7777777777778" y="110.06666666666666" width="64" height="129.93333333333334" rx="2" fill="#00609c"/>
+<text x="647.7777777777778" y="264" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">02.11</text>
+<rect class="accent-fill" x="704.6666666666667" y="125.82222222222222" width="64" height="114.17777777777778" rx="2" fill="#00609c"/>
+<text x="736.6666666666667" y="264" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">03.11</text>
+<line x1="158.88888888888889" y1="65.51111111111112" x2="781.1111111111111" y2="65.51111111111112" stroke="#1c2e36" stroke-width="2.4" stroke-dasharray="8 5"/>
+<text x="793.1111111111111" y="71.51111111111112" font-size="16" font-weight="bold" text-anchor="start" fill="#1c2e36">the forecast:</text>
+<text x="793.1111111111111" y="93.51111111111112" font-size="16" font-weight="bold" text-anchor="start" fill="#1c2e36">the last value, 7,852</text>
+</g>
+<g data-step="2">
+<text x="30" y="312" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">error</text>
+<text x="30" y="332" font-size="14" font-weight="normal" text-anchor="start" fill="#556268">rentals</text>
+<text x="203.33333333333334" y="320" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">3,393</text>
+<text x="292.2222222222223" y="320" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">7,830</text>
+<text x="381.11111111111114" y="320" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">6,756</text>
+<text x="470.00000000000006" y="320" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">2,286</text>
+<text x="558.8888888888889" y="320" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">1,866</text>
+<text x="647.7777777777778" y="320" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">2,005</text>
+<text x="736.6666666666667" y="320" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">2,714</text>
+<text class="accent-fill" x="985" y="312" font-size="19" font-weight="bold" text-anchor="end" fill="#00609c">MAE 3,836</text>
+<text class="accent-fill" x="985" y="336" font-size="19" font-weight="bold" text-anchor="end" fill="#00609c">RMSE 4,449</text>
+</g>
+<g data-step="3">
+<text x="30" y="372" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">error</text>
+<text x="30" y="392" font-size="14" font-weight="normal" text-anchor="start" fill="#556268">percent</text>
+<text x="203.33333333333334" y="380" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">76%</text>
+<text x="292.2222222222223" y="380" font-size="17" font-weight="bold" text-anchor="middle" fill="#da232f">35,591%</text>
+<text x="381.11111111111114" y="380" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">616%</text>
+<text x="470.00000000000006" y="380" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">41%</text>
+<text x="558.8888888888889" y="380" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">31%</text>
+<text x="647.7777777777778" y="380" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">34%</text>
+<text x="736.6666666666667" y="380" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">53%</text>
+<text x="985" y="380" font-size="19" font-weight="bold" text-anchor="end" fill="#da232f">MAPE 5,206%</text>
+</g>
+</svg>

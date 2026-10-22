@@ -74,3 +74,10 @@ days:
     replaces: 2026-10-23
     start: "13:15"
     title: "Reading a time series"
+
+  # the afternoon's second deck forecasts a series, 15:00 to 16:30 (D58, D60)
+  - id: day2/08-forecast
+    date: 2026-10-23
+    replaces: 2026-10-23
+    start: "15:00"
+    title: "Forecasting a time series"

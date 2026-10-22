@@ -22,6 +22,7 @@ Dates and titles come from [`course.yml`](course.yml).
 | Deep learning for decisions | Fri 23 Oct 2026 | `day2/05-dl/` |
 | Text mining and sentiment analysis | Fri 23 Oct 2026 | `day2/06-text/` |
 | Reading a time series | Fri 23 Oct 2026 | `day2/07-series/` |
+| Forecasting a time series | Fri 23 Oct 2026 | `day2/08-forecast/` |
 
 Navigation: arrow keys, `P` for presenter view, `C` to clone the window onto a
 second screen, `?` for the full list.
