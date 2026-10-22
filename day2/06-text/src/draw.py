@@ -292,24 +292,26 @@ def idf(t: str) -> float:
 
 def tfidf() -> str:
     """A term weighs most when frequent in this review and rare in the others: count times IDF."""
-    W, H = 1000, 530
+    W, H = 1000, 500
     w = [[b.count(t) * idf(t) for t in TERMS] for b in BAGS]
     form = [text(500, 36, "TF-IDF: term frequency × inverse document frequency (IDF)", size=22, weight="bold"),
             text(500, 72, "count in the review × IDF,    IDF = 1 + ln(N / reviews holding the term)", size=21)]
     head = _table(60, 158, ["IDF"], TERMS, lambda r, c: f"{idf(TERMS[c]):.2f}", 112, size=20)
     head.append(label(500, 112, f"“day” is in 1 of the N = {len(BAGS)} reviews: IDF = 1 + ln 3 = {idf('day'):.2f}",
                       anchor="middle", size=19))
-    tab = _table(60, 280, [f"review {i + 1}" for i in range(3)], TERMS,
+    tab = _table(60, 252, [f"review {i + 1}" for i in range(3)], TERMS,
                  lambda r, c: f"{w[r][c]:.2f}" if w[r][c] else "0", 112, size=20)
     common = {TERMS.index("battery"), TERMS.index("screen")}
     top = {(r, c) for r in range(3) for c in range(len(TERMS)) if w[r][c] and w[r][c] == max(w[r])}
-    marks = _table(60, 280, [f"review {i + 1}" for i in range(3)], TERMS,
+    marks = _table(60, 252, [f"review {i + 1}" for i in range(3)], TERMS,
                    lambda r, c: f"{w[r][c]:.2f}" if w[r][c] else "0", 112, size=20,
                    styles=lambda r, c: (A_LIGHT, "accent-a-light-fill") if (r, c) in top
                    else (GREY, "") if c in common else None, marked=True)
-    cap = [label(500, 502, "in every review, battery and screen weigh least; a term of one review weighs most",
-                 anchor="middle", fill=INK)]
-    return svg(W, H, [step(1, form), step(2, head), step(3, tab), step(4, marks + cap)],
+    cap = []
+    use = [rect(100, 430, 800, 58, fill=A_LIGHT, stroke=ACCENT, rx=10, sw=2, cls="accent-a-light-fill accent-stroke"),
+           text(500, 466, "each review's heaviest terms set it apart: these weights are the model's columns", size=20,
+                weight="bold")]
+    return svg(W, H, [step(1, form), step(2, head), step(3, tab), step(4, marks + cap), step(5, use)],
                "TF-IDF of the deck's three reviews: term count times IDF(t) = 1 + ln(N / documents containing t), "
                "Provost & Fawcett (2013), pp. 255 to 256, with the natural logarithm. " + LICENCE)
 
@@ -329,7 +331,7 @@ def lexicon() -> str:
                       "of this review")]
     b = spans[RAW.index("but")]
     s2 = [rect(b[0] - 3, 107, b[1] - b[0] + 6, 44, fill="none", stroke=ACCENT, rx=7, sw=2.6, cls="accent-stroke"),
-          label(b[0] - 3, 92, "“but”: the clause after it dominates", fill=ACCENT, cls="accent-fill",
+          label(b[0] - 3, 92, "what follows “but” counts more", fill=ACCENT, cls="accent-fill",
                 weight="bold")]
     n0, n1 = spans[RAW.index("battery")][0], spans[-1][1]
     assert cl[1]["compound"] == 0
@@ -421,40 +423,114 @@ def language_model() -> str:
 
 
 def embeddings() -> str:
-    """GloVe places words used alike close together: 'good' as close to 'bad' as to 'great'."""
-    W, H = 1000, 400
+    """GloVe vectors compared by cosine: the judging words together, the device words together."""
+    W, H = 1000, 430
     g = T["glove"]
-    pts = g["points"]
-    xs, ys = [v[0] for v in pts.values()], [v[1] for v in pts.values()]
-    px = lambda x: 70 + (x - min(xs)) / (max(xs) - min(xs)) * 340
-    py = lambda y: 330 - (y - min(ys)) / (max(ys) - min(ys)) * 250
-    left = {"power", "awful", "screen", "excellent"}
-    frame = [rect(30, 40, 470, 320, fill=PANEL, stroke=EDGE, rx=8),
-             label(265, 388, f"a flat view of {g['dimensions']} numbers per word: distances only roughly kept",
-                   anchor="middle", size=16)]
-    dots = []
-    for w, (x, y) in pts.items():
-        dots.append(f'<circle class="accent-fill" cx="{px(x):.1f}" cy="{py(y):.1f}" r="6" fill="{ACCENT}"/>')
-        if w == "charger":
-            dots.append(text(px(x) + 6, py(y) + 30, w, size=19, anchor="start"))
-        else:
-            dots.append(text(px(x) + (-10 if w in left else 10), py(y) + 6, w, size=19,
-                             anchor="end" if w in left else "start"))
-    c = g["cosine"]
-    side = [label(560, 70, "how close, on all 50 numbers (cosine):", fill=INK, weight="bold", size=19),
-            label(560, 96, "1 when they point the same way, 0 when unrelated", size=16)]
-    for k, (pair, col) in enumerate((("good great", ACCENT), ("good bad", ALERT), ("good battery", INK))):
-        y = 140 + k * 40
-        side += [label(580, y, pair.replace(" ", " and "), size=20, fill=INK),
-                 text(940, y, f"{c[pair]:.2f}", size=22, weight="bold", anchor="end", fill=col)]
-    vec = [label(560, 290, "one word, one vector, from 6 billion words and marks:", size=17, fill=INK),
-           text(560, 322, "battery → " + ", ".join(f"{v:.2f}".replace("-", "−") for v in g["battery"])
-                + ", … (50 numbers)",
-                size=19, anchor="start")]
-    return svg(W, H, [step(1, frame + dots), step(2, side), step(3, vec)],
-               f"GloVe vectors, 50 dimensions, 6 billion tokens (Pennington et al. 2014), of eleven words, run by "
-               f"text.py: their first two principal components ({g['explained'][0] + g['explained'][1]:.0%} of their "
-               f"spread) and cosine similarities (Jurafsky & Martin 2026, p. 135). " + LICENCE)
+    words, m = g["table"]["words"], g["table"]["cosine"]
+    x0, y0, cw, ch = 210, 64, 112, 46
+    head = [label(40, 30, "how close two words lie in GloVe (cosine: 1 the same direction, 0 unrelated)", size=17)]
+    cells = []
+    for j, w in enumerate(words):
+        head.append(text(x0 + cw * j + cw / 2, y0, esc(w), size=19, weight="bold"))
+    for i, a in enumerate(words):
+        y = y0 + 14 + ch * i
+        head.append(text(x0 - 16, y + ch / 2 + 7, esc(a), size=19, weight="bold", anchor="end"))
+        for j in range(len(words)):
+            v = m[i][j]
+            shade = max(0.0, min(1.0, v))
+            fill = f"rgba(0, 96, 156, {0.08 + 0.55 * shade:.2f})" if i != j else GREY
+            cells += [rect(x0 + cw * j + 3, y + 3, cw - 6, ch - 6, fill=fill, stroke=None, rx=4),
+                      text(x0 + cw * j + cw / 2, y + ch / 2 + 7, "" if i == j else f"{v:.2f}".replace("-", "−"),
+                           size=19, weight="bold" if (a, words[j]) in (("good", "great"), ("good", "bad")) else "normal")]
+    why = [rect(60, 360, 880, 58, fill=PANEL, stroke=EDGE, rx=8),
+           label(84, 396, "“the battery is good”, “the battery is bad”: the same neighbours, so close vectors", size=19,
+                 fill=INK)]
+    return svg(W, H, [step(1, head + cells), step(2, why)],
+               f"Cosine similarities of GloVe's 50-dimension vectors, 6 billion tokens (Pennington et al. 2014), among "
+               f"six words, computed by text.py (Jurafsky & Martin 2026, p. 135). " + LICENCE)
+
+
+LM_HISTORY = [("1948", "Shannon", ["next words predicted", "from counts of the ones before"]),
+              ("1975 to 1985", "IBM, speech recognition", ["the term “language model”;", "n-gram models"]),
+              ("2003", "Bengio et al.", ["a neural network", "predicts the next word"]),
+              ("2013", "word2vec", ["embeddings learned", "by predicting neighbours"]),
+              ("2018", "ELMo", ["one language model", "reused for many tasks"])]
+
+
+def lm_history() -> str:
+    """Language models before they were large, from Shannon to ELMo."""
+    W, H = 1000, 340
+    y = 160
+    steps = [step(1, [line(50, y, 950, y, color=INK, w=2, marker="")])]
+    for k, (yr, who, what) in enumerate(LM_HISTORY):
+        x = 140 + k * 180
+        up = k % 2 == 0
+        ty = y - 112 if up else y + 50
+        out = [f'<circle class="accent-fill" cx="{x}" cy="{y}" r="9" fill="{ACCENT}"/>',
+               line(x, y - 10 if up else y + 10, x, ty + (70 if up else -18), color=EDGE, w=1.4, marker=""),
+               text(x, ty, yr, size=20, weight="bold", fill=ACCENT, cls="accent-fill"),
+               text(x, ty + 24, esc(who), size=18, weight="bold")]
+        for i, s in enumerate(what):
+            out.append(text(x, ty + 46 + 20 * i, esc(s), size=16, fill=INK))
+        steps.append(step(k + 1, out) if k else step(1, out))
+    return svg(W, H, steps,
+               "Landmarks of language models before they became large, after Jurafsky & Martin (2026), pp. 13, 89, "
+               "137, 150 and 207. Drawn. " + LICENCE)
+
+
+LM_SIZES = [("BERT", "2018", 0.34e9), ("GPT-2", "2019", 1.5e9), ("GPT-3", "2020", 175e9), ("Llama 3.1", "2024", 405e9)]
+
+
+def lm_sizes() -> str:
+    """Parameters of four language models, on a log scale."""
+    W, H = 1000, 400
+    x0, y0, y1 = 150, 330, 50          # the axis: 10^8 at y0, 10^12 at y1
+    ly = lambda v: y0 - (math.log10(v) - 8) / 4 * (y0 - y1)
+    ax = [line(x0, y0, 900, y0, color=INK, w=1.6, marker=""), line(x0, y0, x0, y1 - 10, color=INK, w=1.6, marker="")]
+    for v, s in ((1e8, "100 million"), (1e9, "1 billion"), (1e10, "10 billion"), (1e11, "100 billion"), (1e12, "1 trillion")):
+        ax += [line(x0 - 6, ly(v), 900, ly(v), color=EDGE, w=1, marker=""), label(x0 - 12, ly(v) + 6, s, size=15,
+                                                                                     anchor="end")]
+    ax.append(label(40, 30, "parameters, the numbers a network learns (log scale)", size=17))
+    bars = {1: [], 2: []}
+    for k, (name, yr, v) in enumerate(LM_SIZES):
+        x = 230 + k * 175
+        bars[1 if k < 2 else 2] += [
+            rect(x, ly(v), 110, y0 - ly(v), fill=A_LIGHT if k < 3 else ACCENT, stroke=None, rx=4,
+                 cls="accent-a-light-fill" if k < 3 else "accent-fill"),
+            text(x + 55, ly(v) - 10, f"{v / 1e9:g} billion", size=17, weight="bold"),
+            text(x + 55, y0 + 28, esc(name), size=18, weight="bold"), text(x + 55, y0 + 50, yr, size=15, fill=MUTED)]
+    note = [label(900, 30, "GPT-5, Claude, Gemini: size not disclosed", size=16, anchor="end", fill=INK)]
+    return svg(W, H, [step(1, ax + bars[1]), step(2, bars[2]), step(3, note)],
+               "Parameters of BERT large (Devlin et al. 2019), GPT-2 XL, GPT-3 and Llama 3.1 405B (Jurafsky & Martin "
+               "2026, Fig. 7.24, p. 205); frontier models undisclosed (p. 204). " + LICENCE)
+
+
+def zeroshot() -> str:
+    """Zero-shot and one-shot prompts on the deck's review, after Brown et al. (2020), Fig. 2.1."""
+    W, H = 1000, 420
+
+    def prompt(x, y, title, lines, sub):
+        out = [label(x, y - 14, title, size=19, fill=ACCENT, weight="bold", cls="accent-fill"),
+               rect(x, y, 440, 40 + 30 * len(lines), fill=PANEL, stroke=EDGE, rx=8)]
+        for i, (s, bold) in enumerate(lines):
+            out.append(label(x + 18, y + 32 + 30 * i, s, size=17, fill=INK, weight="bold" if bold else "normal"))
+        out.append(label(x, y + 66 + 30 * len(lines), sub, size=15))
+        return out
+
+    a = prompt(40, 60, "zero-shot", [("Is this review positive or negative?", True),
+                                     ("Review: Great screen, but the battery", False),
+                                     ("does not last a day.", False), ("Answer:", False)],
+               "the task in words; no labelled example")
+    b = prompt(520, 60, "one-shot", [("Is this review positive or negative?", True),
+                                     ("Review: Good battery, good screen.", False), ("Answer: positive", False),
+                                     ("Review: Great screen, but the battery", False),
+                                     ("does not last a day.", False), ("Answer:", False)],
+               "one labelled example, in the prompt itself")
+    c = [rect(250, 352, 500, 56, fill=A_LIGHT, stroke=ACCENT, rx=10, sw=2, cls="accent-a-light-fill accent-stroke"),
+         text(500, 387, "the model writes the answer; no weight changes", size=20, weight="bold")]
+    return svg(W, H, [step(1, a), step(2, b), step(3, c)],
+               "Zero-shot and one-shot prompts on the deck's reviews, after Brown et al. (2020), Fig. 2.1, p. 6. "
+               "Drawn; any answer is illustrative. " + LICENCE)
 
 
 def transfer_text() -> str:
@@ -669,7 +745,7 @@ def main(out: Path) -> int:
                "stemming.svg": stemming, "bow.svg": bow, "ngrams.svg": ngrams, "tfidf.svg": tfidf,
                "lexicon.svg": lexicon, "linear.svg": linear, "lm.svg": language_model, "tokens.svg": tokens, "embeddings.svg": embeddings,
                "transfer-text.svg": transfer_text, "context.svg": context, "generate.svg": generate,
-               "prompt.svg": prompt, "costs.svg": costs, "dss-text.svg": dss_text,
+               "lm-history.svg": lm_history, "lm-sizes.svg": lm_sizes, "zeroshot.svg": zeroshot, "costs.svg": costs, "dss-text.svg": dss_text,
                "flow.svg": flow}
     for name, lit_ in (("bu", {"BU"}), ("du", {"DU"}), ("mo", {"MO"}), ("ev", {"EV"}), ("du-mo", {"DU", "DP", "MO"})):
         figures[f"phase-{name}.svg"] = lambda lit_=lit_: d.phase_thumb(lit_)

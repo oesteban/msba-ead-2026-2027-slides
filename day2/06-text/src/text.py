@@ -17,7 +17,7 @@ into `~/.cache/ead-text/`. Neither enters git. It writes one small JSON file:
 - `context`: BERT's last-layer vector for "great" in the two reviews that use it, and their cosine;
   a GloVe vector is the same in both, a cosine of 1.
 - `glove`: the deck's words in two dimensions (principal components of their 50-dimension GloVe
-  vectors), with the cosine similarities the slide names.
+  vectors), with the cosine similarities the slide names and a table of them among six words.
 """
 
 from __future__ import annotations
@@ -38,6 +38,7 @@ RARE_WORDS = ["smartphone", "unchargeable", "overheating", "touchscreen"]
 MASKED = "Great screen, but the battery does not last a [MASK]."
 EMB_WORDS = ["battery", "charger", "power", "screen", "display", "great", "good", "excellent", "awful", "bad",
              "poor"]
+TABLE = ["great", "good", "bad", "awful", "battery", "charger"]
 PAIRS = [("good", "bad"), ("good", "great"), ("good", "excellent"), ("bad", "awful"), ("battery", "charger"),
          ("good", "battery")]
 GLOVE_URL = ("https://github.com/RaRe-Technologies/gensim-data/releases/download/"
@@ -121,6 +122,7 @@ def glove() -> dict:
             "explained": [round(float(v), 3) for v in (sv[:2] ** 2 / (sv ** 2).sum())],
             "points": {w: [round(float(x), 3), round(float(y), 3)] for w, (x, y) in zip(EMB_WORDS, xy)},
             "cosine": {f"{a} {b}": round(cos(a, b), 3) for a, b in PAIRS},
+            "table": {"words": TABLE, "cosine": [[round(cos(a, b), 2) for b in TABLE] for a in TABLE]},
             "battery": [round(float(v), 2) for v in vec["battery"][:4]]}
 
 

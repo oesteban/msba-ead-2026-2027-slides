@@ -163,7 +163,7 @@ https://oesteban.github.io/msba-ead-2026-2027-slides/day2/06-text/index.html
 
 ???
 
-**Today, we'll turn words into numbers, so that a model can read the opinion a text expresses.** This is text mining: data mining on text, which first turns a body of text into data that a data mining algorithm can take in (Provost & Fawcett, 2013, p. 251). Text is "just another form of data" (Provost & Fawcett, 2013, p. 249, verbatim), but it does not arrive in the rows and columns our algorithms expect (p. 249). *Deep learning* ended on the question we start from: which features can a classifier read from words? A photo reached the network as numbers, three per pixel. A review reaches us as characters, and no model computes with a character. How does a string of characters become something a model can score?
+**Today, we'll turn words into numbers that a model can learn from.** This is text mining: data mining applied to text. This morning, *Deep learning* ended on a question: which features can a classifier read from words? A photo reaches a network as numbers, three per pixel. A review reaches us as a line of characters, and no model computes with a character. How does a review become numbers a model can use?
 
 
 ---
@@ -205,7 +205,7 @@ class: vcenter
 
 ???
 
-**We'll go in four parts, each built on the one before.** First, text as data: we turn a text into columns that the classifiers of the first day can read. Of Provost and Fawcett's two ways, this is the first: "engineer the data to match existing tools" (Provost & Fawcett, 2013, p. 249, verbatim). Second, with words as columns, we score a review's opinion, from lists of words to a model that learns a weight per word. Third, the other way: language models, built to read text itself, and with them zero-shot, which *Deep learning* left dimmed for want of a model that reads text. Last, the hands-on in Dataiku, on film reviews: we build part 2's model on part 1's columns and weigh it against a ready-made scorer. Our classifiers read tables: what would it take to turn a text into one?
+**We'll go in four parts.** First, text as data: we turn each review into a row of numbers, the kind of table the models of the first day read. Second, we score sentiment from those words, first with a list of scored words, then with a model that learns its own weights. Third, language models, which learn from text itself and have changed how text is read. Last, the hands-on in Dataiku, on film reviews. So, first: what is text, as data?
 
 
 ---
@@ -219,7 +219,7 @@ class: vcenter
 
 ???
 
-**Part 1 turns a text into a table that the classifiers we already know can read.** We'll see what a text is to a computer, how counting its words gives it columns, which choices that counting involves, how to weigh the counts, and how words themselves can become numbers. But first, why would a firm go to that trouble?
+**Part 1 turns text into a table a model can read.** We'll see what a review is to a computer, how counting its words gives it columns, which choices that counting involves, and a second way to turn words into numbers. But why would a firm go to that trouble?
 
 
 ---
@@ -240,7 +240,7 @@ class: vcenter
 
 ???
 
-**Firms hold more text than anyone can read.** Complaint logs, product inquiries and repair records are written for people to read, and "understanding customer feedback often requires understanding text" (Provost & Fawcett, 2013, p. 250, verbatim). Take a computer maker, disappointed by its sales: why aren't consumers buying its laptop? The sales figures cannot say. The reasons lie in what people think of it: a design they find tacky, a customer service they found condescending (Pang & Lee, 2008, section 2.3). Those opinions are online, in reviews and blogs, but in dozens or hundreds of versions of the same complaints, more than an analyst can read (section 2.3). We want a model to read them for us. What does one review look like to a model?
+**Firms hold more text than anyone can read.** Complaint logs, product inquiries, repair records and reviews are written for people, not for computers. Take a laptop maker whose sales disappoint. Its sales figures say that the laptop does not sell; they cannot say why. The why is in what customers write, in hundreds of versions of the same complaints. No analyst can read them all, so we want a model to read them for us. What does one review look like to that model?
 
 
 ---
@@ -256,7 +256,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**To a model, a text is a string of characters.** Say this is a review of our laptop. We read it in a second: a good screen, a poor battery. A computer receives 50 characters in a row. Why is that a problem? Our classifiers read tables, where a column means the same thing in every row: in the wines of *Beyond binary classification*, the alcohol column always holds a wine's alcohol. Text lacks "tables of records with fields having fixed meanings" (Provost & Fawcett, 2013, p. 250, verbatim). Character 7 here is the "s" of "screen"; in the next review, character 7 belongs to another word, and that review has another length (p. 250). So a character's position cannot be a column. Before we look for other columns, what do we want to read from a review?
+**To a model, a text is a string of characters.** We read this review in a second: a good screen, a poor battery. A computer receives 50 characters in a row. Our models need columns that mean the same thing in every row, as the alcohol column did for every wine of *Beyond binary classification*. Text has no such columns: the seventh character belongs to "screen" here, to another word in the next review, and the next review has another length anyway. Before we look for columns, what do we want to read from a review?
 
 
 ---
@@ -272,7 +272,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Sentiment analysis reads the opinion a text expresses.** Also called opinion mining, it is the computational treatment of opinions in text: a computer finds what the writer thinks (Pang & Lee, 2008, section 1.5). Much of the work on reviews is polarity classification: is a text, overall, positive or negative? It assumes one overall opinion, about one thing (section 4.1.1). Our review holds two: it praises the screen and faults the battery. These are two aspects of the laptop, the parts an opinion is about, and one sentence can judge them differently (Zhang et al., 2024, section 3.1). In the hands-on, each review gets one label, positive or negative, so a review like ours keeps only one of its opinions. To learn any label, a model reads columns, and a review has none. How can we give it some?
+**Sentiment analysis reads the opinion a text expresses.** Most often, the question is the polarity: is the review, overall, positive or negative? That assumes one opinion per text. Ours holds two: it praises the screen and faults the battery, two aspects of the same laptop, and a single label keeps one opinion and loses the other. In the hands-on, each review gets one label, and we accept that loss. To learn a label, a model reads columns, and a review has none. How can we give it some?
 
 
 ---
@@ -293,7 +293,7 @@ class: vcenter
 
 ???
 
-**To give a text columns, we count its words.** The idea comes from search: around 1970, Gerard Salton's SMART system at Cornell was perhaps the first to treat a document as a vector of weights, a list of numbers, one per word, matched against a query (Manning et al., 2008, pp. 133 and 182). With counts as weights, a text becomes a bag of words: which words it holds and how often, whatever their order, so "John is quicker than Mary" equals "Mary is quicker than John" (p. 117). Text mining took the idea from search (Provost & Fawcett, 2013, p. 251), and it is "usually the first choice of data scientists for a new text mining problem" (Provost & Fawcett, 2013, p. 263, verbatim). What gets a column is called a term, for now a word (p. 251). Which strings should count as the same term?
+**To give a text columns, we count its words.** The idea comes from search engines. Around 1970, the SMART system treated each document as a vector, a list of numbers with one weight per word, and compared it with the words of a query. Counting words in this way turns a text into a bag of words: which words it holds, and how often, whatever their order. Text mining borrowed the bag of words to give classifiers their columns, one per term, a term being, for now, a word. But before we count, which strings count as the same word?
 
 
 ---
@@ -309,7 +309,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Normalisation writes each word one way, so that "Great" and "great" share a column.** To a computer, "Great" and "great" are two strings: each would get a column, splitting one word's count in two. So the text is cut into words and punctuation marks (Manning et al., 2008, section 2.2.1), every letter is written in lower case, so that "Skype and SKYPE are counted as the same thing" (Provost & Fawcett, 2013, p. 253, verbatim), and the punctuation is dropped. Each step throws something away: here, a capital, a comma and a full stop. Usually that costs nothing, but lower case also merges the Fed, a government body, with the word fed (Manning et al., 2008, section 2.2.3). Yet "the" and "a" are in nearly every review: can a word found everywhere tell one review from another?
+**Normalisation writes each word one way, so that "Great" and "great" share a column.** To a computer they are two different strings, and each would get its own column, splitting one word's count. So we cut the text into words, write every letter in lower case and drop the punctuation. Each step throws something away: here, a capital, a comma and a full stop. Usually that is harmless; sometimes not, as when the Fed, the American central bank, becomes "fed". Then there are words like "the" and "a", in nearly every review. Do they help tell reviews apart?
 
 
 ---
@@ -325,7 +325,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Dropping the most frequent words can drop the verdict.** Stop words are very common words, such as "the" and "a", that a stop list removes before counting (Provost & Fawcett, 2013, p. 253): in nearly every text, they do little to tell texts apart (Manning et al., 2008, section 2.2.2). A 25-word list (Figure 2.5) takes only "the" and "a" from our review. A longer list, illustrative here, also holds "but", "does" and "not": with "not" goes the complaint. Search systems went from stop lists of 200 to 300 words to 7 to 12, then to none, partly because a dropped word can carry the meaning, as "to" does in "flights to London" (section 2.2.2). So "stopword elimination is not always a good idea" (Provost & Fawcett, 2013, p. 254, verbatim). In the lab, we check whether "not" survives Dataiku's *Simplify text*. Should "battery" and "batteries" take two columns?
+**Dropping the most frequent words can drop the verdict.** Words like "the" and "a" appear in nearly every text, so they tell texts apart very little, and a stop list removes them before counting. A short list takes only "the" and "a" from our review. A longer one also removes "but", "does" and "not", and without "not" the complaint is gone. Search engines learned this: their stop lists shrank from 200 or 300 words to a dozen, then to none, because a dropped word can carry the meaning. In the lab, we check whether "not" survives. And "battery" and "batteries": one term or two?
 
 
 ---
@@ -341,7 +341,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Stemming merges the forms of a word into one term, so that their counts add up.** "Battery" in one review and "batteries" in another make the same complaint, but as two terms they split its count. Stemming removes suffixes by rule (Provost & Fawcett, 2013, p. 253). Porter's rules (Porter, 1980), the most common for English (Manning et al., 2008, section 2.2.4), turn these 9 forms into 4 terms. A stem need not be a word, as "batteri" and "dai" show: only the forms it groups matter (section 2.2.4). Does it help? In English search, little overall, as it also merges words of different meaning, such as "operate" and "operational" (section 2.2.4). An early study of review polarity did not stem at all (Pang et al., 2002, section 6.1). Yet the table still counts "not" apart from what it negates. Could a term hold two words?
+**Stemming merges the forms of a word into one term.** "Battery" in one review and "batteries" in another make the same complaint; counted apart, they split it. Stemming cuts word endings by rule, and Porter's rules, the most used for English, turn these nine forms into four terms. A stem need not be a word, as "batteri" and "dai" show: it only has to be the same for every form. In search, stemming helps little overall, and one early study of movie reviews did not stem at all. One problem remains: counted word by word, "not" is cut off from what it negates. Could a term hold two words?
 
 
 ---
@@ -357,7 +357,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Taking pairs of adjacent words as terms keeps a little of the word order.** An n-gram is a sequence of n adjacent words taken as one term; pairs are bi-grams (Provost & Fawcett, 2013, p. 263). In our review and a second, "Not a great screen, but the battery is good.", the pairs "not last" and "not great" say what is negated. The cost: in these two reviews, 7 words bring 7 pairs, 14 terms instead of 7 (p. 264), each with a weight to learn from labelled reviews (p. 118). So pairs need many labelled reviews. On 1,400 movie reviews, they did not raise accuracy (Pang et al., 2002, Figure 3); on Yelp, with 280,000 reviews per class, n-grams of up to five words cut a logistic regression's error from 7.76% to 4.36% (Zhang et al., 2015, Table 4). Counted, what do our three reviews look like?
+**N-grams, here pairs of adjacent words, keep a little of the order.** An n-gram is a sequence of n words taken as one term; a pair is a bi-gram. With pairs, "not last" and "not great" become terms that say what is negated. The cost: these two reviews have 7 words and 7 pairs, twice the columns, and each column needs examples to learn from. So pairs pay off only with many labelled texts: on 1,400 movie reviews they did not help, on hundreds of thousands of Yelp reviews they did. With the terms chosen, what does the table look like?
 
 
 ---
@@ -373,7 +373,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**One column per word, one row per text, a count in each cell.** This is the bag of words: each text becomes the collection of its terms, each with the number of times it occurs (Provost & Fawcett, 2013, p. 252). Here are our three reviews in lower case, with a stop list that keeps "not", not stemmed, and without the pairs, which would add nine columns. Each term gets a column, 7 in all, and each cell holds its term frequency, the count of that term in that review (pp. 252 to 253): "good" twice in review 3. The bag "ignores grammar, word order, sentence structure, and (usually) punctuation" (Provost & Fawcett, 2013, p. 252, verbatim). "Battery" and "screen" are in every review. Does a term found everywhere tell any review apart, and what else might raw counts get wrong?
+**One column per term, one row per text, a count in each cell.** Here are our three reviews after preprocessing: lower case, a stop list that keeps "not", no stemming, and no pairs, to keep the table small. Each cell is a term frequency, how many times that term appears in that review: "good" twice in review 3. The order of the words is gone. Now look at "battery" and "screen": they are in every review. What does a count tell us about such a term, and what else can raw counts get wrong?
 
 
 ---
@@ -394,7 +394,7 @@ class: vcenter
 
 ???
 
-**Raw counts favour long texts and common words.** A count should say how much a term matters to a text (Provost & Fawcett, 2013, p. 254), and raw counts mislead in three ways. First, length: a review of 1,000 words holds more occurrences than one of 50 without saying more, so some systems divide each count by the text's length. Second, a term in every text "doesn't distinguish anything" (Provost & Fawcett, 2013, p. 254, verbatim); in our reviews, that is "battery". Third, a term in a single review is no basis for a pattern, so systems usually require a minimum number of texts to hold it (p. 254), as Dataiku's minimum rows fraction does in the lab. An upper limit would cut common terms outright, as a stop list does (p. 255). Could each term instead weigh more the rarer it is?
+**Raw counts favour long texts and common words.** A count should say how much a term matters to a text, and raw counts mislead in three ways. A review of 1,000 words has larger counts than one of 50 without saying more, so systems often divide each count by the text's length. A term found in every review, such as "battery", tells none apart. A term found in a single review gives a model nothing to generalise from, so systems require a minimum number of texts to hold it, as Dataiku does in the lab. For the common terms: could each term count more the rarer it is?
 
 
 ---
@@ -403,30 +403,30 @@ class: stepwise-svg, vcenter
 
 .fullw[
 <div class="step-1"><object type="image/svg+xml" data="images/tfidf.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The formula TF-IDF equals count times IDF, IDF equals 1 plus the natural log of N over the reviews holding the term; the IDF of each term; then the three reviews' counts weighted by it: battery and screen weigh least, day, last and good most"></object></div>
-.step-5.lead.big.center[A term weighs most when it is frequent in this text and rare in the others.]
+.step-6.lead.big.center[TF-IDF turns counts into weights a model can learn from.]
 ]
 
 .footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 254 to 256, ln the natural logarithm.] G. Salton and C. Buckley (1988). D. Jurafsky and J. H. Martin (2026), pp. 136 to 137.]
 
 ???
 
-**A term weighs most when it is frequent in this text and rare in the others.** TF-IDF weighs each count by its term's rarity, the inverse document frequency, IDF: "the boost a term gets for being rare" (Provost & Fawcett, 2013, p. 255, verbatim). IDF is 1 plus the natural logarithm, ln, of N, the number of texts, over the number holding the term (p. 255). "Day" is in 1 of our 3 reviews: 1 + ln 3 = 2.10. "Battery" is in all 3, and ln 1 = 0, so its IDF is 1, the lowest possible. TF-IDF multiplies each term frequency by its IDF (p. 256), and each review becomes a row of weighted terms. Yet "great" and "excellent" would be two columns, as unrelated as "great" and "battery" (Jurafsky & Martin, 2026, pp. 136 to 137). Can numbers know which words are alike?
+**TF-IDF turns counts into weights a model can learn from: telling terms high, common ones low.** Each count is multiplied by the term's inverse document frequency, IDF, "the boost a term gets for being rare" (Provost & Fawcett, 2013, p. 255, verbatim). "Day" is in one of our three reviews: its IDF is 1 + ln 3 = 2.10. "Battery", in all three, keeps 1. Each review's heaviest terms now set it apart: "day" and "last" in review 1, "good" in review 3. That is what TF-IDF is for: these weights are the columns a model learns from, in the lab too. Yet "great" and "excellent" get two unrelated columns. Can numbers know which words are alike?
 
 
 ---
 class: stepwise-svg, vcenter
-# Embeddings
+# Embeddings by one example: GloVe
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/embeddings.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Eleven words placed by their GloVe vectors: screen and display together, battery and charger together, the judging words together; good and great at 0.80, good and bad at 0.80, good and battery at 0.23; battery as a vector of 50 numbers"></object></div>
-.step-4.lead.big.center[Words used alike lie close: "good" as close to "bad" as to "great".]
+<div class="step-1"><object type="image/svg+xml" data="images/embeddings.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A table of cosines between six words in GloVe: great, good, bad and awful close to one another, good as close to bad as to great, 0.80; battery and charger close to each other and far from the judging words; the battery is good, the battery is bad: the same neighbours"></object></div>
+.step-3.lead.big.center[Words used alike get close vectors, whatever their sentiment.]
 ]
 
-.footnote[J. Pennington, R. Socher and C. D. Manning (2014): GloVe, 50 dimensions, 6 billion tokens, .lic[PDDL]; computed, the flat view being the first two principal components. D. Jurafsky and J. H. Martin (2026), chapter 5. A. L. Maas et al. (2011).]
+.footnote[J. Pennington et al. (2014): GloVe, 6 billion tokens, .lic[PDDL]; computed. D. Jurafsky and J. H. Martin (2026), ch. 5; A. L. Maas et al. (2011).]
 
 ???
 
-**Words used in the same places get close vectors, so "good" lies as close to "bad" as to "great".** An embedding gives a word a vector, a list of numbers, learned from the words around it: words in similar contexts tend to have similar meanings (Jurafsky & Martin, 2026, p. 127). The cosine of two vectors is 1 when they point the same way, 0 when unrelated (p. 135). GloVe learned 50 numbers per word from 6 billion tokens, roughly words (Pennington et al., 2014, p. 1538). "Good" scores 0.80 with "great" and 0.23 with "battery": the vectors know which words are alike. It also scores 0.80 with "bad", used in the same places: "the battery is bad". Such vectors largely miss sentiment (Maas et al., 2011, p. 142). The flat picture keeps distances only roughly. With counts or vectors, how do we get to a verdict?
+**Words used alike get close vectors, whatever their sentiment.** An embedding gives each word a vector, a list of numbers learned from the words around it in a large body of text. GloVe is one such method: 50 numbers per word, learned from 6 billion tokens of text, roughly words. The cosine says how close two vectors point: 1 for the same direction, 0 for unrelated. In the table, the judging words sit together, and so do "battery" and "charger". But "good" sits as close to "bad" as to "great", 0.80 each, because both fill the same places: "the battery is good", "the battery is bad". The vectors know which words are alike, not which are positive. From counts or vectors, how do we reach a verdict?
 
 
 ---
@@ -440,29 +440,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Part 2 gets from a review's words to a verdict on its sentiment.** Part 1 gave each review numbers: a row of weighted terms, or a vector for each word. Neither says yet whether the review is positive or negative: in GloVe, "good" sat as close to "bad" as to "great". For a verdict, something must say which words point to which side, and how strongly. This part gives two answers: people who score words in advance, and a model that learns from reviews already labelled. They are the first two of four ways to score sentiment. What are the four, and what does each one need?
-
-
----
-class: vcenter
-
-# Four ways to score sentiment
-
-.fullw[
-<div class="quad big">
-<div><b>1 · A lexicon</b>A list of scored words, and rules; no labelled example, every verdict readable.</div>
-<div><b>2 · A model on words</b>A weight per term, learned from labelled texts; the weights can be read.</div>
-<div><b>3 · A pretrained network</b>Trained first on plain text, then given a new head on labelled texts; hard to read.</div>
-<div><b>4 · A prompted language model</b>Asked in words for the label; no training, hard to read.</div>
-</div>
-.lead.big.center[They differ in the labels they need and in how far a verdict can be read.]
-]
-
-.footnote[J. Hartmann et al. (2023); C. Hutto and E. Gilbert (2014); J. Devlin et al. (2019); W. Zhang et al. (2024).]
-
-???
-
-**The four ways differ in the labels they need, and in how far we can read why they decided.** A lexicon is a list of words scored in advance by people, plus rules: it needs no labelled review, and each verdict traces back to its words (Hartmann et al., 2023, p. 78). A model on words learns a readable weight per term from labelled reviews. A pretrained network learns from plain text; a new head then learns sentiment from labelled reviews (Devlin et al., 2019, p. 1). A prompted language model, such as ChatGPT, is asked in words for the label (Zhang et al., 2024, section 4.1). These two networks decide through millions of weights or more, too many to read (Jurafsky & Martin, 2026, p. 7). Part 2 takes the first two; part 3, the networks. What can a scored list of words make of our review?
+**Part 2 gets from a review's words to a verdict, positive or negative.** Part 1 gave each review numbers, but no number yet says which way a review leans. Something must decide which words point to which side, and how strongly. We'll see two answers: people who score words in advance, and a model that learns the scores from labelled reviews. What can a list of scored words make of our review?
 
 
 ---
@@ -478,29 +456,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**A lexicon is a list of words, each with a sentiment score.** A text is scored from the listed words it holds, so no labelled review is needed (Hartmann et al., 2023, p. 78). VADER, a ready-made lexicon, lists about 7,500 entries, each rated by ten people from −4 to +4; "great" scores 3.1 (Hutto & Gilbert, 2014, section 3.1). After "but", the clause that follows dominates (section 3.2): VADER halves what comes before and raises what follows by half (section 3.3). Here, "great" is the only listed word. "Not" flips only a listed word after it, and neither "last" nor "day" is listed: the complaint scores 0. The halved praise, rescaled to between −1 and +1 (section 4), gives +0.37, positive. By VADER's own rule the complaint should have decided, but none of its words is listed. So who should choose the words?
-
-
----
-class: vcenter
-
-# Word lists by hand
-
-.fullw[
-<p class="rule">A review is called positive when it holds more of the positive words than of the negative ones; a tie, when it holds as many. 1,400 movie reviews, half positive: guessing scores 50%.</p>
-<div class="trio lists">
-<div><b class="k">One person's lists</b><span class="pos">+ dazzling, brilliant, phenomenal, excellent, fantastic</span><span class="neg">− suck, terrible, awful, unwatchable, hideous</span><span class="num">58%</span>ties: 75% of the reviews</div>
-<div><b class="k">Another person's</b><span class="pos">+ gripping, mesmerizing, riveting, spectacular, cool, awesome, thrilling, badass, excellent, moving, exciting</span><span class="neg">− bad, cliched, sucks, boring, stupid, slow</span><span class="num">64%</span>ties: 39%</div>
-<div class="lit"><b class="k">Read off the reviews' counts</b><span class="pos">+ love, wonderful, best, great, superb, still, beautiful</span><span class="neg">− bad, worst, stupid, waste, boring, ?, !</span><span class="num">69%</span>ties: 16%</div>
-</div>
-.lead.big.center[Words picked by intuition did little better than chance.]
-]
-
-.footnote[B. Pang, L. Lee and S. Vaithyanathan (2002), Figures 1 and 2; the third list was read partly off the test reviews.]
-
-???
-
-**Word lists picked by intuition did little better than guessing.** Pang et al. had two students list words that signal a positive or negative film review. A review was called positive when it held more of the positive words than of the negative ones; a tie, when it held as many, mostly none. On 1,400 reviews, half positive, guessing scores 50% (Pang et al., 2002, section 4). A tie is settled by a rule, not by the words, so the more ties, the less the list decides. The first list tied on 75% of the reviews and scored 58%; the second, 39% and 64%. The authors chose seven words each way, partly from word counts in the very reviews they tested on: 16% ties, 69%. Their conclusion: data, not intuition, should choose the words (section 4). Why not let the data also decide how much each word counts?
+**A lexicon is a list of words, each with a sentiment score.** A review's score adds up the scores of the listed words it holds, so no labelled review is needed, and every verdict can be traced back to its words. VADER is a ready-made lexicon of about 7,500 entries, each scored by people from −4 to +4; "great" scores 3.1. It also has a few rules: for instance, what follows "but" counts more than what comes before. In our review, VADER knows "great" and no word of the complaint, so the complaint counts for nothing and the review comes out positive, +0.37. The list decides everything. Could the data choose the words, and how much each counts?
 
 
 ---
@@ -512,11 +468,11 @@ class: stepwise-svg, vcenter
 .step-5.lead.big.center[A linear model learns one weight per term from labelled texts.]
 ]
 
-.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 85 and 97 to 98.] D. Jurafsky and J. H. Martin (2026), chapter 4 and p. 534; B. Pang et al. (2002), Figure 3. *Evaluating a classifier*, slide 3. Weights illustrative.]
+.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), pp. 85 and 97 to 98.] D. Jurafsky and J. H. Martin (2026), chapter 4 and p. 534; B. Pang et al. (2002), Figures 1 to 3. *Evaluating a classifier*, slide 3. Weights illustrative.]
 
 ???
 
-**A linear model learns one weight per term from labelled reviews.** Its score is "a weighted sum of the attribute values" (Provost & Fawcett, 2013, p. 85, verbatim). The logistic function turns the score into a probability, and training fits the weights to the labels: the first day's logistic regression (pp. 97 to 98). In review 1, with illustrative weights, "great" pulls towards positive and "not" towards negative: the review is negative with probability 0.55. On the same reviews, such models reached up to 82.9%, against 69% for the best list (Pang et al., 2002, Figure 3); with many labelled texts like those to score, they are hard to beat (Jurafsky & Martin, 2026, p. 534). But a word no labelled review used gets no weight, and what the model reads, terms or GloVe's vectors, was made outside it. What if a model learned language from plain text?
+**A linear model learns one weight per term from labelled reviews.** It multiplies each term's value by its weight and adds the products up; the logistic function turns the sum into a probability, as in the first day's logistic regression. The weights are learned from reviews whose label we know, so the data, not a person, decides which words matter and how much. On 1,400 movie reviews, word lists chosen by people scored 58% and 64%, where guessing gives 50%; learned models reached 83%. The weights in the figure are illustrative. But the model learns only from our labelled reviews: a word none of them used gets no weight. What if a model learned language from all the text it can read?
 
 
 ---
@@ -530,7 +486,87 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Part 3 follows sentiment analysis to its second transition: networks that learn language before sentiment.** Hartmann et al. see two transitions in how the field scores sentiment (Hartmann et al., 2023, p. 78). The first went from lexicons to models that learn from labelled texts: part 2. The second went to networks pretrained on large amounts of text that no one labelled (p. 78). Why? A model on words knows only what our labelled reviews show it; needing no labels, these networks can learn from far more text than anyone could label (p. 79). They are language models, the kind ChatGPT is (Zhang et al., 2024, section 4.1), and the most accurate sentiment scorers in Hartmann's tally are built on them (p. 82). This morning, we reused networks pretrained on photos, in four ways. Which of them work for text?
+**Part 3 is about language models, which learn from text itself rather than from our labels.** Everything so far started from words we counted and labels we gave. Language models learn from vast amounts of unlabelled text which words fit together and what they mean. Where did they come from?
+
+
+---
+class: stepwise-svg, vcenter
+# Language models before they were large
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/lm-history.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A timeline: 1948, Shannon predicts next words from counts; 1975 to 1985, IBM's speech recognition coins the term language model; 2003, a neural network predicts the next word; 2013, word2vec learns embeddings by predicting neighbours; 2018, ELMo, one language model reused for many tasks"></object></div>
+.step-6.lead.big.center[A language model predicts the next word; it was first built for speech recognition.]
+]
+
+.footnote[D. Jurafsky and J. H. Martin (2026), pp. 13, 89, 137, 150 and 207. Drawn.]
+
+???
+
+**A language model predicts the next word; it was first built for speech recognition.** Given the words so far, it gives each possible next word a probability. In 1948, Shannon already approximated English by predicting each word from counts of the words before it. Between 1975 and 1985, a speech-recognition group at IBM coined the term "language model": to turn sound into text, it helps to know which word sequences are likely. Their models counted short sequences of words, n-grams. In 2003, a neural network learned to predict the next word; in 2013, word2vec learned word embeddings, of the kind GloVe gave us, by predicting neighbouring words. In 2018, ELMo showed that one language model could be reused for many tasks. Then language models grew. Why?
+
+
+---
+class: stepwise-svg, vcenter
+# Large language models
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/lm-sizes.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Parameters on a log scale: BERT 0.34 billion in 2018, GPT-2 1.5 billion in 2019, GPT-3 175 billion in 2020, Llama 3.1 405 billion in 2024; GPT-5, Claude and Gemini do not disclose their size"></object></div>
+.step-4.lead.big.center[More parameters, text and compute make a language model predict better.]
+]
+
+.footnote[J. Devlin et al. (2019); D. Jurafsky and J. H. Martin (2026), pp. 7, 204 and 205 (Fig. 7.24).]
+
+???
+
+**Language models became large because more parameters, more text and more compute make them predict better.** A parameter is one of the numbers a network learns. BERT, in 2018, had a third of a billion; GPT-3, two years later, 175 billion; Llama 3.1, in 2024, 405 billion, trained on over 15 trillion tokens. Mind the scale: each line on the chart is ten times the one below. A model's quality rises with its size, its training text and its training compute, so all three grew; these relationships are called scaling laws. The largest models today, such as GPT-5, Claude and Gemini, do not disclose their size. How can a model learn from so much text, when nobody labels it?
+
+
+---
+class: stepwise-svg, vcenter
+# How language models learn
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/lm.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The review with its last word hidden; BERT's five likeliest words: second 0.43, minute 0.14, moment 0.08, day 0.08, week 0.07"></object></div>
+.step-4.lead.big.center[A language model learns from text alone, by guessing the words left out.]
+]
+
+.footnote[D. Jurafsky and J. H. Martin (2026), pp. 5 and 9; J. Devlin et al. (2019), pp. 1 and 5: the masked language model. Computed with BERT base uncased, .lic[Apache 2.0].]
+
+???
+
+**A language model learns from text alone, by guessing the words left out.** The text supplies its own answers: hide a word, and the original still holds it. BERT learns by hiding words anywhere in a sentence and guessing each from the words on both sides; it learned from 3.3 billion words of books and Wikipedia. We hid our review's last word. BERT's first guess is "second", at 0.43, and the review's own "day" comes fourth, at 0.08: all five guesses are spans of time. This learning without labels is called pretraining. But what does BERT actually read: whole words?
+
+
+---
+class: stepwise-svg, vcenter
+# Tokens
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/tokens.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="BERT's tokens: the review as twelve tokens, one per word or mark; touchscreen as touch and screen; overheating as over, hea and ting; a vocabulary of 30,522 tokens"></object></div>
+.step-5.lead.big.center[A model that reads text reads tokens: whole words, or pieces of rarer ones.]
+]
+
+.footnote[J. Devlin et al. (2019), p. 4: WordPiece. D. Jurafsky and J. H. Martin (2026), section 2.4. Computed with BERT's tokenizer.]
+
+???
+
+**A language model reads tokens: whole words, or pieces of rarer ones.** A model works from a fixed list of units, each with its own numbers, and a word missing from the list could not be read at all. So the list itself is learned from text: common words get a token of their own, rarer ones are written as known pieces. BERT's list holds 30,522 tokens. Our review becomes 12 tokens, one per word or mark, all in lower case. "Touchscreen" becomes "touch" and "##screen", the "##" marking a piece that continues a word; "overheating" splits into pieces that mean nothing alone. To guess a hidden word, the model must read each token with the others. How?
+
+
+---
+class: stepwise-svg, vcenter
+# Transformers
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/context.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Reviews 1 and 2, each with the word great; GloVe gives great one fixed vector, a cosine of 1.00 between the two; BERT reads great with its neighbours, a cosine of 0.62"></object></div>
+.step-5.lead.big.center[Language models use transformers, which read each word with all the others.]
+]
+
+.footnote[A. Vaswani et al. (2017), pp. 1 to 2; D. Jurafsky and J. H. Martin (2026), pp. 177 to 178. Computed with BERT base uncased and GloVe.]
+
+???
+
+**Language models use transformers, which read each word with all the others.** To predict a word, a model needs the rest of the text, and not every word matters equally. A transformer computes, for each token, how much every other token matters to it, and mixes their numbers into its own; this step is called attention. It handles all the tokens at once rather than one after another, so it can be trained on huge amounts of text in parallel: that is what let language models grow. Our reviews show the effect. In GloVe, "great" has one fixed vector, the same in both reviews. In BERT, its vector changes once "not a" comes before it: a cosine of 0.62. How do we put such a model to work on our own task?
 
 
 ---
@@ -551,55 +587,7 @@ class: vcenter
 
 ???
 
-**Zero-shot, dimmed this morning, needs a model that reads text.** In *Deep learning*, we met four ways to get a model, each one further right needing more labelled examples and more compute. With a new head, the pretrained layers stay locked and only a new last layer, one output per class, learns from our examples: that is how EfficientNet learned lions and tigers. With fine-tuning, some pretrained layers are unlocked and learn too, which takes more examples. Zero-shot takes no labelled example: we describe the classes in words, so the model must understand the description. No network this morning could read words. Part 3 builds up to one: first a pretrained network for text with a new head, then a model we simply ask. But to read a review at all, a network needs units of text it knows. Which units?
-
-
----
-class: stepwise-svg, vcenter
-# Tokens
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/tokens.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="BERT's tokens: the review as twelve tokens, one per word or mark; touchscreen as touch and screen; overheating as over, hea and ting; a vocabulary of 30,522 tokens"></object></div>
-.step-5.lead.big.center[A model that reads text reads tokens: whole words, or pieces of rarer ones.]
-]
-
-.footnote[J. Devlin et al. (2019), p. 4: WordPiece. D. Jurafsky and J. H. Martin (2026), section 2.4. Computed with BERT's tokenizer.]
-
-???
-
-**A model that reads text reads tokens: whole words, or pieces of rarer ones.** Why pieces? A network works from a fixed list of units, each with its own numbers, and a word missing from the list would be unreadable (Jurafsky & Martin, 2026, p. 42). So the list is learned from text: many tokens are words, others pieces, and any unseen word can be written as known pieces (p. 43). BERT, a network for text, uses WordPiece: 30,522 tokens, which its authors round to 30,000 (Devlin et al., 2019, p. 4). Our review becomes 12 tokens, one per word or punctuation mark. The rarer "touchscreen" becomes touch and ##screen, "##" marking a piece that continues a word; "overheating" becomes over, ##hea and ##ting, meaningless pieces. All are in lower case: part 1's normalisation, built in. How can a network learn what each token means, with no labels?
-
-
----
-class: stepwise-svg, vcenter
-# Language models
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/lm.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The review with its last word hidden; BERT's five likeliest words: second 0.43, minute 0.14, moment 0.08, day 0.08, week 0.07"></object></div>
-.step-4.lead.big.center[A language model learns from text alone, by guessing the words left out.]
-]
-
-.footnote[D. Jurafsky and J. H. Martin (2026), pp. 5 and 9; J. Devlin et al. (2019), p. 1: the masked language model. Computed with BERT base uncased, .lic[Apache 2.0].]
-
-???
-
-**A language model learns from text alone, by guessing the words left out.** Technically, a language model predicts the next word from the words before it, with a probability for each candidate (Jurafsky & Martin, 2026, p. 5). It learns by doing so again and again over a vast body of text: pretraining (p. 9). Why no labels? The text supplies the answers: hide a word, and the text still holds it. BERT, a masked language model, hides words anywhere and guesses each from both sides (Devlin et al., 2019, p. 1); it was pretrained on 3.3 billion words (p. 5). We hid our review's last word: BERT's first guess is "second", at 0.43, and the review's own "day" comes fourth. All five guesses are spans of time: BERT learned what can follow "does not last a". To guess well, it must read each word with its neighbours. How?
-
-
----
-class: stepwise-svg, vcenter
-# Transformers
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/context.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Reviews 1 and 2, each with the word great; GloVe gives great one fixed vector, a cosine of 1.00 between the two; BERT reads great with its neighbours, a cosine of 0.62"></object></div>
-.step-5.lead.big.center[A transformer reads each word with the words around it.]
-]
-
-.footnote[D. Jurafsky and J. H. Martin (2026), pp. 177 to 178; A. Vaswani et al. (2017). Computed with BERT base uncased and GloVe.]
-
-???
-
-**A transformer reads each word with the words around it.** The transformer, introduced in 2017 for translation (Vaswani et al., 2017, p. 1), is the network design behind today's language models; BERT is one (Devlin et al., 2019, p. 1). Each token enters as its embedding, a vector as in GloVe. Then, in each layer, a step called attention mixes into each token's numbers information from the other tokens (Jurafsky & Martin, 2026, pp. 177 to 178). What does that change? GloVe gives "great" one vector, the same in "Great screen" and in "Not a great screen": a cosine of 1.00. BERT's last layer gives it a different vector in each, a cosine of 0.62: after "not a", "great" has moved. BERT never saw our labels. How do we get a sentiment verdict from it?
+**Zero-shot, dimmed this morning, needs a model that reads text.** In *Deep learning*, we saw four ways to get a model, each needing more labelled examples than the one before. With a new head, the pretrained layers stay locked and only a new last layer learns from our examples: that is how EfficientNet learned lions and tigers. Fine-tuning also unlocks some pretrained layers. Zero-shot needs no labelled example at all: we describe the classes in words, so the model must understand words. We now have such models. First, let's do with BERT what we did with the photos.
 
 
 ---
@@ -611,11 +599,11 @@ class: stepwise-svg, vcenter
 .step-4.lead.big.center[A pretrained transformer learns sentiment from labelled texts through a new head.]
 ]
 
-.footnote[J. Devlin et al. (2019), pp. 1 and 5. Transfer learning and fine-tuning: *Deep learning*.]
+.footnote[J. Devlin et al. (2019), pp. 1 and 5; J. Hartmann et al. (2023), p. 81. Transfer learning and fine-tuning: *Deep learning*.]
 
 ???
 
-**A pretrained transformer learns sentiment from labelled reviews through a new head.** For a verdict, we do what we did with the lions and tigers: keep the pretrained layers, and add a new head with one output per class, positive and negative, that learns from labelled reviews. With every pretrained layer locked, this is transfer learning; with some unlocked, fine-tuning. BERT's authors added one output layer and fine-tuned all the weights (Devlin et al., 2019, pp. 1 and 3). Why can it do with fewer labelled reviews than a model on words? It does not have to learn the language from them. Cut to 1,000 labelled texts, two networks of this kind lost only about 1.5 points of accuracy (Hartmann et al., 2023, p. 81). Yet it still needs labelled reviews. What if we have none?
+**A pretrained transformer learns sentiment from labelled reviews through a new head.** Pretraining taught BERT language, not our labels. As with the lions and tigers, we keep its layers and add a new last layer, with one output per class, positive and negative, trained on our labelled reviews. With the pretrained layers locked, this is transfer learning; with some unlocked, fine-tuning, which BERT's authors did for all of them. It needs fewer labelled reviews than a model on words, because it does not have to learn the language from them. But it still needs some. What if we have none?
 
 
 ---
@@ -627,53 +615,48 @@ class: stepwise-svg, vcenter
 .step-5.lead.big.center[A generative model writes by predicting the next word, again and again.]
 ]
 
-.footnote[D. Jurafsky and J. H. Martin (2026), Fig. 1.3, p. 6, and p. 10. Schematic; the words generated illustrative.]
+.footnote[D. Jurafsky and J. H. Martin (2026), Fig. 1.3, p. 6, and pp. 9 to 10. Schematic; the words generated illustrative.]
 
 ???
 
-**A generative model writes by predicting the next word, again and again.** Without a labelled review, can a model still give a label? It can if it writes one. A language model predicts the next word; pick a likely word, add it to the text, predict again, and the model writes, one word at a time (Jurafsky & Martin, 2026, Fig. 1.3, p. 6). The figure is schematic and its words illustrative: from "Great screen, but the battery", the model predicts "does", adds it, and goes on. Why would such text answer a question? The model learned from text in which answers follow questions (p. 9), and it is trained further on hundreds of thousands of questions and answers: instruction tuning (p. 10). So it continues a question with its answer. What if we ask it whether our review is positive or negative?
+**A generative model writes by predicting the next word, again and again.** Predict the likeliest next word, add it to the text, predict again: the model writes, one word at a time. The figure is schematic, its words illustrative. Why would such a model answer a question? It learned from text in which answers follow questions, and it is then trained further on hundreds of thousands of questions with their answers, which is called instruction tuning. So, given a question, it writes an answer. Can we simply ask it whether our review is positive or negative?
 
 
 ---
 class: stepwise-svg, vcenter
-# Prompted language models
+# Zero-shot
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/prompt.svg" style="width: 86%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The question positive or negative and the review go to a language model, with no weight change; it answers negative"></object></div>
-<div class="facts two step-4">
-<div><span class="num">94% against 94%</span>on film reviews (IMDb), two classes: level with a fine-tuned model.</div>
-<div><span class="num">52% against 66%</span>on business reviews (Yelp), five stars: the fine-tuned model far ahead.</div>
-</div>
-.step-5.lead.center[Zero-shot labels come close to a fine-tuned model's on two classes, not on five.]
+<div class="step-1"><object type="image/svg+xml" data="images/zeroshot.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Two prompts: zero-shot, the question positive or negative and the review, no labelled example; one-shot, the same with one labelled review first; the model writes the answer, no weight changes"></object></div>
+.step-4.lead.big.center[Zero-shot: the task described in words, with no labelled example.]
 ]
 
-.footnote[W. Zhang et al. (2024), section 4.3: ChatGPT against a fine-tuned T5. T. Brown et al. (2020), p. 7. Answer illustrative.]
+.footnote[T. Brown et al. (2020), Fig. 2.1, p. 6. D. Jurafsky and J. H. Martin (2026), p. 207. Drawn; any answer illustrative.]
 
 ???
 
-**Asked for the label, a language model comes close to a fine-tuned one on two classes, not on five.** The prompt, the text we send, holds the question and the review; the answer drawn is illustrative. No labelled example, no weight change: zero-shot (Brown et al., 2020, p. 7), the way left dimmed this morning. Zhang et al. set ChatGPT against T5, a smaller language model fine-tuned on each dataset's training set. On two-class IMDb film reviews, they were level: 94.2% against 93.9%. On Yelp business reviews in five classes, very negative to very positive, ChatGPT trailed: 52.4% against 65.6% (Zhang et al., 2024, sections 3.1 and 4.3). Rewording the prompt moved the scores a little, with outliers (section 4.4). A commercial model can change without notice, and may train on the texts we send it (Chae & Davidson, 2025, sections 7.3.3 and 7.3.4). Which way should a firm choose?
+**Zero-shot: the task described in words, with no labelled example.** The text we send, the prompt, holds an instruction and our review; the model writes the answer, and none of its weights change. Put one labelled review in the prompt first and it is one-shot; a few, few-shot. GPT-2 showed in 2019 that a language model could do tasks zero-shot, and GPT-3's authors named these three settings. The answer is illustrative: how well this works depends on the model, the task and the wording of the prompt. Which models are we talking about when we ask?
 
 
 ---
 class: vcenter
-# The four ways compared
+# Foundation and frontier models
 
-.fullw.cmp[
-<table>
-<tr><th></th><th>A lexicon</th><th>A model on words</th><th>A pretrained network</th><th>A prompted language model</th></tr>
-<tr><td>Labelled texts</td><td>none</td><td>many</td><td>fewer</td><td>none</td></tr>
-<tr><td>Verdict readable</td><td>word by word</td><td>weight by weight</td><td>no</td><td>no</td></tr>
-<tr><td>Accuracy, across studies</td><td>69% on average</td><td>9 points more</td><td>20 points more</td><td>close on two classes, far behind on five</td></tr>
-</table>
+.fullw[
+<div class="trio">
+<div><b class="k">Foundation models</b>One large pretrained model as the base for many tasks, and for more than text: images, speech, genetics.</div>
+<div class="lit"><b class="k">Frontier models</b>The most capable of their time, such as GPT-5, Claude and Gemini: closed, their size not disclosed.</div>
+<div><b class="k">ChatGPT</b>A chat service opened in November 2022, on a GPT-3.5 model fine-tuned with people's feedback.</div>
+</div>
 
-.lead.big.center[Only a labelled sample of our own reviews can tell which way wins.]
+.lead.big.center[Today's largest language models are foundation models: one model, many tasks.]
 ]
 
-.footnote[J. Hartmann et al. (2023): 69.23%, +9.45 and +20.22 points, the last for what they call transfer learning. W. Zhang et al. (2024).]
+.footnote[D. Jurafsky and J. H. Martin (2026), pp. 204 and 207, citing R. Bommasani et al. (2021). OpenAI (2022). Y. Chae and T. Davidson (2025).]
 
 ???
 
-**Only a labelled sample of our own reviews can tell which way wins.** A lexicon and a prompted model need no labelled review, a model on words many, a pretrained network fewer, and only the two ways on words show why they decided. Across over 1,100 published results (Hartmann et al., 2023, p. 80), lexicons averaged 69.23%; models learned on word counts, random forests among them (p. 79), 9.45 points more; pretrained networks, which the authors call transfer learning, 20.22 more (pp. 82 to 83). These are averages over others' data: on applied datasets, the pretrained networks' median was 88.6%, against 95 to 97% on a standard benchmark (p. 80). The textbook's strategy for text is to "use the simplest (least expensive) technique that works" (Provost & Fawcett, 2013, p. 251, verbatim). On film reviews, does a model on words we train beat a ready-made scorer?
+**Today's largest language models are foundation models: one model, many tasks.** A foundation model is pretrained once, at great cost, then adapted to many tasks, and not only on text: images, speech, genetics. The most capable ones at any moment are called frontier models: GPT-5, Claude and Gemini, for example, closed models whose makers disclose neither their size nor their design. ChatGPT, opened in November 2022, is a chat service on such a model, fine-tuned with people's feedback. For a firm, using one means sending its texts to the provider. In the lab, we stay with what we can build and check ourselves.
 
 
 ---
@@ -687,7 +670,7 @@ class: vcenter
 
 ???
 
-**In this last part, we train a model on film reviews in Dataiku, then set it against a ready-made scorer.** Our stand-in for a firm's reviews is 2,000 reviews that users wrote on IMDb, the Internet Movie Database, drawn from the 50,000 that Maas et al. collected there (Maas et al., 2011, p. 149). After the checkpoint come 2,000 film reviews from another collection, Pang and Lee's (Pang & Lee, 2004, section 3). Our model and Dataiku's ready-made scorer both score these, so the two are compared on the same reviews. Before we train anything, what does one row of the file hold?
+**In the hands-on, we train a sentiment model in Dataiku and set it against a ready-made scorer.** We train on 2,000 film reviews from IMDb, the Internet Movie Database, drawn from 50,000 that researchers collected there. After the checkpoint, our model and Dataiku's sentiment plugin both score 2,000 reviews from another collection, Pang and Lee's, so the two are compared on the same texts. What does one row of our file hold?
 
 
 ---
@@ -724,7 +707,7 @@ class: vcenter
 
 ???
 
-**Each row is one review of one film, and the model must tell from its text whether the review is unhappy.** The target, `unhappy`, is 1 for a negative review; `URL` is the address of the film's page on IMDb. Half the reviews are unhappy, so always guessing one class scores 50%, the mark any model must beat. Maas et al. kept only clearly positive and clearly negative reviews (Maas et al., 2011, p. 149), so our model never learns from a lukewarm one. In 1,988 of the 2,000 texts, the opening sentence was copied again at the end, and the bag of words would have counted its words twice: we removed the copies. One more defect was harder to see, and a model would have used it: where did each label come from?
+**Each row is one review of one film; the model must tell from its text whether the review is unhappy.** The target, `unhappy`, is 1 for a negative review; `URL` is the address of the film's page. Half the reviews are unhappy, so always guessing one class scores 50%: the mark to beat. Only clearly positive or negative reviews were kept, so the model never learns from a lukewarm one. Most texts repeated their opening sentence at the end, which doubled its words' counts; we removed the copies. One more defect would let a model cheat. Where did each label come from?
 
 
 ---
@@ -747,7 +730,7 @@ class: vcenter
 
 ???
 
-**A rating written in the review's text gives its label away.** Each label was set from the review's rating out of 10 on IMDb: 4 or less made it unhappy, 7 or more happy (Maas et al., 2011, p. 149). Of our 2,000 reviews, 161 also state that rating in the text, as "8/10", "9 out of 10" or "4 stars". A model can learn to read the number instead of the opinion. But a review that states its rating needs no model, so the model is meant for texts that carry none. This is leakage, as with the wine grades of *Beyond binary classification*: an input that holds what the model will not know when it is used. We deleted each stated rating and kept the rest of the review. Who, then, will use this model, and what will its errors cost them?
+**A rating written in the text gives the label away.** Each label comes from the rating the reviewer gave out of 10: 4 or less is unhappy, 7 or more happy. But 161 reviews also state that rating in their text, as "8/10" or "4 stars". A model could learn to read the number rather than the opinion. The care team needs the model for reviews that carry no rating, so this is a leak, as in *Beyond binary classification*: an input the model will not have when it is used. We deleted the stated ratings. Who, then, uses the model, and what do its errors cost?
 
 
 ---
@@ -766,7 +749,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**The care team reads every review the model scores 0.2 or more.** In our scenario, a streaming service's care team cannot read every review. It wants the unhappy ones first, so unhappy is our positive class. A missed unhappy review costs it 4; a happy one read for nothing, 1. Such prices are not in the data: "usually the values must come from external domain knowledge" (Provost & Fawcett, 2013, p. 195, verbatim). Say the model scores a review p = 0.3, its probability of being unhappy. Unread, it costs 4 × 0.3 = 1.2 on average; read, (1 − 0.3) × 1 = 0.7. We read it; the default 0.5 would not. Reading pays whenever 4p > 1 − p, so above 1 / (1 + 4) = 0.2 (pp. 195 to 196): the cost threshold of *Evaluating a classifier*. From which of the file's columns can the model learn p?
+**The care team reads every review the model scores 0.2 or more.** In our scenario, a streaming service's care team cannot read every review and wants the unhappy ones first, so unhappy is the positive class. A missed unhappy review costs 4; a happy one read for nothing costs 1. Say the model gives a review a probability p of being unhappy. Left unread, it costs 4p on average; read, 1 − p. Reading pays when 4p > 1 − p, that is, above 1 / (1 + 4) = 0.2: the cost threshold of *Evaluating a classifier*. The default of 0.5 would leave many unhappy reviews unread. From which columns can the model learn p?
 
 
 ---
@@ -793,7 +776,7 @@ class: vcenter
 
 ???
 
-**Only the text enters the model, and as a bag of words its one column becomes thousands.** A column's type decides what a model can do with it, and our file has three. `Text` is free text, any words at any length. The bag of words turns it into one column per term, and the reviews decide which terms: "we don't know in advance what the features will be" (Provost & Fawcett, 2013, p. 252, verbatim). `URL` is an identifier: it names the film, not the opinion. A model that learned it would know which films were disliked, and nothing about a review of a new film, so it is no feature. The third, `unhappy`, is the target. If the model never reads the URL, why keep it in the file?
+**Only the text enters the model, and as a bag of words its one column becomes thousands.** `Text` is free text: the bag of words turns it into one column per term, and the reviews themselves decide which terms. `URL` identifies the film. A model that learned it would know which films were disliked, and nothing about a review of a new film, so it is no feature. `unhappy` is the target. If the model never reads the URL, why keep it?
 
 
 ---
@@ -816,7 +799,7 @@ class: vcenter
 
 ???
 
-**Reviews of one film share its names, so they must stay in one fold.** Leaving `URL` out does not hide the film: 1,225 of our 2,000 reviews share their film with another, and with it the names of its characters and actors. A model can then get a test review right by recognising names it met in training, without reading the opinion. In the folds Pang and Lee published, about half of each test fold had a review of the same film, with the same label, in training (Maas et al., 2011, p. 149). The URL says which reviews share a film, so we group the folds by it: every test review is then of a film the model never saw, as when we left one site out in *Model selection and cross-validation*. How do we set this, and the text, in Dataiku?
+**Reviews of one film share its names, so they stay in one fold.** 1,225 of our 2,000 reviews share their film with another, and with it the names of its characters and actors. With one review of a film in training and another in the test fold, a model can score well by recognising the film instead of reading the opinion. Grouping the folds by `URL` keeps every film on one side of each split, as leaving one site out did in *Model selection and cross-validation*. How do we set this, and the text, in Dataiku?
 
 
 ---
@@ -835,7 +818,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**The model reads TF-IDF on the words and pairs of the simplified text, with folds grouped by film.** In **Design → Features handling**, we choose whether and how the model reads each column. `Text` and `URL` are *rejected*: not read. The model reads `TextSimple`, the review as the Prepare recipe's *Simplify text* step wrote it; the first panel checks what that step does to "not". Its *Text handling* is *TF/IDF vectorization*, Dataiku's name for TF-IDF, with *N-grams* 1 to 2: words and pairs. Pairs multiply the columns, so we set "minimum and maximum thresholds of term counts" (Provost & Fawcett, 2013, p. 256, verbatim): *Min. rows fraction* 0.1% drops a term found in a single review, *Max. rows fraction* 80% one found in over 80% of them. In **Design → Train/Test set**, *K-fold cross-test* takes five folds grouped by `URL`. Where does this model meet the ready-made scorer?
+**The model reads TF-IDF on the words and pairs of the simplified text, with folds grouped by film.** In **Design → Features handling**, `Text` and `URL` are rejected, that is, not read. The model reads `TextSimple`, the review after the Prepare recipe's *Simplify text* step; the sheet's first panel checks what that step does to "not". *TF/IDF vectorization* is Dataiku's name for TF-IDF, and *N-grams* 1 to 2 means words and pairs. The minimum and maximum row fractions, 0.1% and 80%, drop the terms found in almost no review and in almost all of them. In **Train/Test set**, the five folds are grouped by `URL`. Where does this model sit in the whole lab?
 
 
 ---
@@ -850,111 +833,11 @@ class: stepwise-svg, vcenter
 .step-4.lead.big.center[The model and a plugin then score the same new reviews.]
 ]
 
-.footnote[Drawn after a Dataiku DSS Flow; the sheet *Hands-on 5*, panels 1 to 4. Recipe colours schematic.]
+.footnote[Drawn after a Dataiku DSS Flow; recipe colours schematic. Dataiku (2024), *Sentiment analysis*; B. Pang and L. Lee (2004).]
 
 ???
 
-**The model and a plugin then score the same new reviews.** The Flow is Dataiku's map of a project: its datasets, and the recipes that make one from another. Pang and Lee's reviews take two paths. On one, a copy of the Prepare recipe gives them the `TextSimple` the model reads, and the Score recipe adds the model's probability. On the other, Dataiku's sentiment plugin, an add-on installed separately (Dataiku, 2024, *Sentiment analysis*), reads the raw text and answers positive or negative. Both paths end by counting the four outcomes of *Evaluating a classifier*, unhappy being positive: true positives (TP) and false negatives (FN), unhappy reviews flagged for reading or missed; false positives (FP) and true negatives (TN), happy ones flagged or left. We build it in two halves. First: can our model pick the reviews to read?
-
-
----
-class: vcenter
-
-# Hands-on 5: unhappy or not
-
-<img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
-
-.beside-thumb[
-.need[**The need.** A care team can read only some of the reviews it receives. Can a model trained on 2,000 labelled reviews pick the ones to read first, at the team's costs?]
-
-<div class="moves">
-<div><b>1. Prepare</b>Simplify the text; check what happens to "not".<br /><code>+ Recipe → Prepare</code>, <code>Simplify text</code>; panel 1</div>
-<div><b>2. Train</b>Target <code>unhappy</code>; TF-IDF on words and pairs; 5 folds by <code>URL</code>.<br /><code>Lab → AutoML prediction → Design</code>; panel 2</div>
-<div><b>3. Threshold</b>0.2, from the costs, and 0.5; the confusion matrix at each.<br /><code>Results → Performance</code>; panel 3</div>
-<div><b>4. Read</b>The heaviest terms, each way.<br /><code>Results → model → Regression coefficients</code>; panel 3</div>
-</div>
-
-.time[Sheet *Hands-on 5*, panels 1 to 3. Groups of three. 25 minutes.]
-]
-
-.footnote[Steps as on the sheet; Dataiku (2024), *Text variables*.]
-
-???
-
-**Can a model trained on 2,000 labelled reviews pick the ones the care team should read first?** Four moves answer it, in 25 minutes. First, simplify the text and check what happens to "not": if the stop list drops it, "not great" becomes "great", and the pairs lose the verdict. Second, train a logistic regression, our linear model on words, on TF-IDF, with five folds grouped by film. Third, set the threshold to 0.2, read the confusion matrix and price it: 4 × FN + FP. Then price 0.5. Why? The rule behind 0.2 assumes calibrated probabilities, scores that mean what they say; comparing the two bills tests that. Fourth, read the terms with the largest weights each way, Dataiku's regression coefficients. So far, the model has met only IMDb reviews. Would it do as well on others, and would a ready-made scorer do better?
-
-
----
-class: vcenter
-
-# Hands-on 5, continued
-
-<img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
-
-.beside-thumb[
-<div class="moves">
-<div><b>5. Score</b>Pang and Lee's 2,000 reviews with the model, after a copy of the Prepare recipe.<br /><code>+ Recipe → Score</code>; panel 4</div>
-<div><b>6. Plugin</b>The same reviews through Dataiku's sentiment plugin.<br /><code>+ Recipe → Plugins → Sentiment Analysis</code>; panel 4</div>
-<div><b>7. Count</b>TP, FP, FN, TN of each, and the cost 4 × FN + FP.<br /><code>Prepare → Formula</code>; panel 4</div>
-<div><b>8. Decide</b>Which scorer goes to the care team?<br />Panel 5</div>
-</div>
-
-.admonition.question.near[
-<i class="fa-solid fa-circle-question"></i> **Buy or build: the plugin, or the model you trained?**
-]
-
-.time[Sheet panels 4 and 5. 12 minutes.]
-]
-
-.footnote[B. Pang and L. Lee (2004): polarity dataset v2.0. Dataiku (2024), *Sentiment analysis*: a plugin marked not supported.]
-
-???
-
-**Past the checkpoint, each group sets its model against Dataiku's sentiment plugin, on reviews from another collection.** Pang and Lee's reviews were all written before 2002 (Pang & Lee, 2004, section 3). One study found sentiment classifiers to depend on the domain of their texts, and on the period in which they were written (Pang & Lee, 2008, section 4.4.1). Will the words our model learned on IMDb carry over? Dataiku's reference page marks the plugin not supported and does not say how it scores, so we cannot place it among our four ways; it runs offline, sending no text to an outside service (Dataiku, 2024, *Sentiment analysis*). Both are priced at 4 × FN + FP. Then the group decides, buy or build: the plugin as it comes, or its own model. Whichever wins, the care team will ask why a review was flagged. Can our model tell them?
-
-
----
-class: vcenter
-
-# The heaviest terms
-
-<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
-
-.beside-thumb[
-<div class="duo big">
-<div><b class="k">Where to look</b>In the model's results, the regression coefficients: each term with its weight, the largest first.</div>
-<div class="lit"><b class="k">What to ask of each</b>Is it an opinion, such as "bad" or "waste", or the name of a film or an actor?</div>
-</div>
-
-.lead.big.center[Every term keeps a weight that can be read: check what the model learned.]
-]
-
-.footnote[D. Jurafsky and J. H. Martin (2026), chapter 4; B. Pang et al. (2002), Figure 2: "bad", "waste"; A. L. Maas et al. (2011).]
-
-???
-
-**Each term's weight can be read, so we can check what the model learned.** A logistic regression adds up each term's value times its weight, so the largest weights help explain its decisions (Jurafsky & Martin, 2026, p. 121). Dataiku lists them as regression coefficients, largest first, towards unhappy and towards happy. Of each heavy term, we ask: is it an opinion, such as "bad" or "waste" (Pang et al., 2002, Figure 2), or the name of a film or an actor? A term found in one class only can get a very large weight (Jurafsky & Martin, 2026, p. 121), and a model can score well by memorising words unique to one film, such as its characters' names (Maas et al., 2011, p. 149). They will not help with the next film. Our model read words almost without their order. What about data where order is everything?
-
-
----
-class: vcenter
-
-# Time series
-
-.fullw[
-<div class="duo big">
-<div><b class="k">Values in order</b>One value per day or month: the order is the data, as word order was for text.</div>
-<div><b class="k">Read before forecasting</b>Trend, season and the change from one step to the next, on bike rentals and the Dow Jones.</div>
-</div>
-
-.lead.big.center[After lunch, the same question for values ordered in time.]
-]
-
-.footnote[.book[<i class="fa-solid fa-book-open"></i> Provost & Fawcett (2013), p. 252.] R. J. Hyndman and G. Athanasopoulos (2021), sections 1.4, 2.3 and 5.4.]
-
-???
-
-**After lunch, we ask what a model can read from values ordered in time.** A time series is one quantity observed at regular steps, a day or a month, in order (Hyndman & Athanasopoulos, 2021, section 1.4). Where the bag of words could set word order aside (Provost & Fawcett, 2013, p. 252), a series cannot: its order is the data, and two patterns show only in it. A trend is a long-term rise or fall; a season, a pattern that repeats with a fixed and known period, such as the week or the year (section 2.3). We look for them in daily bike rentals and in the Dow Jones, an index of share prices. Before a model forecasts a series, predicting its next values, what can we read in it ourselves?
+**The model and a plugin then score the same new reviews.** The Flow is Dataiku's map of a project. On top, a Prepare recipe writes `TextSimple` and the Lab trains the model. Below, Pang and Lee's reviews take two paths: a copy of the Prepare recipe and the Score recipe give them our model's probability, while Dataiku's sentiment plugin, an add-on, reads the raw text. Both paths end by counting true and false positives and negatives, TP, FP, FN and TN, priced at 4 per missed unhappy review and 1 per wasted reading. Now to Dataiku, with the sheet: panels 1 to 3 build the top path, panels 4 and 5 the rest, and the decision. Buy or build?
 
 
 ---
@@ -969,10 +852,10 @@ class: vcenter
 - Devlin, J., Chang, M.-W., Lee, K. and Toutanova, K. (2019). BERT: pre-training of deep bidirectional transformers for language understanding. *NAACL-HLT 2019*, 4171 to 4186.
 - Hartmann, J., Heitmann, M., Siebert, C. and Schamp, C. (2023). More than a feeling: accuracy and application of sentiment analysis. *International Journal of Research in Marketing* 40(1):75 to 87.
 - Hutto, C. and Gilbert, E. (2014). VADER: a parsimonious rule-based model for sentiment analysis of social media text. *ICWSM 2014*, 216 to 225.
-- Hyndman, R. J. and Athanasopoulos, G. (2021). *Forecasting: Principles and Practice*, 3rd ed. OTexts, Melbourne.
 - Jurafsky, D. and Martin, J. H. (2026). *Speech and Language Processing*, 3rd ed., draft.
 - Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y. and Potts, C. (2011). Learning word vectors for sentiment analysis. *ACL-HLT 2011*, 142 to 150.
 - Manning, C. D., Raghavan, P. and Schütze, H. (2008). *Introduction to Information Retrieval*. Cambridge University Press.
+- OpenAI (2022). *Introducing ChatGPT*. OpenAI website, 30 November 2022.
 - Pang, B. and Lee, L. (2004). A sentimental education: sentiment analysis using subjectivity summarization based on minimum cuts. *ACL 2004*, 271 to 278.
 - Pang, B. and Lee, L. (2008). Opinion mining and sentiment analysis. *Foundations and Trends in Information Retrieval* 2(1 to 2):1 to 135.
 - Pang, B., Lee, L. and Vaithyanathan, S. (2002). Thumbs up? Sentiment classification using machine learning techniques. *EMNLP 2002*, 79 to 86.

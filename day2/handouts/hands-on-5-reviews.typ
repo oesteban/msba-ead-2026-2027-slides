@@ -2,12 +2,12 @@
 // hands-on-5-reviews.typ: the group's sheet for Hands-on 5, 23.10.2026 AM.
 //
 // One sheet per group of three, both sides. Page 1 is the data card. The core
-// (steps 1 to 3, about 25 minutes) follows slide 37 of "Text mining and
-// sentiment analysis", and the Flow it builds is drawn on slide 36: the group
+// (steps 1 to 3, about 25 minutes) follows slide 36 of "Text mining and
+// sentiment analysis", which draws the Flow it builds: the group
 // simplifies the IMDb reviews and checks what happens to "not", trains a
 // logistic regression on TF-IDF with five folds grouped by film, reads it at
 // the care team's threshold of 0.2 and reads its heaviest terms. Below the
-// checkpoint bar (slide 38) the group scores Pang and Lee's reviews with its
+// checkpoint bar the group scores Pang and Lee's reviews with its
 // model and with Dataiku's sentiment plugin, counts each one's errors at the
 // same costs, then decides. The flow follows the previous teacher's 2025 lab.
 //
@@ -137,7 +137,7 @@ sentiment plugin do as well, on 2,000 reviews from another source?
 
 #checkpoint(
   msg: [Reached this line? Stop here: the debrief reads every group's cost at 0.2 and its heaviest terms.],
-  note: [Panels 4 and 5 follow slide 38 of *Text mining and sentiment analysis*.],
+  note: [Panels 4 and 5 build the lower paths of the Flow, slide 36 of *Text mining and sentiment analysis*.],
 )
 
 #v(6pt)

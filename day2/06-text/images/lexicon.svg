@@ -34,7 +34,7 @@
 </g>
 <g data-step="2">
 <rect class="accent-stroke" x="292.46999999999997" y="107" width="68.95999999999998" height="44" rx="7" fill="none" stroke="#00609c" stroke-width="2.6"/>
-<text class="accent-fill" x="292.46999999999997" y="92" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">“but”: the clause after it dominates</text>
+<text class="accent-fill" x="292.46999999999997" y="92" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">what follows “but” counts more</text>
 </g>
 <g data-step="3">
 <path d="M 441.39 162 L 441.39 236 L 956.6300000000001 236 L 956.6300000000001 162" fill="none" stroke="#da232f" stroke-width="2.2" marker-end="url(#)"/>
