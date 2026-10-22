@@ -631,6 +631,44 @@ def backprop() -> str:
                "error sent back layer by layer (Rumelhart et al. 1986; Prince 2023, chapter 7). Schematic. " + LICENCE)
 
 
+def batches() -> str:
+    """Three ways to take a step: all the examples, one example, a batch; their paths down an illustrative loss."""
+    import random
+    W, H = 1000, 390
+    rnd = random.Random(7)
+
+    def panel(x0, title, lines_, steps, lr, noise):
+        cx, cy, a, b = x0 + 150, 150, 130, 70            # the bowl's centre and half-axes, in pixels
+        out = [text(cx, 26, title, size=19, weight="bold")]
+        out += [f'<ellipse cx="{cx}" cy="{cy}" rx="{a * k / 4:.1f}" ry="{b * k / 4:.1f}" fill="none" '
+                f'stroke="{EDGE}" stroke-width="1.4"/>' for k in range(1, 5)]
+        x, y = -0.92, 0.85                              # the start, in the bowl's own units
+        pts = [(x, y)]
+        for _ in range(steps):
+            gx, gy = 2 * x * 0.35, 2 * y * 1.6             # the gradient of an elongated bowl
+            x -= lr * (gx + noise * rnd.gauss(0, 1))
+            y -= lr * (gy + noise * rnd.gauss(0, 1))
+            pts.append((x, y))
+        path_ = " ".join(f"{cx + a * px:.1f},{cy - b * py:.1f}" for px, py in pts)
+        out += [f'<polyline class="accent-stroke" points="{path_}" fill="none" stroke="{ACCENT}" stroke-width="2.4"/>',
+                f'<circle cx="{cx + a * pts[0][0]:.1f}" cy="{cy - b * pts[0][1]:.1f}" r="6" fill="{INK}"/>',
+                f'<circle cx="{cx}" cy="{cy}" r="5" fill="{ALERT}"/>']
+        out += [text(cx, 262 + 24 * i, s_, size=16 if i == 0 else 15, weight="bold" if i == 0 else "normal",
+                     fill=INK if i == 0 else MUTED) for i, s_ in enumerate(lines_)]
+        return out
+
+    full = panel(20, "all the examples", ["each step: the whole set", "exact, but each step is slow,",
+                                           "and the start decides the end"], 12, 0.3, 0.0)
+    one = panel(350, "one example", ["each step: one example", "cheap, but very noisy, and the card",
+                                     "computes one small sum at a time"], 45, 0.1, 1.5)
+    batch = panel(680, "a batch", ["each step: a few dozen", "computed together on the card;",
+                                   "less noise, but some left"], 24, 0.22, 0.45)
+    return svg(W, H, [step(1, full), step(2, one), step(3, batch)],
+               "Paths down an illustrative, elongated loss from the same start (black) to the lowest point (red): "
+               "full-batch gradient descent, one example per step and a batch per step (Prince 2023, pp. 85 to 86; "
+               "Zhang et al. 2023, section 12.5.2). Illustrative, simulated noise. " + LICENCE)
+
+
 def blame() -> str:
     """A weight in the first layer reaches the loss only through every layer after it."""
     W, H = 1000, 340
@@ -653,7 +691,7 @@ def blame() -> str:
     ripple += [line(764, 140, 800, 140, color=ALERT, w=3),
                text(500, 50, "a small change ripples through every layer after it", size=18, weight="bold",
                     fill=ALERT)]
-    cap = [text(500, 300, "which share of the error is this weight's? Only the layers after it can say",
+    cap = [text(500, 300, "to lower the loss, every weight must move: but which way, and how much?",
                 size=19, weight="bold", fill=ACCENT, cls="accent-fill")]
     return svg(W, H, [step(1, boxes), step(2, w1), step(3, ripple), step(4, cap)],
                "A weight of the first layer changes the loss only through the layers after it, the ripple effect of "
@@ -906,42 +944,56 @@ def augment() -> str:
 
 
 def flatten() -> str:
-    """A plain network reads a photo as one long list: neighbours in the grid end up far apart."""
-    W, H, n, c, gx, gy = 1000, 330, 4, 46, 40, 40
+    """A 4 by 4 patch is three planes of numbers; a plain network reads them as one list of 48."""
+    W, H, n, c = 1000, 360, 4, 40
     px = _tiger(n)                                   # the first 4 by 4 of the photo slide's patch
     a_, b_ = (1, 1), (1, 2)                          # a pixel and the one below it
-
-    def col(i, j):
-        r, g, b = px[i][j]
-        return f"rgb({r},{g},{b})"
-
-    grid = [text(gx + n * c / 2, 26, "4 by 4 of the tiger's pixels", size=16, fill=MUTED)]
-    for j in range(n):
+    names = [("red", "#c0392b"), ("green", "#2e8b57"), ("blue", "#2f6db5")]
+    gx, gy = 60, 124
+    grid = [text(gx + 60, 28, "4 by 4 of the tiger's pixels:", size=15, fill=MUTED),
+            text(gx + 60, 48, "three planes of numbers", size=15, fill=MUTED)]
+    for k in (2, 1, 0):                                # the planes behind, blue at the back
+        ox, oy = 18 * k, -18 * k
+        _, col = names[k]
+        for j in range(n):
+            for i in range(n):
+                v = px[i][j][k]
+                grid.append(f'<rect x="{gx + ox + i * c}" y="{gy + oy + j * c}" width="{c}" height="{c}" fill="{col}" '
+                            f'fill-opacity="{0.15 + 0.6 * v / 255:.2f}" stroke="{WHITE}" stroke-width="1.2"/>')
+    for j in range(n):                                 # the colours in front
         for i in range(n):
-            grid.append(rect(gx + i * c, gy + j * c, c, c, fill=col(i, j), stroke=WHITE, rx=0, sw=1.5))
+            r, g, b = px[i][j]
+            grid.append(rect(gx + i * c, gy + j * c, c, c, fill=f"rgb({r},{g},{b})", stroke=WHITE, rx=0, sw=1.5))
     mark = [rect(gx + a_[0] * c, gy + a_[1] * c, c, c, fill="none", stroke=ALERT, rx=0, sw=3.5),
             rect(gx + b_[0] * c, gy + b_[1] * c, c, c, fill="none", stroke=ALERT, rx=0, sw=3.5),
-            text(gx + n * c / 2, gy + n * c + 30, "neighbours: one above the other", size=16, fill=ALERT)]
-    lx, ly, lc = 290, 120, 42
-    row = [text(lx + 8 * lc, ly - 40, "the same pixels as one list, row after row", size=16, fill=MUTED),
-           line(gx + n * c + 12, gy + n * c / 2, lx - 12, ly + lc / 2, color=INK, w=1.8)]
-    for k in range(16):
-        j, i = divmod(k, n)
-        row.append(rect(lx + k * lc, ly, lc, lc, fill=col(i, j), stroke=WHITE, rx=0, sw=1.5))
+            text(gx + n * c / 2 + 10, gy + n * c + 30, "neighbours: one above the other", size=15, fill=ALERT)]
+    lx, ly, lc, rh = 360, 112, 38, 40
+    row = [text(lx + 8 * lc, 58, "the same pixels as one list of 48 numbers, row after row,", size=15, fill=MUTED),
+           text(lx + 8 * lc, 76, "plane after plane: 16 reds, then 16 greens, then 16 blues", size=15, fill=MUTED),
+           line(gx + n * c + 44, ly + 1.5 * rh, lx - 58, ly + 1.5 * rh, color=INK, w=1.8)]
     ka, kb = a_[1] * n + a_[0], b_[1] * n + b_[0]
-    apart = [rect(lx + ka * lc, ly, lc, lc, fill="none", stroke=ALERT, rx=0, sw=3.5),
-             rect(lx + kb * lc, ly, lc, lc, fill="none", stroke=ALERT, rx=0, sw=3.5),
-             path(f"M {lx + ka * lc + lc / 2} {ly + lc + 6} L {lx + ka * lc + lc / 2} {ly + lc + 22} "
-                  f"L {lx + kb * lc + lc / 2} {ly + lc + 22} L {lx + kb * lc + lc / 2} {ly + lc + 6}",
-                  color=ALERT, w=2, marker=""),
-             text(lx + (ka + kb + 1) * lc / 2, ly + lc + 46, "4 places apart here; 224 in a photo 224 pixels wide", size=16,
+    for k, (name, col) in enumerate(names):
+        y = ly + k * rh
+        row.append(text(lx - 8, y + rh / 2 + 5, name, size=14, fill=col, anchor="end"))
+        for m in range(16):
+            j, i = divmod(m, n)
+            v = px[i][j][k]
+            row.append(f'<rect x="{lx + m * lc}" y="{y}" width="{lc}" height="{rh}" fill="{col}" '
+                       f'fill-opacity="{0.15 + 0.6 * v / 255:.2f}" stroke="{WHITE}" stroke-width="1.2"/>')
+        row += [rect(lx + ka * lc, y, lc, rh, fill="none", stroke=ALERT, rx=0, sw=3),
+                rect(lx + kb * lc, y, lc, rh, fill="none", stroke=ALERT, rx=0, sw=3)]
+    yb = ly + 3 * rh
+    apart = [path(f"M {lx + ka * lc + lc / 2} {yb + 6} L {lx + ka * lc + lc / 2} {yb + 20} "
+                  f"L {lx + kb * lc + lc / 2} {yb + 20} L {lx + kb * lc + lc / 2} {yb + 6}", color=ALERT, w=2, marker=""),
+             text(lx + (ka + kb + 1) * lc / 2, yb + 44, "4 places apart here; 224 in a photo 224 pixels wide", size=16,
                   fill=ALERT, weight="bold")]
-    note = [text(lx + 8 * lc, 290, "every input is wired to every neuron alike: nothing says which pixels touch",
+    note = [text(lx + 8 * lc - 20, 340, "every input is wired to every neuron alike: nothing says which pixels touch",
                  size=16, weight="bold")]
     return svg(W, H, [step(1, grid), step(2, mark + row + apart), step(3, note)],
-               "Four by four of the tiger photo's pixels, read from its 224 by 224 copy, unrolled row by row into the "
-               "16 inputs of a plain, fully connected layer: two vertical neighbours land 4 places apart (Prince "
-               "2023, p. 161). Adapted from S. Taheri's photo, edited by Fir0002, CC BY-SA 2.5.")
+               "Four by four of the tiger photo's pixels, read from its 224 by 224 copy, as three planes (red, green, "
+               "blue), unrolled row by row and plane by plane into the 48 inputs of a plain, fully connected layer: "
+               "two vertical neighbours land 4 places apart (Prince 2023, p. 161). Adapted from S. Taheri's photo, "
+               "edited by Fir0002, CC BY-SA 2.5.")
 
 
 def data_sizes() -> str:
@@ -1434,7 +1486,7 @@ def main(out: Path) -> int:
                "data-sizes.svg": data_sizes, "tasks.svg": tasks, "unit.svg": unit, "activation.svg": activation,
                "layers.svg": layers, "forward.svg": forward, "softmax.svg": softmax, "learn.svg": learn,
                "loss.svg": loss, "gradient.svg": gradient, "descent.svg": descent, "blame.svg": blame,
-               "backprop.svg": backprop, "loop.svg": loop, "epochs.svg": epochs,
+               "backprop.svg": backprop, "batches.svg": batches, "loop.svg": loop, "epochs.svg": epochs,
                "early-stop.svg": early_stop, "flatten.svg": flatten, "general.svg": general,
                "convolution.svg": convolution, "sharing.svg": sharing, "augment.svg": augment, "hygiene.svg": hygiene,
                "transfer.svg": transfer, "finetune.svg": finetune, "dss-training.svg": dss_training,

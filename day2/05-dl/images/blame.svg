@@ -36,6 +36,6 @@
 <text x="500" y="50" font-size="18" font-weight="bold" text-anchor="middle" fill="#da232f">a small change ripples through every layer after it</text>
 </g>
 <g data-step="4">
-<text class="accent-fill" x="500" y="300" font-size="19" font-weight="bold" text-anchor="middle" fill="#00609c">which share of the error is this weight's? Only the layers after it can say</text>
+<text class="accent-fill" x="500" y="300" font-size="19" font-weight="bold" text-anchor="middle" fill="#00609c">to lower the loss, every weight must move: but which way, and how much?</text>
 </g>
 </svg>

@@ -27,6 +27,15 @@
 /* the outlook: one row per part of the deck */
 .cards.steps .card p { font-size: 0.92em; line-height: 1.35; }
 .cards.steps .card .part { color: var(--accent); font-weight: 700; }
+/* a part's section mark: its number, its name, and the outline's five parts with this one lit */
+.remark-slide-content > .section-mark.part { left: 150px; right: 110px; width: auto; text-align: left; }
+.section-mark.part .kicker { display: block; font-size: 1.05em; font-weight: 700; color: #556268; letter-spacing: 0.08em; text-transform: uppercase; }
+.section-mark.part > h1 { font-size: 3.1em; margin: 0.15em 0 0.6em; line-height: 1.1; }
+.section-mark.part .parts { display: flex; flex-wrap: wrap; gap: 0.5em; font-size: 0.95em; }
+.section-mark.part .parts span { border: 2px solid #c9cfd2; color: #9aa4a8; padding: 0.25em 0.85em; border-radius: 1.2em; }
+.section-mark.part .parts span.now { border-color: var(--accent); background: var(--accent); color: #fff; font-weight: 700; }
+.section-mark.part .pair { justify-content: flex-start; margin: 0 0 0.9em; }
+.section-mark.part .pair img { height: 170px; }
 /* an outline that names its parts only: larger type */
 .cards.steps.names .card p { font-size: 1.4em; }
 /* a row of small cards under a figure */
@@ -166,7 +175,7 @@ class: vcenter
 .card[
 .enum[4]
 
-<span class="part">From tables to pictures</span>
+<span class="part">Beyond tabular data</span>
 ]
 .card[
 .enum[5]
@@ -177,7 +186,21 @@ class: vcenter
 
 ???
 
-**We'll go in five parts, each built on the one before.** First, we'll look back with a bit of history: what a neural network is, and why it waited decades for data and computing power. Second, how a network learns, which is where all that computing goes. Third, pretrained models: training costs so much that reusing a network trained by others is often the sensible route. Fourth, from tables to pictures: where a network is worth its cost, and where it is not. Last, the hands-on: we reuse a pretrained network in Dataiku, on photos of lions and tigers. Every network, however large, is built from one small piece, and you have met it already.
+**We'll go in five parts, each built on the one before.** First, we'll look back with a bit of history: what a neural network is, and why it waited decades for data and computing power. Second, how a network learns, which is where all that computing goes. Third, pretrained models: training costs so much that reusing a network trained by others is often the sensible route. Fourth, beyond tabular data: where a network is worth its cost, and where it is not. Last, the hands-on: we reuse a pretrained network in Dataiku, on photos of lions and tigers. Every network, however large, is built from one small piece, and you have met it already.
+
+
+---
+.section-mark.part[
+.kicker[Part 1 of 5]
+
+# Neural networks
+
+<div class="parts"><span class="now">Neural networks</span><span>How a network learns</span><span>Pretrained models</span><span>Beyond tabular data</span><span>Hands-on 4</span></div>
+]
+
+???
+
+**Part 1 looks at what a neural network is, and why it took so long to work.** We start from a single neuron, which you have met already as the first day's logistic regression. Then we stack neurons into a network. Then we look back over sixty years, to see what held networks back and what released them. What is the smallest piece of a network?
 
 
 ---
@@ -328,8 +351,12 @@ class: stepwise-svg, vcenter
 
 
 ---
-.section-mark[
+.section-mark.part[
+.kicker[Part 2 of 5]
+
 # How a network learns
+
+<div class="parts"><span>Neural networks</span><span class="now">How a network learns</span><span>Pretrained models</span><span>Beyond tabular data</span><span>Hands-on 4</span></div>
 ]
 
 ???
@@ -394,7 +421,22 @@ class: stepwise-svg, vcenter
 
 ???
 
-**The loss is minus the log of the probability given to the true class.** The log is the natural logarithm, the inverse of the exponential (Prince, 2023, p. 441). The log of 1 is 0, and the log of any probability below 1 is negative: the minus sign makes the loss positive. So a certain, right answer costs nothing, and the loss grows as the true class's probability falls. Our wine is low and gets 0.19 for low: −log 0.19 = 1.66, high. A medium wine with the same output gets 0.65 for its class: −log 0.65 = 0.43, low. Over the training set, the losses of all examples add up (p. 69). We now have one number to lower. But which weights should change, and in which direction?
+**The loss is minus the log of the probability given to the true class.** The log is the natural logarithm, the inverse of the exponential (Prince, 2023, p. 441). The log of 1 is 0, and the log of any probability below 1 is negative: the minus sign makes the loss positive. So a certain, right answer costs nothing, and the loss grows as the true class's probability falls. Our wine is low and gets 0.19 for low: −log 0.19 = 1.66, high. A medium wine with the same output gets 0.65 for its class: −log 0.65 = 0.43, low. Over the training set, the losses of all examples add up (p. 69). We now have one number to lower. But it is measured at the end of the network: which weights must change to lower it?
+
+
+---
+class: stepwise-svg, vcenter
+# Hidden weights
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/blame.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A weight in layer 1; a small change to it ripples through layers 2, 3 and the last layer before it reaches the loss, which is measured only at the end"></object></div>
+]
+
+.footnote[S. J. D. Prince (2023), p. 97. Schematic.]
+
+???
+
+**To lower the loss, we must change the weights of every layer, not only the last.** We want the true class to get more probability, on every training example. The scores come from the last layer, but the last layer reads the hidden layers, and they read the inputs. So every weight plays a part. A weight in layer 1 reaches the loss only through layers 2 and 3 and the scores: "a ripple effect of changes through the subsequent network" (Prince, 2023, p. 97). For each weight, then, we need to know two things: which way to move it, and how far. Both come from one quantity: how the loss changes when that weight changes a little.
 
 
 ---
@@ -425,22 +467,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Gradient descent lowers the loss one small step at a time.** It starts from random weights (Prince, 2023, p. 96). It computes the gradient where the weights are now, and moves every weight a small step against it, downhill. Then it repeats. How far each step goes is a setting, the learning rate (p. 78). Every fitted model shares this goal: "find the optimal value for the weights by maximizing or minimizing the objective function" (Provost & Fawcett, 2013, p. 87, verbatim). Here the objective is the loss, to minimize, and each step moves all the weights at once: GPT-3 has 175 billion (Brown et al., 2020, p. 1). For a weight in the last layer, the slope is quick to get. But what about a weight in the first layer?
-
-
----
-class: stepwise-svg, vcenter
-# Hidden weights
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/blame.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A weight in layer 1; a small change to it ripples through layers 2, 3 and the last layer before it reaches the loss, which is measured only at the end"></object></div>
-]
-
-.footnote[S. J. D. Prince (2023), p. 97. Schematic.]
-
-???
-
-**A weight in the first layer reaches the loss only through every layer after it.** Change it a little, and its neuron's output changes. That changes layer 2, then layer 3, then the scores, and only then the loss: "a ripple effect of changes through the subsequent network" (Prince, 2023, p. 97). So this weight's slope depends on every later layer (p. 98). We need the slope of every weight at every step, and the largest networks have about 10<sup>12</sup> weights (p. 96). Traced one weight at a time, the same ripples would be worked out again and again. Yet all the weights of layer 1 share the same path to the loss. What if we worked that path out once, from the loss backward?
+**Gradient descent lowers the loss one small step at a time.** It starts from random weights (Prince, 2023, p. 96). It computes the gradient where the weights are now, and moves every weight a small step against it, downhill. Then it repeats. How far each step goes is a setting, the learning rate (p. 78). Every fitted model shares this goal: "find the optimal value for the weights by maximizing or minimizing the objective function" (Provost & Fawcett, 2013, p. 87, verbatim). Here the objective is the loss, to minimize, and each step moves all the weights at once: GPT-3 has 175 billion (Brown et al., 2020, p. 1). Each step needs the slope of every weight, the hidden ones included. How is that computed in practice?
 
 
 ---
@@ -455,7 +482,23 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Back-propagation gives every weight its gradient in one backward pass.** First, the forward pass runs the wine through the network and stores every layer's values (Prince, 2023, p. 97). At the end comes the loss: 1.66 for our wine. The backward pass then starts from the loss. It finds how the loss reacts to the last layer, then to the layer before, and so on back to the first (p. 99). Each layer reuses what the layer after it computed, so nothing is worked out twice (p. 100). This solves the puzzle that "target labels for training are provided only for the final layer" (Provost & Fawcett, 2013, p. 107, verbatim). It is the method of 1986 that made hidden layers trainable (Rumelhart et al., 1986, p. 533). On a million photos, should each step use all of them?
+**Back-propagation computes every weight's gradient in one backward pass.** We need the slope of every weight at every step, and the largest networks have about 10<sup>12</sup> weights (Prince, 2023, p. 96). Traced one weight at a time, the same ripples would be worked out again and again. Back-propagation works them out once. First, the forward pass runs the wine through the network and stores every layer's values (p. 97). At the end comes the loss: 1.66 for our wine. The backward pass then starts from the loss and works back, layer by layer, each layer reusing what the layer after it computed (pp. 99 to 100). This solves the puzzle that "target labels for training are provided only for the final layer" (Provost & Fawcett, 2013, p. 107, verbatim). It is the method of 1986 that made hidden layers trainable (Rumelhart et al., 1986, p. 533). Should each step run on all the training examples, or on one?
+
+
+---
+class: stepwise-svg, vcenter
+# Batches
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/batches.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three paths down the same loss: all the examples per step, smooth but slow; one example per step, cheap but very noisy; a batch per step, computed together on the graphics card, less noisy"></object></div>
+.step-4.lead.big.center[Neither all the examples at once nor one by one: a batch.]
+]
+
+.footnote[S. J. D. Prince (2023), pp. 85 to 86; A. Zhang et al. (2023), section 12.5.2. Illustrative paths, simulated noise.]
+
+???
+
+**Neither all the examples at once nor one by one: training takes a batch at a time.** Why not all at once? Each step would need the gradient over the whole training set: exact, but slow, and the path down is then set by where it starts (Prince, 2023, p. 85). Why not one example at a time? Each step is cheap but very noisy, and the computer does many small sums one after another, paying an overhead each time (Zhang et al., 2023, section 12.5.2). A batch is a few examples drawn at random from the training set (Prince, 2023, p. 85), and a graphics card computes it in one go. Averaging its gradients reduces the noise without removing it, and the noise left can even help the path out of a poor valley (pp. 85 to 86). The batch size is chosen to fit in the card's memory (Zhang et al., 2023, section 12.5.2). How does training run through the batches?
 
 
 ---
@@ -471,7 +514,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Training repeats one loop, on one batch of examples at a time.** A batch is a few examples drawn at random from the training set (Prince, 2023, p. 85). Forward: the batch to its scores. Loss: how wrong the batch is. Backward: each weight's gradient. Update: every weight moves a small step. Then the next batch. Why not all the examples at once? A gradient from a few examples costs far less, and still goes downhill on average (pp. 85 to 86). This is stochastic gradient descent, stochastic meaning random. Dataiku's computer vision is built on PyTorch (Dataiku, 2024), so when we train an image model in Dataiku, this loop runs. One pass through all the batches uses each example once. Is once enough?
+**Training repeats one loop, on one batch of examples at a time.** Forward: the batch to its scores. Loss: how wrong the batch is. Backward: each weight's gradient. Update: every weight moves a small step. Then the next batch, drawn at random from the examples not yet used (Prince, 2023, p. 85). This is stochastic gradient descent, stochastic meaning random. Dataiku's computer vision is built on PyTorch (Dataiku, 2024), so when we train an image model in Dataiku, this loop runs. One pass through all the batches uses each example once. Is once enough?
 
 
 ---
@@ -545,8 +588,12 @@ class: vcenter
 
 
 ---
-.section-mark[
+.section-mark.part[
+.kicker[Part 3 of 5]
+
 # Pretrained models
+
+<div class="parts"><span>Neural networks</span><span>How a network learns</span><span class="now">Pretrained models</span><span>Beyond tabular data</span><span>Hands-on 4</span></div>
 ]
 
 ???
@@ -690,13 +737,17 @@ class: vcenter
 
 
 ---
-.section-mark[
-# From tables<br />to pictures
+.section-mark.part[
+.kicker[Part 4 of 5]
+
+# Beyond tabular data
+
+<div class="parts"><span>Neural networks</span><span>How a network learns</span><span>Pretrained models</span><span class="now">Beyond tabular data</span><span>Hands-on 4</span></div>
 ]
 
 ???
 
-**Part 4 asks where a network earns its cost: on tables, or on pictures.** We look at a table first, then at a photo. For each, we ask the same question: what does it give a model before any learning starts? What does a table already hold?
+**Part 4 asks where a network earns its cost: on tables, or beyond them, on pictures.** We look at a table first, then at a photo. For each, we ask the same question: what does it give a model before any learning starts? What does a table already hold?
 
 
 ---
@@ -925,13 +976,17 @@ class: stepwise-svg, vcenter
 
 
 ---
-.section-mark[
+.section-mark.part[
+.kicker[Part 5 of 5]
+
 # Hands-on 4: lions and tigers
 
 <div class="pair">
 <img src="images/photos/lion-1.jpg" alt="A lion" />
 <img src="images/photos/tiger-2.jpg" alt="A tiger" />
 </div>
+
+<div class="parts"><span>Neural networks</span><span>How a network learns</span><span>Pretrained models</span><span>Beyond tabular data</span><span class="now">Hands-on 4</span></div>
 ]
 
 .footnote[Photos: Thomas Fuhrmann, Wikimedia Commons, .lic[CC BY-SA 4.0], resized; Charles J. Sharp, Wikimedia Commons, .lic[CC BY-SA 4.0], resized.]

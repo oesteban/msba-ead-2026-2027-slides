@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 390" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Paths down an illustrative, elongated loss from the same start (black) to the lowest point (red): full-batch gradient descent, one example per step and a batch per step (Prince 2023, pp. 85 to 86; Zhang et al. 2023, section 12.5.2). Illustrative, simulated noise. Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<text x="170" y="26" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">all the examples</text>
+<ellipse cx="170" cy="150" rx="32.5" ry="17.5" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<ellipse cx="170" cy="150" rx="65.0" ry="35.0" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<ellipse cx="170" cy="150" rx="97.5" ry="52.5" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<ellipse cx="170" cy="150" rx="130.0" ry="70.0" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<polyline class="accent-stroke" points="50.4,90.5 75.5,147.6 95.4,149.9 111.0,150.0 123.4,150.0 133.2,150.0 140.9,150.0 147.0,150.0 151.9,150.0 155.7,150.0 158.7,150.0 161.1,150.0 162.9,150.0" fill="none" stroke="#00609c" stroke-width="2.4"/>
+<circle cx="50.4" cy="90.5" r="6" fill="#1c2e36"/>
+<circle cx="170" cy="150" r="5" fill="#da232f"/>
+<text x="170" y="262" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">each step: the whole set</text>
+<text x="170" y="286" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">exact, but each step is slow,</text>
+<text x="170" y="310" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">and the start decides the end</text>
+</g>
+<g data-step="2">
+<text x="500" y="26" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">one example</text>
+<ellipse cx="500" cy="150" rx="32.5" ry="17.5" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<ellipse cx="500" cy="150" rx="65.0" ry="35.0" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<ellipse cx="500" cy="150" rx="97.5" ry="52.5" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<ellipse cx="500" cy="150" rx="130.0" ry="70.0" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<polyline class="accent-stroke" points="380.4,90.5 382.8,113.7 403.9,143.3 399.7,158.0 418.8,147.7 431.2,147.3 423.7,150.8 437.8,140.5 452.3,156.4 471.4,156.9 465.1,139.0 466.6,156.3 508.2,150.9 509.7,142.0 499.3,143.9 527.9,154.6 512.9,163.0 483.9,162.7 482.7,145.0 471.9,140.2 482.7,130.0 502.8,130.8 477.5,115.6 507.5,129.1 478.8,141.9 517.3,118.0 509.2,120.5 530.3,140.2 506.7,145.0 501.5,151.2 470.3,157.3 462.3,160.7 495.5,170.7 477.2,169.7 517.3,156.7 499.6,135.6 503.2,150.9 528.6,167.5 515.8,160.3 508.4,163.8 505.4,171.4 518.0,160.2 496.4,157.2 513.8,164.9 484.3,155.4 512.3,152.3" fill="none" stroke="#00609c" stroke-width="2.4"/>
+<circle cx="380.4" cy="90.5" r="6" fill="#1c2e36"/>
+<circle cx="500" cy="150" r="5" fill="#da232f"/>
+<text x="500" y="262" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">each step: one example</text>
+<text x="500" y="286" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">cheap, but very noisy, and the card</text>
+<text x="500" y="310" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">computes one small sum at a time</text>
+</g>
+<g data-step="3">
+<text x="830" y="26" font-size="19" font-weight="bold" text-anchor="middle" fill="#1c2e36">a batch</text>
+<ellipse cx="830" cy="150" rx="32.5" ry="17.5" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<ellipse cx="830" cy="150" rx="65.0" ry="35.0" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<ellipse cx="830" cy="150" rx="97.5" ry="52.5" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<ellipse cx="830" cy="150" rx="130.0" ry="70.0" fill="none" stroke="#c9cfd2" stroke-width="1.4"/>
+<polyline class="accent-stroke" points="710.4,90.5 730.7,130.3 727.9,137.1 727.4,137.4 753.4,150.6 750.6,156.1 758.4,152.8 767.5,154.8 779.4,153.3 779.8,151.0 777.7,154.2 759.9,153.5 776.2,148.5 784.6,155.9 796.0,154.4 777.5,133.5 800.1,146.8 799.6,150.7 809.8,154.8 809.3,147.8 781.2,151.8 795.8,149.8 804.0,149.5 843.1,146.5 828.1,140.9" fill="none" stroke="#00609c" stroke-width="2.4"/>
+<circle cx="710.4" cy="90.5" r="6" fill="#1c2e36"/>
+<circle cx="830" cy="150" r="5" fill="#da232f"/>
+<text x="830" y="262" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">each step: a few dozen</text>
+<text x="830" y="286" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">computed together on the card;</text>
+<text x="830" y="310" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">less noise, but some left</text>
+</g>
+</svg>

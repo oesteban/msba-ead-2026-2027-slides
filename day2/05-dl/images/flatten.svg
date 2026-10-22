@@ -1,56 +1,145 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Four by four of the tiger photo's pixels, read from its 224 by 224 copy, unrolled row by row into the 16 inputs of a plain, fully connected layer: two vertical neighbours land 4 places apart (Prince 2023, p. 161). Adapted from S. Taheri's photo, edited by Fir0002, CC BY-SA 2.5. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Four by four of the tiger photo's pixels, read from its 224 by 224 copy, as three planes (red, green, blue), unrolled row by row and plane by plane into the 48 inputs of a plain, fully connected layer: two vertical neighbours land 4 places apart (Prince 2023, p. 161). Adapted from S. Taheri's photo, edited by Fir0002, CC BY-SA 2.5. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
 </defs>
 <g data-step="1">
-<text x="132.0" y="26" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">4 by 4 of the tiger's pixels</text>
-<rect x="40" y="40" width="46" height="46" rx="0" fill="rgb(234,163,85)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="86" y="40" width="46" height="46" rx="0" fill="rgb(207,142,74)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="132" y="40" width="46" height="46" rx="0" fill="rgb(149,92,47)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="178" y="40" width="46" height="46" rx="0" fill="rgb(75,26,0)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="40" y="86" width="46" height="46" rx="0" fill="rgb(221,153,78)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="86" y="86" width="46" height="46" rx="0" fill="rgb(183,123,60)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="132" y="86" width="46" height="46" rx="0" fill="rgb(94,42,2)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="178" y="86" width="46" height="46" rx="0" fill="rgb(50,3,0)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="40" y="132" width="46" height="46" rx="0" fill="rgb(201,138,67)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="86" y="132" width="46" height="46" rx="0" fill="rgb(142,90,30)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="132" y="132" width="46" height="46" rx="0" fill="rgb(66,18,0)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="178" y="132" width="46" height="46" rx="0" fill="rgb(80,31,0)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="40" y="178" width="46" height="46" rx="0" fill="rgb(154,95,27)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="86" y="178" width="46" height="46" rx="0" fill="rgb(120,71,13)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="132" y="178" width="46" height="46" rx="0" fill="rgb(94,48,12)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="178" y="178" width="46" height="46" rx="0" fill="rgb(104,54,21)" stroke="#ffffff" stroke-width="1.5"/>
+<text x="120" y="28" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">4 by 4 of the tiger's pixels:</text>
+<text x="120" y="48" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">three planes of numbers</text>
+<rect x="96" y="88" width="40" height="40" fill="#2f6db5" fill-opacity="0.35" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="136" y="88" width="40" height="40" fill="#2f6db5" fill-opacity="0.32" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="176" y="88" width="40" height="40" fill="#2f6db5" fill-opacity="0.26" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="216" y="88" width="40" height="40" fill="#2f6db5" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="96" y="128" width="40" height="40" fill="#2f6db5" fill-opacity="0.33" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="136" y="128" width="40" height="40" fill="#2f6db5" fill-opacity="0.29" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="176" y="128" width="40" height="40" fill="#2f6db5" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="216" y="128" width="40" height="40" fill="#2f6db5" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="96" y="168" width="40" height="40" fill="#2f6db5" fill-opacity="0.31" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="136" y="168" width="40" height="40" fill="#2f6db5" fill-opacity="0.22" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="176" y="168" width="40" height="40" fill="#2f6db5" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="216" y="168" width="40" height="40" fill="#2f6db5" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="96" y="208" width="40" height="40" fill="#2f6db5" fill-opacity="0.21" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="136" y="208" width="40" height="40" fill="#2f6db5" fill-opacity="0.18" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="176" y="208" width="40" height="40" fill="#2f6db5" fill-opacity="0.18" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="216" y="208" width="40" height="40" fill="#2f6db5" fill-opacity="0.20" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="78" y="106" width="40" height="40" fill="#2e8b57" fill-opacity="0.53" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="118" y="106" width="40" height="40" fill="#2e8b57" fill-opacity="0.48" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="158" y="106" width="40" height="40" fill="#2e8b57" fill-opacity="0.37" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="198" y="106" width="40" height="40" fill="#2e8b57" fill-opacity="0.21" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="78" y="146" width="40" height="40" fill="#2e8b57" fill-opacity="0.51" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="118" y="146" width="40" height="40" fill="#2e8b57" fill-opacity="0.44" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="158" y="146" width="40" height="40" fill="#2e8b57" fill-opacity="0.25" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="198" y="146" width="40" height="40" fill="#2e8b57" fill-opacity="0.16" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="78" y="186" width="40" height="40" fill="#2e8b57" fill-opacity="0.47" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="118" y="186" width="40" height="40" fill="#2e8b57" fill-opacity="0.36" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="158" y="186" width="40" height="40" fill="#2e8b57" fill-opacity="0.19" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="198" y="186" width="40" height="40" fill="#2e8b57" fill-opacity="0.22" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="78" y="226" width="40" height="40" fill="#2e8b57" fill-opacity="0.37" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="118" y="226" width="40" height="40" fill="#2e8b57" fill-opacity="0.32" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="158" y="226" width="40" height="40" fill="#2e8b57" fill-opacity="0.26" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="198" y="226" width="40" height="40" fill="#2e8b57" fill-opacity="0.28" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="60" y="124" width="40" height="40" fill="#c0392b" fill-opacity="0.70" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="100" y="124" width="40" height="40" fill="#c0392b" fill-opacity="0.64" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="140" y="124" width="40" height="40" fill="#c0392b" fill-opacity="0.50" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="180" y="124" width="40" height="40" fill="#c0392b" fill-opacity="0.33" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="60" y="164" width="40" height="40" fill="#c0392b" fill-opacity="0.67" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="100" y="164" width="40" height="40" fill="#c0392b" fill-opacity="0.58" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="140" y="164" width="40" height="40" fill="#c0392b" fill-opacity="0.37" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="180" y="164" width="40" height="40" fill="#c0392b" fill-opacity="0.27" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="60" y="204" width="40" height="40" fill="#c0392b" fill-opacity="0.62" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="100" y="204" width="40" height="40" fill="#c0392b" fill-opacity="0.48" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="140" y="204" width="40" height="40" fill="#c0392b" fill-opacity="0.31" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="180" y="204" width="40" height="40" fill="#c0392b" fill-opacity="0.34" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="60" y="244" width="40" height="40" fill="#c0392b" fill-opacity="0.51" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="100" y="244" width="40" height="40" fill="#c0392b" fill-opacity="0.43" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="140" y="244" width="40" height="40" fill="#c0392b" fill-opacity="0.37" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="180" y="244" width="40" height="40" fill="#c0392b" fill-opacity="0.39" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="60" y="124" width="40" height="40" rx="0" fill="rgb(234,163,85)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="100" y="124" width="40" height="40" rx="0" fill="rgb(207,142,74)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="140" y="124" width="40" height="40" rx="0" fill="rgb(149,92,47)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="180" y="124" width="40" height="40" rx="0" fill="rgb(75,26,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="60" y="164" width="40" height="40" rx="0" fill="rgb(221,153,78)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="100" y="164" width="40" height="40" rx="0" fill="rgb(183,123,60)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="140" y="164" width="40" height="40" rx="0" fill="rgb(94,42,2)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="180" y="164" width="40" height="40" rx="0" fill="rgb(50,3,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="60" y="204" width="40" height="40" rx="0" fill="rgb(201,138,67)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="100" y="204" width="40" height="40" rx="0" fill="rgb(142,90,30)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="140" y="204" width="40" height="40" rx="0" fill="rgb(66,18,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="180" y="204" width="40" height="40" rx="0" fill="rgb(80,31,0)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="60" y="244" width="40" height="40" rx="0" fill="rgb(154,95,27)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="100" y="244" width="40" height="40" rx="0" fill="rgb(120,71,13)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="140" y="244" width="40" height="40" rx="0" fill="rgb(94,48,12)" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="180" y="244" width="40" height="40" rx="0" fill="rgb(104,54,21)" stroke="#ffffff" stroke-width="1.5"/>
 </g>
 <g data-step="2">
-<rect x="86" y="86" width="46" height="46" rx="0" fill="none" stroke="#da232f" stroke-width="3.5"/>
-<rect x="86" y="132" width="46" height="46" rx="0" fill="none" stroke="#da232f" stroke-width="3.5"/>
-<text x="132.0" y="254" font-size="16" font-weight="normal" text-anchor="middle" fill="#da232f">neighbours: one above the other</text>
-<text x="626" y="80" font-size="16" font-weight="normal" text-anchor="middle" fill="#556268">the same pixels as one list, row after row</text>
-<line x1="236" y1="132.0" x2="278" y2="141.0" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
-<rect x="290" y="120" width="42" height="42" rx="0" fill="rgb(234,163,85)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="332" y="120" width="42" height="42" rx="0" fill="rgb(207,142,74)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="374" y="120" width="42" height="42" rx="0" fill="rgb(149,92,47)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="416" y="120" width="42" height="42" rx="0" fill="rgb(75,26,0)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="458" y="120" width="42" height="42" rx="0" fill="rgb(221,153,78)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="500" y="120" width="42" height="42" rx="0" fill="rgb(183,123,60)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="542" y="120" width="42" height="42" rx="0" fill="rgb(94,42,2)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="584" y="120" width="42" height="42" rx="0" fill="rgb(50,3,0)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="626" y="120" width="42" height="42" rx="0" fill="rgb(201,138,67)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="668" y="120" width="42" height="42" rx="0" fill="rgb(142,90,30)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="710" y="120" width="42" height="42" rx="0" fill="rgb(66,18,0)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="752" y="120" width="42" height="42" rx="0" fill="rgb(80,31,0)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="794" y="120" width="42" height="42" rx="0" fill="rgb(154,95,27)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="836" y="120" width="42" height="42" rx="0" fill="rgb(120,71,13)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="878" y="120" width="42" height="42" rx="0" fill="rgb(94,48,12)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="920" y="120" width="42" height="42" rx="0" fill="rgb(104,54,21)" stroke="#ffffff" stroke-width="1.5"/>
-<rect x="500" y="120" width="42" height="42" rx="0" fill="none" stroke="#da232f" stroke-width="3.5"/>
-<rect x="668" y="120" width="42" height="42" rx="0" fill="none" stroke="#da232f" stroke-width="3.5"/>
-<path d="M 521.0 168 L 521.0 184 L 689.0 184 L 689.0 168" fill="none" stroke="#da232f" stroke-width="2" marker-end="url(#)"/>
-<text x="605.0" y="208" font-size="16" font-weight="bold" text-anchor="middle" fill="#da232f">4 places apart here; 224 in a photo 224 pixels wide</text>
+<rect x="100" y="164" width="40" height="40" rx="0" fill="none" stroke="#da232f" stroke-width="3.5"/>
+<rect x="100" y="204" width="40" height="40" rx="0" fill="none" stroke="#da232f" stroke-width="3.5"/>
+<text x="150.0" y="314" font-size="15" font-weight="normal" text-anchor="middle" fill="#da232f">neighbours: one above the other</text>
+<text x="664" y="58" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">the same pixels as one list of 48 numbers, row after row,</text>
+<text x="664" y="76" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">plane after plane: 16 reds, then 16 greens, then 16 blues</text>
+<line x1="264" y1="172.0" x2="302" y2="172.0" stroke="#1c2e36" stroke-width="1.8" marker-end="url(#ah)"/>
+<text x="352" y="137.0" font-size="14" font-weight="normal" text-anchor="end" fill="#c0392b">red</text>
+<rect x="360" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.70" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="398" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.64" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="436" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.50" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="474" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.33" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="512" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.67" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="550" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.58" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="588" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.37" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="626" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.27" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="664" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.62" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="702" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.48" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="740" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.31" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="778" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.34" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="816" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.51" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="854" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.43" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="892" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.37" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="930" y="112" width="38" height="40" fill="#c0392b" fill-opacity="0.39" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="550" y="112" width="38" height="40" rx="0" fill="none" stroke="#da232f" stroke-width="3"/>
+<rect x="702" y="112" width="38" height="40" rx="0" fill="none" stroke="#da232f" stroke-width="3"/>
+<text x="352" y="177.0" font-size="14" font-weight="normal" text-anchor="end" fill="#2e8b57">green</text>
+<rect x="360" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.53" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="398" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.48" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="436" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.37" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="474" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.21" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="512" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.51" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="550" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.44" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="588" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.25" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="626" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.16" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="664" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.47" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="702" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.36" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="740" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.19" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="778" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.22" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="816" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.37" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="854" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.32" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="892" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.26" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="930" y="152" width="38" height="40" fill="#2e8b57" fill-opacity="0.28" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="550" y="152" width="38" height="40" rx="0" fill="none" stroke="#da232f" stroke-width="3"/>
+<rect x="702" y="152" width="38" height="40" rx="0" fill="none" stroke="#da232f" stroke-width="3"/>
+<text x="352" y="217.0" font-size="14" font-weight="normal" text-anchor="end" fill="#2f6db5">blue</text>
+<rect x="360" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.35" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="398" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.32" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="436" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.26" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="474" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="512" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.33" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="550" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.29" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="588" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="626" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="664" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.31" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="702" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.22" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="740" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="778" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.15" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="816" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.21" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="854" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.18" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="892" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.18" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="930" y="192" width="38" height="40" fill="#2f6db5" fill-opacity="0.20" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="550" y="192" width="38" height="40" rx="0" fill="none" stroke="#da232f" stroke-width="3"/>
+<rect x="702" y="192" width="38" height="40" rx="0" fill="none" stroke="#da232f" stroke-width="3"/>
+<path d="M 569.0 238 L 569.0 252 L 721.0 252 L 721.0 238" fill="none" stroke="#da232f" stroke-width="2" marker-end="url(#)"/>
+<text x="645.0" y="276" font-size="16" font-weight="bold" text-anchor="middle" fill="#da232f">4 places apart here; 224 in a photo 224 pixels wide</text>
 </g>
 <g data-step="3">
-<text x="626" y="290" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">every input is wired to every neuron alike: nothing says which pixels touch</text>
+<text x="644" y="340" font-size="16" font-weight="bold" text-anchor="middle" fill="#1c2e36">every input is wired to every neuron alike: nothing says which pixels touch</text>
 </g>
 </svg>

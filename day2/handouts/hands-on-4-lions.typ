@@ -2,11 +2,11 @@
 // hands-on-4-lions.typ: the group's sheet for Hands-on 4, 23.10.2026 AM.
 //
 // One sheet per group of three, both sides. Page 1 is the data card. The core
-// (steps 1 to 3, about 25 minutes) follows slide 53 of "Deep learning for
-// decisions", and the Flow it builds is drawn on slide 52: the group loads the
+// (steps 1 to 3, about 25 minutes) follows slide 55 of "Deep learning for
+// decisions", and the Flow it builds is drawn on slide 54: the group loads the
 // photos and reads their labels from the file names, trains a new head on a
 // pretrained network (zero fine-tuned layers), follows its training, scores the
-// 57 test photos and counts the errors. Below the checkpoint bar (slide 54)
+// 57 test photos and counts the errors. Below the checkpoint bar (slide 56)
 // the group fine-tunes two layers and compares, adds the cats, a third and
 // larger class, then decides. The flow follows the previous teacher's 2025 lab.
 //
@@ -130,7 +130,7 @@ trusted?
 
 #checkpoint(
   msg: [Reached this line? Stop here: the debrief reads every group's test score, with its 1.75 points a photo.],
-  note: [Panels 4 to 6 follow slide 54 of *Deep learning for decisions*.],
+  note: [Panels 4 to 6 follow slide 56 of *Deep learning for decisions*.],
 )
 
 #v(6pt)
