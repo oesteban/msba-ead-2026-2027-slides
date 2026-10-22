@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Deep learning for decisions | 23.10.2026</title>
+    <title>Deep learning | 23.10.2026</title>
     <meta charset="utf-8">
     <meta name="grammarly" content="false">
     <meta name="google" content="notranslate">
@@ -120,9 +120,9 @@ class: cover
 count: false
 
 .section-mark.center[
-## Deep learning for decisions
+## Deep learning
 
-### What neural networks are, how they learn, and how pretrained ones are reused
+### Introducing neural networks, how they learn, and how to use them
 
 <br />
 
@@ -149,7 +149,7 @@ layout: true
 .perma-sidebar[
 <p class="rotate">
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0; height: 20px; padding-top: 6px;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
-  <span style="padding-left: 10px; font-weight: 600;">Deep learning for decisions (23.10.2026)</span>
+  <span style="padding-left: 10px; font-weight: 600;">Deep learning (23.10.2026)</span>
 </p>
 ]
 
@@ -1017,8 +1017,8 @@ class: vcenter
 
 <div class="facts">
 <div><span class="num">58</span>training photos: 30 lions, 28 tigers.</div>
-<div><span class="num">57</span>test photos: 38 lions, 19 tigers.</div>
-<div><span class="num">67%</span>right by always saying lion on the test photos; one photo is 1.75 points.</div>
+<div><span class="num">56</span>test photos: 38 lions, 18 tigers.</div>
+<div><span class="num">68%</span>right by always saying lion on the test photos; one photo is 1.79 points.</div>
 </div>
 ]
 
@@ -1026,49 +1026,7 @@ class: vcenter
 
 ???
 
-**Each photo's label is the word before the underscore in its file name.** The network reads only the pixels, and the file name is the only place the animal is named. In test, 38 photos are lions and 19 are tigers, so always answering lion is right on 38 of 57: 67%. It is the baseline we met with the bank's credits: "a classifier that always selects the majority class is called a base rate classifier" (Provost & Fawcett, 2013, p. 115, verbatim). Any model of ours must beat 67%. And each photo is 1 of 57, so accuracy moves in steps of 1.75 points: one test photo the model has already seen can lift a score on its own.
-
-
----
-class: stepwise-svg, vcenter
-
-# Test photos
-
-<img class="phase-thumb" src="images/phase-dp.svg" alt="The CRISP-DM phases, data preparation lit" />
-
-.beside-thumb[
-<div class="metric2">
-<div class="alert"><span class="num">8 of 65</span>inherited test photos were copies of training photos: removed.</div>
-<div><span class="num">2</span>photos carried the other animal's label: corrected.</div>
-</div>
-
-<div class="step-1"><object type="image/svg+xml" data="images/hygiene.svg" style="width: 88%; display: block; margin: 0.6em auto 0; pointer-events: none;" aria-label="A test photo that is also a training photo, and a photo labelled lion that shows a tiger"></object></div>
-]
-
-.footnote[Counted on the course copy. B. Recht et al. (2019), p. 27: copies of training images score 99 to 100%.]
-
-???
-
-**A test photo the model has already seen measures its memory, not its skill.** We test to estimate how the model will do on photos it has never seen. So test photos are held out, data "which will not be used to build the model" (Provost & Fawcett, 2013, p. 113, verbatim). Of the 65 test photos we inherited, 8 were exact copies of training photos. How much can copies lift a score? On CIFAR-10, a public photo set, most models got 99 to 100% of near-copies right (Recht et al., 2019, p. 27). We removed the 8, leaving 57. Two training photos also carried the other animal's label, and we corrected them: a model learns what its labels say. Are 57 photos enough to trust a score?
-
-
----
-class: stepwise-svg, vcenter
-
-# 57 test photos
-
-<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
-
-.beside-thumb[
-<div class="step-1"><object type="image/svg+xml" data="images/interval.svg" style="width: 100%; display: block; margin: 1em auto 0; pointer-events: none;" aria-label="51 of 57 right is 89%, with a 95% interval from 78% to 96%; with 10,000 test photos, about 1 point either way"></object></div>
-.step-4.lead.big.center[On 57 test photos, a score is known only roughly.]
-]
-
-.footnote[A 95% Clopper-Pearson interval for 51 of 57. B. Recht et al. (2019), p. 3: at most 1% for 10,000 test images.]
-
-???
-
-**On 57 test photos, a score is known only roughly.** Provost and Fawcett ask: "Should we have any confidence in a single estimate of model accuracy?" (Provost & Fawcett, 2013, p. 126, verbatim). Our 57 photos are a sample of all the photos the model could meet. Another 57 would give another score. Say a group gets 51 of 57 right: 89%. A 95% interval gives the accuracies, over all such photos, that fit this result: here, 78% to 96%. A group one photo behind scores 1.75 points less, two photos behind 3.5 points less. Both gaps sit inside the interval, so these photos cannot tell the two groups apart. With 10,000 test images, the interval shrinks to about one point either way (Recht et al., 2019, p. 3). With so few photos, most of what the model knows must come from its pretraining.
+**Each photo's label is the word before the underscore in its file name.** The network reads only the pixels, and the file name is the only place the animal is named. In test, 38 photos are lions and 18 are tigers, so always answering lion is right on 38 of 56: 68%. It is the baseline we met with the bank's credits: "a classifier that always selects the majority class is called a base rate classifier" (Provost & Fawcett, 2013, p. 115, verbatim). Any model of ours must beat 68%. And each photo is 1 of 56, so accuracy moves in steps of 1.79 points: one test photo the model has already seen can lift a score on its own.
 
 
 ---
@@ -1094,141 +1052,21 @@ class: vcenter
 
 
 ---
-class: stepwise-svg, vcenter
-
-# In Dataiku
-
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/dss-training.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A drawing of Dataiku's Design, Training panel: pretrained model EfficientNet B0, number of fine-tuned layers 0"></object></div>
-
-.step-4.lead.center[0 fine-tuned layers: transfer learning. 2: fine-tuning. Dataiku also sets the number of epochs and early stopping.]
-]
-
-.footnote[Drawn after Dataiku DSS's *Design → Training* panel, not a capture; Dataiku (2024), *Computer vision*: B0, B4 and B7.]
-
-???
-
-**In Dataiku, the choice between transfer learning and fine-tuning is one number.** In **Design → Training**, *Number of fine-tuned layers* counts the pretrained layers that keep learning. The others stay locked (Dataiku, 2024). At 0, only the new head learns: transfer learning. At 2, the last two pretrained layers learn with it: fine-tuning. We start at 0, because more fine-tuned layers can overfit a small training set. The same panel caps training at a number of epochs, and early stopping can end it sooner. The setting is ready, but our photos are still files in a folder, and the Lab needs a dataset with a label column.
-
-
----
-class: stepwise-svg, vcenter
+class: vcenter
 
 # The Flow
 
 <img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
 
 .beside-thumb[
-<div class="step-1"><object type="image/svg+xml" data="images/flow.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The Flow: a train folder, a listing, a Prepare recipe, the labelled photos, the Lab, the model; a test folder listed and labelled the same way, scored by the model, then checked"></object></div>
+<img src="images/flow.png" style="width: 100%; display: block; margin: 0 auto;" alt="The Flow of Hands-on 4 in Dataiku: the folder dataset, List Contents to paths, two Prepare recipes to labels and sets, a Split into cats-train, cats-test, lion-tiger-train and lion-tiger-test; two Stack recipes into felines-train and felines-test; a training recipe on lion-tiger-train to model_lions_tigers, a Score recipe on lion-tiger-test, and a Prepare to lion-tiger-test_scored_errors" />
 ]
 
-.footnote[Drawn after a Dataiku DSS Flow; the sheet *Hands-on 4*, steps 1 to 3. Recipe colours schematic.]
+.footnote[Screen capture: Dataiku DSS 15.0, course server, 23 October 2026.]
 
 ???
 
-**The Flow turns each folder of photos into a dataset with a label column.** *List Contents* writes one row per file, with its path. *Prepare* reads the label from the path: the letters before the underscore. The Lab trains on the labelled training rows. The test folder goes through the same two recipes, *Score* adds the model's prediction to each test photo, and a last *Prepare* marks it right or wrong. Why score a separate folder, when Dataiku already reports a score? Dataiku's own test split comes out of the training photos, and early stopping uses it to decide when to stop (Dataiku, 2024). The 57 test photos have shaped nothing: their score is the one that answers the firm.
-
-
----
-class: vcenter
-
-# Hands-on 4: lion or tiger
-
-<img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
-
-.beside-thumb[
-.need[**The need.** A firm holds a few dozen labelled photos of each class. Can it reuse a network trained on ImageNet, train only a new head, and follow how the training goes?]
-
-<div class="moves">
-<div><b>1. Load</b>The 58 photos into a folder; the label from each file name.<br /><code>+ Dataset → Folder</code>, <code>List Contents</code>, <code>Prepare</code>; sheet step 1</div>
-<div><b>2. Train</b>Target <code>label</code>; EfficientNet B0, 0 fine-tuned layers.<br /><code>Lab → Image classification → Design</code>; sheet step 2</div>
-<div><b>3. Score</b>The 57 test photos the model has never seen.<br /><code>+ Recipe → Score</code>; sheet step 3</div>
-<div><b>4. Look</b>The training curve, the confusion matrix, the wrong photos.<br /><code>Results</code>; sheet steps 2 and 3</div>
-</div>
-
-.time[Sheet *Hands-on 4*, panels 1 to 3. Groups of three. 25 minutes.]
-]
-
-.footnote[Steps as on the sheet; Dataiku (2024), *Computer vision*.]
-
-???
-
-**In the core of the sheet, each group finds out whether 58 photos and a reused network can tell lions from tigers.** It is the firm's question at small scale, in three parts. Can a new head alone learn the classes? Training with 0 fine-tuned layers answers that. Can we follow how training goes? The results show it epoch by epoch. Can we trust the test score? Scoring the 57 test photos gives a score on photos the model has never seen, to set beside the 67% of always answering lion. Once a new head alone has been tried, the next question follows: would letting more layers learn do better, and at what cost?
-
-
----
-class: vcenter
-
-# Hands-on 4, continued
-
-<img class="phase-thumb" src="images/phase-du-mo.svg" alt="The CRISP-DM phases, data understanding to modeling lit" />
-
-.beside-thumb[
-<div class="moves">
-<div><b>4. Fine-tune</b>The same analysis, 2 fine-tuned layers; compare time and test score.<br /><code>Design → Training</code>; panel 4</div>
-<div><b>5. Add</b>120 cat photos for training, 80 for testing; retrain.<br /><code>Folder → Upload</code>; panel 5</div>
-<div><b>6. Read</b>Recall per class; the macro against the weighted average.<br /><code>Results → Metrics</code>; panel 5</div>
-<div><b>7. Decide</b>Which model, and which score to report?<br />Panel 6</div>
-</div>
-
-.admonition.question.near[
-<i class="fa-solid fa-circle-question"></i> **Did fine-tuning pay for its time?**
-]
-
-.time[Sheet panels 4 to 6. 8 minutes.]
-]
-
-.footnote[Cats: Natural Images, A. Roy et al. (2018), the cat class cut to 120 training and 80 test photos. Averages: *Beyond binary classification*, slide 6.]
-
-???
-
-**Past the checkpoint, each group decides which model to keep and which score to report.** Fine-tuning two layers makes training longer: did the extra time buy accuracy? Then come cats, from a public set, Natural Images (Roy et al., 2018, p. 2): 120 for training and 80 for testing, more than lions and tigers together. With unequal classes, "accuracy can be greatly misleading" (Provost & Fawcett, 2013, p. 190, verbatim). So we read recall class by class, then two averages of it. In the macro average, every class counts the same. In the weighted one, each class counts by its size. Which to report depends on whether the firm cares about each photo or about each class. Either way, an average hides which photos went wrong.
-
-
----
-class: vcenter
-
-# The errors, one by one
-
-<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
-
-.beside-thumb[
-<div class="duo big">
-<div><b class="k">Where to look</b>In Dataiku's results, the confusion matrix: click a cell, and the image feed shows its photos.</div>
-<div class="lit"><b class="k">What to ask of each</b>Is its label right? Is the animal visible, alone, the main subject?</div>
-</div>
-
-.lead.big.center[With 57 test photos, one error is 1.75 points: read the photos before the percentage.]
-]
-
-.footnote[Dataiku (2024), *Computer vision*: results, confusion matrix and image feed.]
-
-???
-
-**With 57 test photos, one error is 1.75 points, so we read the wrong photos before the percentage.** A percentage says how many photos the model missed, not why. Dataiku's confusion matrix crosses the true classes, in rows, with the predicted ones, in columns (Dataiku, 2024). It is there for "making explicit how one class is being confused for another" (Provost & Fawcett, 2013, p. 189, verbatim). Of each wrong photo we ask two questions. Is its label right? If not, the error is label noise, and the model may have been right. Is the animal visible, alone and the main subject? If not, the photo may be at fault rather than the model. We judge each error because we see what the photo shows. A model sees only numbers, and from a text, only characters.
-
-
----
-class: vcenter
-
-# Text
-
-
-.fullw[
-<div class="duo big">
-<div><b class="k">Learned representations</b>The embeddings of week 2's RAG workshop are short, dense vectors learned by networks from text, as this deck's features were learned from photos.</div>
-<div><b class="k">Pretrained, then adapted</b>A language model trained first on a large body of text, then fine-tuned with a new output layer for a task: the reuse of part 3, again.</div>
-</div>
-
-.lead.big.center[After the break, the same question for text: which features can a classifier read from words?]
-]
-
-.footnote[D. Jurafsky and J. H. Martin (2026 draft), chapters 5 and 9; J. Devlin et al. (2019).]
-
-???
-
-**After the break, we ask of text the question we asked of photos: which features can a classifier read from words?** A text, like a photo, has no columns that mean something. Provost and Fawcett see two ways forward: engineer the data to fit our tools, or "build new tools to match the data" (Provost & Fawcett, 2013, p. 249, verbatim). This morning's networks took the second way, learning their features from pixels. The embeddings of week 2's RAG workshop are features learned the same way from text (Jurafsky & Martin, 2026, p. 136). BERT, a language model pretrained on unlabelled text, is fine-tuned with one new output layer for a task (Devlin et al., 2019, p. 1). And the zero-shot way, dimmed today, comes with it: classes described in words, with no labelled example.
+**The Flow turns one folder of photos into the datasets that train and test the model.** The four archives sit in one folder, `dataset`. *List Contents* writes one row per file, with its path and its name. A first *Prepare* reads the label from the name: the letters before the underscore. A second reads the set from the subfolder, and *Split* makes one dataset per archive. The Lab trains on `lion-tiger-train`. *Score* adds the model's prediction to each photo of `lion-tiger-test`, and a last *Prepare* marks it right or wrong. The two *Stack* recipes join the cats to the lions and tigers. Why score a separate set, when Dataiku already reports a score? Dataiku's own test split comes out of the training photos, and early stopping uses it to decide when to stop. The 56 test photos have shaped nothing: their score is the one that answers the firm.
 
 
 ---
