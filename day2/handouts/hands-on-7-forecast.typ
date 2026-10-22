@@ -7,7 +7,7 @@
 // close dated in Hands-on 6, fills the days without a close with the previous
 // value, forecasts seven days ahead on ten time-ordered folds scored by MASE,
 // trains the baselines first and the models after, and sets each beside
-// Trivial identity. Below the checkpoint bar (slide 19) the group runs the same
+// Trivial identity. From panel 4 (slide 19) the group runs the same
 // session on the casual riders of the bike rentals, then decides what the
 // treasury team is told. The previous teacher's 2025 lab forecast the same
 // index with no baseline; this sheet puts the baseline first.
@@ -72,7 +72,7 @@ same days.
       *Source and licence.* stooq.com, symbol `^DJI`, daily. No licence is
       recorded: used in class, never republished.
 
-      *After the checkpoint.* `bike-rentals.csv`, uploaded in Hands-on 6:
+      *From panel 4.* `bike-rentals.csv`, uploaded in Hands-on 6:
       Capital Bikeshare's daily rentals in Washington DC, 2011 and 2012;
       `Casual` counts the riders who were not registered. H. Fanaee-T (2013),
       UCI dataset 275, CC BY 4.0.
@@ -125,14 +125,7 @@ same days.
   p, d, q: #rule(2.4cm) #h(8pt) P, D, Q: #rule(2.4cm) #h(8pt) which simple forecast is that? #rule(3.2cm)
 ]
 
-#v(6pt)
-
-#checkpoint(
-  msg: [Reached this line? Stop here: the debrief reads every group's table and AutoARIMA's orders.],
-  note: [Panels 4 and 5 follow slide 19 of *Forecasting a time series*.],
-)
-
-#v(6pt)
+#v(5pt)
 
 #panel("4 · Run the same session on the casual riders")[
   #step(1, "Open the riders' forecast")[On `bike-rentals.csv` (parse `Date` as in Hands-on 6 if needed): #dss("Lab", "Time Series Forecasting"), target `Casual`, time variable `Date`; the settings of steps 1.2 to 1.4.]

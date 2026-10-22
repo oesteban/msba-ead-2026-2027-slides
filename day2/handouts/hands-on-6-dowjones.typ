@@ -6,8 +6,8 @@
 // and the Flow it builds is drawn on slide 20: the group charts the Dow Jones
 // close, puts each trading day beside the two before with the Window recipe,
 // correlates the close with the day before and the change with the change
-// before, and averages the change by weekday against its spread. Below the
-// checkpoint bar (slide 22) the group runs the same check on the bike rentals,
+// before, and averages the change by weekday against its spread. From
+// panel 4 (slide 22) the group runs the same check on the bike rentals,
 // by weekday and by month, then decides what the treasury team is told. The
 // index is the previous teacher's 2025 file; his lab forecast it, which this
 // course does after the break.
@@ -73,7 +73,7 @@ weekday stand out?
       *Source and licence.* stooq.com, symbol `^DJI`, daily. No licence is
       recorded: used in class, never republished.
 
-      *After the checkpoint.* `bike-rentals.csv`: Capital Bikeshare's daily
+      *From panel 4.* `bike-rentals.csv`: Capital Bikeshare's daily
       rentals in Washington DC, every day of 2011 and 2012; `Casual` and
       `Registered` riders add up to `Rentals`. H. Fanaee-T (2013), UCI
       dataset 275, CC BY 4.0.
@@ -128,14 +128,7 @@ weekday stand out?
   Does any weekday's mean stand out of its standard deviation? #rule(4.2cm)
 ]
 
-#v(6pt)
-
-#checkpoint(
-  msg: [Reached this line? Stop here: the debrief reads every group's two correlations and its weekday table.],
-  note: [Panels 4 and 5 follow slide 22 of *Reading a time series*.],
-)
-
-#v(6pt)
+#v(5pt)
 
 #panel("4 · Run the same check on the bike rentals")[
   #step(1, "Upload and date the rentals")[#dss("+ Dataset", "Upload your files"), `bike-rentals.csv`; then #dss("+ Recipe", "Prepare"): parse `Date` as in step 1 if needed, and *Extract date components* on `Date`, the day of week and the month; *Run*.]

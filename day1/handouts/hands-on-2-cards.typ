@@ -5,7 +5,7 @@
 // (steps 1 to 3, about 40 minutes) follows slide 25 of "Model selection and cross-validation": the group
 // explores the card clients, trains three algorithms on five folds before the
 // break, lets them train on through it, and compares their scores and their ±.
-// Below the checkpoint bar (slide 26) the group checks whether the folds
+// From panel 4 (slide 26) the group checks whether the folds
 // overlap, asks which columns lead, and decides; the group gives its choice at
 // the debrief, 15:00.
 //
@@ -122,14 +122,7 @@ score them. Which one should it use, and is its lead real or luck of the folds?
   #writing(1)
 ]
 
-#v(6pt)
-
-#checkpoint(
-  msg: [Reached this line? Stop here: the group gives its choice at the debrief, 15:00.],
-  note: [Panels 4 to 6 follow slide 26 of *Model selection and cross-validation*.],
-)
-
-#v(6pt)
+#v(5pt)
 
 #panel("4 · Do the folds overlap?")[
   #step(1, "One curve per fold")[On each of the two best models: #dss("Performance", "ROC & PR curves"), one curve per fold.]

@@ -6,7 +6,7 @@
 // before any theory: the group explores South German Credit, trains a first
 // model with the defaults, looks at its result pages and writes three notes,
 // each placed on a phase of the CRISP-DM map. The evaluation deck starts from
-// those notes. Below the checkpoint bar (block 2) the group moves the threshold,
+// those notes. From panel 4 (block 2) the group moves the threshold,
 // enters the cost matrix and reads the gains chart in one session (Evaluating a
 // classifier, slide 15), then switches to five folds (Model selection and
 // cross-validation, slide 13).
@@ -142,14 +142,7 @@ starts from your notes.
   #note-line
 ]
 
-#v(6pt)
-
-#checkpoint(
-  msg: [Reached this line? Stop here: the group reports in the debrief.],
-  note: [Panels 4 to 7 are for block 2: 4 to 6 together at slide 15 of *Evaluating a classifier*, 7 at slide 13 of *Model selection and cross-validation*.],
-)
-
-#v(6pt)
+#v(5pt)
 
 #panel("4 · Move the threshold")[
   TP: bad, refused. FP: good, refused. FN: bad, granted. TN: good, granted.
