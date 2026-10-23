@@ -8,8 +8,8 @@ The drawing helpers and the phase thumbnails are the intro deck's
 (`day2/07-series/src/draw.py`), loaded from there so the decks draw alike. The data
 figures read what `excerpts.py` writes next to this script: the Capital Bikeshare daily
 rentals (UCI dataset 275, CC BY 4.0) and `numbers.json`. The Dow Jones extract's licence is
-not recorded, so only statistics computed from it are drawn. Sketches and the simulated walk
-say so.
+not recorded, so only statistics computed from it are drawn. Sketches and the simulated walks
+say so; the random walk is the time-series deck's own figure.
 """
 
 from __future__ import annotations
@@ -38,7 +38,7 @@ svg, step, rect, text, line, path = d.svg, d.step, d.rect, d.text, d.line, d.pat
 INK, MUTED, WHITE, ACCENT, A_LIGHT = d.INK, d.MUTED, d.WHITE, d.ACCENT, d.A_LIGHT
 GREY, GREY_INK, EDGE, ALERT, PANEL = s7.GREY, s7.GREY_INK, s7.EDGE, s7.ALERT, s7.PANEL
 Frame, poly, dots, axis_x, axis_y, panel_box = s7.Frame, s7.poly, s7.dots, s7.axis_x, s7.axis_y, s7.panel_box
-esc, label, fmt = s7.esc, s7.label, s7.fmt
+esc, label, fmt, sub = s7.esc, s7.label, s7.fmt, s7.sub
 LICENCE = s7.LICENCE
 BIKE_DATA = s7.BIKE_DATA
 SKETCH = "A drawn sketch, not data."
@@ -59,12 +59,13 @@ def thin_dashed(fr: Frame, x: float, h: float | None = None) -> str:
     return line(fr.x(x), fr.y0, fr.x(x), fr.y0 + fr.h, color=GREY_INK, w=1.2, marker="", dash="5 4")
 
 
-def forecast_panel(x, y, w, h, title, sub, hist, fc, yr, ticks):
-    """A small panel: the last weeks of rentals in grey, a forecast in the accent colour."""
+def forecast_panel(x, y, w, h, title, subtitle, hist, fc, yr, ticks, eq=""):
+    """A small panel: the last weeks of rentals in grey, a forecast in the accent colour, its formula top right."""
     n = len(hist)
     fr = Frame(x + 60, y + 66, w - 84, h - 104, (0, n + len(fc) - 1), yr)
     return [panel_box(x, y, w, h), text(x + 20, y + 32, esc(title), size=19, weight="bold", anchor="start"),
-            label(x + 20, y + 54, sub, size=15),
+            label(x + 20, y + 54, subtitle, size=15),
+            text(x + w - 18, y + 34, eq, size=18, weight="bold", anchor="end", fill=ACCENT, cls="accent-fill") if eq else "",
             *axis_y(fr, ticks, size=13), thin_dashed(fr, n - 0.5),
             poly(fr, list(range(n)), hist, color=GREY_INK, w=1.4, cls=""),
             poly(fr, list(range(n, n + len(fc))), list(fc), w=3.4)]
@@ -78,11 +79,14 @@ def simple() -> str:
     hist = history(b["origin"], 42)
     ticks = [(0, "0"), (3000, "3,000"), (6000, "6,000")]
     spots = [(10, 8), (510, 8), (10, 240), (510, 240)]
-    names = (("The mean", "of every day so far", "mean"), ("The last value", "the naive forecast", "naive"),
-             ("The same day a week before", "the seasonal naive forecast", "snaive"),
-             ("The drift line", "first day to last, extended", "drift"))
-    panels = [forecast_panel(x, y, 480, 222, t, s, hist, b["simple"][k], (0, 7200), ticks)
-              for (x, y), (t, s, k) in zip(spots, names)]
+    yh = "ŷ" + sub("T+h")
+    names = (("The mean", "of every day so far", "mean", f"{yh} = ȳ"),
+             ("The last value", "the naive forecast", "naive", f"{yh} = y{sub('T')}"),
+             ("The same day a week before", "the seasonal naive forecast", "snaive", f"{yh} = y{sub('T+h−7')}"),
+             ("The drift line", "first day to last, extended", "drift",
+              f"{yh} = y{sub('T')} + h (y{sub('T')} − y{sub('1')}) / (T − 1)"))
+    panels = [forecast_panel(x, y, 480, 222, t, st, hist, b["simple"][k], (0, 7200), ticks, eq=e)
+              for (x, y), (t, st, k, e) in zip(spots, names)]
     return svg(W, H, [step(i + 1, p) for i, p in enumerate(panels)],
                f"The last six weeks of daily rentals to {b['origin']} (grey) and four simple forecasts of the next two "
                "weeks, after R. J. Hyndman and G. Athanasopoulos (2021), section 5.2. " + BIKE_DATA + " Drawn by "
@@ -91,8 +95,8 @@ def simple() -> str:
 
 # --- Part 2 -------------------------------------------------------------------------
 def weights() -> str:
-    """Exponential smoothing's weights: falling with age, faster when alpha is large."""
-    W, H = 1000, 420
+    """Exponential smoothing's weights: falling with age, faster when alpha is large; then its formula."""
+    W, H = 1000, 460
     out = []
     for i, a in enumerate((0.8, 0.2)):
         y0 = 30 + i * 175
@@ -110,7 +114,9 @@ def weights() -> str:
         g += [label(fr.x(11), fr.y(0) + 24, "the last day", size=14, anchor="middle"),
               label(fr.x(0), fr.y(0) + 24, "11 days before", size=14, anchor="middle")]
         out.append(g)
-    ends = [text(500, 400, "α = 1: all the weight on the last day, the naive forecast;   α near 0: almost equal "
+    ends = [text(500, 400, f"ŷ{sub('T+1')} = α y{sub('T')} + α(1 − α) y{sub('T−1')} + α(1 − α)² y{sub('T−2')} + …",
+                 size=24, weight="bold", fill=ACCENT, cls="accent-fill"),
+            text(500, 442, "α = 1: all the weight on the last day, the naive forecast;   α near 0: almost equal "
                  "weights, close to the mean", size=17, fill=INK)]
     return svg(W, H, [step(1, out[0]), step(2, out[1]), step(3, ends)],
                "The weights simple exponential smoothing gives the last twelve days, α(1 - α)^k, for α = 0.8 and 0.2 "
@@ -118,8 +124,8 @@ def weights() -> str:
 
 
 def ets() -> str:
-    """Three ETS forms on the same rentals: no trend, a trend, a trend and a weekly season."""
-    W, H = 1000, 380
+    """Three ETS forms on the same rentals: no trend, a trend, a trend and a weekly season; the AIC chooses."""
+    W, H = 1000, 410
     b = N["bike"]
     hist = history(b["origin"], 42)
     ticks = [(0, "0"), (3000, "3,000"), (6000, "6,000")]
@@ -127,9 +133,11 @@ def ets() -> str:
              ("ETS(A,A,A)", "a trend and a weekly season", "AAA"))
     panels = [forecast_panel(10 + i * 330, 50, 320, 300, t, s, hist, b["ets"][k], (0, 7200), ticks)
               for i, (t, s, k) in enumerate(names)]
-    key = [label(500, 26, "the letters: error, trend, season; N none, A additive, M multiplicative", size=16,
+    key = [label(500, 26, "the letters: error A or M; trend N, A or damped; season N, A or M (N none, A additive, M multiplicative)", size=16,
                  anchor="middle", fill=INK)]
-    return svg(W, H, [step(1, key + panels[0]), step(2, panels[1]), step(3, panels[2])],
+    aic = [text(500, 392, "The form is chosen by the AIC: a score that rewards the fit and charges each parameter",
+                size=18, weight="bold", fill=INK)]
+    return svg(W, H, [step(1, key + panels[0]), step(2, panels[1]), step(3, panels[2]), step(4, aic)],
                f"Daily rentals to {b['origin']} (grey) and the two-week point forecasts of three exponential smoothing "
                "forms fitted to them with statsmodels (R. J. Hyndman and G. Athanasopoulos 2021, sections 8.4 and 8.5). "
                + BIKE_DATA + " Drawn by " + LICENCE)
@@ -138,7 +146,7 @@ def ets() -> str:
 def arima() -> str:
     """ARIMA's three parts; ARIMA(0,1,0) is the random walk; AutoARIMA searches the orders."""
     W, H = 1000, 420
-    parts = (("AR", "p", "past values"), ("I", "d", "differences"), ("MA", "q", "past errors"))
+    parts = (("AR", "p", "past values"), ("I", "d", "differences"), ("MA", "q", "past forecast errors"))
     top = []
     for i, (k, o, s) in enumerate(parts):
         x = 40 + i * 320
@@ -269,7 +277,8 @@ def mape() -> str:
                  cls="accent-fill"),
             text(985, 336, esc(f"RMSE {fmt(s['rmse'])}"), size=19, weight="bold", anchor="end", fill=ACCENT,
                  cls="accent-fill")]
-    pct.append(text(985, 380, esc(f"MAPE {fmt(s['mape'])}%"), size=19, weight="bold", anchor="end", fill=ALERT))
+    pct += [text(985, 380, esc(f"MAPE {fmt(s['mape'])}%"), size=19, weight="bold", anchor="end", fill=ALERT),
+            label(985, 412, "MAPE: the mean of |y − ŷ| / y, in percent", size=15, anchor="end")]
     return svg(W, H, [step(1, base), step(2, err), step(3, pct)],
                f"Daily rentals from {s['days'][0]} to {s['days'][-1]}, the week of hurricane Sandy, and the naive "
                f"forecast from {s['origin']}; the errors in rentals and in percent of each day's rentals (R. J. Hyndman "
@@ -294,7 +303,9 @@ def mase() -> str:
     right = [rect(600, 90, 370, 220, fill=PANEL, stroke=EDGE, rx=8, sw=1.2),
              text(785, 140, "the hurricane week", size=18, weight="bold"),
              text(785, 190, esc(f"MAE {fmt(s['mae'])}  /  {fmt(s['scale'])}"), size=22),
-             text(785, 250, esc(f"MASE {s['mase']:.2f}"), size=34, weight="bold", fill=ACCENT, cls="accent-fill")]
+             text(785, 250, esc(f"MASE {s['mase']:.2f}"), size=34, weight="bold", fill=ACCENT, cls="accent-fill"),
+             text(785, 292, "MASE = MAE / mean |y" + sub("t") + " − y" + sub("t−1") + "| in training", size=15,
+                  fill=MUTED)]
     rule = [text(500, 410, "Below 1: smaller errors than the last value's average one-step error in training",
                  size=18, weight="bold", fill=INK)]
     return svg(W, H, [step(1, left), step(2, right), step(3, rule)],
@@ -365,9 +376,9 @@ def fill() -> str:
 
 
 def dss_forecast() -> str:
-    """A drawing of a Dataiku forecasting session's settings, as Hands-on 7 sets them."""
-    W, H = 1000, 400
-    nav = [rect(20, 20, 220, 360, fill=PANEL, stroke=EDGE, rx=4)]
+    """A drawing of a Dataiku forecasting session's settings, as Hands-on 7 sets them, and its algorithms' order."""
+    W, H = 1000, 500
+    nav = [rect(20, 20, 220, 468, fill=PANEL, stroke=EDGE, rx=4)]
     for i, n in enumerate(["General settings", "Train / Test Set", "Metrics", "Algorithms"]):
         yy = 60 + i * 46
         nav.append(text(42, yy, n, size=17, anchor="start"))
@@ -388,67 +399,17 @@ def dss_forecast() -> str:
            text(276, 334, "Metrics", size=18, weight="bold", anchor="start"),
            text(296, 364, "Mean Absolute Scaled Error", size=17, anchor="start", weight="bold", fill=ACCENT,
                 cls="accent-fill")]
-    return svg(W, H, [step(1, nav + gen), step(2, tt), step(3, met)],
-               "A drawing, not a capture, of the settings of a Time Series Forecasting analysis in Dataiku DSS; labels "
-               "after the DSS 13 documentation and the 2025 course server, to be checked on DSS 15.0. " + LICENCE)
-
-
-def scores(key: str, rows: list[tuple[str, str, str]], xmax: float, title: str):
-    """Each model's ten fold scores (dots) and its mean with twice the spread, the last value first."""
-    W, H = 1000, 120 + 100 * len(rows)
-    s = N[key]
-    fr = Frame(330, 50, 400, 100 * len(rows), (0, xmax), (0, len(rows)))
-    base = s["naive"]["mase"]
-    head = [text(10, 30, esc(title), size=20, weight="bold", anchor="start"),
-            text(825, 30, "MASE", size=18, weight="bold", fill=MUTED),
-            text(945, 30, "beats it", size=18, weight="bold", fill=MUTED)]
-    out = []
-    for i, (m, name, sub) in enumerate(rows):
-        r = s[m]
-        y = fr.y0 + 50 + i * 100
-        g = [text(10, y - 2, esc(name), size=22, weight="bold", anchor="start"), label(10, y + 24, sub, size=17)]
-        g += [f'<circle cx="{fr.x(v):.1f}" cy="{y - 16}" r="6.5" fill="{GREY_INK}" fill-opacity="0.8"/>'
-              for v in r["folds_mase"]]
-        lo, hi = max(r["mase"] - r["pm"], 0), min(r["mase"] + r["pm"], xmax)
-        g += [line(fr.x(lo), y + 10, fr.x(hi), y + 10, color=ACCENT, w=4, marker="", cls="accent-stroke"),
-              f'<circle class="accent-fill" cx="{fr.x(r["mase"]):.1f}" cy="{y + 10}" r="10" fill="{ACCENT}"/>',
-              text(825, y + 8, esc(f"{r['mase']:.2f} (± {r['pm']:.2f})"), size=19, fill=INK),
-              text(945, y + 8, "" if m == "naive" else f"{r['wins']} of 10", size=22, weight="bold")]
-        out.append(g)
-    ref = [line(fr.x(base), fr.y0 + 10, fr.x(base), fr.y0 + fr.h, color=INK, w=1.4, marker="", dash="5 4"),
-           *axis_x(fr, [(v, str(v)) for v in range(0, int(xmax) + 1)], size=17, y=fr.y0 + fr.h + 10),
-           label(fr.x(xmax / 2), fr.y0 + fr.h + 60, "MASE by fold (grey), its mean and ± twice the spread", size=17,
-                 anchor="middle")]
-    return [head + out[0] + ref, sum(out[1:], [])], W, H
-
-
-def dj_scores() -> str:
-    forms = ", ".join(f[4:-1] for f in N["dowjones"]["ets_forms"])
-    (one, rest), W, H = scores("dowjones", [("naive", "The last value", "Trivial identity"),
-                                            ("snaive", "Same day a week before", "Seasonal naive, season 7"),
-                                            ("ets", "ETS", f"chose ({forms}) on every fold"),
-                                            ("arima", "ARIMA", "orders searched, as AutoARIMA does")], 7,
-                               "The Dow Jones close, seven days ahead, ten folds")
-    s = N["dowjones"]
-    return svg(W, H, [step(1, one), step(2, rest)],
-               f"MASE of four forecasts of the Dow Jones close, horizon {s['horizon']} days, {s['folds']} folds with an "
-               f"offset as Dataiku DSS lays them out, tests from {s['test_from']} to {s['test_to']}, on the module's "
-               "extract put on a one-day step with the previous value repeated; models fitted with statsmodels "
-               "(ETS and ARIMA chosen by AICc). 'Beats it': folds where the forecast scores below the last value. "
-               "Statistics only. Drawn by " + LICENCE)
-
-
-def casual_scores() -> str:
-    forms = ", ".join(f[4:-1] for f in N["casual"]["ets_forms"])
-    (one, rest), W, H = scores("casual", [("naive", "The last value", "Trivial identity"),
-                                          ("snaive", "Same day a week before", "Seasonal naive, season 7"),
-                                          ("ets", "ETS", f"chose ({forms}) on every fold")], 3,
-                               "Casual riders, seven days ahead, ten folds")
-    s = N["casual"]
-    return svg(W, H, [step(1, one), step(2, rest)],
-               f"MASE of three forecasts of casual riders' daily rentals, horizon {s['horizon']} days, {s['folds']} "
-               f"folds with an offset as Dataiku DSS lays them out, tests from {s['test_from']} to {s['test_to']}; "
-               "ETS chosen by AICc with statsmodels. " + BIKE_DATA + " Drawn by " + LICENCE)
+    alg = [rect(256, 392, 724, 96, fill=WHITE, stroke=EDGE, rx=4),
+           text(276, 422, "Algorithms", size=18, weight="bold", anchor="start"),
+           text(296, 456, "first:", size=16, anchor="start", fill=MUTED),
+           text(350, 456, "Trivial identity, Seasonal naive (season 7)", size=17, weight="bold", anchor="start",
+                fill=ACCENT, cls="accent-fill"),
+           text(296, 480, "then:", size=16, anchor="start", fill=MUTED),
+           text(350, 480, "AutoARIMA, ETS, each read beside Trivial identity", size=17, weight="bold", anchor="start")]
+    return svg(W, H, [step(1, nav + gen), step(2, tt), step(3, met), step(4, alg)],
+               "A drawing, not a capture, of the settings of a Time Series Forecasting analysis in Dataiku DSS and the "
+               "order in which Hands-on 7 trains its algorithms; labels after the DSS 13 documentation and the 2025 "
+               "course server, to be checked on DSS 15.0. " + LICENCE)
 
 
 def trail() -> str:
@@ -492,9 +453,9 @@ def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
     figures = {"simple.svg": simple, "weights.svg": weights, "ets.svg": ets, "arima.svg": arima,
                "global.svg": global_, "rolling.svg": rolling, "leak.svg": leak, "mape.svg": mape, "mase.svg": mase,
-               "spread.svg": spread, "fill.svg": fill, "dss-forecast.svg": dss_forecast, "dj-scores.svg": dj_scores,
-               "trail.svg": trail, "casual-scores.svg": casual_scores}
-    for name, lit_ in (("bu", {"BU"}), ("dp", {"DP"}), ("mo", {"MO"}), ("ev", {"EV"}), ("mo-ev", {"MO", "EV"})):
+               "spread.svg": spread, "fill.svg": fill, "dss-forecast.svg": dss_forecast, "trail.svg": trail,
+               "naive.svg": s7.naive}
+    for name, lit_ in (("dp", {"DP"}), ("mo-ev", {"MO", "EV"})):
         figures[f"phase-{name}.svg"] = lambda lit_=lit_: d.phase_thumb(lit_)
     for name, fn in figures.items():
         s = fn()

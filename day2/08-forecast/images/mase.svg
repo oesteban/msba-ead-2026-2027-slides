@@ -78,6 +78,7 @@
 <text x="785" y="140" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">the hurricane week</text>
 <text x="785" y="190" font-size="22" font-weight="normal" text-anchor="middle" fill="#1c2e36">MAE 3,836  /  709</text>
 <text class="accent-fill" x="785" y="250" font-size="34" font-weight="bold" text-anchor="middle" fill="#00609c">MASE 5.41</text>
+<text x="785" y="292" font-size="15" font-weight="normal" text-anchor="middle" fill="#556268">MASE = MAE / mean |y<tspan baseline-shift='sub' font-size='14'>t</tspan> − y<tspan baseline-shift='sub' font-size='14'>t−1</tspan>| in training</text>
 </g>
 <g data-step="3">
 <text x="500" y="410" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">Below 1: smaller errors than the last value's average one-step error in training</text>

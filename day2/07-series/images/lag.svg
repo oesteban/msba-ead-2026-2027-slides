@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" font-family="Inter, Arimo, Helvetica, sans-serif">
-<!-- Daily rentals against the previous day's, 730 pairs, and their correlation. Data: Capital Bikeshare daily rentals, 2011 and 2012, H. Fanaee-T (2013), UCI dataset 275, CC BY 4.0. Drawn by Oscar Esteban, CC BY 4.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Daily rentals against the previous day's, 730 pairs, and their correlation; the autocorrelation at lag k, after R. J. Hyndman and G. Athanasopoulos (2021), section 2.8, with ȳ the mean of the whole series. Data: Capital Bikeshare daily rentals, 2011 and 2012, H. Fanaee-T (2013), UCI dataset 275, CC BY 4.0. Drawn by Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
 <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
@@ -783,6 +783,13 @@
 <text x="560" y="18" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">rentals</text>
 </g>
 <g data-step="3">
-<text class="accent-fill" x="700" y="70" font-size="22" font-weight="bold" text-anchor="middle" fill="#00609c">correlation 0.85</text>
+<text class="accent-fill" x="578" y="66" font-size="22" font-weight="bold" text-anchor="start" fill="#00609c">correlation 0.85</text>
+<text x="578" y="90" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">1: a rising line; 0: no line; −1: a falling line</text>
+</g>
+<g data-step="4">
+<text x="60" y="416" font-size="24" font-weight="bold" text-anchor="start" fill="#1c2e36">r<tspan baseline-shift='sub' font-size='15'>k</tspan> =</text>
+<text x="285" y="400" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">Σ (y<tspan baseline-shift='sub' font-size='14'>t</tspan> − ȳ) (y<tspan baseline-shift='sub' font-size='14'>t−k</tspan> − ȳ)</text>
+<line x1="145" y1="411" x2="425" y2="411" stroke="#1c2e36" stroke-width="1.6"/>
+<text x="285" y="438" font-size="21" font-weight="normal" text-anchor="middle" fill="#1c2e36">Σ (y<tspan baseline-shift='sub' font-size='14'>t</tspan> − ȳ)²</text>
 </g>
 </svg>

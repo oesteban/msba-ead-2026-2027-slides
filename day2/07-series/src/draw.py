@@ -10,8 +10,9 @@ the Capital Bikeshare daily rentals (UCI dataset 275, CC BY 4.0), 10 seconds of 
 MIT-BIH Arrhythmia Database's record 100 and 4 seconds of the EEG Motor
 Movement/Imagery Dataset's run S001R02 (PhysioNet, ODC-By 1.0), one voxel of
 OpenNeuro ds000114 (CC0), and `numbers.json`. The Dow Jones extract's licence is
-not recorded, so only statistics computed from it are drawn. The random walk of
-slide 26 is simulated, and says so.
+not recorded, so the hands-on's numbers are read live, not drawn. The white noise is
+simulated, and says so. `naive()`, a simulated random walk, is drawn by the forecasting
+deck, which loads this module.
 """
 
 from __future__ import annotations
@@ -70,6 +71,18 @@ def label(x, y, s, size=17, anchor="start", **kw):
 
 def fmt(v: float) -> str:
     return f"{v:,.0f}"
+
+
+def sub(s: str, size=14) -> str:
+    """A subscript, as an SVG tspan; the baseline returns after it."""
+    return f"<tspan baseline-shift='sub' font-size='{size}'>{s}</tspan>"
+
+
+def autocorr(x: list[float], nlags: int) -> list[float]:
+    """The sample autocorrelation r0..r_nlags, each lag around the whole series' mean."""
+    m = sum(x) / len(x)
+    den = sum((v - m) ** 2 for v in x)
+    return [sum((x[t] - m) * (x[t - k] - m) for t in range(k, len(x))) / den for k in range(nlags + 1)]
 
 
 # --- chart helpers ------------------------------------------------------------------
@@ -202,23 +215,28 @@ def shuffle() -> str:
 
 # --- Part 2 -------------------------------------------------------------------------
 def trend() -> str:
-    """Two years of rentals and their trend-cycle: up from one year to the next, rising and falling with the year."""
+    """Two years of rentals and their trend: the mean over the year around each day, which holds no yearly season."""
     W, H = 1000, 420
-    b, t = col(BIKE, "rentals"), col(BIKE, "rentals_trend")
+    b = col(BIKE, "rentals")
+    half = 182
+    ma = [(i, sum(b[i - half:i + half + 1]) / (2 * half + 1)) for i in range(half, len(b) - half)]
     fr = Frame(80, 30, 890, 320, (0, len(b) - 1), (0, 9000))
     base = [poly(fr, list(range(len(b))), b, color=GREY_INK, w=1.1, cls=""),
             *axis_x(fr, [(0, "2011"), (182, "July"), (365, "2012"), (547, "July"), (730, "2013")]),
             *axis_y(fr, [(0, "0"), (3000, "3,000"), (6000, "6,000"), (9000, "9,000")]),
             label(80, 18, "rentals a day", size=15)]
-    tr = [poly(fr, list(range(len(t))), t, w=4)]
+    tr = [poly(fr, [i for i, _ in ma], [m for _, m in ma], w=4),
+          line(fr.x(12), fr.y(8300), fr.x(52), fr.y(8300), color=ACCENT, w=4, marker="", cls="accent-stroke"),
+          label(fr.x(60), fr.y(8300) + 6, "the trend: each day's mean over the 365 days around it", size=17,
+                fill=ACCENT, cls="accent-fill")]
     ym = N["bike"]["year_mean"]
     means = [line(fr.x(0), fr.y(ym["2011"]), fr.x(364), fr.y(ym["2011"]), color=INK, w=1.6, marker="", dash="7 5"),
              line(fr.x(365), fr.y(ym["2012"]), fr.x(730), fr.y(ym["2012"]), color=INK, w=1.6, marker="", dash="7 5"),
              label(fr.x(30), fr.y(ym["2011"]) - 12, f"2011: {fmt(ym['2011'])} a day", size=17, fill=INK),
              label(fr.x(600), fr.y(ym["2012"]) + 30, f"2012: {fmt(ym['2012'])} a day", size=17, fill=INK, anchor="middle")]
     return svg(W, H, [step(1, base), step(2, tr), step(3, means)],
-               "The daily rentals (grey), their trend-cycle (an STL fit with a weekly season, its trend smoothed over 91 "
-               "days, robust) and each year's mean. " + BIKE_DATA + " Drawn by " + LICENCE)
+               "The daily rentals (grey), their trend as the centred 365-day moving average, from 2 July 2011 to 2 July "
+               "2012, and each year's mean. " + BIKE_DATA + " Drawn by " + LICENCE)
 
 
 def season() -> str:
@@ -262,6 +280,10 @@ def additive() -> str:
         sk += [panel_box(x0, 20, 230, 190), text(x0 + 115, 48, esc(title), size=15, weight="bold"),
                poly(fr, xs, ys, w=2), poly(fr, xs, level, color=GREY_INK, w=1.2, cls="", dash="4 4")]
     sk.append(label(255, 232, "drawn, not data", size=14, anchor="middle"))
+    t = lambda s: s + sub("t")
+    sk += [text(255, 300, f"additive: {t('y')} = {t('T')} + {t('S')} + {t('R')}", size=24, weight="bold"),
+           text(255, 350, f"multiplicative: {t('y')} = {t('T')} × {t('S')} × {t('R')}", size=24, weight="bold"),
+           label(255, 392, "T trend-cycle, S season, R remainder", size=16, anchor="middle")]
     months = N["bike"]["casual_by_month"]
     fr = Frame(560, 60, 400, 290, (0.5, 24.5), (0, 2900))
     xs = list(range(1, 25))
@@ -318,8 +340,8 @@ def stl() -> str:
 
 # --- Part 3 -------------------------------------------------------------------------
 def lag() -> str:
-    """Each day's rentals against the day before's: autocorrelation at lag 1."""
-    W, H = 1000, 440
+    """Each day's rentals against the day before's: autocorrelation at lag 1, then its formula."""
+    W, H = 1000, 450
     b = col(BIKE, "rentals")
     tab = [text(50, 40, "Each row: a day and the day before", size=18, weight="bold", anchor="start")]
     hdr = [("date", 60), ("rentals", 190), ("the day before", 300)]
@@ -336,11 +358,18 @@ def lag() -> str:
           *axis_x(fr, [(0, "0"), (4000, "4,000"), (8000, "8,000")]),
           *axis_y(fr, [(0, "0"), (4000, "4,000"), (8000, "8,000")]),
           label(760, 412, "the day before", size=15, anchor="middle"), label(560, 18, "rentals", size=15)]
-    r1 = [text(700, 70, esc(f"correlation {N['bike']['lag1_corr']:.2f}"), size=22, weight="bold", fill=ACCENT,
-               cls="accent-fill")]
-    return svg(W, H, [step(1, tab), step(2, sc), step(3, r1)],
-               "Daily rentals against the previous day's, 730 pairs, and their correlation. " + BIKE_DATA
-               + " Drawn by " + LICENCE)
+    r1 = [text(578, 66, esc(f"correlation {N['bike']['lag1_corr']:.2f}"), size=22, weight="bold", fill=ACCENT,
+               anchor="start", cls="accent-fill"),
+          label(578, 90, "1: a rising line; 0: no line; −1: a falling line", size=15)]
+    yb = "ȳ"
+    rk = [text(60, 416, "r" + sub("k", 15) + " =", size=24, weight="bold", anchor="start"),
+          text(285, 400, f"Σ (y{sub('t')} − {yb}) (y{sub('t−k')} − {yb})", size=21),
+          line(145, 411, 425, 411, color=INK, w=1.6, marker=""),
+          text(285, 438, f"Σ (y{sub('t')} − {yb})²", size=21)]
+    return svg(W, H, [step(1, tab), step(2, sc), step(3, r1), step(4, rk)],
+               "Daily rentals against the previous day's, 730 pairs, and their correlation; the autocorrelation at "
+               "lag k, after R. J. Hyndman and G. Athanasopoulos (2021), section 2.8, with ȳ the mean of the whole "
+               "series. " + BIKE_DATA + " Drawn by " + LICENCE)
 
 
 def ecg_acf() -> str:
@@ -370,6 +399,33 @@ def ecg_acf() -> str:
                "their autocorrelation (G. B. Moody and R. G. Mark 2001; PhysioNet, ODC-By 1.0). The highest peak past "
                "0.4 s is marked; the record's beat annotations give a mean interval of "
                f"{N['ecg']['rr_mean_s']:.3f} s over the same 10 seconds. Drawn by " + LICENCE)
+
+
+def white_noise() -> str:
+    """Simulated white noise and its autocorrelation, inside the band where 95% of noise's bars fall."""
+    W, H = 1000, 440
+    rng = random.Random(1)
+    T = 731
+    x = [rng.gauss(0, 1) for _ in range(T)]
+    r = autocorr(x, 28)
+    bound = 1.96 / math.sqrt(T)
+    fr = Frame(40, 70, 420, 290, (0, T - 1), (-3.8, 3.8))
+    left = [text(30, 38, "Simulated: 731 independent values", size=19, weight="bold", anchor="start"),
+            poly(fr, list(range(T)), x, color=GREY_INK, w=0.9, cls=""),
+            line(fr.x0, fr.y(0), fr.x0 + fr.w, fr.y(0), color=ACCENT, w=2.4, marker="", cls="accent-stroke"),
+            label(fr.x0, fr.y0 + fr.h + 26, "no trend, no season: each value drawn at random", size=15)]
+    fr2 = Frame(560, 70, 410, 290, (0, 29), (-0.2, 1))
+    out = tuple(k for k in range(1, 29) if abs(r[k]) > bound)
+    right = [text(540, 38, "Its autocorrelation", size=19, weight="bold", anchor="start"),
+             *acf_bars(fr2, r, bound, mark=out),
+             *axis_y(fr2, [(0, "0"), (0.5, "0.5"), (1, "1")]),
+             *axis_x(fr2, [(1, "1"), (7, "7"), (14, "14"), (21, "21"), (28, "28")], size=14, y=fr2.y(-0.2))]
+    band = [text(765, 430, f"grey band: ±1.96/√T = ±{bound:.3f} for T = {T}", size=17, weight="bold"),
+            label(765, 406, "95% of the bars of white noise fall inside it", size=15, anchor="middle")]
+    return svg(W, H, [step(1, left), step(2, right), step(3, band)],
+               f"Simulated white noise (seed 1, {T} Gaussian values) and its autocorrelation at lags 1 to 28, with the "
+               "band ±1.96/√T (R. J. Hyndman and G. Athanasopoulos 2021, section 2.9); a bar outside it in red. Drawn by "
+               + LICENCE)
 
 
 def acf() -> str:
@@ -403,29 +459,42 @@ def rolling(vals, k=30):
     return out
 
 
+def rolling_sd(vals, k=30):
+    """Centred rolling standard deviation over k values, None near the ends."""
+    m = rolling(vals, k)
+    out = []
+    for i, mu in enumerate(m):
+        out.append(None if mu is None else math.sqrt(sum((v - mu) ** 2 for v in vals[i - k // 2:i + k // 2]) / k))
+    return out
+
+
 def stationary() -> str:
-    """The level's mean drifts; the change's mean stays at zero."""
-    W, H = 1000, 420
+    """The level's mean drifts; the change's mean stays at zero, while its spread still swings with the year."""
+    W, H = 1000, 430
     b = col(BIKE, "rentals")
     ch = [b[i] - b[i - 1] for i in range(1, len(b))]
     out = []
     for i, (title, vals, yr, ticks) in enumerate((
             ("The level: its mean drifts", b, (0, 9000), [(0, "0"), (4000, "4,000"), (8000, "8,000")]),
-            ("The change from the day before: its mean stays at 0", ch, (-6500, 6500),
+            ("The change: its mean stays at 0, its spread swings", ch, (-6500, 6500),
              [(-5000, "-5,000"), (0, "0"), (5000, "5,000")]))):
         x0 = 10 + i * 500
         fr = Frame(x0 + 70, 60, 400, 290, (0, len(vals) - 1), yr)
-        m = rolling(vals)
+        m, s = rolling(vals), rolling_sd(vals)
         xs = [k for k, v in enumerate(m) if v is not None]
+        up = " ".join(f"{fr.x(k):.1f},{fr.y(m[k] + s[k]):.1f}" for k in xs)
+        dn = " ".join(f"{fr.x(k):.1f},{fr.y(m[k] - s[k]):.1f}" for k in reversed(xs))
         g = [text(x0 + 245, 34, esc(title), size=17, weight="bold"),
              poly(fr, list(range(len(vals))), vals, color=GREY_INK, w=0.9, cls=""),
+             f'<polygon class="accent-a-light-fill" points="{up} {dn}" fill="{A_LIGHT}" fill-opacity="0.75"/>',
              poly(fr, xs, [m[k] for k in xs], w=3.5),
              *axis_y(fr, ticks), *axis_x(fr, [(0, "2011"), (365, "2012"), (len(vals) - 1, "2013")], size=14)]
         out.append(g)
-    note = [label(500, 412, "blue: the mean over the 30 days around each day", size=15, anchor="middle")]
+    note = [label(500, 412, "blue line: the mean over the 30 days around each day; "
+                  "pale band: one standard deviation each way", size=15, anchor="middle")]
     return svg(W, H, [step(1, out[0] + note), step(2, out[1])],
-               "Daily rentals and their change from the day before, each with its centred 30-day mean. " + BIKE_DATA
-               + " Drawn by " + LICENCE)
+               "Daily rentals and their change from the day before, each with its centred 30-day mean and one 30-day "
+               "standard deviation each way. " + BIKE_DATA + " Drawn by " + LICENCE)
 
 
 def diff() -> str:
@@ -433,11 +502,13 @@ def diff() -> str:
     W, H = 1000, 440
     b = N["bike"]
     out = []
-    for i, (title, key) in enumerate((("All rentals, change from the day before", "acf_rentals_change"),
-                                      ("Casual riders, change from a week before", "acf_casual_week_change"))):
+    for i, (title, key, eq) in enumerate((
+            ("All rentals, change from the day before", "acf_rentals_change", f"y{sub('t')} − y{sub('t−1')}"),
+            ("Casual riders, change from a week before", "acf_casual_week_change", f"y{sub('t')} − y{sub('t−7')}"))):
         x0 = 10 + i * 500
-        fr = Frame(x0 + 50, 70, 410, 290, (0, 29), (-0.6, 1))
-        g = [text(x0 + 30, 38, esc(title), size=18, weight="bold", anchor="start"),
+        fr = Frame(x0 + 50, 92, 410, 268, (0, 29), (-0.6, 1))
+        g = [text(x0 + 30, 34, esc(title), size=18, weight="bold", anchor="start"),
+             text(x0 + 30, 66, eq, size=22, weight="bold", fill=ACCENT, anchor="start", cls="accent-fill"),
              *acf_bars(fr, b[key], b["bound"]),
              *axis_y(fr, [(-0.5, "-0.5"), (0, "0"), (0.5, "0.5"), (1, "1")]),
              *axis_x(fr, [(1, "1"), (7, "7"), (14, "14"), (21, "21"), (28, "28 days")], size=14, y=fr.y(-0.6))]
@@ -447,138 +518,7 @@ def diff() -> str:
                "riders' change from the same day a week before; band ±1.96/√T. " + BIKE_DATA + " Drawn by " + LICENCE)
 
 
-# --- Part 4 -------------------------------------------------------------------------
-def dss_window() -> str:
-    """A drawing of Dataiku's Window recipe: ordered by Date, lags 1 and 2 on Close."""
-    W, H = 1000, 380
-    nav = [rect(20, 20, 220, 340, fill=PANEL, stroke=EDGE, rx=4)]
-    for i, n in enumerate(["Windows definitions", "Aggregations", "Output"]):
-        yy = 60 + i * 46
-        on = n == "Aggregations"
-        if on:
-            nav += [rect(20, yy - 24, 220, 38, fill=A_LIGHT, stroke=None, rx=0, cls="accent-a-light-fill"),
-                    rect(20, yy - 24, 6, 38, fill=ACCENT, stroke=None, rx=0, cls="accent-fill")]
-        nav.append(text(42, yy, n, size=17, anchor="start", weight="bold" if on else "normal"))
-    win = [rect(256, 20, 724, 100, fill=WHITE, stroke=EDGE, rx=4),
-           text(276, 56, "Windows definitions", size=18, weight="bold", anchor="start"),
-           text(276, 96, "Order columns", size=17, anchor="start"),
-           rect(430, 72, 210, 36, fill=WHITE, stroke=ACCENT, rx=4, sw=2.4, cls="accent-stroke"),
-           text(444, 96, "Date, ascending", size=17, anchor="start", weight="bold")]
-    agg = [rect(256, 140, 724, 220, fill=WHITE, stroke=EDGE, rx=4),
-           text(276, 176, "Aggregations", size=18, weight="bold", anchor="start")]
-    for i, (n, on) in enumerate((("Open", False), ("Close", True), ("Volume", False))):
-        yy = 222 + i * 44
-        agg.append(text(296, yy, n, size=17, anchor="start", weight="bold" if on else "normal",
-                        fill=INK if on else GREY_INK))
-    lagbox = [rect(420, 242, 110, 36, fill=A_LIGHT, stroke=ACCENT, rx=4, sw=2.4, cls="accent-a-light-fill accent-stroke"),
-              text(475, 266, "Lag", size=17, weight="bold"),
-              text(560, 266, "offsets", size=17, anchor="start"),
-              rect(640, 242, 100, 36, fill=WHITE, stroke=GREY_INK, rx=4), text(690, 266, "1, 2", size=17, weight="bold")]
-    outc = [text(276, 344, "new columns: Close one and two trading days before (names as the server shows them)",
-                 size=15, fill=MUTED, anchor="start", style="italic")]
-    return svg(W, H, [step(1, nav + win), step(2, agg + lagbox), step(3, outc)],
-               "A drawing, not a capture, of Dataiku DSS's Window recipe: rows ordered by Date, a lag of 1 and 2 on "
-               "Close; labels as in the DSS reference documentation, to be checked on DSS 15.0. " + LICENCE)
-
-
-def flow() -> str:
-    """The Flow of Hands-on 6: the Dow Jones read step by step; the bike rentals in the tail."""
-    W, H = 1000, 360
-
-    def dataset(x, y, name, sub=""):
-        out = [rect(x, y, 56, 50, fill=A_LIGHT, stroke=ACCENT, rx=6, cls="accent-a-light-fill accent-stroke"),
-               text(x + 28, y + 72, name, size=15)]
-        if sub:
-            out.append(text(x + 28, y + 90, sub, size=13, fill=MUTED))
-        return out
-
-    def recipe(x, y, name, fill="#f0c46a"):
-        return [f'<circle cx="{x}" cy="{y}" r="20" fill="{fill}" stroke="{INK}" stroke-width="1.2"/>',
-                text(x, y - 30, name, size=14, fill=MUTED)]
-
-    def arr(x1, y1, x2, y2):
-        return line(x1, y1, x2, y2, color=INK, w=1.6)
-
-    y1, y2 = 60, 220
-    row1 = (dataset(10, y1, "dowjones") + [arr(70, y1 + 25, 112, y1 + 25)] + recipe(134, y1 + 25, "Prepare")
-            + [arr(156, y1 + 25, 196, y1 + 25)] + dataset(200, y1, "dated", "Date parsed")
-            + [arr(260, y1 + 25, 302, y1 + 25)] + recipe(324, y1 + 25, "Window", fill="#8fc9e8")
-            + [arr(346, y1 + 25, 386, y1 + 25)] + dataset(390, y1, "lagged", "lags 1 and 2")
-            + [arr(450, y1 + 25, 492, y1 + 25)] + recipe(514, y1 + 25, "Prepare")
-            + [arr(536, y1 + 25, 576, y1 + 25)] + dataset(580, y1, "changes", "change, weekday")
-            + [arr(640, y1 + 25, 682, y1 + 25)] + recipe(704, y1 + 25, "Group", fill="#8fd19e")
-            + [arr(726, y1 + 25, 766, y1 + 25)] + dataset(770, y1, "by weekday", "mean, spread")
-            + [text(10, 30, "steps 1 to 3", size=15, weight="bold", fill=ACCENT, cls="accent-fill", anchor="start")])
-    row2 = (dataset(10, y2, "bike-rentals") + [arr(70, y2 + 25, 112, y2 + 25)] + recipe(134, y2 + 25, "Prepare")
-            + [arr(156, y2 + 25, 196, y2 + 25)] + dataset(200, y2, "dated", "weekday, month")
-            + [path(f"M 260 {y2 + 25} L 300 {y2 + 25} L 300 {y2 - 2} L 492 {y2 - 2}", color=INK, w=1.6)]
-            + recipe(514, y2 - 2, "Group", fill="#8fd19e") + [arr(536, y2 - 2, 576, y2 - 2)]
-            + dataset(580, y2 - 27, "by weekday")
-            + [path(f"M 300 {y2 + 25} L 300 {y2 + 62} L 492 {y2 + 62}", color=INK, w=1.6)]
-            + [f'<circle cx="514" cy="{y2 + 62}" r="20" fill="#8fd19e" stroke="{INK}" stroke-width="1.2"/>',
-               text(514, y2 + 104, "Group", size=14, fill=MUTED),
-               arr(536, y2 + 62, 706, y2 + 62)] + dataset(710, y2 + 37, "by month")
-            + [text(10, y2 - 30, "panel 4", size=15, weight="bold", fill=ACCENT, cls="accent-fill", anchor="start")])
-    shift = lambda items: ['<g transform="translate(60,0)">' + "\n".join(items) + "</g>"]
-    return svg(W, H, [step(1, shift(row1)), step(2, shift(row2))],
-               "The Flow of Hands-on 6, drawn after Dataiku DSS's Flow (datasets and visual recipes), with the "
-               "sheet's steps; recipe colours schematic. " + LICENCE)
-
-
-def dj_acf() -> str:
-    """The Dow Jones: the close's autocorrelation stays high; the change's sits in the noise band."""
-    W, H = 1000, 430
-    dj = N["dowjones"]
-    out = []
-    for i, (title, key, bound) in enumerate((("The close", "acf_close", dj["bound_close"]),
-                                             ("The change from the day before", "acf_change", dj["bound_change"]))):
-        x0 = 10 + i * 500
-        fr = Frame(x0 + 50, 70, 410, 290, (0, 11), (-0.3, 1))
-        mark = tuple(k for k in range(1, 11) if abs(dj[key][k]) > bound) if i == 1 else ()
-        g = [text(x0 + 30, 38, esc(title), size=19, weight="bold", anchor="start"),
-             *acf_bars(fr, dj[key], bound, mark=mark),
-             *axis_y(fr, [(0, "0"), (0.5, "0.5"), (1, "1")]),
-             *axis_x(fr, [(k, str(k)) for k in range(1, 11)], size=14, y=fr.y(-0.3)),
-             label(x0 + 255, 412, "lag, in trading days", size=14, anchor="middle")]
-        if i == 0:
-            g.append(text(fr.x(1) + 14, fr.y(dj[key][1]) - 10, f"{dj[key][1]:.2f}", size=17, weight="bold",
-                          fill=ACCENT, anchor="start", cls="accent-fill"))
-        else:
-            g.append(text(fr.x(1), fr.y(0.25), f"{dj[key][1]:.2f}", size=17, weight="bold", fill=ACCENT,
-                          cls="accent-fill"))
-        out.append(g)
-    return svg(W, H, [step(1, out[0]), step(2, out[1])],
-               "Autocorrelation of the Dow Jones daily close and of its change from the previous trading day, lags 1 "
-               f"to 10, on the module's extract ({dj['rows']} trading days, {dj['first']} to {dj['last']}); band "
-               "±1.96/√T; a bar outside it in red. Statistics only: the extract's licence is not recorded. Drawn by "
-               + LICENCE)
-
-
-def weekday() -> str:
-    """Mean change by weekday, beside its spread."""
-    W, H = 1000, 420
-    wk = N["dowjones"]["weekday"]
-    fr = Frame(140, 40, 800, 320, (0.4, 5.6), (-700, 700))
-    base = [*axis_y(fr, [(-600, "-600"), (-300, "-300"), (0, "0"), (300, "300"), (600, "600")]),
-            line(fr.x0, fr.y(0), fr.x0 + fr.w, fr.y(0), color=GREY_INK, w=1.2, marker=""),
-            label(140, 26, "change from the day before, index points", size=15)]
-    means, spreads = [], []
-    for i, k in enumerate(WEEK[:5], start=1):
-        m, s = wk[k]["mean"], wk[k]["sd"]
-        top, h = (fr.y(m), fr.y(0) - fr.y(m)) if m >= 0 else (fr.y(0), fr.y(m) - fr.y(0))
-        means += [rect(fr.x(i) - 30, top, 60, max(h, 1), fill=ACCENT, stroke=None, rx=2, cls="accent-fill"),
-                  text(fr.x(i) + 40, fr.y(m) + (-8 if m >= 0 else 22), f"{m:+.0f}", size=17, weight="bold",
-                       anchor="start", fill=ACCENT, cls="accent-fill")]
-        spreads += [line(fr.x(i), fr.y(m - s), fr.x(i), fr.y(m + s), color=INK, w=2, marker=""),
-                    line(fr.x(i) - 16, fr.y(m - s), fr.x(i) + 16, fr.y(m - s), color=INK, w=2, marker=""),
-                    line(fr.x(i) - 16, fr.y(m + s), fr.x(i) + 16, fr.y(m + s), color=INK, w=2, marker="")]
-        base.append(label(fr.x(i), 392, k, size=16, anchor="middle"))
-    spreads.append(label(940, 26, "whiskers: one standard deviation each way", size=15, anchor="end"))
-    return svg(W, H, [step(1, base + means), step(2, spreads)],
-               "Mean change of the Dow Jones close from the previous trading day, by weekday, with one standard "
-               "deviation each way, on the module's extract; statistics only. Drawn by " + LICENCE)
-
-
+# --- For the forecasting deck ---------------------------------------------------------
 def naive() -> str:
     """A simulated random walk and its naive forecast: the last value, carried forward."""
     W, H = 1000, 400
@@ -591,7 +531,10 @@ def naive() -> str:
     walk = [poly(fr, list(range(80)), ys, color=INK, w=2, cls=""),
             line(fr.x(79.5), fr.y0, fr.x(79.5), fr.y0 + fr.h, color=GREY_INK, w=1.2, marker="", dash="5 4"),
             label(fr.x(79.5) - 10, fr.y0 + 16, "today", size=16, anchor="end"),
-            label(60, 380, "a simulated random walk: each step adds a random change to the last value", size=15)]
+            label(60, 380, "simulated", size=15),
+            text(80, 84, f"y{sub('t', 16)} = y{sub('t−1', 16)} + ε{sub('t', 16)}", size=28, weight="bold",
+                 anchor="start"),
+            label(80, 116, "ε: white noise, a random change each step", size=16)]
     fc = [poly(fr, [79, 100], [ys[-1], ys[-1]], w=4, dash="10 6"),
           *[text(fr.x(81), fr.y(ys[-1]) + 36 + 24 * k, s, size=17, weight="bold", fill=ACCENT, anchor="start",
                  cls="accent-fill") for k, s in enumerate(("the forecast for", "every day ahead:", "today's value"))]]
@@ -613,8 +556,7 @@ def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
     figures = {"examples.svg": examples, "shuffle.svg": shuffle, "trend.svg": trend, "season.svg": season,
                "additive.svg": additive, "stl.svg": stl, "lag.svg": lag, "ecg-acf.svg": ecg_acf, "acf.svg": acf,
-               "stationary.svg": stationary, "diff.svg": diff, "dss-window.svg": dss_window, "flow.svg": flow,
-               "dj-acf.svg": dj_acf, "weekday.svg": weekday, "naive.svg": naive}
+               "stationary.svg": stationary, "diff.svg": diff, "white-noise.svg": white_noise}
     for name, lit_ in (("bu", {"BU"}), ("du", {"DU"})):
         figures[f"phase-{name}.svg"] = lambda lit_=lit_: d.phase_thumb(lit_)
     for name, fn in figures.items():

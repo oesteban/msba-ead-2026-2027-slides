@@ -2,12 +2,12 @@
 // hands-on-7-forecast.typ: the group's sheet for Hands-on 7, 23.10.2026 PM.
 //
 // One sheet per group of three, both sides. Page 1 is the data card. The core
-// (steps 1 to 3, about 25 minutes) follows slide 18 of "Forecasting a time
+// (steps 1 to 3, about 25 minutes) follows slide 21 of "Forecasting a time
 // series": the group opens a time series forecasting analysis on the Dow Jones
-// close dated in Hands-on 6, fills the days without a close with the previous
+// close of Hands-on 6's file, fills the days without a close with the previous
 // value, forecasts seven days ahead on ten time-ordered folds scored by MASE,
 // trains the baselines first and the models after, and sets each beside
-// Trivial identity. From panel 4 (slide 19) the group runs the same
+// Trivial identity. From panel 4 (slide 21 too) the group runs the same
 // session on the casual riders of the bike rentals, then decides what the
 // treasury team is told. The previous teacher's 2025 lab forecast the same
 // index with no baseline; this sheet puts the baseline first.
@@ -91,7 +91,7 @@ same days.
 #v(5pt)
 
 #panel("Step 1 · Set up the forecast")[
-  #step(1, "Open a forecasting analysis")[On the dated Dow Jones dataset of Hands-on 6: #dss("Lab", "Time Series Forecasting"), target `Close`, time variable `Date`, a single time series; *Create*.]
+  #step(1, "Open a forecasting analysis")[On the Dow Jones dataset uploaded in Hands-on 6: #dss("Lab", "Time Series Forecasting"), target `Close`, time variable `Date`, a single time series; *Create*.]
   #v(2pt)
   #step(2, "Set the step and the horizon")[#dss("Design", "General settings"): *Time step* `1` *Day*; *Forecast horizon* `7`; *Skipped time steps in evaluation* `0`.]
   #v(2pt)
@@ -128,7 +128,7 @@ same days.
 #v(5pt)
 
 #panel("4 · Run the same session on the casual riders")[
-  #step(1, "Open the riders' forecast")[On `bike-rentals.csv` (parse `Date` as in Hands-on 6 if needed): #dss("Lab", "Time Series Forecasting"), target `Casual`, time variable `Date`; the settings of steps 1.2 to 1.4.]
+  #step(1, "Open the riders' forecast")[On the bike rentals dataset uploaded in Hands-on 6: #dss("Lab", "Time Series Forecasting"), target `Casual`, time variable `Date`; the settings of steps 1.2 to 1.4.]
   #v(2pt)
   #step(2, "Train the baselines and ETS")[#dss("Design", "Algorithms"): *Trivial identity*, *Seasonal naive* (season length `7`) and *ETS*; *Train*.]
   #table(

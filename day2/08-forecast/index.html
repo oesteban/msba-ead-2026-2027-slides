@@ -17,6 +17,17 @@
 .book { color: var(--accent); font-weight: 600; }
 .footnote .lic { color: #556268; }
 .footnote { right: 5.5em; }
+/* a part's section mark: its number, its name, and the outline's parts with this one lit (deck 5's) */
+.remark-slide-content > .section-mark.part { left: 150px; right: 110px; width: auto; text-align: left; }
+.section-mark.part .kicker { display: block; font-size: 1.05em; font-weight: 700; color: #556268; letter-spacing: 0.08em; text-transform: uppercase; }
+.section-mark.part > h1 { font-size: 3.1em; margin: 0.15em 0 0.6em; line-height: 1.1; }
+.section-mark.part .parts { display: flex; flex-wrap: wrap; gap: 0.5em; font-size: 0.95em; }
+.section-mark.part .parts span { border: 2px solid #c9cfd2; color: #9aa4a8; padding: 0.25em 0.85em; border-radius: 1.2em; }
+.section-mark.part .parts span.now { border-color: var(--accent); background: var(--accent); color: #fff; font-weight: 700; }
+/* an outline that names its parts only: larger type */
+.cards.steps.names .card p { font-size: 1.4em; }
+/* a measure's formula, under its card's name */
+.duo .eq { display: block; font-weight: 700; color: var(--accent); margin: 0.1em 0 0.35em; }
 /* a centred slide (class: vcenter) centres its one body block under the title; the footnote and
    the phase thumbnail are pinned, but each leaves an empty paragraph that would count as a block */
 .remark-slide-content.vcenter > p:has(> .footnote, > .phase-thumb) { margin: 0; }
@@ -150,7 +161,7 @@ https://oesteban.github.io/msba-ead-2026-2027-slides/day2/08-forecast/index.html
 
 ???
 
-**This deck forecasts a series and judges the forecast: the simple forecasts first, every model set beside them on days it has not seen.** It follows *Reading a time series*, which ended on the last value as the benchmark every model must beat (slide 26). Slides 2 to 13 hold for any series and are shown on Capital Bikeshare's daily rentals and on drawn sketches; slides 14 to 25 forecast the Dow Jones in Dataiku.
+**After the break, we forecast a series and learn to judge the forecast.** In Hands-on 6, you found that the Dow Jones's change from one day to the next says almost nothing about the next change. Yet the treasury team still has to plan, and other series, like the bike rentals, do carry a trend and a season. So we need two things: forecasts to make, from the simplest rules to fitted models, and a fair way to tell whether one forecast is better than another. Which forecast should we make, and how will we know it is any good?
 
 
 ---
@@ -167,32 +178,46 @@ layout: true
 ---
 class: vcenter
 # Outline
-.cards.steps[
+.cards.steps.names[
 .card[
 .enum[1]
 
-<span class="part">Simple forecasts.</span> The mean, the last value, the same day a week before, the drift line; how often they win. Slides 2 to 3.
+<span class="part">Simple forecasts</span>
 ]
 .card[
 .enum[2]
 
-<span class="part">Models.</span> Exponential smoothing and ETS, ARIMA, and the deep models that learn across many series. Slides 4 to 7.
+<span class="part">Models</span>
 ]
 .card[
 .enum[3]
 
-<span class="part">Judging a forecast.</span> Which error costs more; testing on the future; leakage in time; errors in units, in percent and scaled; the ±. Slides 8 to 13.
+<span class="part">Judging a forecast</span>
 ]
 .card[
 .enum[4]
 
-<span class="part">Hands-on 7: forecasting the Dow Jones.</span> The treasury team's question, missing days, the session in Dataiku; the scores, the orders, the casual riders; what the team is told. Slides 14 to 25.
+<span class="part">Hands-on 7: the Dow Jones</span>
 ]
 ]
 
 ???
 
-**Four parts: the simple forecasts, the models, how a forecast is judged, then a hands-on that forecasts the Dow Jones.** Parts 1 to 3 hold for any series: the textbook's four benchmarks (Hyndman & Athanasopoulos, 2021, section 5.2), exponential smoothing and ARIMA (chapters 8 and 9), the deep models, then the measures and time-ordered tests (sections 5.8 and 5.10). Part 4 asks whether any model beats the last close of the Dow Jones, then runs the same session on casual bike riders.
+**We'll go in four parts.** First, the simple forecasts, which carry a number from the past forward: every model must beat them, so we meet them first. Second, the models, and what each adds to the simple forecasts. Third, how to judge a forecast: on which days to test it and how to count its misses, so that we can tell whether a model beats the simple ones. Last, the hands-on in Dataiku, where we forecast the Dow Jones a week ahead and set every model beside the last value. So, first: what is the simplest forecast we can make?
+
+
+---
+.section-mark.part[
+.kicker[Part 1 of 4]
+
+# Simple forecasts
+
+<div class="parts"><span class="now">Simple forecasts</span><span>Models</span><span>Judging a forecast</span><span>Hands-on 7</span></div>
+]
+
+???
+
+**Part 1 is about the simple forecasts, the benchmarks every model must beat.** We'll see four of them, each a fixed rule applied to the past. Then why, for a series like the Dow Jones, the last value is the best forecast there is, and how the simple forecasts have fared against far more complex methods in forecasting competitions. What does a forecast look like when it learns nothing from the data?
 
 
 ---
@@ -200,36 +225,66 @@ class: stepwise-svg, vcenter
 # Four simple forecasts
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/simple.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="Six weeks of daily bike rentals and four forecasts of the next two weeks: the mean of every day so far, the last value, the same day a week before, and the drift line"></object></div>
-.step-5.lead.big.center[Four forecasts that fit nothing: the mean, the last value, the same day a week before, the drift line.]
+<div class="step-1"><object type="image/svg+xml" data="images/simple.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Six weeks of daily bike rentals and four forecasts of the next two weeks, each with its formula: the mean of every day so far, the last value, the same day a week before, and the drift line"></object></div>
+.step-5.lead.big.center[A simple forecast carries a number from the past forward.]
 ]
 
 .footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 5.2. Data: H. Fanaee-T (2013), Capital Bikeshare, UCI dataset 275, .lic[CC BY 4.0].]
 
 ???
 
-**Four forecasts fit nothing: the mean, the last value, the same day a week before, and the drift line.** Each rule runs two weeks past 30 April 2011: the mean of every day since 1 January, 2,044 rentals; the last value, 5,312, the naive forecast; the same weekday a week before, the seasonal naive; the line from the first day to the last, extended (Hyndman & Athanasopoulos, 2021, section 5.2). They are "extremely simple and surprisingly effective" (Hyndman & Athanasopoulos, 2021, section 5.2, verbatim); slide 3 shows how often they win.
+**A simple forecast carries a number from the past forward.** On the bike rentals up to 30 April 2011, four rules forecast the next two weeks. The mean repeats the average of all days so far, 2,044 rentals. The last value, 5,312, is the naive forecast. The seasonal naive repeats the same weekday of the last week. The drift line joins the first day to the last and extends it. In the formulas, T is the last day observed and h the number of days ahead. A fitted model chooses its parameters, the numbers it learns, to match the past; these four rules have none to choose. When is the last value the best one can do?
+
+
+---
+class: stepwise-svg, vcenter
+# A random walk
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/naive.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A simulated random walk, its formula, y at t equals y at t minus 1 plus a random change, and its forecast for every day ahead: a flat line at today's value"></object></div>
+.step-3.lead.big.center[In a random walk, the best forecast of the next value is the last one.]
+]
+
+.footnote[E. F. Fama (1970): L. Bachelier (1900), M. G. Kendall (1953). N. Beck et al. (2025). R. J. Hyndman and G. Athanasopoulos (2021), section 9.1. Simulated.]
+
+???
+
+**In a random walk, the best forecast of the next value is the last one.** Each value is the last one plus a random change, ε, white noise. The level wanders and the next change is as likely up as down, so the best forecast for every day ahead is today's value. That is what you found in the Dow Jones. In 1953, Kendall found share indices moving "as if once a week the Demon of Chance drew a random number" (Fama, 1970, p. 390, verbatim). Prices behave so because, if past prices told tomorrow's, buyers would act today, and today's price would already hold the rise. A 2025 study found no model that beat the last value on exchange rates or share prices. Are the simple forecasts as hard to beat on the series a firm usually forecasts?
 
 
 ---
 class: vcenter
-# Hard to beat
+# Forecasting competitions
 
 .fullw[
 <div class="trio">
-<div><b class="k">Monthly series</b>On 1,045 series of the M3 competition, the last value adjusted for the season beat <span class="num">half</span> the machine learning methods.</div>
-<div><b class="k">100,000 series</b>In the M4 competition, <span class="num">one</span> of five machine learning entries beat that benchmark.</div>
-<div class="lit"><b class="k">Stocks and exchange rates</b><span class="num">None</span> of eight models, statistical or machine learning, beat the last value.</div>
+<div><b class="k">The M competitions</b>Since 1982, forecasters send in forecasts of real series, scored on the values held back: 3,003 series in 2000, 100,000 in 2018.</div>
+<div><b class="k">1,045 monthly series</b>Of the M3 competition: the last value adjusted for the season beat <span class="num">half</span> the machine-learning methods.</div>
+<div class="lit"><b class="k">M4, 2018</b>On 100,000 series, <span class="num">one</span> machine-learning entry in five beat that benchmark.</div>
 </div>
 
-.lead.big.center[A model that does not beat them is not worth considering.]
+.lead.big.center[In forecasting competitions, the simple forecasts are hard to beat.]
 ]
 
-.footnote[S. Makridakis et al. (2018), section 4; S. Makridakis et al. (2020), section 4.1; N. Beck et al. (2025), section 5; R. J. Hyndman and G. Athanasopoulos (2021), section 5.2.]
+.footnote[S. Makridakis et al. (2020), finding 7; S. Makridakis et al. (2018), section 4; R. J. Hyndman and G. Athanasopoulos (2021), section 5.2.]
 
 ???
 
-**A model that does not beat the simple forecasts is not worth considering, and they are hard to beat.** The textbook's rule: "If not, the new method is not worth considering" (Hyndman & Athanasopoulos, 2021, section 5.2, verbatim). Naive 2, the last value adjusted for the season, beat half the machine learning methods on 1,045 monthly M3 series (Makridakis et al., 2018, section 4); in M4, one machine learning entry of five beat it (Makridakis et al., 2020, section 4.1). On daily dollar exchange rates and minute-by-minute NASDAQ100 prices, "None of the models outperformed the naive forecast in either application" (Beck et al., 2025, section 5, verbatim).
+**In forecasting competitions, the simple forecasts are hard to beat.** Since 1982, the M competitions have asked forecasters to send in forecasts of real series and scored them on values the forecasters had not seen: 3,003 series in 2000, 100,000 in 2018. One benchmark is Naive 2, the last value adjusted for the season. On 1,045 monthly series of the 2000 competition, Naive 2 beat half of the machine-learning methods tested. In 2018, five machine-learning methods were sent in, and only one beat it. Hence the rule: set every method beside the simple forecasts, and if it does not beat them, it is not worth considering. So what can a model add?
+
+
+---
+.section-mark.part[
+.kicker[Part 2 of 4]
+
+# Models
+
+<div class="parts"><span>Simple forecasts</span><span class="now">Models</span><span>Judging a forecast</span><span>Hands-on 7</span></div>
+]
+
+???
+
+**Part 2 is about the models, and what each adds to the simple forecasts.** Unlike the simple forecasts, each model has parameters it fits to the past. Exponential smoothing weighs the past by its age; ETS adds a trend and a season to it; ARIMA uses what stays autocorrelated in a series; deep models learn from many series at once. Between the mean, where every day counts alike, and the last value, where only one counts, is there a middle way?
 
 
 ---
@@ -237,15 +292,15 @@ class: stepwise-svg, vcenter
 # Exponential smoothing
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/weights.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="The weights of the last twelve days for alpha 0.8 and 0.2: they fall with age, faster for the larger alpha"></object></div>
-.step-4.lead.big.center[A weighted average whose weights fall with age: at α = 1 the last value, near 0 the mean.]
+<div class="step-1"><object type="image/svg+xml" data="images/weights.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The weights of the last twelve days for alpha 0.8 and 0.2: they fall with age, faster for the larger alpha; then the formula of the forecast as a weighted sum of past values"></object></div>
+.step-4.lead.big.center[Exponential smoothing weights the past less, the older it is.]
 ]
 
-.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 8.1.]
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), chapter 8 and section 8.1; S. Makridakis et al. (2018), section 5.]
 
 ???
 
-**Exponential smoothing is a weighted average whose weights fall with age: at α = 1 it is the last value, near 0 the mean.** It weights the past "with the weights decaying exponentially as the observations get older" (Hyndman & Athanasopoulos, 2021, chapter 8, verbatim). The bars, for α = 0.8 and 0.2, are computed, not fitted: each day back multiplies the weight by 1 - α. At α = 1 "the forecasts are equal to the naïve forecasts" (Hyndman & Athanasopoulos, 2021, section 8.1, verbatim); a small α weights the distant past more, towards the mean (section 8.1).
+**Exponential smoothing weights the past less, the older it is.** Its forecast is a weighted average of all past days: the last day gets a weight α, the day before α(1 − α), and each day further back is multiplied by 1 − α again. The bars show α = 0.8, where the weights fall fast, and α = 0.2, where old days still count. At α = 1, the forecast is the last value; with α near 0, it is almost the mean. The one parameter, α, is fitted to the series. Brown, Holt and Winters published it in the late 1950s, and Brown forecast with it the inventory demand of thousands of items in navy shipyards. Its forecast is a flat line: what about a trend, or a season?
 
 
 ---
@@ -253,15 +308,15 @@ class: stepwise-svg, vcenter
 # ETS
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/ets.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three exponential smoothing forms on the same rentals: a flat forecast, a forecast with a trend, and one with a trend and a weekly season"></object></div>
-.step-4.lead.big.center[ETS names how its error, trend and season enter the forecast; a criterion picks the form.]
+<div class="step-1"><object type="image/svg+xml" data="images/ets.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three exponential smoothing forms on the same rentals: a flat forecast, a forecast with a trend, and one with a trend and a weekly season; the form chosen by the AIC"></object></div>
+.step-5.lead.big.center[ETS chooses how its error, trend and season enter the forecast.]
 ]
 
 .footnote[R. J. Hyndman and G. Athanasopoulos (2021), sections 8.4 to 8.6; R. J. Hyndman et al. (2002). Data: H. Fanaee-T (2013), UCI dataset 275, .lic[CC BY 4.0].]
 
 ???
 
-**ETS names how its error, trend and season enter the forecast, and a criterion picks the form.** The error is A, additive, or M, multiplicative; the trend N, none, A or damped; the season N, A or M (Hyndman & Athanasopoulos, 2021, section 8.5). ETS(A,N,N) is slide 4's smoothing; the panels, fitted to the same rentals, add a trend, then a weekly season. Choosing the form by the lowest Akaike information criterion (AIC) was about as accurate as the best methods of the M and M3 competitions, "particularly good for short forecast horizons with seasonal data" (Hyndman et al., 2002, abstract, verbatim).
+**ETS chooses how its error, trend and season enter the forecast.** ETS names each form of exponential smoothing by three letters. The error is A, additive, or M, multiplicative; the trend N, none, A, or damped, flattening further ahead; the season N, A or M, as with the seasons of *Reading a time series*. ETS(A,N,N) is the simple smoothing we just saw. On the same rentals, ETS(A,A,N) adds a trend, and ETS(A,A,A) a weekly season. More parts fit the past better, with more parameters. The AIC, Akaike's information criterion, rewards the fit and charges each parameter, and the lowest score wins. Chosen this way, ETS forecast about as accurately as the best methods of two M competitions. ETS describes a trend and a season: could a model describe the autocorrelation instead?
 
 
 ---
@@ -269,15 +324,15 @@ class: stepwise-svg, vcenter
 # ARIMA
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/arima.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="ARIMA's three parts, past values, differences and past errors; ARIMA(0,1,0) is the random walk; AutoARIMA searches the orders"></object></div>
-.step-4.lead.big.center[ARIMA models what stays autocorrelated after differencing; one difference and nothing else is the random walk.]
+<div class="step-1"><object type="image/svg+xml" data="images/arima.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="ARIMA's three parts, past values, differences and past forecast errors; ARIMA(0,1,0) is the random walk; AutoARIMA searches the orders"></object></div>
+.step-4.lead.big.center[ARIMA forecasts from what stays autocorrelated after differencing.]
 ]
 
-.footnote[R. J. Hyndman and G. Athanasopoulos (2021), sections 9.5 to 9.7 and table 9.1; R. J. Hyndman and Y. Khandakar (2008).]
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), sections 9.5 to 9.7, 9.12 and table 9.1; S. Makridakis et al. (2018), section 5; R. J. Hyndman and Y. Khandakar (2008).]
 
 ???
 
-**ARIMA models what stays autocorrelated after differencing; with one difference and nothing else, it is the random walk.** Where exponential smoothing describes trend and season, "ARIMA models aim to describe the autocorrelations in the data" (Hyndman & Athanasopoulos, 2021, chapter 9, verbatim). ARIMA(p,d,q) holds p past values, d differences and q past errors (section 9.5); ARIMA(0,1,0) without constant is the random walk (table 9.1), forecast by its last value (section 9.1). An automatic search picks d by unit-root tests, then p and q by the lowest corrected AIC, AICc (section 9.7; Hyndman & Khandakar, 2008, section 3).
+**ARIMA forecasts from what stays autocorrelated after differencing.** Its name lists three parts. I is the differencing, d times, until the series is stationary. AR forecasts from the last p values of that differenced series; MA, from the last q forecast errors, an error being the gap between a past forecast and what happened. With one difference and nothing else, ARIMA(0,1,0) without a constant, the forecast is the last value: the random walk. AutoARIMA chooses these orders, p, d and q: unit-root tests, tests of whether a series needs differencing, set d; then it keeps the p and q with the lowest AICc, the AIC corrected for short series. Box and Jenkins popularised the method in 1970. Each model so far fits one series at a time: what if a firm has many?
 
 
 ---
@@ -285,15 +340,61 @@ class: stepwise-svg, vcenter
 # Deep models
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/global.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="A sketch: many related series feed one network; one series alone gives the network nothing to share"></object></div>
-.step-3.lead.big.center[Deep models learn one network across many related series; one series gives them nothing to share.]
+<div class="step-1"><object type="image/svg+xml" data="images/global.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A sketch: many related series feed one network; one series alone gives the network nothing to share"></object></div>
+.step-3.lead.big.center[Deep models learn one network from many related series.]
 ]
 
 .footnote[Dataiku DSS 13 documentation, time series forecasting; D. Salinas et al. (2020); S. Makridakis et al. (2023). A sketch.]
 
 ???
 
-**Deep models learn one network across many related series; a single series gives them nothing to share.** For Dataiku's deep learning algorithms, "a single model is trained on all time series simultaneously" (Dataiku, 2024, verbatim); the statistical ones fit one model per series. DeepAR learns such a global model from many related series, such as a retailer's products (Salinas et al., 2020, section 1). On M3, combinations of deep models beat most other methods, at about 15 more days of computing for a 10% cut in error (Makridakis et al., 2023, abstract and section 5). The figure is a sketch.
+**Deep models learn one network from many related series.** A retailer forecasts the demand for each of its products, and the products resemble one another; some new ones have almost no history. A deep model, a neural network of the kind we met in *Deep learning*, learns one network from all these series at once, so each series gains from the others, and the network's many parameters have enough data to learn from. DeepAR is one such model. In Dataiku, the deep learning algorithms train one model on all the series; the statistical ones, one per series. Our index is a single series: the network would have nothing to share. With so many candidates, how do we tell which forecast is better?
+
+
+---
+.section-mark.part[
+.kicker[Part 3 of 4]
+
+# Judging a forecast
+
+<div class="parts"><span>Simple forecasts</span><span>Models</span><span class="now">Judging a forecast</span><span>Hands-on 7</span></div>
+]
+
+???
+
+**Part 3 is about judging a forecast: which tests are fair, and how to count a miss.** We'll test on the future and keep the future out of every preparation step. Then we choose how to measure a miss: in units, in percent, or scaled by the last value's own miss. Last, how far to trust a ± and a chart. But first: why not judge a model by how well it fits the past?
+
+
+---
+class: stepwise-svg, vcenter
+# Test on the future
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/rolling.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Folds in time: each trains on all the days before its test set and tests on the next horizon; Dataiku steps back one horizon at a time"></object></div>
+.step-3.lead.big.center[Train on the past, test on the next horizon, from several origins.]
+]
+
+.footnote[S. Makridakis et al. (2020); R. J. Hyndman and G. Athanasopoulos (2021), section 5.10; L. J. Tashman (2000); Dataiku DSS 13 documentation.]
+
+???
+
+**Train on the past, test on the next horizon, from several origins.** The M competitions showed that the model fitting the past best is often not the one that forecasts best, a result theoretical statisticians took long to accept. So each fold trains on all the days before a cut, the origin, and tests on the horizon after it, as the forecast would be used. One origin is not enough: a storm in the week after it would decide the score. Dataiku tests the last horizon first, then one horizon earlier with each fold. The order stays intact, where the shuffled folds of *Model selection and cross-validation* would break it. Can anything else carry the test days into training?
+
+
+---
+class: stepwise-svg, vcenter
+# Leakage in time
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/leak.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A sketch: a seven-day average at the last training day reads three test days"></object></div>
+.step-4.lead.big.center[A step computed on the whole series carries the test days into training.]
+]
+
+.footnote[H. Hewamalage et al. (2023), section 3.4. A sketch.]
+
+???
+
+**A step computed on the whole series carries the test days into training.** Leakage, in *Beyond binary classification*, was the use of information a model will not have when it is used; in a series, it comes in through time. In the sketch, day 27 is the last training day, and a seven-day average centred on it reads days 28 to 30, in the test. A model trained on that average has seen the test. Smoothing, decomposing or scaling the whole series before the split leaks in the same way. So every step is fitted on each fold's training days only, then applied to its test days. Each fold now gives one error per test day: how do we turn them into one score?
 
 
 ---
@@ -302,50 +403,18 @@ class: vcenter
 
 .fullw[
 <div class="duo big">
-<div><b class="k">Mean absolute error</b>When every rental missed costs the same. The forecast that minimises it is the median.</div>
-<div class="lit"><b class="k">Root mean squared error</b>When one large miss costs more than several small ones. The forecast that minimises it is the mean.</div>
+<div><b class="k">Mean absolute error</b><span class="eq">MAE = mean of |y − ŷ|</span>When every rental missed costs the same. The forecast that minimises it is the median.</div>
+<div class="lit"><b class="k">Root mean squared error</b><span class="eq">RMSE = √ mean of (y − ŷ)²</span>When one large miss costs more than several small ones. The forecast that minimises it is the mean.</div>
 </div>
 
-.lead.big.center[The measure decides which forecast wins: absolute error aims at the median, squared error at the mean.]
+.lead.big.center[The cost of a miss decides the measure.]
 ]
 
 .footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 5.8.]
 
 ???
 
-**Which error costs more decides the measure, and the measure decides which forecast wins: absolute error aims at the median, squared error at the mean.** If every rental missed costs the same, a ride lost at an empty station, the mean absolute error (MAE) fits; if one large miss costs more than several small ones, at rush hour, the root mean squared error (RMSE) does. "A forecast method that minimises the MAE will lead to forecasts of the median" (Hyndman & Athanasopoulos, 2021, section 5.8, verbatim); minimising the RMSE leads to the mean (section 5.8).
-
-
----
-class: stepwise-svg, vcenter
-# Test on the future
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/rolling.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="Folds in time: each trains on all the days before its test set and tests on the next horizon; Dataiku steps back one horizon at a time"></object></div>
-.step-3.lead.big.center[Train on the past, test on the next horizon, from several origins.]
-]
-
-.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 5.10; L. J. Tashman (2000); Dataiku DSS 13 documentation, K-fold cross-test.]
-
-???
-
-**Test on the future only: train on the past, test on the next horizon, and repeat from several origins.** This is "evaluation on a rolling forecasting origin" (Hyndman & Athanasopoulos, 2021, section 5.10, verbatim); it keeps the order that *Reading a time series* (slide 4) called the data and the shuffled folds of *Model selection and cross-validation* (slide 5) broke. One origin is "susceptible to corruption by occurrences unique to that origin" (Tashman, 2000, section 3.1, verbatim). Dataiku's K-fold cross-test tests the last horizon first, then one horizon earlier per fold (Dataiku, 2024); the lab's fold offset adds a horizon between tests.
-
-
----
-class: stepwise-svg, vcenter
-# Leakage in time
-
-.fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/leak.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="A sketch: a seven-day average at the last training day reads three test days"></object></div>
-.step-4.lead.big.center[Filling, smoothing or scaling the whole series before the split carries the test days into training.]
-]
-
-.footnote[H. Hewamalage et al. (2023), section 3.4. A sketch.]
-
-???
-
-**Filling, smoothing or scaling the whole series before the split carries the test days into training.** In the sketch, drawn, not data, a seven-day average for day 27, the last training day, reads three test days. Smoothing, decomposition or normalisation of the whole series leaks so, and in forecasting leakage "can happen easier and can be harder to avoid" (Hewamalage et al., 2023, section 3.4, verbatim); a line drawn across a gap borrows the next value the same way (slide 15). It is day 1's leakage (*Beyond binary classification*, slide 15) in time: each step is fitted on each fold's training days only (section 3.4).
+**The cost of a miss decides the measure.** The mean absolute error, MAE, averages the sizes of the errors: missing by 100 rentals on two days counts as much as missing by 200 on one day and by nothing on the other. That fits when every rental missed costs the same, a ride lost at an empty station. The root mean squared error, RMSE, averages the squared errors and takes the root, so the single miss of 200 counts more: that fits when one large miss costs more than several small ones, a rush hour with no bikes. The forecast that minimises the MAE is the median of what may happen, the one that minimises the RMSE the mean. Both count in rentals: what if we must compare series in other units?
 
 
 ---
@@ -353,15 +422,15 @@ class: stepwise-svg, vcenter
 # Errors in units and percent
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/mape.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="The week of 28 October 2012: rentals fell to 22 on the 29th; the last value's errors in rentals and in percent, MAPE above 5,000%"></object></div>
-.step-4.lead.big.center[MAE and RMSE count rentals; MAPE divides by each day's rentals and explodes near zero.]
+<div class="step-1"><object type="image/svg+xml" data="images/mape.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The week of 28 October 2012: rentals fell to 22 on the 29th; the last value's errors in rentals and in percent, MAPE above 5,000%"></object></div>
+.step-4.lead.big.center[MAPE divides each error by the day's value, so it explodes near zero.]
 ]
 
-.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 5.8. Data: H. Fanaee-T (2013), UCI dataset 275, .lic[CC BY 4.0].]
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 5.8; H. Fanaee-T and J. Gama (2013), Table 4. Data: H. Fanaee-T (2013), UCI dataset 275, .lic[CC BY 4.0].]
 
 ???
 
-**MAE and RMSE count in rentals; MAPE divides by each day's rentals and explodes near zero.** The last value of 27 October 2012, 7,852, misses the week of Hurricane Sandy (Fanaee-T & Gama, 2013, Table 4) by 3,836 rentals a day as MAE, 4,449 as RMSE. On the 29th, 22 rentals make the error 35,591%, and the week's mean absolute percentage error (MAPE) 5,206%: percentage errors are infinite or undefined at zero and extreme near it (Hyndman & Athanasopoulos, 2021, section 5.8). Errors in rentals "cannot be used to make comparisons between series that involve different units" (Hyndman & Athanasopoulos, 2021, section 5.8, verbatim).
+**MAPE divides each error by the day's value, so it explodes near zero.** Take the week of Hurricane Sandy, 28 October to 3 November 2012, forecast by the last value before it, 7,852 rentals on 27 October. In rentals, the MAE is 3,836 and the RMSE 4,449, higher because the storm days missed most. But errors in rentals cannot compare series in different units, rentals and index points. A percentage error divides each error by the day's value, and MAPE is their mean. On the 29th only 22 bikes were rented, so a miss of 7,830 becomes 35,591%, and the week's MAPE 5,206%. On a day with none, it would be infinite. How can a measure be free of units without dividing by the day's value?
 
 
 ---
@@ -369,15 +438,15 @@ class: stepwise-svg, vcenter
 # MASE
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/mase.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="The scale: the mean change from one day to the next in training, 709 rentals; the hurricane week's error divided by it, MASE 5.41"></object></div>
-.step-4.lead.big.center[MASE divides the error by the last value's one-step error in training: below 1 beats that.]
+<div class="step-1"><object type="image/svg+xml" data="images/mase.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The scale: the mean change from one day to the next in training, 709 rentals; the hurricane week's error divided by it, MASE 5.41"></object></div>
+.step-4.lead.big.center[MASE scales the error by the last value's one-step error in training.]
 ]
 
-.footnote[R. J. Hyndman and A. B. Koehler (2006), section 3; R. J. Hyndman and G. Athanasopoulos (2021), section 5.8.]
+.footnote[R. J. Hyndman and A. B. Koehler (2006), sections 3 and 4; R. J. Hyndman and G. Athanasopoulos (2021), section 5.8.]
 
 ???
 
-**MASE divides the error by the last value's one-step error in training: below 1 beats that.** The scale is the mean absolute change between consecutive days over the 665 changes in training to 27 October 2012: 709 rentals. The hurricane week's MAE, 3,836, over 709 gives a mean absolute scaled error (MASE) of 5.41; below 1, a forecast beats the last value's average one-step miss (Hyndman & Koehler, 2006, section 3). A week ahead is set against one day ahead, so "the scaled errors for multi-step forecasts are typically larger than one" (Hyndman & Koehler, 2006, section 4, verbatim).
+**MASE scales the error by the last value's one-step error in training.** Its scale comes from the training days: the mean size of the change from one day to the next, which is how far the last value missed, on average, one day ahead. Over the 665 changes up to 27 October 2012, that is 709 rentals. The hurricane week's MAE, 3,836, divided by 709 gives a MASE of 5.41. Below 1, a forecast misses less than the last value did one day ahead in training. A week ahead is harder than a day, so forecasts several steps ahead typically score above 1. Rentals or index points, the scale cancels the unit. Each fold gives one MASE: what does the ± over the folds tell us?
 
 
 ---
@@ -385,279 +454,89 @@ class: stepwise-svg, vcenter
 # The ±
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/spread.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="A sketch: two forecasts whose means and ± bars overlap, yet one is lower on 8 folds of 10"></object></div>
-.step-3.lead.big.center[The ± is twice the spread of the fold scores, not a precision: compare models fold by fold.]
+<div class="step-1"><object type="image/svg+xml" data="images/spread.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A sketch: two forecasts whose means and ± bars overlap, yet one is lower on 8 folds of 10"></object></div>
+.step-3.lead.big.center[The ± is the spread of the fold scores, not a precision.]
 ]
 
 .footnote[Dataiku DSS 13 documentation, K-fold cross-test; S. J. Taylor and B. Letham (2018), section 4.3. A sketch.]
 
 ???
 
-**The ± is twice the spread of the fold scores, not a precision: compare models fold by fold, on the same folds.** Dataiku's error margins are "twice the standard deviation over the K estimations" (Dataiku, 2024, verbatim), the ± of *Model selection and cross-validation* (slide 6). Time-ordered folds share most of their training days, and "the more simulated forecasts we make, the more correlated their estimates of error are" (Taylor & Letham, 2018, section 4.3, verbatim). In the sketch, drawn, not data, the bars of A and B overlap, yet on the same folds B is lower 8 times in 10.
-
-
----
-class: vcenter
-# The case
-
-<img class="phase-thumb" src="images/phase-bu.svg" alt="The CRISP-DM phases, business understanding lit" />
-
-.beside-thumb[
-<div class="duo big">
-<div><b class="k">The decision</b>A treasury team buys an index fund once a month, on a day of its choosing.</div>
-<div class="lit"><b class="k">The question</b>Next week's closes: does any model forecast them better than the last close? The horizon: seven days.</div>
-</div>
-
-.lead.big.center[A model earns its place only if it beats the last value on the same days.]
-]
-
-.footnote[A scenario, not data.]
-
-???
-
-**The treasury team asks for next week's closes; a model earns its place only if it beats the last value on the same days.** The team, a scenario as in *Reading a time series*, now looks seven days ahead; that deck ended on the last value as the benchmark (slide 26 there). On stock market data, close to a random walk, the naive forecast is that benchmark: "without comparing against it, quality of more complex models cannot be meaningfully assessed" (Hewamalage et al., 2023, section 3.2, verbatim).
-
-
----
-class: stepwise-svg, vcenter
-# Missing days
-
-<img class="phase-thumb" src="images/phase-dp.svg" alt="The CRISP-DM phases, data preparation lit" />
-
-.beside-thumb[
-<div class="step-1"><object type="image/svg+xml" data="images/fill.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="A sketch of a weekend without closes: the previous value repeats Friday's close; a line would borrow Monday's"></object></div>
-.step-4.lead.big.center[A one-day step fills 117 of the 373 days: repeat the last close, never draw a line to the next one.]
-]
-
-.footnote[Dataiku DSS 13 documentation, time series forecasting; counts on the course file. A sketch.]
-
-???
-
-**A one-day step fills 117 of the file's 373 days: repeat the last close, never draw a line to the next one.** The 117 are the weekends and 11 market holidays. Dataiku needs equally spaced steps and imputes the missing ones, linearly or "same as previous" among others, with no business-day step documented (Dataiku, 2024). A line across a weekend borrows Monday's close, unknown on Saturday: if the series is filled before the folds are cut, a training set ending on a Sunday holds a test value, slide 10's leakage (Hewamalage et al., 2023, section 3.4).
-
-
----
-class: stepwise-svg, vcenter
-# In Dataiku
-
-<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
-
-.beside-thumb[
-<div class="step-1"><object type="image/svg+xml" data="images/dss-forecast.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="A drawing of the forecasting session's settings: time step one day, horizon seven, previous value, ten folds with an offset, MASE"></object></div>
-.step-4.lead.big.center[One session: a day's step filled with the previous value, seven days ahead, ten time-ordered folds, MASE.]
-]
-
-.footnote[Drawn after the Dataiku DSS 13 documentation and the 2025 course server; the server's labels take precedence.]
-
-???
-
-**A forecasting session: one-day steps filled with the previous value, seven days ahead, ten time-ordered folds, scored by MASE.** The panel is drawn after the DSS 13 documentation and the 2025 server's screens; the course server's labels take precedence. K-fold cross-test takes the last horizon as a test set, then shifts it back one horizon at a time until there are K folds, each trained on all the days before; its ± is twice the standard deviation over the folds (Dataiku, 2024). Fold offset is ticked, as on the 2025 server.
-
-
----
-class: vcenter
-# The algorithms
-
-<img class="phase-thumb" src="images/phase-mo.svg" alt="The CRISP-DM phases, modeling lit" />
-
-.beside-thumb[
-<div class="types">
-<div><b>Trivial identity</b><p>The last value, for every day ahead: the naive forecast. A baseline; nothing is fitted.</p></div>
-<div><b>Seasonal naive</b><p>The same day a week before, with a season length of 7. A baseline.</p></div>
-<div><b>AutoARIMA</b><p>The differences, then the orders with the lowest AICc, searched by itself.</p></div>
-<div><b>ETS</b><p>An additive or multiplicative error; a trend and a season, each none, additive or multiplicative.</p></div>
-</div>
-
-<p class="types-after">The baselines train first: every model is read beside Trivial identity, on the same folds.</p>
-]
-
-.footnote[Dataiku DSS 13 documentation, time series forecasting; ETS as on the 2025 course server.]
-
-???
-
-**The baselines first, Trivial identity and Seasonal naive, then AutoARIMA and ETS, each read beside Trivial identity.** For DSS's baselines "no parameters are learned" (Dataiku, 2024, verbatim). An automatic ARIMA search sets the differences by unit-root tests, then the other orders by the lowest AICc (Hyndman & Athanasopoulos, 2021, section 9.7); ETS picks its form by the AICc too (section 8.6). ETS is missing from the captured DSS 13 page but was on the 2025 server. Each model is read beside Trivial identity, fold by fold (slide 13).
-
-
----
-class: vcenter
-
-# Hands-on 7: does any model beat the last value?
-
-<img class="phase-thumb" src="images/phase-mo-ev.svg" alt="The CRISP-DM phases, modeling and evaluation lit" style="top: 170px;" />
-
-.beside-thumb[
-.need[**The need.** A treasury team asks for next week's Dow Jones closes, and whether any model forecasts them better than the last close. The data: the dated close of Hands-on 6.]
-
-<div class="moves">
-<div><b>1. Set up</b>The session on the close: step, filling, horizon, folds, metric.<br /><code>Lab → Time Series Forecasting</code>; step 1</div>
-<div><b>2. Baselines</b>Trivial identity and Seasonal naive, trained first.<br /><code>Algorithms</code>, <code>Train</code>; step 2</div>
-<div><b>3. Models</b>AutoARIMA and ETS, each beside Trivial identity.<br /><code>Algorithms</code>, <code>Train</code>; step 3</div>
-<div><b>4. Orders</b>What AutoARIMA chose.<br /><code>Model information → ARIMA orders</code>; step 3</div>
-</div>
-
-.admonition.question.near[
-<i class="fa-solid fa-circle-question"></i> **Does any model beat Trivial identity by more than its ±?**
-]
-
-.time[Sheet *Hands-on 7*, steps 1 to 3. Groups of three. 25 minutes.]
-]
-
-.footnote[Steps as on the sheet.]
-
-???
-
-**In the 25 minutes of the core, groups set up a forecasting session on the close, train the baselines, then the models, and read each beside Trivial identity.** Step 1 opens **Lab → Time Series Forecasting** on the dated close of Hands-on 6 and sets slide 16's session: a one-day step, the previous value for missing days, horizon 7, K-fold cross-test with 10 folds and a fold offset, MASE. Step 2 trains Trivial identity and Seasonal naive; step 3 adds AutoARIMA and ETS, and reads the orders under **Model information → ARIMA orders**.
-
-
----
-class: vcenter
-
-# Hands-on 7, continued
-
-<img class="phase-thumb" src="images/phase-mo-ev.svg" alt="The CRISP-DM phases, modeling and evaluation lit" />
-
-.beside-thumb[
-<div class="moves">
-<div><b>5. Casual riders</b>The same session on <code>Casual</code>, the bike rentals.<br /><code>Lab → Time Series Forecasting</code>; panel 4</div>
-<div><b>6. Baselines</b>Trivial identity and Seasonal naive.<br /><code>Train</code>; panel 4</div>
-<div><b>7. ETS</b>Beside the two baselines.<br /><code>Train</code>; panel 4</div>
-<div><b>8. Decide</b>What the treasury team is told.<br />Panel 5</div>
-</div>
-
-.admonition.question.near[
-<i class="fa-solid fa-circle-question"></i> **Where does a model beat the last value: on the index, or on the riders?**
-]
-
-.time[Sheet panels 4 and 5. 10 minutes.]
-]
-
-.footnote[Data: H. Fanaee-T (2013), Capital Bikeshare, UCI dataset 275, .lic[CC BY 4.0].]
-
-???
-
-**In 10 more minutes, in panels 4 and 5, groups run the same session on the casual riders, then write what the treasury team is told.** Panel 4 opens a new session on `Casual` of `bike-rentals.csv`, with the same settings, and trains Trivial identity, Seasonal naive and ETS. Casual riders ride most at weekends, 1,465 on an average Saturday against 551 on a Wednesday (*Reading a time series*, slide 7; Fanaee-T, 2013): a weekly season, beside an index that showed none. Panel 5 writes the decision; slides 20 to 25 read the results.
-
-
----
-class: stepwise-svg, vcenter
-# Reading the scores
-
-<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
-
-.beside-thumb[
-<div class="step-1"><object type="image/svg+xml" data="images/dj-scores.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="MASE of four forecasts of the Dow Jones close over ten folds: the last value 1.68, ETS the same, the seasonal naive and ARIMA higher, every spread overlapping"></object></div>
-.step-3.lead.big.center[On the index, no model beats Trivial identity beyond the spread.]
-]
-
-.footnote[Computed on the course file with Dataiku's fold layout (statsmodels); statistics only. The server's scores are read in class.]
-
-???
-
-**On the index, no model beats Trivial identity beyond the spread.** The last value scores a MASE of 1.68 (± 2.36), above 1: a week ahead errs more than a day ahead (Hyndman & Athanasopoulos, 2021, section 5.10). ETS chose (A,N,N), simple exponential smoothing, on every fold and ties: its 6 wins are hair-thin, the two agreeing to two decimals on 7 folds of 10. The seasonal naive (2.40) and ARIMA (1.90) win 2 folds each. Computed with statsmodels on the course file, not by Dataiku; the server's scores are read in class.
+**The ± is the spread of the fold scores, not a precision.** Dataiku reports each model's mean score over the folds with a ± of twice their standard deviation, as in *Model selection and cross-validation*. Time-ordered folds share most of their training days, so their scores are correlated, and ten folds carry less information than ten independent tests. In the sketch, drawn, not data, the bars of A and B overlap. Yet on the same folds, B is lower on 8 of 10: a week that is hard for A is hard for B too. So we compare models fold by fold. And a chart of the forecast against the series: can we trust our eyes?
 
 
 ---
 class: stepwise-svg, vcenter
 # The chart deceives
 
-<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
-
-.beside-thumb[
-<div class="step-1"><object type="image/svg+xml" data="images/trail.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="A simulated random walk and its forecast, the day before's value: on the chart they almost overlap; close up, the forecast is one day late"></object></div>
-.step-4.lead.big.center[A forecast one day late hugs the series on a chart; the scores decide.]
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/trail.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A simulated random walk and its forecast, the day before's value: on the chart they almost overlap; close up, the forecast is one day late"></object></div>
+.step-4.lead.big.center[On a chart, a forecast one day late hugs the series.]
 ]
 
 .footnote[H. Hewamalage et al. (2023), section 3.3. The walk is simulated.]
 
 ???
 
-**A forecast that trails the series by a day looks convincing on a chart; the scores decide.** On a simulated walk, each day's forecast is the day before's value, one step behind. On such charts "our eyes are deceived by the smaller horizontal distances" (Hewamalage et al., 2023, section 3.3, verbatim), while the error is the vertical distance. Plots serve as a sanity check: "Decisions should mostly be made based on evaluations with error measures" (Hewamalage et al., 2023, section 3.3, verbatim), as slide 20's were.
+**On a chart, a forecast one day late hugs the series.** The series is a simulated random walk, and each day's forecast is the day before's value. On the chart, the two lines almost overlap, and the forecast looks excellent. Close up, it is one day late, every day. The eye reads the short horizontal gap between the lines, while the error is the vertical gap, the day's whole change. So a plot serves as a sanity check, to catch a forecast that is plainly wrong, and decisions rest on the error measures. We have the forecasts, the tests and the measures. What does the treasury team want forecast now?
 
 
 ---
-class: vcenter
-# AutoARIMA's orders
+.section-mark.part[
+.kicker[Part 4 of 4]
 
-<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
+# Hands-on 7: the Dow Jones
 
-.beside-thumb[
-<div class="duo big">
-<div><b class="k">One difference, nothing else</b>Orders (0, 1, 0): the random walk, whose forecast is the last value. Trivial identity under another name.</div>
-<div class="lit"><b class="k">More terms</b>Where the search adds terms, the score does not improve: on the course file, ARIMA beat the last value on 2 folds of 10.</div>
-</div>
-
-.lead.big.center[Read the orders: one difference and nothing else is the last value under another name.]
+<div class="parts"><span>Simple forecasts</span><span>Models</span><span>Judging a forecast</span><span class="now">Hands-on 7</span></div>
 ]
-
-.footnote[R. J. Hyndman and G. Athanasopoulos (2021), table 9.1. Computed on the course file; statistics only.]
 
 ???
 
-**Read AutoARIMA's orders: one difference and nothing else is the last value under another name.** ARIMA(0,1,0) with no constant is the random walk (Hyndman & Athanasopoulos, 2021, table 9.1). A search with statsmodels on the course file, KPSS tests for the differences, the AICc for the rest (section 9.7), chose it on 2 folds of 10, more terms on 4, and on the other 4 an AR(1) with a coefficient close to 1, nearly a random walk (section 9.3); it beat the last value on 2 folds. Dataiku's own orders are read in class.
+**In the hands-on, we forecast the Dow Jones a week ahead in Dataiku, the baselines first.** The treasury team of Hands-on 6 now asks for next week's closes, seven days ahead. We'll set up a fair test, train the simple forecasts, then the models, and read each model beside the last value on the same folds. In the tail, we run the same session on the casual riders, a series with a weekly season. What does Dataiku need from the file before it can forecast?
 
 
 ---
 class: stepwise-svg, vcenter
-# Where a season exists
+# The data
 
-<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
+<img class="phase-thumb" src="images/phase-dp.svg" alt="The CRISP-DM phases, data preparation lit" />
 
 .beside-thumb[
-<div class="step-1"><object type="image/svg+xml" data="images/casual-scores.svg" style="width: 100%; max-height: 400px; display: block; margin: 0 auto; pointer-events: none;" aria-label="MASE of three forecasts of casual riders over ten folds: the last value 1.24, the seasonal naive 0.95 and ETS 0.96, each lower on 7 folds of 10"></object></div>
-.step-3.lead.big.center[On the casual riders, the weekly forecasts beat the last value on 7 folds of 10.]
+<div class="facts">
+<div><span class="num">256</span>trading days of the Dow Jones, Hands-on 6's file: the target is <code>Close</code>.</div>
+<div><span class="num">117</span>of its 373 calendar days have no close: the weekends and 11 holidays.</div>
+<div><span class="num">731</span>days of bike rentals for the tail: the target is <code>Casual</code>.</div>
+</div>
+
+<div class="step-1"><object type="image/svg+xml" data="images/fill.svg" style="width: 100%; max-height: 290px; display: block; margin: 0.6em auto 0; pointer-events: none;" aria-label="A sketch of a weekend without closes: the previous value repeats Friday's close; a line would borrow Monday's"></object></div>
+.step-4.lead.center[A one-day step fills the missing days with the last close, never with the next.]
 ]
 
-.footnote[Computed on the course file with Dataiku's fold layout (statsmodels). Data: H. Fanaee-T (2013), UCI dataset 275, .lic[CC BY 4.0].]
+.footnote[Counts on the course files; Dataiku DSS 13 documentation, time series forecasting. The sketch is drawn.]
 
 ???
 
-**On the casual riders, whose week repeats, the weekly forecasts beat the last value on 7 folds of 10.** The seasonal naive scores 0.95 (± 0.84), ETS 0.96 (± 1.44), the last value 1.24 (± 1.27). ETS chose (M,A,M) on every fold, a season that grows with the level (*Reading a time series*, slide 8). On a seasonal series the seasonal naive is the benchmark (Hewamalage et al., 2023, section 3.2), and ETS does not beat it. Computed with statsmodels on the course file, not by Dataiku; the server's scores are read in class.
+**A one-day step fills the missing days with the last close, never with the next.** Hands-on 6's file holds 256 trading days of the Dow Jones, 1 October 2024 to 8 October 2025, and the target is `Close`. Dataiku's forecasting needs equally spaced steps, and trading days are not, so we take a step of one day: of the 373 calendar days, 117 have no close, the weekends and 11 holidays. Repeating the previous value fills a Saturday with Friday's close, known by then. A line to Monday would borrow Monday's close, unknown on Saturday, and, filled before the folds are cut, put a test value into a training set that ends on a weekend. The tail forecasts `Casual`, the casual riders: 731 days with a weekly season. How do we set up the session?
 
 
 ---
-class: vcenter
-# What the team is told
+class: stepwise-svg, vcenter
+# Hands-on 7: baselines first
 
-<img class="phase-thumb" src="images/phase-ev.svg" alt="The CRISP-DM phases, evaluation lit" />
+<img class="phase-thumb" src="images/phase-mo-ev.svg" alt="The CRISP-DM phases, modeling and evaluation lit" />
 
 .beside-thumb[
-<div class="duo big">
-<div><b class="k">The forecast</b>Next week's closes: today's close, for every day.</div>
-<div class="lit"><b class="k">Its error</b>About 360 points a day over the week, 0.8% of the index, on the past weeks tested.</div>
-</div>
+.need[**The question.** The treasury team asks for next week's closes: does any model forecast them better than the last close?]
 
-.lead.big.center[Next week's best forecast of the close is today's close, with its typical error.]
+<div class="step-1"><object type="image/svg+xml" data="images/dss-forecast.svg" style="width: 100%; max-height: 380px; display: block; margin: 0.4em auto 0; pointer-events: none;" aria-label="A drawing of the forecasting session's settings: time step one day, horizon seven, previous value, ten folds with an offset, MASE; then the algorithms, the baselines first and the models after"></object></div>
+.step-5.lead.center[Every model is read beside Trivial identity, on the same folds.]
 ]
 
-.footnote[Computed on the course file; statistics only.]
+.footnote[Drawn after the Dataiku DSS 13 documentation and the 2025 course server; the server's labels take precedence. A scenario, not data.]
 
 ???
 
-**Next week's best forecast of the close is today's close, with its typical error.** For stock market prices and indexes, "the best forecasting method is often the naïve method" (Hyndman & Athanasopoulos, 2021, section 5.4, verbatim); a flat line looks unrealistic, yet on a random walk it is the best forecast available (Hewamalage et al., 2023, section 3.3). Over the ten test weeks, the last value missed by 363.5 points a day on average, 0.82% of the index, on the course file. The forecast gives the team no reason to prefer one day.
-
-
----
-class: vcenter
-# The checklist
-
-.fullw[
-<div class="six">
-<div><b>1. Decision and horizon</b>Next week's closes, to choose a day.</div>
-<div><b>2. Components read</b>No trend to extend, no weekly season.</div>
-<div><b>3. Benchmark first</b>Trivial identity, trained before any model.</div>
-<div><b>4. Time-ordered folds</b>Ten, each tested on the week after its training days.</div>
-<div><b>5. Scaled error</b>MASE, read beside the last value's.</div>
-<div class="lit"><b>6. Nothing across the split</b>Missing days repeat the past, never the next close.</div>
-</div>
-
-.lead.big.center[The treasury team's forecast passed six checks before it went to the team.]
-]
-
-.footnote[H. Hewamalage et al. (2023), section 8; R. J. Hyndman and G. Athanasopoulos (2021), sections 5.2 and 5.10.]
-
-???
-
-**The treasury team's forecast passed six checks before it reached the team.** Each card fills one check for this case: the decision and horizon (slide 14), the components read in *Reading a time series*, the benchmark first, time-ordered folds, a scaled error (slide 12), and no filling across the split (slide 15). For any forecast, "compare models against the right and the simplest benchmarks" (Hewamalage et al., 2023, section 8, verbatim), keep leakage out of preprocessing, and prefer time-ordered validation when the series is long enough (section 8).
+**Every model is read beside Trivial identity, on the same folds.** Does any model forecast next week's closes better than the last close? The session gathers this afternoon's choices: a one-day step filled with the previous value, a horizon of 7, ten time-ordered folds with an offset, and MASE. Dataiku's two baselines learn no parameter and train first: Trivial identity, which should repeat the last value, and Seasonal naive, the same day a week before. Then AutoARIMA and ETS train on the same folds, each set beside Trivial identity. Now to Dataiku, with the sheet: steps 1 to 3 set up the session and train the baselines, then the models; panel 4 runs the same session on the casual riders; panel 5 decides what the team is told. Does any model beat Trivial identity by more than its ±?
 
 
 ---
@@ -667,7 +546,9 @@ class: vcenter
 .refs.cols2[
 - Beck, N., Dovern, J. and Vogl, S. (2025). Mind the naive forecast! A rigorous evaluation of forecasting models for time series with low predictability. *Applied Intelligence* 55(6):395.
 - Dataiku (2024). Time series forecasting. *Dataiku DSS 13 reference documentation*, doc.dataiku.com.
+- Fama, E. F. (1970). Efficient capital markets: a review of theory and empirical work. *The Journal of Finance* 25(2):383 to 417.
 - Fanaee-T, H. (2013). Bike Sharing [dataset]. UCI Machine Learning Repository, doi:10.24432/C5W894.
+- Fanaee-T, H. and Gama, J. (2013). Event labeling combining ensemble detectors and background knowledge. *Progress in Artificial Intelligence* 2(2):113 to 127.
 - Hewamalage, H., Ackermann, K. and Bergmeir, C. (2023). Forecast evaluation for data scientists: common pitfalls and best practices. *Data Mining and Knowledge Discovery* 37(2):788 to 832.
 - Hyndman, R. J. and Athanasopoulos, G. (2021). *Forecasting: Principles and Practice*, 3rd ed. OTexts, Melbourne.
 - Hyndman, R. J. and Khandakar, Y. (2008). Automatic time series forecasting: the forecast package for R. *Journal of Statistical Software* 27(3).
@@ -680,10 +561,6 @@ class: vcenter
 - Tashman, L. J. (2000). Out-of-sample tests of forecasting accuracy: an analysis and review. *International Journal of Forecasting* 16(4):437 to 450.
 - Taylor, S. J. and Letham, B. (2018). Forecasting at scale. *The American Statistician* 72(1):37 to 45.
 ]
-
-???
-
-**These are the works the deck's footnotes cite; Hyndman and Athanasopoulos (2021) is the place to start.** Their online textbook, worked in R, holds this deck's topics: the simple forecasts, the error measures and time series cross-validation in chapter 5, exponential smoothing and ETS in chapter 8, ARIMA in chapter 9. Hewamalage et al. (2023) list the pitfalls of judging a forecast; Makridakis et al. (2018, 2020, 2023) and Beck et al. (2025) set models against the simple forecasts; the others define the methods and the data.
 
 
 ---
@@ -701,7 +578,7 @@ Next: the group-project defences
 
 ???
 
-**Next come the group-project defences.**
+
 </textarea>
 
     <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

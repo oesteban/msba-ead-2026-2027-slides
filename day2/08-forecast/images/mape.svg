@@ -55,5 +55,6 @@
 <text x="647.7777777777778" y="380" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">34%</text>
 <text x="736.6666666666667" y="380" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">53%</text>
 <text x="985" y="380" font-size="19" font-weight="bold" text-anchor="end" fill="#da232f">MAPE 5,206%</text>
+<text x="985" y="412" font-size="15" font-weight="normal" text-anchor="end" fill="#556268">MAPE: the mean of |y − ŷ| / y, in percent</text>
 </g>
 </svg>
