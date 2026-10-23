@@ -332,7 +332,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**ARIMA forecasts from what stays autocorrelated after differencing.** Its name lists three parts. I is the differencing, d times, until the series is stationary. AR forecasts from the last p values of that differenced series; MA, from the last q forecast errors, an error being the gap between a past forecast and what happened. With one difference and nothing else, ARIMA(0,1,0) without a constant, the forecast is the last value: the random walk. AutoARIMA chooses these orders, p, d and q: unit-root tests, tests of whether a series needs differencing, set d; then it keeps the p and q with the lowest AICc, the AIC corrected for short series. Box and Jenkins popularised the method in 1970. Each model so far fits one series at a time: what if a firm has many?
+**ARIMA forecasts from what stays autocorrelated after differencing.** Its name lists three parts. I is the differencing, d times, until the series is stationary. AR forecasts from the last p values of that differenced series; MA, from the last q forecast errors, an error being the gap between a past forecast and what happened. With one difference and nothing else, ARIMA(0,1,0) without a constant, the forecast is the last value: the random walk. AutoARIMA chooses these orders, p, d and q: unit-root tests, tests of whether a series needs differencing, set d; then it keeps the p and q with the lowest AICc, the AIC corrected for short series. Dataiku also reports P, D and Q, the same three orders for the weekly season. Box and Jenkins popularised the method in 1970. Each model so far fits one series at a time: what if a firm has many?
 
 
 ---
