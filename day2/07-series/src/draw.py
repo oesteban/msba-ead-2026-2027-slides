@@ -10,8 +10,9 @@ the Capital Bikeshare daily rentals (UCI dataset 275, CC BY 4.0), 10 seconds of 
 MIT-BIH Arrhythmia Database's record 100 and 4 seconds of the EEG Motor
 Movement/Imagery Dataset's run S001R02 (PhysioNet, ODC-By 1.0), one voxel of
 OpenNeuro ds000114 (CC0), and `numbers.json`. The Dow Jones extract's licence is
-not recorded, so only statistics computed from it are drawn. The white noise and the
-random walk are simulated, and say so.
+not recorded, so the hands-on's numbers are read live, not drawn. The white noise is
+simulated, and says so. `naive()`, a simulated random walk, is drawn by the forecasting
+deck, which loads this module.
 """
 
 from __future__ import annotations
@@ -517,112 +518,7 @@ def diff() -> str:
                "riders' change from the same day a week before; band ±1.96/√T. " + BIKE_DATA + " Drawn by " + LICENCE)
 
 
-# --- Part 4 -------------------------------------------------------------------------
-def dss_window() -> str:
-    """A drawing of Dataiku's Window recipe: ordered by Date, lags 1 and 2 on Close."""
-    W, H = 1000, 380
-    nav = [rect(20, 20, 220, 340, fill=PANEL, stroke=EDGE, rx=4)]
-    for i, n in enumerate(["Windows definitions", "Aggregations", "Output"]):
-        yy = 60 + i * 46
-        on = n == "Aggregations"
-        if on:
-            nav += [rect(20, yy - 24, 220, 38, fill=A_LIGHT, stroke=None, rx=0, cls="accent-a-light-fill"),
-                    rect(20, yy - 24, 6, 38, fill=ACCENT, stroke=None, rx=0, cls="accent-fill")]
-        nav.append(text(42, yy, n, size=17, anchor="start", weight="bold" if on else "normal"))
-    win = [rect(256, 20, 724, 100, fill=WHITE, stroke=EDGE, rx=4),
-           text(276, 56, "Windows definitions", size=18, weight="bold", anchor="start"),
-           text(276, 96, "Order columns", size=17, anchor="start"),
-           rect(430, 72, 210, 36, fill=WHITE, stroke=ACCENT, rx=4, sw=2.4, cls="accent-stroke"),
-           text(444, 96, "Date, ascending", size=17, anchor="start", weight="bold")]
-    agg = [rect(256, 140, 724, 220, fill=WHITE, stroke=EDGE, rx=4),
-           text(276, 176, "Aggregations", size=18, weight="bold", anchor="start")]
-    for i, (n, on) in enumerate((("Open", False), ("Close", True), ("Volume", False))):
-        yy = 222 + i * 44
-        agg.append(text(296, yy, n, size=17, anchor="start", weight="bold" if on else "normal",
-                        fill=INK if on else GREY_INK))
-    lagbox = [rect(420, 242, 110, 36, fill=A_LIGHT, stroke=ACCENT, rx=4, sw=2.4, cls="accent-a-light-fill accent-stroke"),
-              text(475, 266, "Lag", size=17, weight="bold"),
-              text(560, 266, "offsets", size=17, anchor="start"),
-              rect(640, 242, 100, 36, fill=WHITE, stroke=GREY_INK, rx=4), text(690, 266, "1, 2", size=17, weight="bold")]
-    outc = [text(276, 344, "new columns: Close one and two trading days before (names as the server shows them)",
-                 size=15, fill=MUTED, anchor="start", style="italic")]
-    return svg(W, H, [step(1, nav + win), step(2, agg + lagbox), step(3, outc)],
-               "A drawing, not a capture, of Dataiku DSS's Window recipe: rows ordered by Date, a lag of 1 and 2 on "
-               "Close; labels as in the DSS reference documentation, to be checked on DSS 15.0. " + LICENCE)
-
-
-def flow() -> str:
-    """The Flow of Hands-on 6: the Dow Jones read step by step; the bike rentals in the tail."""
-    W, H = 1000, 360
-
-    def dataset(x, y, name, sub=""):
-        out = [rect(x, y, 56, 50, fill=A_LIGHT, stroke=ACCENT, rx=6, cls="accent-a-light-fill accent-stroke"),
-               text(x + 28, y + 72, name, size=15)]
-        if sub:
-            out.append(text(x + 28, y + 90, sub, size=13, fill=MUTED))
-        return out
-
-    def recipe(x, y, name, fill="#f0c46a"):
-        return [f'<circle cx="{x}" cy="{y}" r="20" fill="{fill}" stroke="{INK}" stroke-width="1.2"/>',
-                text(x, y - 30, name, size=14, fill=MUTED)]
-
-    def arr(x1, y1, x2, y2):
-        return line(x1, y1, x2, y2, color=INK, w=1.6)
-
-    y1, y2 = 60, 220
-    row1 = (dataset(10, y1, "dowjones", "Date read as a date") + [arr(70, y1 + 25, 112, y1 + 25)]
-            + recipe(134, y1 + 25, "Window", fill="#8fc9e8")
-            + [arr(156, y1 + 25, 196, y1 + 25)] + dataset(200, y1, "lagged", "lags 1 and 2")
-            + [arr(260, y1 + 25, 302, y1 + 25)] + recipe(324, y1 + 25, "Prepare")
-            + [arr(346, y1 + 25, 386, y1 + 25)] + dataset(390, y1, "changes", "change, weekday")
-            + [arr(450, y1 + 25, 492, y1 + 25)] + recipe(514, y1 + 25, "Group", fill="#8fd19e")
-            + [arr(536, y1 + 25, 576, y1 + 25)] + dataset(580, y1, "by weekday", "mean, spread")
-            + [text(10, 30, "steps 1 to 3", size=15, weight="bold", fill=ACCENT, cls="accent-fill", anchor="start")])
-    row2 = (dataset(10, y2, "bike-rentals") + [arr(70, y2 + 25, 112, y2 + 25)] + recipe(134, y2 + 25, "Prepare")
-            + [arr(156, y2 + 25, 196, y2 + 25)] + dataset(200, y2, "dated", "weekday, month")
-            + [path(f"M 260 {y2 + 25} L 300 {y2 + 25} L 300 {y2 - 2} L 492 {y2 - 2}", color=INK, w=1.6)]
-            + recipe(514, y2 - 2, "Group", fill="#8fd19e") + [arr(536, y2 - 2, 576, y2 - 2)]
-            + dataset(580, y2 - 27, "by weekday")
-            + [path(f"M 300 {y2 + 25} L 300 {y2 + 62} L 492 {y2 + 62}", color=INK, w=1.6)]
-            + [f'<circle cx="514" cy="{y2 + 62}" r="20" fill="#8fd19e" stroke="{INK}" stroke-width="1.2"/>',
-               text(514, y2 + 104, "Group", size=14, fill=MUTED),
-               arr(536, y2 + 62, 706, y2 + 62)] + dataset(710, y2 + 37, "by month")
-            + [text(10, y2 - 30, "panel 4", size=15, weight="bold", fill=ACCENT, cls="accent-fill", anchor="start")])
-    shift = lambda items: ['<g transform="translate(60,0)">' + "\n".join(items) + "</g>"]
-    return svg(W, H, [step(1, shift(row1)), step(2, shift(row2))],
-               "The Flow of Hands-on 6, drawn after Dataiku DSS's Flow (datasets and visual recipes), with the "
-               "sheet's steps; recipe colours schematic. " + LICENCE)
-
-
-def dj_acf() -> str:
-    """The Dow Jones: the close's autocorrelation stays high; the change's sits in the noise band."""
-    W, H = 1000, 430
-    dj = N["dowjones"]
-    out = []
-    for i, (title, key, bound) in enumerate((("The close", "acf_close", dj["bound_close"]),
-                                             ("The change from the day before", "acf_change", dj["bound_change"]))):
-        x0 = 10 + i * 500
-        fr = Frame(x0 + 50, 70, 410, 290, (0, 11), (-0.3, 1))
-        mark = tuple(k for k in range(1, 11) if abs(dj[key][k]) > bound) if i == 1 else ()
-        g = [text(x0 + 30, 38, esc(title), size=19, weight="bold", anchor="start"),
-             *acf_bars(fr, dj[key], bound, mark=mark),
-             *axis_y(fr, [(0, "0"), (0.5, "0.5"), (1, "1")]),
-             *axis_x(fr, [(k, str(k)) for k in range(1, 11)], size=14, y=fr.y(-0.3)),
-             label(x0 + 255, 412, "lag, in trading days", size=14, anchor="middle")]
-        if i == 0:
-            g.append(text(fr.x(1) + 14, fr.y(dj[key][1]) - 10, f"{dj[key][1]:.2f}", size=17, weight="bold",
-                          fill=ACCENT, anchor="start", cls="accent-fill"))
-        else:
-            g.append(text(fr.x(1), fr.y(0.25), f"{dj[key][1]:.2f}", size=17, weight="bold", fill=ACCENT,
-                          cls="accent-fill"))
-        out.append(g)
-    return svg(W, H, [step(1, out[0]), step(2, out[1])],
-               "Autocorrelation of the Dow Jones daily close and of its change from the previous trading day, lags 1 "
-               f"to 10, on the module's extract ({dj['rows']} trading days, {dj['first']} to {dj['last']}); band "
-               "±1.96/√T; a bar outside it in red. Statistics only: the extract's licence is not recorded. Drawn by "
-               + LICENCE)
-
-
+# --- For the forecasting deck ---------------------------------------------------------
 def naive() -> str:
     """A simulated random walk and its naive forecast: the last value, carried forward."""
     W, H = 1000, 400
@@ -660,8 +556,7 @@ def main(out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
     figures = {"examples.svg": examples, "shuffle.svg": shuffle, "trend.svg": trend, "season.svg": season,
                "additive.svg": additive, "stl.svg": stl, "lag.svg": lag, "ecg-acf.svg": ecg_acf, "acf.svg": acf,
-               "stationary.svg": stationary, "diff.svg": diff, "dss-window.svg": dss_window, "flow.svg": flow,
-               "dj-acf.svg": dj_acf, "naive.svg": naive, "white-noise.svg": white_noise}
+               "stationary.svg": stationary, "diff.svg": diff, "white-noise.svg": white_noise}
     for name, lit_ in (("bu", {"BU"}), ("du", {"DU"})):
         figures[f"phase-{name}.svg"] = lambda lit_=lit_: d.phase_thumb(lit_)
     for name, fn in figures.items():
