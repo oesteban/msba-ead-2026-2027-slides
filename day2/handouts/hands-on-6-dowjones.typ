@@ -6,9 +6,10 @@
 // "Reading a time series", which draws what they build: the group charts the Dow Jones
 // close, puts each trading day beside the two before with the Window recipe,
 // correlates the close with the day before and the change with the change
-// before, and averages the change by weekday against its spread. From
-// panel 4 the group runs the same check on the bike rentals,
-// by weekday and by month, then decides what the treasury team is told. The
+// before, averages the change by weekday against its spread, and answers
+// the treasury team. From panel 4 the group runs the same check on the bike
+// rentals, by weekday and by month, to see what a pattern that stands out of
+// its spread looks like. The
 // index is the previous teacher's 2025 file; his lab forecast it, which this
 // course does after the break.
 //
@@ -117,7 +118,7 @@ weekday stand out?
 #v(5pt)
 
 #panel("Step 3 · The weekday check")[
-  #step(1, "Average the change by weekday")[On the dataset of changes: #dss("+ Recipe", "Group"), grouped by the day of week; on `change`: *Avg*, *Std. dev.* and *Count*; *Run*.]
+  #step(1, "Average the change by weekday")[On the dataset of changes: #dss("+ Recipe", "Group"), grouped by the day of week; on `change`: *Avg*, *Std. dev.* and *Count*; *Run*. In its output, `day_of_week` 1 is Monday; the days are `change_count` (`count` also counts the first day, which has no change).]
   #table(
     columns: (1.4fr, 1fr, 1fr, 1fr, 1fr, 1fr), inset: 4pt, stroke: hair,
     [*`change`*], [*Mon*], [*Tue*], [*Wed*], [*Thu*], [*Fri*],
@@ -127,6 +128,10 @@ weekday stand out?
   )
   #step(2, "Compare each mean with its spread")[On the Group recipe's output dataset.]
   Does any weekday's mean stand out of its standard deviation? #rule(4.2cm)
+  #v(2pt)
+  #step(3, "Answer the treasury team")[From the table and the correlations of step 2.3.]
+  What do you tell the treasury team: do the past days point to a cheaper day to buy, and why?
+  #writing(2)
 ]
 
 #v(5pt)
@@ -134,18 +139,13 @@ weekday stand out?
 #panel("4 · Run the same check on the bike rentals")[
   #step(1, "Upload the rentals and read their dates")[#dss("+ Dataset", "Upload your files"), `bike-rentals.csv` (its `Date` reads *Date only*, as in step 1.2); then #dss("+ Recipe", "Prepare"): *Extract date elements* on `Date`, the day of week and the month; *Run*.]
   #v(2pt)
-  #step(2, "Average by weekday, then by month")[#dss("+ Recipe", "Group") grouped by the day of week, on `Rentals`: *Avg* and *Std. dev.*; then a second Group recipe on the same dataset, grouped by the month.]
+  #step(2, "Average by weekday, then by month")[#dss("+ Recipe", "Group") grouped by the day of week (1 is Monday), on `Rentals`: *Avg* and *Std. dev.*; then a second Group recipe on the same dataset, grouped by the month.]
   #table(
     columns: (1.6fr, 1fr, 1fr, 1fr), inset: 4pt, stroke: hair,
     [*`Rentals`*], [*lowest mean*], [*highest mean*], [*a typical std. dev.*],
     [by weekday], [], [], [],
     [by month], [], [], [],
   )
-]
-
-#v(5pt)
-
-#panel("5 · Decide")[
-  What do you tell the treasury team: do the past days point to a cheaper day to buy? Where did a season stand out of its spread, and what would one have looked like in the index?
+  Does a weekday or a season stand out of its spread here? What would such a pattern have looked like in the index's weekday table of step 3?
   #writing(2)
 ]
