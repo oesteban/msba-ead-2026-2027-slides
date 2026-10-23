@@ -2,8 +2,8 @@
 // hands-on-6-dowjones.typ: the group's sheet for Hands-on 6, 23.10.2026 PM.
 //
 // One sheet per group of three, both sides. Page 1 is the data card. The core
-// (steps 1 to 3, about 22 minutes) and the tail follow the Flow, slide 26 of
-// "Reading a time series", which draws what they build: the group charts the Dow Jones
+// (steps 1 to 3, about 22 minutes) and the tail follow Column types, slide 24 of
+// "Reading a time series", and are debriefed live: the group charts the Dow Jones
 // close, puts each trading day beside the two before with the Window recipe,
 // correlates the close with the day before and the change with the change
 // before, averages the change by weekday against its spread, and answers

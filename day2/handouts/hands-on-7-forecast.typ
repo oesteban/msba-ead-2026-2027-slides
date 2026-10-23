@@ -2,12 +2,12 @@
 // hands-on-7-forecast.typ: the group's sheet for Hands-on 7, 23.10.2026 PM.
 //
 // One sheet per group of three, both sides. Page 1 is the data card. The core
-// (steps 1 to 3, about 25 minutes) follows slide 18 of "Forecasting a time
+// (steps 1 to 3, about 25 minutes) follows slide 21 of "Forecasting a time
 // series": the group opens a time series forecasting analysis on the Dow Jones
-// close dated in Hands-on 6, fills the days without a close with the previous
+// close of Hands-on 6's file, fills the days without a close with the previous
 // value, forecasts seven days ahead on ten time-ordered folds scored by MASE,
 // trains the baselines first and the models after, and sets each beside
-// Trivial identity. From panel 4 (slide 19) the group runs the same
+// Trivial identity. From panel 4 (slide 21 too) the group runs the same
 // session on the casual riders of the bike rentals, then decides what the
 // treasury team is told. The previous teacher's 2025 lab forecast the same
 // index with no baseline; this sheet puts the baseline first.
