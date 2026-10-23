@@ -54,6 +54,6 @@
 <polyline class="accent-stroke" points="910.2,186.8 914.5,186.1 918.8,182.8 923.1,180.9 927.4,182.9 931.7,181.0 936.0,173.8 940.3,171.0 944.5,170.3 948.8,167.0 953.1,165.1 957.4,167.1 961.7,165.2 966.0,158.0" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
 </g>
 <g data-step="4">
-<text x="500" y="392" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">The form is chosen by the AIC: a score that rewards the fit and charges each parameter</text>
+<text x="500" y="392" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">Akaike's information criterion, AIC: a score that rewards the fit and charges each parameter</text>
 </g>
 </svg>

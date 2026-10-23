@@ -87,7 +87,9 @@ def simple() -> str:
               f"{yh} = y{sub('T')} + h (y{sub('T')} − y{sub('1')}) / (T − 1)"))
     panels = [forecast_panel(x, y, 480, 222, t, st, hist, b["simple"][k], (0, 7200), ticks, eq=e)
               for (x, y), (t, st, k, e) in zip(spots, names)]
-    return svg(W, H, [step(i + 1, p) for i, p in enumerate(panels)],
+    panels[0].append(text(500, 494, f"ŷ: the forecast;  T: the last day observed;  y{sub('T')}: its value;  "
+                                   "h: the days ahead;  ȳ: the mean of the days so far", size=16, fill=MUTED))
+    return svg(W, 504, [step(i + 1, p) for i, p in enumerate(panels)],
                f"The last six weeks of daily rentals to {b['origin']} (grey) and four simple forecasts of the next two "
                "weeks, after R. J. Hyndman and G. Athanasopoulos (2021), section 5.2. " + BIKE_DATA + " Drawn by "
                + LICENCE)
@@ -123,6 +125,106 @@ def weights() -> str:
                "(R. J. Hyndman and G. Athanasopoulos 2021, section 8.1). Drawn by " + LICENCE)
 
 
+def smooth() -> str:
+    """Exponential smoothing's level on the rentals: a running level that moves a fraction alpha toward each day."""
+    W, H = 1000, 470
+    b = N["bike"]
+    i = DATES.index(b["origin"])
+    y = RENTALS[:i + 1]
+    levels = {}
+    for a in (0.8, 0.2):
+        lv, out = y[0], []
+        for v in y:
+            lv = lv + a * (v - lv)
+            out.append(lv)
+        levels[a] = out
+    n, f = 42, 14
+    fr = Frame(80, 30, 890, 320, (0, n + f - 1), (0, 7200))
+    base = [*axis_y(fr, [(0, "0"), (3000, "3,000"), (6000, "6,000")], size=14), thin_dashed(fr, n - 0.5),
+            poly(fr, list(range(n)), y[-n:], color=GREY_INK, w=1.4, cls=""),
+            label(80, 18, "rentals a day, to 30 April 2011, and two weeks ahead", size=15)]
+    lines = []
+    for a, colour, cls, dy in ((0.8, INK, "", -14), (0.2, ACCENT, "accent-stroke", 26)):
+        lv = levels[a][-n:]
+        g = [poly(fr, list(range(n)), lv, color=colour, w=3, cls=cls),
+             poly(fr, list(range(n, n + f)), [lv[-1]] * f, color=colour, w=3, cls=cls, dash="8 5"),
+             text(fr.x(n + f - 1), fr.y(lv[-1]) + dy, f"α = {a}: forecast {fmt(lv[-1])}", size=17, weight="bold",
+                  anchor="end", fill=colour, cls=cls.replace("stroke", "fill"))]
+        lines.append(g)
+    eq = [text(500, 400, f"ℓ{sub('t')} = ℓ{sub('t−1')} + α (y{sub('t')} − ℓ{sub('t−1')});   the forecast: "
+                         f"ŷ{sub('T+h')} = ℓ{sub('T')}", size=24, weight="bold", fill=ACCENT, cls="accent-fill"),
+          text(500, 440, "ℓ: the level;  α, the smoothing parameter, between 0 and 1: how far the level moves "
+                         "toward each new value", size=17, fill=INK)]
+    return svg(W, H, [step(1, base), step(2, lines[0]), step(3, lines[1]), step(4, eq)],
+               f"Daily rentals to {b['origin']} (grey, the last six weeks shown), their exponentially smoothed level "
+               "for α = 0.8 and 0.2, started at the first day, and each level's flat forecast two weeks ahead (R. J. "
+               "Hyndman and G. Athanasopoulos 2021, section 8.1). " + BIKE_DATA + " Drawn by " + LICENCE)
+
+
+def arima_figure(keys, titles, subs, cols):
+    """Panels of ARIMA forecasts from the same history, six weeks ahead, one per order."""
+    b = N["bike"]
+    hist = history(b["origin"], 42)
+    ticks = [(0, "0"), (3000, "3,000"), (6000, "6,000")]
+    rows = (len(keys) + cols - 1) // cols
+    w = (980 - 10 * (cols - 1)) // cols
+    ph = 236 if rows > 1 else 300
+    panels = []
+    for i, (k, t, st) in enumerate(zip(keys, titles, subs)):
+        x, y = 10 + (i % cols) * (w + 10), 8 + (i // cols) * (ph + 10)
+        panels.append(forecast_panel(x, y, w, ph, t, st, hist, b["arima"][k]["forecast"], (0, 7200), ticks))
+    H = 8 + rows * (ph + 10)
+    return panels, H
+
+
+def arima_long() -> str:
+    """What d and the constant do in the long run: back to the mean, or the last level held or extended."""
+    keys = ["000c", "100c", "010", "010d"]
+    titles = ["ARIMA(0,0,0) with a constant", "ARIMA(1,0,0) with a constant", "ARIMA(0,1,0)",
+              "ARIMA(0,1,0) with a drift"]
+    subs = ["d = 0: the mean of the past", "d = 0: from near the last value back to the mean",
+            "d = 1: the last value, held", "d = 1 and a constant: a straight line"]
+    panels, H = arima_figure(keys, titles, subs, 2)
+    return svg(1000, H, [step(i + 1, p) for i, p in enumerate(panels)],
+               "Forecasts six weeks ahead of four ARIMA models fitted with statsmodels to the daily rentals to "
+               f"{N['bike']['origin']} (grey, the last six weeks shown); after R. J. Hyndman and G. Athanasopoulos "
+               "(2021), section 9.5, Understanding ARIMA models. " + BIKE_DATA + " Drawn by " + LICENCE)
+
+
+def arima_short() -> str:
+    """What p and q do in the short run: the last jump partly undone, or a smoothed level."""
+    a = N["bike"]["arima"]
+    phi, theta = a["110"]["params"]["ar.L1"], a["011"]["params"]["ma.L1"]
+    keys = ["010", "110", "011"]
+    titles = ["ARIMA(0,1,0)", "ARIMA(1,1,0)", "ARIMA(0,1,1)"]
+    subs = ["no p, no q: the last value", f"p = 1, φ = {phi:.2f}: the last jump partly undone",
+            f"q = 1, θ = {theta:.2f}: a smoothed level"]
+    panels, H = arima_figure(keys, titles, subs, 3)
+    return svg(1000, H, [step(i + 1, p) for i, p in enumerate(panels)],
+               "Forecasts six weeks ahead of three ARIMA models fitted with statsmodels to the daily rentals to "
+               f"{N['bike']['origin']}; ARIMA(0,1,1) is simple exponential smoothing with α = 1 + θ (R. J. Hyndman and "
+               "G. Athanasopoulos 2021, sections 9.5 and 9.10). " + BIKE_DATA + " Drawn by " + LICENCE)
+
+
+def arima_season() -> str:
+    """The seasonal orders: last week repeated, or a weekly pattern that keeps updating."""
+    keys = ["000s010", "011s011"]
+    titles = ["ARIMA(0,0,0)(0,1,0)" + sub("7"), "ARIMA(0,1,1)(0,1,1)" + sub("7")]
+    subs = ["D = 1, nothing else: last week, repeated", "Q = 1 and q = 1: a weekly pattern, updated"]
+    b = N["bike"]
+    hist = history(b["origin"], 42)
+    ticks = [(0, "0"), (3000, "3,000"), (6000, "6,000")]
+    panels = []
+    for i, (k, t, st) in enumerate(zip(keys, titles, subs)):
+        p = forecast_panel(10 + i * 495, 8, 485, 300, "", st, hist, b["arima"][k]["forecast"], (0, 7200), ticks)
+        p.insert(2, text(10 + i * 495 + 20, 8 + 32, t, size=19, weight="bold", anchor="start"))
+        panels.append(p)
+    return svg(1000, 318, [step(1, panels[0]), step(2, panels[1])],
+               "Forecasts six weeks ahead of two seasonal ARIMA models, period 7 days, fitted with statsmodels to the "
+               f"daily rentals to {b['origin']}; the seasonal orders (P, D, Q) act on the same day of past weeks (R. J. "
+               "Hyndman and G. Athanasopoulos 2021, section 9.9). " + BIKE_DATA + " Drawn by " + LICENCE)
+
+
 def ets() -> str:
     """Three ETS forms on the same rentals: no trend, a trend, a trend and a weekly season; the AIC chooses."""
     W, H = 1000, 410
@@ -135,7 +237,7 @@ def ets() -> str:
               for i, (t, s, k) in enumerate(names)]
     key = [label(500, 26, "the letters: error A or M; trend N, A or damped; season N, A or M (N none, A additive, M multiplicative)", size=16,
                  anchor="middle", fill=INK)]
-    aic = [text(500, 392, "The form is chosen by the AIC: a score that rewards the fit and charges each parameter",
+    aic = [text(500, 392, "Akaike's information criterion, AIC: a score that rewards the fit and charges each parameter",
                 size=18, weight="bold", fill=INK)]
     return svg(W, H, [step(1, key + panels[0]), step(2, panels[1]), step(3, panels[2]), step(4, aic)],
                f"Daily rentals to {b['origin']} (grey) and the two-week point forecasts of three exponential smoothing "
@@ -157,7 +259,7 @@ def arima() -> str:
           text(70, 216, "ARIMA(0,1,0): one difference, no other term", size=21, weight="bold", anchor="start"),
           text(70, 250, "the random walk: its forecast is the last value", size=19, anchor="start")]
     cands = ["(0,1,0)", "(1,1,0)", "(0,1,1)", "(1,1,1)", "(2,1,2)", "..."]
-    auto = [text(40, 320, "AutoARIMA: it chooses the differences, tries the other orders, keeps the lowest AICc",
+    auto = [text(40, 320, "AutoARIMA: tests set d, then it keeps the p and q with the lowest AICc, the AIC for short series",
                  size=18, weight="bold", anchor="start")]
     for i, c in enumerate(cands):
         x = 40 + i * 155
@@ -201,7 +303,7 @@ def global_() -> str:
 # --- Part 3 -------------------------------------------------------------------------
 def rolling() -> str:
     """Test on the future: each fold trains on the past and tests on the next horizon."""
-    W, H = 1000, 420
+    W, H = 1000, 440
     n, h, k = 40, 2, 4
     fr = Frame(150, 60, 820, 280, (0, n), (0, 1))
     tests = [n - h - 2 * h * j for j in range(k)][::-1]
@@ -219,8 +321,10 @@ def rolling() -> str:
              label(fr.x(tests[-1]) - 8, 70 + (k - 1) * 66 - 8, "test: one horizon", size=15, anchor="end")]
     others = sum((row(i, o) for i, o in enumerate(tests[:-1])), [])
     others.append(text(30, 70 + 29, "more folds", size=17, weight="bold", anchor="start"))
-    note = [label(560, 400, "DSS: the last horizon tests first, each next fold one horizon earlier; fold offset: "
-                  "one more horizon between tests", size=15, anchor="middle")]
+    note = [label(560, 400, "Dataiku: the last horizon tests first, each next fold one horizon earlier; fold offset: "
+                  "one more horizon between tests", size=15, anchor="middle"),
+            text(560, 428, "origin: a fold's last training day; the forecast starts there", size=16, weight="bold",
+                 fill=INK)]
     return svg(W, H, [step(1, head + last + first), step(2, others + note)],
                "Time-ordered evaluation: each fold trains on all the days before its test set (light) and tests on the "
                "next horizon (dark); grey days are not used by that fold. After R. J. Hyndman and G. Athanasopoulos "
@@ -243,7 +347,7 @@ def leak() -> str:
     win = [rect(fr.x(24), fr.y0 + 6, fr.x(31) - fr.x(24), fr.h - 12, fill="none", stroke=ALERT, rx=4, sw=2.4),
            label(fr.x(27.5), fr.y0 + fr.h + 30, "a seven-day average for day 27 reads days 28 to 30, in the test",
                  size=16, anchor="middle", fill=ALERT)]
-    fix = [text(500, 380, "Every step is fitted on each fold's training days only, then applied to its test days",
+    fix = [text(500, 380, "Every preparation is fitted on each fold's training days only, then applied to its test days",
                 size=18, weight="bold", fill=INK)]
     return svg(W, H, [step(1, base), step(2, win), step(3, fix)],
                SKETCH + " Smoothing, decomposition or normalisation over the whole series before it is split leaks "
@@ -402,7 +506,8 @@ def dss_forecast() -> str:
     alg = [rect(256, 392, 724, 96, fill=WHITE, stroke=EDGE, rx=4),
            text(276, 422, "Algorithms", size=18, weight="bold", anchor="start"),
            text(296, 456, "first:", size=16, anchor="start", fill=MUTED),
-           text(350, 456, "Trivial identity, Seasonal naive (season 7)", size=17, weight="bold", anchor="start",
+           text(350, 456, "Trivial identity (the last value), Seasonal naive (season 7)", size=17, weight="bold",
+                anchor="start",
                 fill=ACCENT, cls="accent-fill"),
            text(296, 480, "then:", size=16, anchor="start", fill=MUTED),
            text(350, 480, "AutoARIMA, ETS, each read beside Trivial identity", size=17, weight="bold", anchor="start")]
@@ -454,6 +559,8 @@ def main(out: Path) -> int:
     figures = {"simple.svg": simple, "weights.svg": weights, "ets.svg": ets, "arima.svg": arima,
                "global.svg": global_, "rolling.svg": rolling, "leak.svg": leak, "mape.svg": mape, "mase.svg": mase,
                "spread.svg": spread, "fill.svg": fill, "dss-forecast.svg": dss_forecast, "trail.svg": trail,
+               "smooth.svg": smooth, "arima-long.svg": arima_long, "arima-short.svg": arima_short,
+               "arima-season.svg": arima_season,
                "naive.svg": s7.naive}
     for name, lit_ in (("dp", {"DP"}), ("mo-ev", {"MO", "EV"})):
         figures[f"phase-{name}.svg"] = lambda lit_=lit_: d.phase_thumb(lit_)

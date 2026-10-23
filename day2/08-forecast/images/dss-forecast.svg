@@ -39,7 +39,7 @@
 <rect x="256" y="392" width="724" height="96" rx="4" fill="#ffffff" stroke="#c9cfd2" stroke-width="1.6"/>
 <text x="276" y="422" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36">Algorithms</text>
 <text x="296" y="456" font-size="16" font-weight="normal" text-anchor="start" fill="#556268">first:</text>
-<text class="accent-fill" x="350" y="456" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">Trivial identity, Seasonal naive (season 7)</text>
+<text class="accent-fill" x="350" y="456" font-size="17" font-weight="bold" text-anchor="start" fill="#00609c">Trivial identity (the last value), Seasonal naive (season 7)</text>
 <text x="296" y="480" font-size="16" font-weight="normal" text-anchor="start" fill="#556268">then:</text>
 <text x="350" y="480" font-size="17" font-weight="bold" text-anchor="start" fill="#1c2e36">AutoARIMA, ETS, each read beside Trivial identity</text>
 </g>

@@ -7,12 +7,12 @@
 // hands-on-7-forecast.typ until one does: the same case, data and lesson, with
 // the Window recipe instead of the Lab. One sheet per group of three, both
 // sides. Page 1 is the data card. The core (steps 1 to 3, about 25 minutes)
-// follows slide 21 of "Forecasting a time series": the group lags the Dow
+// follows slide 28 of "Forecasting a time series": the group lags the Dow
 // Jones close five trading days, builds four one-day-ahead forecasts from the
 // days before (the last close, the same weekday last week, the average of the
 // last five, the last close plus the last change), and sets each one's mean
 // absolute error beside the last close's, on the same days. From panel 4
-// (slide 21 too) the group builds the same forecasts for the casual riders of
+// (slide 28 too) the group builds the same forecasts for the casual riders of
 // the bike rentals, then decides what the treasury team is told.
 //
 // The data: dowjones102425.csv (stooq, symbol ^DJI; its licence is not

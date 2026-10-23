@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 318" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Forecasts six weeks ahead of three ARIMA models fitted with statsmodels to the daily rentals to 2011-04-30; ARIMA(0,1,1) is simple exponential smoothing with α = 1 + θ (R. J. Hyndman and G. Athanasopoulos 2021, sections 9.5 and 9.10). Data: Capital Bikeshare daily rentals, 2011 and 2012, H. Fanaee-T (2013), UCI dataset 275, CC BY 4.0. Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="10" y="8" width="320" height="300" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="30" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ARIMA(0,1,0)</text>
+<text x="30" y="62" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">no p, no q: the last value</text>
+
+<line x1="70" y1="74" x2="70" y2="270" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="64" y1="270.0" x2="70" y2="270.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="275.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="64" y1="188.33333333333331" x2="70" y2="188.33333333333331" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="193.33333333333331" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="64" y1="106.66666666666666" x2="70" y2="106.66666666666666" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="111.66666666666666" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="188.0" y1="74" x2="188.0" y2="270" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="70.0,202.7 72.8,213.5 75.7,196.4 78.5,212.3 81.4,219.2 84.2,209.8 87.1,202.1 89.9,223.9 92.7,214.8 95.6,204.0 98.4,228.2 101.3,224.1 104.1,209.4 107.0,208.7 109.8,181.6 112.7,185.2 115.5,221.1 118.3,193.6 121.2,184.5 124.0,230.0 126.9,203.2 129.7,191.2 132.6,178.9 135.4,214.6 138.2,211.1 141.1,181.1 143.9,184.9 146.8,248.4 149.6,168.1 152.5,176.7 155.3,182.8 158.1,162.6 161.0,156.0 163.8,224.2 166.7,160.1 169.5,155.9 172.4,159.1 175.2,150.2 178.0,164.6 180.9,159.5 183.7,144.9 186.6,125.4" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="189.4,125.4 192.3,125.4 195.1,125.4 198.0,125.4 200.8,125.4 203.6,125.4 206.5,125.4 209.3,125.4 212.2,125.4 215.0,125.4 217.9,125.4 220.7,125.4 223.5,125.4 226.4,125.4 229.2,125.4 232.1,125.4 234.9,125.4 237.8,125.4 240.6,125.4 243.4,125.4 246.3,125.4 249.1,125.4 252.0,125.4 254.8,125.4 257.7,125.4 260.5,125.4 263.3,125.4 266.2,125.4 269.0,125.4 271.9,125.4 274.7,125.4 277.6,125.4 280.4,125.4 283.3,125.4 286.1,125.4 288.9,125.4 291.8,125.4 294.6,125.4 297.5,125.4 300.3,125.4 303.2,125.4 306.0,125.4" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+<g data-step="2">
+<rect x="340" y="8" width="320" height="300" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="360" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ARIMA(1,1,0)</text>
+<text x="360" y="62" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">p = 1, φ = -0.37: the last jump partly undone</text>
+
+<line x1="400" y1="74" x2="400" y2="270" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="394" y1="270.0" x2="400" y2="270.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="390" y="275.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="394" y1="188.33333333333331" x2="400" y2="188.33333333333331" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="390" y="193.33333333333331" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="394" y1="106.66666666666666" x2="400" y2="106.66666666666666" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="390" y="111.66666666666666" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="518.0" y1="74" x2="518.0" y2="270" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="400.0,202.7 402.8,213.5 405.7,196.4 408.5,212.3 411.4,219.2 414.2,209.8 417.1,202.1 419.9,223.9 422.7,214.8 425.6,204.0 428.4,228.2 431.3,224.1 434.1,209.4 437.0,208.7 439.8,181.6 442.7,185.2 445.5,221.1 448.3,193.6 451.2,184.5 454.0,230.0 456.9,203.2 459.7,191.2 462.6,178.9 465.4,214.6 468.2,211.1 471.1,181.1 473.9,184.9 476.8,248.4 479.6,168.1 482.5,176.7 485.3,182.8 488.1,162.6 491.0,156.0 493.8,224.2 496.7,160.1 499.5,155.9 502.4,159.1 505.2,150.2 508.0,164.6 510.9,159.5 513.7,144.9 516.6,125.4" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="519.4,132.6 522.3,129.9 525.1,130.9 528.0,130.5 530.8,130.7 533.6,130.6 536.5,130.6 539.3,130.6 542.2,130.6 545.0,130.6 547.9,130.6 550.7,130.6 553.5,130.6 556.4,130.6 559.2,130.6 562.1,130.6 564.9,130.6 567.8,130.6 570.6,130.6 573.4,130.6 576.3,130.6 579.1,130.6 582.0,130.6 584.8,130.6 587.7,130.6 590.5,130.6 593.3,130.6 596.2,130.6 599.0,130.6 601.9,130.6 604.7,130.6 607.6,130.6 610.4,130.6 613.3,130.6 616.1,130.6 618.9,130.6 621.8,130.6 624.6,130.6 627.5,130.6 630.3,130.6 633.2,130.6 636.0,130.6" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+<g data-step="3">
+<rect x="670" y="8" width="320" height="300" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="690" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ARIMA(0,1,1)</text>
+<text x="690" y="62" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">q = 1, θ = -0.73: a smoothed level</text>
+
+<line x1="730" y1="74" x2="730" y2="270" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="724" y1="270.0" x2="730" y2="270.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="720" y="275.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="724" y1="188.33333333333331" x2="730" y2="188.33333333333331" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="720" y="193.33333333333331" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="724" y1="106.66666666666666" x2="730" y2="106.66666666666666" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="720" y="111.66666666666666" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="848.0" y1="74" x2="848.0" y2="270" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="730.0,202.7 732.8,213.5 735.7,196.4 738.5,212.3 741.4,219.2 744.2,209.8 747.1,202.1 749.9,223.9 752.7,214.8 755.6,204.0 758.4,228.2 761.3,224.1 764.1,209.4 767.0,208.7 769.8,181.6 772.7,185.2 775.5,221.1 778.3,193.6 781.2,184.5 784.0,230.0 786.9,203.2 789.7,191.2 792.6,178.9 795.4,214.6 798.2,211.1 801.1,181.1 803.9,184.9 806.8,248.4 809.6,168.1 812.5,176.7 815.3,182.8 818.1,162.6 821.0,156.0 823.8,224.2 826.7,160.1 829.5,155.9 832.4,159.1 835.2,150.2 838.0,164.6 840.9,159.5 843.7,144.9 846.6,125.4" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="849.4,149.5 852.3,149.5 855.1,149.5 858.0,149.5 860.8,149.5 863.6,149.5 866.5,149.5 869.3,149.5 872.2,149.5 875.0,149.5 877.9,149.5 880.7,149.5 883.5,149.5 886.4,149.5 889.2,149.5 892.1,149.5 894.9,149.5 897.8,149.5 900.6,149.5 903.4,149.5 906.3,149.5 909.1,149.5 912.0,149.5 914.8,149.5 917.7,149.5 920.5,149.5 923.3,149.5 926.2,149.5 929.0,149.5 931.9,149.5 934.7,149.5 937.6,149.5 940.4,149.5 943.3,149.5 946.1,149.5 948.9,149.5 951.8,149.5 954.6,149.5 957.5,149.5 960.3,149.5 963.2,149.5 966.0,149.5" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+</svg>

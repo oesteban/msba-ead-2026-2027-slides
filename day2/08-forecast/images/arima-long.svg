@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Forecasts six weeks ahead of four ARIMA models fitted with statsmodels to the daily rentals to 2011-04-30 (grey, the last six weeks shown); after R. J. Hyndman and G. Athanasopoulos (2021), section 9.5, Understanding ARIMA models. Data: Capital Bikeshare daily rentals, 2011 and 2012, H. Fanaee-T (2013), UCI dataset 275, CC BY 4.0. Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="10" y="8" width="485" height="236" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="30" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ARIMA(0,0,0) with a constant</text>
+<text x="30" y="62" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">d = 0: the mean of the past</text>
+
+<line x1="70" y1="74" x2="70" y2="206" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="64" y1="206.0" x2="70" y2="206.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="211.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="64" y1="151.0" x2="70" y2="151.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="156.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="64" y1="96.0" x2="70" y2="96.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="101.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="270.5" y1="74" x2="270.5" y2="206" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="70.0,160.7 74.8,167.9 79.7,156.4 84.5,167.1 89.3,171.8 94.2,165.5 99.0,160.2 103.8,175.0 108.7,168.8 113.5,161.5 118.3,177.8 123.1,175.1 128.0,165.2 132.8,164.7 137.6,146.4 142.5,148.9 147.3,173.1 152.1,154.5 157.0,148.4 161.8,179.0 166.6,161.0 171.5,152.9 176.3,144.6 181.1,168.7 186.0,166.4 190.8,146.1 195.6,148.7 200.4,191.4 205.3,137.4 210.1,143.1 214.9,147.3 219.8,133.7 224.6,129.2 229.4,175.1 234.3,132.0 239.1,129.2 243.9,131.3 248.8,125.3 253.6,135.0 258.4,131.6 263.3,121.8 268.1,108.6" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="272.9,168.5 277.7,168.5 282.6,168.5 287.4,168.5 292.2,168.5 297.1,168.5 301.9,168.5 306.7,168.5 311.6,168.5 316.4,168.5 321.2,168.5 326.1,168.5 330.9,168.5 335.7,168.5 340.6,168.5 345.4,168.5 350.2,168.5 355.0,168.5 359.9,168.5 364.7,168.5 369.5,168.5 374.4,168.5 379.2,168.5 384.0,168.5 388.9,168.5 393.7,168.5 398.5,168.5 403.4,168.5 408.2,168.5 413.0,168.5 417.9,168.5 422.7,168.5 427.5,168.5 432.3,168.5 437.2,168.5 442.0,168.5 446.8,168.5 451.7,168.5 456.5,168.5 461.3,168.5 466.2,168.5 471.0,168.5" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+<g data-step="2">
+<rect x="505" y="8" width="485" height="236" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="525" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ARIMA(1,0,0) with a constant</text>
+<text x="525" y="62" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">d = 0: from near the last value back to the mean</text>
+
+<line x1="565" y1="74" x2="565" y2="206" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="559" y1="206.0" x2="565" y2="206.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="555" y="211.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="559" y1="151.0" x2="565" y2="151.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="555" y="156.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="559" y1="96.0" x2="565" y2="96.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="555" y="101.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="765.5" y1="74" x2="765.5" y2="206" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="565.0,160.7 569.8,167.9 574.7,156.4 579.5,167.1 584.3,171.8 589.2,165.5 594.0,160.2 598.8,175.0 603.7,168.8 608.5,161.5 613.3,177.8 618.1,175.1 623.0,165.2 627.8,164.7 632.6,146.4 637.5,148.9 642.3,173.1 647.1,154.5 652.0,148.4 656.8,179.0 661.6,161.0 666.5,152.9 671.3,144.6 676.1,168.7 681.0,166.4 685.8,146.1 690.6,148.7 695.4,191.4 700.3,137.4 705.1,143.1 709.9,147.3 714.8,133.7 719.6,129.2 724.4,175.1 729.3,132.0 734.1,129.2 738.9,131.3 743.8,125.3 748.6,135.0 753.4,131.6 758.3,121.8 763.1,108.6" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="767.9,124.7 772.7,136.5 777.6,145.1 782.4,151.4 787.2,156.0 792.1,159.4 796.9,161.8 801.7,163.6 806.6,164.9 811.4,165.9 816.2,166.6 821.1,167.1 825.9,167.5 830.7,167.8 835.6,168.0 840.4,168.1 845.2,168.2 850.0,168.3 854.9,168.4 859.7,168.4 864.5,168.4 869.4,168.5 874.2,168.5 879.0,168.5 883.9,168.5 888.7,168.5 893.5,168.5 898.4,168.5 903.2,168.5 908.0,168.5 912.9,168.5 917.7,168.5 922.5,168.5 927.3,168.5 932.2,168.5 937.0,168.5 941.8,168.5 946.7,168.5 951.5,168.5 956.3,168.5 961.2,168.5 966.0,168.5" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+<g data-step="3">
+<rect x="10" y="254" width="485" height="236" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="30" y="286" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ARIMA(0,1,0)</text>
+<text x="30" y="308" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">d = 1: the last value, held</text>
+
+<line x1="70" y1="320" x2="70" y2="452" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="64" y1="452.0" x2="70" y2="452.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="457.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="64" y1="397.0" x2="70" y2="397.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="402.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="64" y1="342.0" x2="70" y2="342.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="347.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="270.5" y1="320" x2="270.5" y2="452" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="70.0,406.7 74.8,413.9 79.7,402.4 84.5,413.1 89.3,417.8 94.2,411.5 99.0,406.2 103.8,421.0 108.7,414.8 113.5,407.5 118.3,423.8 123.1,421.1 128.0,411.2 132.8,410.7 137.6,392.4 142.5,394.9 147.3,419.1 152.1,400.5 157.0,394.4 161.8,425.0 166.6,407.0 171.5,398.9 176.3,390.6 181.1,414.7 186.0,412.4 190.8,392.1 195.6,394.7 200.4,437.4 205.3,383.4 210.1,389.1 214.9,393.3 219.8,379.7 224.6,375.2 229.4,421.1 234.3,378.0 239.1,375.2 243.9,377.3 248.8,371.3 253.6,381.0 258.4,377.6 263.3,367.8 268.1,354.6" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="272.9,354.6 277.7,354.6 282.6,354.6 287.4,354.6 292.2,354.6 297.1,354.6 301.9,354.6 306.7,354.6 311.6,354.6 316.4,354.6 321.2,354.6 326.1,354.6 330.9,354.6 335.7,354.6 340.6,354.6 345.4,354.6 350.2,354.6 355.0,354.6 359.9,354.6 364.7,354.6 369.5,354.6 374.4,354.6 379.2,354.6 384.0,354.6 388.9,354.6 393.7,354.6 398.5,354.6 403.4,354.6 408.2,354.6 413.0,354.6 417.9,354.6 422.7,354.6 427.5,354.6 432.3,354.6 437.2,354.6 442.0,354.6 446.8,354.6 451.7,354.6 456.5,354.6 461.3,354.6 466.2,354.6 471.0,354.6" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+<g data-step="4">
+<rect x="505" y="254" width="485" height="236" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="525" y="286" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ARIMA(0,1,0) with a drift</text>
+<text x="525" y="308" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">d = 1 and a constant: a straight line</text>
+
+<line x1="565" y1="320" x2="565" y2="452" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="559" y1="452.0" x2="565" y2="452.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="555" y="457.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="559" y1="397.0" x2="565" y2="397.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="555" y="402.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="559" y1="342.0" x2="565" y2="342.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="555" y="347.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="765.5" y1="320" x2="765.5" y2="452" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="565.0,406.7 569.8,413.9 574.7,402.4 579.5,413.1 584.3,417.8 589.2,411.5 594.0,406.2 598.8,421.0 603.7,414.8 608.5,407.5 613.3,423.8 618.1,421.1 623.0,411.2 627.8,410.7 632.6,392.4 637.5,394.9 642.3,419.1 647.1,400.5 652.0,394.4 656.8,425.0 661.6,407.0 666.5,398.9 671.3,390.6 676.1,414.7 681.0,412.4 685.8,392.1 690.6,394.7 695.4,437.4 700.3,383.4 705.1,389.1 709.9,393.3 714.8,379.7 719.6,375.2 724.4,421.1 729.3,378.0 734.1,375.2 738.9,377.3 743.8,371.3 748.6,381.0 753.4,377.6 758.3,367.8 763.1,354.6" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="767.9,353.9 772.7,353.3 777.6,352.6 782.4,351.9 787.2,351.3 792.1,350.6 796.9,349.9 801.7,349.3 806.6,348.6 811.4,347.9 816.2,347.3 821.1,346.6 825.9,345.9 830.7,345.3 835.6,344.6 840.4,343.9 845.2,343.3 850.0,342.6 854.9,341.9 859.7,341.3 864.5,340.6 869.4,339.9 874.2,339.3 879.0,338.6 883.9,337.9 888.7,337.3 893.5,336.6 898.4,335.9 903.2,335.3 908.0,334.6 912.9,333.9 917.7,333.3 922.5,332.6 927.3,331.9 932.2,331.3 937.0,330.6 941.8,329.9 946.7,329.3 951.5,328.6 956.3,327.9 961.2,327.3 966.0,326.6" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+</svg>

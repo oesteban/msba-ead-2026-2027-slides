@@ -176,15 +176,15 @@ def examples() -> str:
     p1 = panel(0, "Bike rentals", "one value a day, 731 days", list(range(len(b))), b, (0, len(b) - 1), (0, 9000),
                [(0, "2011"), (365, "2012"), (730, "2013")])
     e = rows("ecg.csv")[: 4 * N["ecg"]["fs"]]
-    p2 = panel(1, "Heart: an ECG", f"{N['ecg']['fs']} values a second, 4 seconds", col(e, "time_s"), col(e, "mv"),
+    p2 = panel(1, "Heart: an electrocardiogram (ECG)", f"{N['ecg']['fs']} values a second, 4 seconds", col(e, "time_s"), col(e, "mv"),
                (0, 4), (-0.8, 1.4), [(0, "0 s"), (1, "1"), (2, "2"), (3, "3"), (4, "4 s")])
     g = rows("eeg.csv")[: 2 * N["eeg"]["fs"]]
     gv = col(g, "uv")
-    p3 = panel(2, "Brain: an EEG", f"{N['eeg']['fs']} values a second, 2 seconds", col(g, "time_s"), gv,
+    p3 = panel(2, "Brain: an electroencephalogram (EEG)", f"{N['eeg']['fs']} values a second, 2 seconds", col(g, "time_s"), gv,
                (0, 2), (min(gv) * 1.1, max(gv) * 1.1), [(0, "0 s"), (0.5, "0.5"), (1, "1"), (1.5, "1.5"), (2, "2 s")])
     f = rows("fmri.csv")
     fv = col(f, "bold")
-    p4 = panel(3, "Brain: an fMRI voxel", "one value every 2.5 seconds, 7.5 minutes", col(f, "time_s"), fv,
+    p4 = panel(3, "Brain: one voxel of a functional MRI (fMRI)", "one value every 2.5 seconds, 7.5 minutes", col(f, "time_s"), fv,
                (10, 460), (min(fv) - 10, max(fv) + 10), [(10, "0 min"), (130, "2"), (250, "4"), (370, "6")], mark=True)
     return svg(W, H, [step(1, p1), step(2, p2), step(3, p3), step(4, p4)],
                "Four time series. " + BIKE_DATA + " ECG: MIT-BIH Arrhythmia Database, record 100, lead MLII, its first "

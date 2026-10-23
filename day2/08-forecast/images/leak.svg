@@ -17,6 +17,6 @@
 <text x="694.6153846153846" y="320" font-size="16" font-weight="normal" text-anchor="middle" fill="#da232f">a seven-day average for day 27 reads days 28 to 30, in the test</text>
 </g>
 <g data-step="3">
-<text x="500" y="380" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">Every step is fitted on each fold's training days only, then applied to its test days</text>
+<text x="500" y="380" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">Every preparation is fitted on each fold's training days only, then applied to its test days</text>
 </g>
 </svg>
