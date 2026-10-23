@@ -116,7 +116,8 @@ def weights() -> str:
         g += [label(fr.x(11), fr.y(0) + 24, "the last day", size=14, anchor="middle"),
               label(fr.x(0), fr.y(0) + 24, "11 days before", size=14, anchor="middle")]
         out.append(g)
-    out[0].insert(0, label(30, 18, "tomorrow's forecast: a weighted average of the past days", size=15))
+    out[0].insert(0, label(30, 18, "tomorrow's forecast is this weighted average of the past days, with no model fitted on top",
+                           size=15))
     ends = [text(500, 428, f"ŷ{sub('T+1')} = α y{sub('T')} + α(1 − α) y{sub('T−1')} + α(1 − α)² y{sub('T−2')} + …",
                  size=24, weight="bold", fill=ACCENT, cls="accent-fill"),
             text(500, 470, "α, the smoothing parameter: the last day's weight. α = 1 gives the last value; "
@@ -128,7 +129,7 @@ def weights() -> str:
 
 def smooth() -> str:
     """Exponential smoothing's level on the rentals: each day, a weighted average of the day and the level before."""
-    W, H = 1000, 470
+    W, H = 1000, 492
     b = N["bike"]
     i = DATES.index(b["origin"])
     y = RENTALS[:i + 1]
@@ -140,7 +141,7 @@ def smooth() -> str:
             out.append(lv)
         levels[a] = out
     n, f = 42, 14
-    fr = Frame(80, 30, 890, 320, (0, n + f - 1), (0, 7200))
+    fr = Frame(80, 30, 890, 262, (0, n + f - 1), (0, 7200))
     base = [*axis_y(fr, [(0, "0"), (3000, "3,000"), (6000, "6,000")], size=14), thin_dashed(fr, n - 0.5),
             poly(fr, list(range(n)), y[-n:], color=GREY_INK, w=1.4, cls=""),
             label(80, 18, "rentals a day, to 30 April 2011, and two weeks ahead", size=15)]
@@ -152,11 +153,17 @@ def smooth() -> str:
              text(fr.x(n + f - 1), fr.y(lv[-1]) + dy, f"α = {a}: forecast {fmt(lv[-1])}", size=17, weight="bold",
                   anchor="end", fill=colour, cls=cls.replace("stroke", "fill"))]
         lines.append(g)
-    eq = [text(500, 400, f"ℓ{sub('t')} = α y{sub('t')} + (1 − α) ℓ{sub('t−1')};   the forecast: "
-                         f"ŷ{sub('T+h')} = ℓ{sub('T')}", size=24, weight="bold", fill=ACCENT, cls="accent-fill"),
-          text(500, 440, "ℓ, the level: the new day weighs α and the level before it 1 − α, the same α as "
+    eq = [text(500, 342, f"ℓ{sub('t')} = α y{sub('t')} + (1 − α) ℓ{sub('t−1')}", size=24, weight="bold",
+               fill=ACCENT, cls="accent-fill"),
+          text(500, 374, "ℓ, the level: the new day weighs α and the level before it 1 − α, the same α as "
                          "the weights", size=17, fill=INK)]
-    return svg(W, H, [step(1, base), step(2, lines[0]), step(3, lines[1]), step(4, eq)],
+    unrolled = [text(500, 428, f"ℓ{sub('T')} = α y{sub('T')} + α(1 − α) y{sub('T−1')} + …  =  ŷ{sub('T+1')} = "
+                               f"ŷ{sub('T+2')} = …", size=24, weight="bold", fill=ACCENT, cls="accent-fill"),
+                text(500, 460, "unrolled, the last level is the weighted average of the days up to T: tomorrow's "
+                               "forecast", size=17, fill=INK),
+                text(500, 484, "with no trend or season to tell the days apart, every later day gets the same forecast",
+                     size=17, fill=INK)]
+    return svg(W, H, [step(1, base), step(2, lines[0]), step(3, lines[1]), step(4, eq), step(5, unrolled)],
                f"Daily rentals to {b['origin']} (grey, the last six weeks shown), their exponentially smoothed level "
                "for α = 0.8 and 0.2, started at the first day, and each level's flat forecast two weeks ahead (R. J. "
                "Hyndman and G. Athanasopoulos 2021, section 8.1). " + BIKE_DATA + " Drawn by " + LICENCE)
