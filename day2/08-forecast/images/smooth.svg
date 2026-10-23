@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Daily rentals to 2011-04-30 (grey, the last six weeks shown), their exponentially smoothed level for α = 0.8 and 0.2, started at the first day, and each level's flat forecast two weeks ahead (R. J. Hyndman and G. Athanasopoulos 2021, section 8.1). Data: Capital Bikeshare daily rentals, 2011 and 2012, H. Fanaee-T (2013), UCI dataset 275, CC BY 4.0. Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<line x1="80" y1="30" x2="80" y2="350" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="74" y1="350.0" x2="80" y2="350.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="70" y="355.0" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="74" y1="216.66666666666666" x2="80" y2="216.66666666666666" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="70" y="221.66666666666666" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="74" y1="83.33333333333331" x2="80" y2="83.33333333333331" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="70" y="88.33333333333331" font-size="14" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="751.5454545454545" y1="30" x2="751.5454545454545" y2="350" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="80.0,240.2 96.2,257.7 112.4,229.9 128.5,255.7 144.7,267.1 160.9,251.8 177.1,239.1 193.3,274.8 209.5,259.9 225.6,242.2 241.8,281.7 258.0,275.1 274.2,251.0 290.4,249.9 306.5,205.6 322.7,211.6 338.9,270.2 355.1,225.2 371.3,210.4 387.5,284.6 403.6,240.9 419.8,221.3 436.0,201.2 452.2,259.6 468.4,253.9 484.5,204.8 500.7,211.1 516.9,314.7 533.1,183.6 549.3,197.6 565.5,207.6 581.6,174.7 597.8,163.8 614.0,275.2 630.2,170.6 646.4,163.7 662.5,169.0 678.7,154.4 694.9,177.9 711.1,169.6 727.3,145.8 743.5,113.9" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<text x="80" y="18" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">rentals a day, to 30 April 2011, and two weeks ahead</text>
+</g>
+<g data-step="2">
+<polyline points="80.0,234.4 96.2,253.0 112.4,234.5 128.5,251.5 144.7,264.0 160.9,254.2 177.1,242.1 193.3,268.2 209.5,261.5 225.6,246.1 241.8,274.6 258.0,275.0 274.2,255.8 290.4,251.1 306.5,214.7 322.7,212.2 338.9,258.6 355.1,231.9 371.3,214.7 387.5,270.6 403.6,246.8 419.8,226.4 436.0,206.2 452.2,248.9 468.4,252.9 484.5,214.4 500.7,211.7 516.9,294.1 533.1,205.7 549.3,199.2 565.5,205.9 581.6,181.0 597.8,167.2 614.0,253.6 630.2,187.2 646.4,168.4 662.5,168.9 678.7,157.3 694.9,173.8 711.1,170.5 727.3,150.7 743.5,121.3" fill="none" stroke="#1c2e36" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="759.6,121.3 775.8,121.3 792.0,121.3 808.2,121.3 824.4,121.3 840.5,121.3 856.7,121.3 872.9,121.3 889.1,121.3 905.3,121.3 921.5,121.3 937.6,121.3 953.8,121.3 970.0,121.3" fill="none" stroke="#1c2e36" stroke-width="3" stroke-linejoin="round" stroke-dasharray="8 5"/>
+<text x="970.0" y="107.27231342572571" font-size="17" font-weight="bold" text-anchor="end" fill="#1c2e36">α = 0.8: forecast 5,146</text>
+</g>
+<g data-step="3">
+<polyline class="accent-stroke" points="80.0,238.7 96.2,242.5 112.4,240.0 128.5,243.1 144.7,247.9 160.9,248.7 177.1,246.8 193.3,252.4 209.5,253.9 225.6,251.5 241.8,257.6 258.0,261.1 274.2,259.1 290.4,257.2 306.5,246.9 322.7,239.8 338.9,245.9 355.1,241.8 371.3,235.5 387.5,245.3 403.6,244.4 419.8,239.8 436.0,232.1 452.2,237.6 468.4,240.9 484.5,233.6 500.7,229.1 516.9,246.2 533.1,233.7 549.3,226.5 565.5,222.7 581.6,213.1 597.8,203.3 614.0,217.6 630.2,208.2 646.4,199.3 662.5,193.3 678.7,185.5 694.9,184.0 711.1,181.1 727.3,174.0 743.5,162.0" fill="none" stroke="#00609c" stroke-width="3" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="759.6,162.0 775.8,162.0 792.0,162.0 808.2,162.0 824.4,162.0 840.5,162.0 856.7,162.0 872.9,162.0 889.1,162.0 905.3,162.0 921.5,162.0 937.6,162.0 953.8,162.0 970.0,162.0" fill="none" stroke="#00609c" stroke-width="3" stroke-linejoin="round" stroke-dasharray="8 5"/>
+<text class="accent-fill" x="970.0" y="188.02054419483494" font-size="17" font-weight="bold" text-anchor="end" fill="#00609c">α = 0.2: forecast 4,230</text>
+</g>
+<g data-step="4">
+<text class="accent-fill" x="500" y="400" font-size="24" font-weight="bold" text-anchor="middle" fill="#00609c">ℓ<tspan baseline-shift='sub' font-size='14'>t</tspan> = ℓ<tspan baseline-shift='sub' font-size='14'>t−1</tspan> + α (y<tspan baseline-shift='sub' font-size='14'>t</tspan> − ℓ<tspan baseline-shift='sub' font-size='14'>t−1</tspan>);   the forecast: ŷ<tspan baseline-shift='sub' font-size='14'>T+h</tspan> = ℓ<tspan baseline-shift='sub' font-size='14'>T</tspan></text>
+<text x="500" y="440" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">ℓ: the level;  α, the smoothing parameter, between 0 and 1: how far the level moves toward each new value</text>
+</g>
+</svg>

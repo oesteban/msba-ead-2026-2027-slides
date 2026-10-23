@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 318" font-family="Inter, Arimo, Helvetica, sans-serif">
+<!-- Forecasts six weeks ahead of two seasonal ARIMA models, period 7 days, fitted with statsmodels to the daily rentals to 2011-04-30; the seasonal orders (P, D, Q) act on the same day of past weeks (R. J. Hyndman and G. Athanasopoulos 2021, section 9.9). Data: Capital Bikeshare daily rentals, 2011 and 2012, H. Fanaee-T (2013), UCI dataset 275, CC BY 4.0. Drawn by Oscar Esteban, CC BY 4.0. -->
+<defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
+<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0,0 L10,5 L0,10 z" fill="#00609c"/></marker>
+</defs>
+<g data-step="1">
+<rect x="10" y="8" width="485" height="300" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="30" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36"></text>
+<text x="30" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ARIMA(0,0,0)(0,1,0)<tspan baseline-shift='sub' font-size='14'>7</tspan></text>
+<text x="30" y="62" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">D = 1, nothing else: last week, repeated</text>
+
+<line x1="70" y1="74" x2="70" y2="270" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="64" y1="270.0" x2="70" y2="270.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="275.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="64" y1="188.33333333333331" x2="70" y2="188.33333333333331" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="193.33333333333331" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="64" y1="106.66666666666666" x2="70" y2="106.66666666666666" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="60" y="111.66666666666666" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="270.5" y1="74" x2="270.5" y2="270" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="70.0,202.7 74.8,213.5 79.7,196.4 84.5,212.3 89.3,219.2 94.2,209.8 99.0,202.1 103.8,223.9 108.7,214.8 113.5,204.0 118.3,228.2 123.1,224.1 128.0,209.4 132.8,208.7 137.6,181.6 142.5,185.2 147.3,221.1 152.1,193.6 157.0,184.5 161.8,230.0 166.6,203.2 171.5,191.2 176.3,178.9 181.1,214.6 186.0,211.1 190.8,181.1 195.6,184.9 200.4,248.4 205.3,168.1 210.1,176.7 214.9,182.8 219.8,162.6 224.6,156.0 229.4,224.2 234.3,160.1 239.1,155.9 243.9,159.1 248.8,150.2 253.6,164.6 258.4,159.5 263.3,144.9 268.1,125.4" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="272.9,155.9 277.7,159.1 282.6,150.2 287.4,164.6 292.2,159.5 297.1,144.9 301.9,125.4 306.7,155.9 311.6,159.1 316.4,150.2 321.2,164.6 326.1,159.5 330.9,144.9 335.7,125.4 340.6,155.9 345.4,159.1 350.2,150.2 355.0,164.6 359.9,159.5 364.7,144.9 369.5,125.4 374.4,155.9 379.2,159.1 384.0,150.2 388.9,164.6 393.7,159.5 398.5,144.9 403.4,125.4 408.2,155.9 413.0,159.1 417.9,150.2 422.7,164.6 427.5,159.5 432.3,144.9 437.2,125.4 442.0,155.9 446.8,159.1 451.7,150.2 456.5,164.6 461.3,159.5 466.2,144.9 471.0,125.4" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+<g data-step="2">
+<rect x="505" y="8" width="485" height="300" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
+<text x="525" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36"></text>
+<text x="525" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">ARIMA(0,1,1)(0,1,1)<tspan baseline-shift='sub' font-size='14'>7</tspan></text>
+<text x="525" y="62" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">Q = 1 and q = 1: a weekly pattern, updated</text>
+
+<line x1="565" y1="74" x2="565" y2="270" stroke="#9aa4a8" stroke-width="1.2"/>
+<line x1="559" y1="270.0" x2="565" y2="270.0" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="555" y="275.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
+<line x1="559" y1="188.33333333333331" x2="565" y2="188.33333333333331" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="555" y="193.33333333333331" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">3,000</text>
+<line x1="559" y1="106.66666666666666" x2="565" y2="106.66666666666666" stroke="#9aa4a8" stroke-width="1.2"/>
+<text x="555" y="111.66666666666666" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">6,000</text>
+<line x1="765.5" y1="74" x2="765.5" y2="270" stroke="#9aa4a8" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polyline points="565.0,202.7 569.8,213.5 574.7,196.4 579.5,212.3 584.3,219.2 589.2,209.8 594.0,202.1 598.8,223.9 603.7,214.8 608.5,204.0 613.3,228.2 618.1,224.1 623.0,209.4 627.8,208.7 632.6,181.6 637.5,185.2 642.3,221.1 647.1,193.6 652.0,184.5 656.8,230.0 661.6,203.2 666.5,191.2 671.3,178.9 676.1,214.6 681.0,211.1 685.8,181.1 690.6,184.9 695.4,248.4 700.3,168.1 705.1,176.7 709.9,182.8 714.8,162.6 719.6,156.0 724.4,224.2 729.3,160.1 734.1,155.9 738.9,159.1 743.8,150.2 748.6,164.6 753.4,159.5 758.3,144.9 763.1,125.4" fill="none" stroke="#9aa4a8" stroke-width="1.4" stroke-linejoin="round"/>
+<polyline class="accent-stroke" points="767.9,143.8 772.7,143.2 777.6,145.9 782.4,144.9 787.2,141.2 792.1,145.3 796.9,142.0 801.7,136.1 806.6,135.5 811.4,138.2 816.2,137.2 821.1,133.5 825.9,137.6 830.7,134.2 835.6,128.4 840.4,127.8 845.2,130.5 850.0,129.5 854.9,125.8 859.7,129.9 864.5,126.5 869.4,120.7 874.2,120.1 879.0,122.8 883.9,121.8 888.7,118.1 893.5,122.2 898.4,118.8 903.2,113.0 908.0,112.4 912.9,115.1 917.7,114.1 922.5,110.3 927.3,114.5 932.2,111.1 937.0,105.3 941.8,104.7 946.7,107.4 951.5,106.4 956.3,102.6 961.2,106.8 966.0,103.4" fill="none" stroke="#00609c" stroke-width="3.4" stroke-linejoin="round"/>
+</g>
+</svg>

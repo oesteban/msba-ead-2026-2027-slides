@@ -26,8 +26,15 @@
 .section-mark.part .parts span.now { border-color: var(--accent); background: var(--accent); color: #fff; font-weight: 700; }
 /* an outline that names its parts only: larger type */
 .cards.steps.names .card p { font-size: 1.4em; }
-/* a measure's formula, under its card's name */
-.duo .eq { display: block; font-weight: 700; color: var(--accent); margin: 0.1em 0 0.35em; }
+/* a measure's or a component's formula, under its card's name */
+.duo .eq, .trio .eq { display: block; font-weight: 700; color: var(--accent); margin: 0.1em 0 0.35em; }
+.trio .eq { font-size: 0.72em; line-height: 1.5; }
+/* a model written out above the cards that name its terms */
+.model-eq { display: block; font-size: 2em; font-weight: 700; text-align: center; color: var(--heading-color); margin: 0 0 0.5em; }
+.model-eq.long { font-size: 1.45em; }
+/* ARIMA's orders, read row by row */
+.terms table.orders { font-size: 1.15em; }
+.terms table.orders td:first-child { font-weight: 700; white-space: nowrap; }
 /* a centred slide (class: vcenter) centres its one body block under the title; the footnote and
    the phase thumbnail are pinned, but each leaves an empty paragraph that would count as a block */
 .remark-slide-content.vcenter > p:has(> .footnote, > .phase-thumb) { margin: 0; }
@@ -258,7 +265,7 @@ class: vcenter
 
 .fullw[
 <div class="trio">
-<div><b class="k">The M competitions</b>Since 1982, forecasters send in forecasts of real series, scored on the values held back: 3,003 series in 2000, 100,000 in 2018.</div>
+<div><b class="k">The M competitions</b>Run since 1982 by S. Makridakis and colleagues: forecasts of real series, scored on the values held back; 3,003 series in 2000, 100,000 in 2018.</div>
 <div><b class="k">1,045 monthly series</b>Of the M3 competition: the last value adjusted for the season beat <span class="num">half</span> the machine-learning methods.</div>
 <div class="lit"><b class="k">M4, 2018</b>On 100,000 series, <span class="num">one</span> machine-learning entry in five beat that benchmark.</div>
 </div>
@@ -270,7 +277,7 @@ class: vcenter
 
 ???
 
-**In forecasting competitions, the simple forecasts are hard to beat.** Since 1982, the M competitions have asked forecasters to send in forecasts of real series and scored them on values the forecasters had not seen: 3,003 series in 2000, 100,000 in 2018. One benchmark is Naive 2, the last value adjusted for the season. On 1,045 monthly series of the 2000 competition, Naive 2 beat half of the machine-learning methods tested. In 2018, five machine-learning methods were sent in, and only one beat it. Hence the rule: set every method beside the simple forecasts, and if it does not beat them, it is not worth considering. So what can a model add?
+**In forecasting competitions, the simple forecasts are hard to beat.** Since 1982, the M competitions, run by Spyros Makridakis and colleagues, have asked forecasters to send in forecasts of real series and scored them on values the forecasters had not seen: 3,003 series in 2000, 100,000 in 2018. One benchmark is Naive 2, the last value adjusted for the season. On 1,045 monthly series of the 2000 competition, Naive 2 beat half of the machine-learning methods tested. In 2018, five machine-learning methods were sent in, and only one beat it. Hence the rule: set every method beside the simple forecasts, and if it does not beat them, it is not worth considering. So what can a model add?
 
 
 ---
@@ -284,7 +291,7 @@ class: vcenter
 
 ???
 
-**Part 2 is about the models, and what each adds to the simple forecasts.** Unlike the simple forecasts, each model has parameters it fits to the past. Exponential smoothing weighs the past by its age; ETS adds a trend and a season to it; ARIMA uses what stays autocorrelated in a series; deep models learn from many series at once. Between the mean, where every day counts alike, and the last value, where only one counts, is there a middle way?
+**Part 2 is about models: forecasts that learn their numbers from the past.** A simple forecast carries one number forward. A model fits parameters, numbers it chooses so that its forecasts would have matched the past, and so it can follow what the series does. We'll see two families. The first smooths the series: it keeps a running level, then adds a trend and a season. The second forecasts the series from its own past values and its past errors. Last, the deep networks of this morning, and what they need. Between the mean, where every day counts alike, and the last value, where only one counts, is there a middle way?
 
 
 ---
@@ -292,47 +299,185 @@ class: stepwise-svg, vcenter
 # Exponential smoothing
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/weights.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The weights of the last twelve days for alpha 0.8 and 0.2: they fall with age, faster for the larger alpha; then the formula of the forecast as a weighted sum of past values"></object></div>
-.step-4.lead.big.center[Exponential smoothing weights the past less, the older it is.]
+<div class="step-1"><object type="image/svg+xml" data="images/smooth.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Six weeks of daily rentals to 30 April 2011, their smoothed level for alpha 0.8, which chases each day, and for alpha 0.2, which moves slowly, each with its flat forecast; then the update formula"></object></div>
+.step-5.lead.big.center[Exponential smoothing moves a running level part way toward each new value.]
 ]
 
-.footnote[R. J. Hyndman and G. Athanasopoulos (2021), chapter 8 and section 8.1; S. Makridakis et al. (2018), section 5.]
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 8.1; S. Makridakis et al. (2018), section 5. Data: H. Fanaee-T (2013), UCI, .lic[CC BY 4.0].]
 
 ???
 
-**Exponential smoothing weights the past less, the older it is.** Its forecast is a weighted average of all past days: the last day gets a weight α, the day before α(1 − α), and each day further back is multiplied by 1 − α again. The bars show α = 0.8, where the weights fall fast, and α = 0.2, where old days still count. At α = 1, the forecast is the last value; with α near 0, it is almost the mean. The one parameter, α, is fitted to the series. Brown, Holt and Winters published it in the late 1950s, and Brown forecast with it the inventory demand of thousands of items in navy shipyards. Its forecast is a flat line: what about a trend, or a season?
+**Exponential smoothing moves a running level part of the way toward each new value.** A day's rentals are the series' level plus that day's noise, from rain to holidays, and a forecast wants the level. The mean keeps every old day; the last value keeps today's noise. Smoothing keeps a level ℓ instead: each day, it moves a fraction α of the way toward the new value, and the forecast for every day ahead is the last level. With α = 0.8 the level chases each day and forecasts 5,146; with α = 0.2 it moves slowly, ignores most of the noise, and forecasts 4,230. The idea came from inventory control in the 1950s: Brown forecast the demand for thousands of items in navy shipyards, and a running level needs only one number per item. How much does each past day count in that level?
 
 
 ---
 class: stepwise-svg, vcenter
-# ETS
+# Weights that fall with age
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/ets.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three exponential smoothing forms on the same rentals: a flat forecast, a forecast with a trend, and one with a trend and a weekly season; the form chosen by the AIC"></object></div>
-.step-5.lead.big.center[ETS chooses how its error, trend and season enter the forecast.]
+<div class="step-1"><object type="image/svg+xml" data="images/weights.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The weights of the last twelve days for alpha 0.8 and 0.2: they fall with age, faster for the larger alpha; then the formula of the forecast as a weighted sum of past values"></object></div>
+.step-4.lead.big.center[The level is a weighted average of past days, whose weights fall with age.]
+]
+
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 8.1.]
+
+???
+
+**The level is a weighted average of all past days, whose weights fall with age.** Unroll the update, and the last day weighs α, the day before α(1 − α), the one before α(1 − α)², each day further back multiplied again by 1 − α: the weights fall exponentially, which gives the method its name. With α = 0.8, the last day takes 80% of the weight and a week ago almost nothing; with α = 0.2, old days still count. At α = 1, all the weight is on the last day: the naive forecast. With α near 0, the weights are almost equal: close to the mean. The method fits α to the series, choosing the value whose one-step forecasts missed least in the past. But its forecast is a flat line: what about a series with a trend, or a weekly season?
+
+
+---
+class: vcenter
+# How ETS works
+
+.fullw[
+.model-eq[ŷ<sub>T+h</sub> = ℓ<sub>T</sub> + h b<sub>T</sub> + s<sub>T+h−7</sub>]
+
+<div class="trio">
+<div><b class="k">Level ℓ</b><span class="eq">ℓ<sub>t</sub> = α (y<sub>t</sub> − s<sub>t−7</sub>) + (1 − α)(ℓ<sub>t−1</sub> + b<sub>t−1</sub>)</span>The series without its season, smoothed as before.</div>
+<div><b class="k">Trend b</b><span class="eq">b<sub>t</sub> = β (ℓ<sub>t</sub> − ℓ<sub>t−1</sub>) + (1 − β) b<sub>t−1</sub></span>The slope, the level's change per day, smoothed the same way: Holt, 1957.</div>
+<div><b class="k">Season s</b><span class="eq">s<sub>t</sub> = γ (y<sub>t</sub> − ℓ<sub>t−1</sub> − b<sub>t−1</sub>) + (1 − γ) s<sub>t−7</sub></span>Each weekday's gap from the level, smoothed week by week: Winters, 1960.</div>
+</div>
+
+.lead.big.center[ETS, for Error, Trend and Seasonal, smooths a level, a trend and a season, and adds them up.]
+]
+
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), sections 8.2, 8.3 and 8.5: the additive Holt-Winters method, period 7.]
+
+???
+
+**ETS, for Error, Trend and Seasonal, smooths a level, a trend and a season, and adds them up.** Simple smoothing forecasts a flat line, which misses a series that grows or repeats a week. In 1957, Holt added a trend, b: the slope, how much the level changes per day, smoothed like the level with its own parameter β. In 1960, Winters added a season, s: each weekday's gap from the level, smoothed week by week with γ. Every day, each part moves part of the way toward what the new value says. The forecast h days ahead is the last level, plus h times the slope, plus that weekday's gap. Written with an error term, each such method becomes a statistical model, and three letters name its form. Which form should a series get?
+
+
+---
+class: stepwise-svg, vcenter
+# Choosing an ETS form
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/ets.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three exponential smoothing forms on the same rentals: a flat forecast, a forecast with a trend, and one with a trend and a weekly season; the form chosen by Akaike's information criterion"></object></div>
+.step-5.lead.big.center[A criterion, the AIC, picks which error, trend and season a series gets.]
 ]
 
 .footnote[R. J. Hyndman and G. Athanasopoulos (2021), sections 8.4 to 8.6; R. J. Hyndman et al. (2002). Data: H. Fanaee-T (2013), UCI dataset 275, .lic[CC BY 4.0].]
 
 ???
 
-**ETS chooses how its error, trend and season enter the forecast.** ETS names each form of exponential smoothing by three letters. The error is A, additive, or M, multiplicative; the trend N, none, A, or damped, flattening further ahead; the season N, A or M, as with the seasons of *Reading a time series*. ETS(A,N,N) is the simple smoothing we just saw. On the same rentals, ETS(A,A,N) adds a trend, and ETS(A,A,A) a weekly season. More parts fit the past better, with more parameters. The AIC, Akaike's information criterion, rewards the fit and charges each parameter, and the lowest score wins. Chosen this way, ETS forecast about as accurately as the best methods of two M competitions. ETS describes a trend and a season: could a model describe the autocorrelation instead?
+**A criterion, the AIC, picks which error, trend and season a series gets.** The letters name the form. The error is A, additive, or M, multiplicative; the trend N, none, A, or damped, flattening further ahead; the season N, A or M, as the seasons of *Reading a time series* were. The error term turns a smoothing method into a statistical model: it says how far the next value may fall from the forecast, so each form can be scored against the data. On the same rentals, ETS(A,N,N) is simple smoothing, ETS(A,A,N) adds a trend, ETS(A,A,A) a weekly season. More parts always fit the past better, so Akaike's information criterion, the AIC, charges each parameter, and the lowest wins. Chosen this way, ETS forecast about as well as the best methods of two M competitions. Could a model forecast from the autocorrelation instead?
+
+
+---
+class: vcenter
+# How ARIMA works
+
+.fullw[
+.need[**ARIMA**: AutoRegressive Integrated Moving Average, made popular by Box and Jenkins in 1970.]
+
+.model-eq.long[y′<sub>t</sub> = c + φ<sub>1</sub>y′<sub>t−1</sub> + … + φ<sub>p</sub>y′<sub>t−p</sub> + θ<sub>1</sub>ε<sub>t−1</sub> + … + θ<sub>q</sub>ε<sub>t−q</sub> + ε<sub>t</sub>]
+
+<div class="trio">
+<div><b class="k">AR: autoregressive</b>A regression of the series on its own past values, p of them, each with a weight φ.</div>
+<div><b class="k">I: integrated</b>The model works on the series differenced d times, y′; integration, the reverse, turns its forecasts back into levels.</div>
+<div><b class="k">MA: moving average</b>A weighted sum of the last q forecast errors ε, each weighted by θ; not the moving average that smooths a series.</div>
+</div>
+
+.lead.big.center[ARIMA forecasts a series from its own past values and past errors, after differencing.]
+]
+
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), sections 9.3 to 9.5 and 9.12.]
+
+???
+
+**ARIMA, for AutoRegressive Integrated Moving Average, forecasts a series from its own past values and its past errors, after differencing.** Box and Jenkins made it popular in 1970. Where smoothing describes a level, a trend and a season, ARIMA describes the autocorrelation: how each value relates to the ones before. Integrated: the model works on differences, the changes of *Reading a time series*, taken d times until they no longer drift; integration, the reverse, adds the forecast changes back up into levels. Autoregressive: the next change is a regression on the last p changes, each with a weight φ. Moving average: it also corrects itself with the last q forecast errors ε, the gaps between past forecasts and what happened, each weighted by θ. This moving average is not the one that drew the rentals' trend. How are p, d and q chosen?
 
 
 ---
 class: stepwise-svg, vcenter
-# ARIMA
+# ARIMA's orders
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/arima.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="ARIMA's three parts, past values, differences and past forecast errors; ARIMA(0,1,0) is the random walk; AutoARIMA searches the orders"></object></div>
-.step-4.lead.big.center[ARIMA forecasts from what stays autocorrelated after differencing.]
+<div class="step-1"><object type="image/svg+xml" data="images/arima.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="ARIMA's three parts, past values, differences and past forecast errors; ARIMA(0,1,0) is the random walk; AutoARIMA searches the orders by the AICc"></object></div>
+.step-4.lead.big.center[AutoARIMA chooses the orders p, d and q by itself.]
 ]
 
-.footnote[R. J. Hyndman and G. Athanasopoulos (2021), sections 9.5 to 9.7, 9.12 and table 9.1; S. Makridakis et al. (2018), section 5; R. J. Hyndman and Y. Khandakar (2008).]
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), sections 9.5 to 9.7 and table 9.1; R. J. Hyndman and Y. Khandakar (2008).]
 
 ???
 
-**ARIMA forecasts from what stays autocorrelated after differencing.** Its name lists three parts. I is the differencing, d times, until the series is stationary. AR forecasts from the last p values of that differenced series; MA, from the last q forecast errors, an error being the gap between a past forecast and what happened. With one difference and nothing else, ARIMA(0,1,0) without a constant, the forecast is the last value: the random walk. AutoARIMA chooses these orders, p, d and q: unit-root tests, tests of whether a series needs differencing, set d; then it keeps the p and q with the lowest AICc, the AIC corrected for short series. Dataiku also reports P, D and Q, the same three orders for the weekly season. Box and Jenkins popularised the method in 1970. Each model so far fits one series at a time: what if a firm has many?
+**AutoARIMA chooses the orders p, d and q by itself.** A model is named ARIMA(p,d,q): p past values, d differences, q past errors. With one difference and nothing else, ARIMA(0,1,0), the forecast change is zero, so the forecast is the last value: the random walk. To choose, AutoARIMA first sets d with unit-root tests, which test whether a series still drifts and needs one more difference. Then it tries several p and q and keeps the pair with the lowest AICc, the AIC corrected for short series. Dataiku also reports P, D and Q, the same three orders for the weekly season. Orders are numbers on a screen: what does each one do to the forecast?
+
+
+---
+class: stepwise-svg, vcenter
+# What d says: the long run
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/arima-long.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Four ARIMA forecasts of the rentals six weeks ahead: with no difference and a constant, the mean; with one past value, a decay back to the mean; with one difference, the last value held; with a drift, a straight line"></object></div>
+.step-5.lead.big.center[With d = 0 the forecast returns to the mean; with d = 1 it holds the last level.]
+]
+
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 9.5; fitted with statsmodels. Data: H. Fanaee-T (2013), UCI, .lic[CC BY 4.0].]
+
+???
+
+**With d = 0 the forecast returns to the mean; with d = 1 it holds the last level.** Each panel fits one ARIMA to the same rentals, to 30 April 2011, and forecasts six weeks. With no difference and only a constant, ARIMA(0,0,0) forecasts the mean of the past, 2,044. Add one past value, ARIMA(1,0,0), and the forecast starts near the last day, at 4,434, then decays back to the mean: a model of the level without a difference expects the series to return to its mean. With one difference, ARIMA(0,1,0) holds the last value, 5,312; add a constant, the drift, and the forecast climbs 36 rentals a day along a straight line. So d decides the long run, where the forecast settles. What do p and q add in the days just ahead?
+
+
+---
+class: stepwise-svg, vcenter
+# What p and q say: the short run
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/arima-short.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Three ARIMA forecasts with one difference: the last value; with one past change, part of the last jump undone, then flat; with one past error, a smoothed level, flat"></object></div>
+.step-4.lead.big.center[p and q shape the first days ahead; then the forecast settles.]
+]
+
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), sections 9.5 and 9.10; fitted with statsmodels. Data: H. Fanaee-T (2013), UCI dataset 275, .lic[CC BY 4.0].]
+
+???
+
+**p and q shape the first days ahead; then the forecast settles.** All three panels have one difference. Without p or q, ARIMA(0,1,0) forecasts the last value, 5,312. With one past change, ARIMA(1,1,0), the fitted weight is φ = −0.37: after a jump, the next change tends to go the other way, so the forecast takes back part of the last day's rise and settles at 5,120 within days. With one past error, ARIMA(0,1,1), θ = −0.73: each forecast corrects the last by part of its error, so the forecast is a smoothed level, 4,427, held flat. That is simple exponential smoothing, with α = 1 + θ = 0.27: the two families meet here. And a weekly season: which orders carry it?
+
+
+---
+class: stepwise-svg, vcenter
+# The seasonal orders: P, D, Q
+
+.fullw[
+<div class="step-1"><object type="image/svg+xml" data="images/arima-season.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Two seasonal ARIMA forecasts of the rentals: with one seasonal difference and nothing else, last week repeated; with seasonal and non-seasonal errors, a weekly pattern that keeps updating"></object></div>
+.step-3.lead.big.center[The seasonal orders P, D and Q do the same with the same day of past weeks.]
+]
+
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 9.9; fitted with statsmodels. Data: H. Fanaee-T (2013), UCI dataset 275, .lic[CC BY 4.0].]
+
+???
+
+**The seasonal orders P, D and Q do the same with the same day of past weeks.** A seasonal ARIMA adds a second set of orders, written after the first with the season's period, here 7 days. D counts seasonal differences, the change from the same day a week before; P and Q use past values and past errors one, two or more weeks back. With one seasonal difference and nothing else, ARIMA(0,0,0)(0,1,0)₇, the forecast is last week, repeated: the seasonal naive of the simple forecasts. Add q = 1 and Q = 1, and the weekly pattern keeps being corrected by the errors; with a difference of each kind, it can also drift, here upward. When Dataiku reports P, D and Q of 0, the model has found no weekly season to use. How do we read a model's orders at a glance?
+
+
+---
+class: vcenter
+# Reading ARIMA's orders
+
+.fullw.terms[
+<table style="width: 100%;" class="orders">
+<tr><th>Orders</th><th>The forecast</th><th>The simple forecast it equals</th></tr>
+<tr><td>(0,0,0) with a constant</td><td>the mean of the past</td><td>the mean</td></tr>
+<tr><td>(0,1,0)</td><td>the last value, held</td><td>the last value, the naive forecast</td></tr>
+<tr><td>(0,1,0) with a drift</td><td>a straight line from the last value</td><td>the drift line</td></tr>
+<tr><td>(0,0,0)(0,1,0)<sub>7</sub></td><td>last week, repeated</td><td>the same day a week before</td></tr>
+<tr><td>(0,1,1)</td><td>a smoothed level, held</td><td>simple exponential smoothing</td></tr>
+<tr><td>(p,0,q)</td><td>a few days of moves, then back to the mean</td><td>none</td></tr>
+<tr><td>(p,1,q)</td><td>a few days of moves, then a level held</td><td>none</td></tr>
+</table>
+
+.lead.big.center[The simple forecasts are ARIMA's simplest members.]
+]
+
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), sections 9.5, 9.9 and 9.10, table 9.1.]
+
+???
+
+**The simple forecasts are ARIMA's simplest members.** Read the middle order, d, for the long run: 0 brings the forecast back to the mean, 1 holds the last level. A constant with d = 1 turns the held level into a straight line. A seasonal D of 1 repeats last week. p and q only shape the first days. Four rows are the simple forecasts of the first part: the mean, the last value, the drift line and the same day a week before; and ARIMA(0,1,1) is simple exponential smoothing. So when AutoARIMA returns ARIMA(0,1,0) with seasonal orders of 0, it has found nothing better than the last value. Smoothing and ARIMA fit one series at a time: what if a firm has thousands?
 
 
 ---
@@ -387,14 +532,14 @@ class: stepwise-svg, vcenter
 
 .fullw[
 <div class="step-1"><object type="image/svg+xml" data="images/leak.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="A sketch: a seven-day average at the last training day reads three test days"></object></div>
-.step-4.lead.big.center[A step computed on the whole series carries the test days into training.]
+.step-4.lead.big.center[A preparation computed on the whole series carries the test days into training.]
 ]
 
 .footnote[H. Hewamalage et al. (2023), section 3.4. A sketch.]
 
 ???
 
-**A step computed on the whole series carries the test days into training.** Leakage, in *Beyond binary classification*, was the use of information a model will not have when it is used; in a series, it comes in through time. In the sketch, day 27 is the last training day, and a seven-day average centred on it reads days 28 to 30, in the test. A model trained on that average has seen the test. Smoothing, decomposing or scaling the whole series before the split leaks in the same way. So every step is fitted on each fold's training days only, then applied to its test days. Each fold now gives one error per test day: how do we turn them into one score?
+**A preparation computed on the whole series carries the test days into training.** Leakage, in *Beyond binary classification*, was the use of information a model will not have when it is used; in a series, it comes in through time. In the sketch, day 27 is the last training day, and a seven-day average centred on it reads days 28 to 30, in the test. A model trained on that average has seen the test. Smoothing, decomposing or scaling the whole series before the split leaks in the same way. So every preparation is fitted on each fold's training days only, then applied to its test days. Each fold now gives one error per test day: how do we turn them into one score?
 
 
 ---
@@ -423,14 +568,14 @@ class: stepwise-svg, vcenter
 
 .fullw[
 <div class="step-1"><object type="image/svg+xml" data="images/mape.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The week of 28 October 2012: rentals fell to 22 on the 29th; the last value's errors in rentals and in percent, MAPE above 5,000%"></object></div>
-.step-4.lead.big.center[MAPE divides each error by the day's value, so it explodes near zero.]
+.step-4.lead.big.center[MAPE, the mean absolute percentage error, explodes near zero.]
 ]
 
 .footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 5.8; H. Fanaee-T and J. Gama (2013), Table 4. Data: H. Fanaee-T (2013), UCI dataset 275, .lic[CC BY 4.0].]
 
 ???
 
-**MAPE divides each error by the day's value, so it explodes near zero.** Take the week of Hurricane Sandy, 28 October to 3 November 2012, forecast by the last value before it, 7,852 rentals on 27 October. In rentals, the MAE is 3,836 and the RMSE 4,449, higher because the storm days missed most. But errors in rentals cannot compare series in different units, rentals and index points. A percentage error divides each error by the day's value, and MAPE is their mean. On the 29th only 22 bikes were rented, so a miss of 7,830 becomes 35,591%, and the week's MAPE 5,206%. On a day with none, it would be infinite. How can a measure be free of units without dividing by the day's value?
+**MAPE, the mean absolute percentage error, explodes near zero.** Take the week of Hurricane Sandy, 28 October to 3 November 2012, forecast by the last value before it, 7,852 rentals on 27 October. In rentals, the MAE is 3,836 and the RMSE 4,449, higher because the storm days missed most. But errors in rentals cannot compare series in different units, rentals and index points. A percentage error divides each error by the day's value, and MAPE is their mean. On the 29th only 22 bikes were rented, so a miss of 7,830 becomes 35,591%, and the week's MAPE 5,206%. On a day with none, it would be infinite. How can a measure be free of units without dividing by the day's value?
 
 
 ---
@@ -439,14 +584,14 @@ class: stepwise-svg, vcenter
 
 .fullw[
 <div class="step-1"><object type="image/svg+xml" data="images/mase.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The scale: the mean change from one day to the next in training, 709 rentals; the hurricane week's error divided by it, MASE 5.41"></object></div>
-.step-4.lead.big.center[MASE scales the error by the last value's one-step error in training.]
+.step-4.lead.big.center[MASE, the mean absolute scaled error, scales by the last value's one-step error.]
 ]
 
 .footnote[R. J. Hyndman and A. B. Koehler (2006), sections 3 and 4; R. J. Hyndman and G. Athanasopoulos (2021), section 5.8.]
 
 ???
 
-**MASE scales the error by the last value's one-step error in training.** Its scale comes from the training days: the mean size of the change from one day to the next, which is how far the last value missed, on average, one day ahead. Over the 665 changes up to 27 October 2012, that is 709 rentals. The hurricane week's MAE, 3,836, divided by 709 gives a MASE of 5.41. Below 1, a forecast misses less than the last value did one day ahead in training. A week ahead is harder than a day, so forecasts several steps ahead typically score above 1. Rentals or index points, the scale cancels the unit. Each fold gives one MASE: what does the ± over the folds tell us?
+**MASE, the mean absolute scaled error, divides the error by the last value's one-step error in training.** Its scale comes from the training days: the mean size of the change from one day to the next, which is how far the last value missed, on average, one day ahead. Over the 665 changes up to 27 October 2012, that is 709 rentals. The hurricane week's MAE, 3,836, divided by 709 gives a MASE of 5.41. Below 1, a forecast misses less than the last value did one day ahead in training. A week ahead is harder than a day, so forecasts several steps ahead typically score above 1. Rentals or index points, the scale cancels the unit. Each fold gives one MASE: what does the ± over the folds tell us?
 
 
 ---
@@ -504,7 +649,7 @@ class: stepwise-svg, vcenter
 .beside-thumb[
 <div class="facts">
 <div><span class="num">256</span>trading days of the Dow Jones, Hands-on 6's file: the target is <code>Close</code>.</div>
-<div><span class="num">117</span>of its 373 calendar days have no close: the weekends and 11 holidays.</div>
+<div><span class="num">117</span>of its 373 calendar days have no close; Dataiku forecasts on equally spaced time steps, so they must be filled.</div>
 <div><span class="num">731</span>days of bike rentals for the tail: the target is <code>Casual</code>.</div>
 </div>
 
@@ -536,7 +681,7 @@ class: stepwise-svg, vcenter
 
 ???
 
-**Every model is read beside Trivial identity, on the same folds.** Does any model forecast next week's closes better than the last close? The session gathers this afternoon's choices: a one-day step filled with the previous value, a horizon of 7, ten time-ordered folds with an offset, and MASE. Dataiku's two baselines learn no parameter and train first: Trivial identity, which should repeat the last value, and Seasonal naive, the same day a week before. Then AutoARIMA and ETS train on the same folds, each set beside Trivial identity. Now to Dataiku, with the sheet: steps 1 to 3 set up the session and train the baselines, then the models; panel 4 runs the same session on the casual riders; panel 5 decides what the team is told. Does any model beat Trivial identity by more than its ±?
+**Every model is read beside Trivial identity, on the same folds.** Does any model forecast next week's closes better than the last close? The session gathers this afternoon's choices: a one-day step filled with the previous value, a horizon of 7, ten time-ordered folds with an offset, and MASE. Dataiku's two baselines learn no parameter and train first: Trivial identity, the last value, and Seasonal naive, the same day a week before. Then AutoARIMA and ETS train on the same folds, each set beside Trivial identity. Now to Dataiku, with the sheet: steps 1 to 3 set up the session and train the baselines, then the models; panel 4 runs the same session on the casual riders; panel 5 decides what the team is told. Does any model beat Trivial identity by more than its ±?
 
 
 ---

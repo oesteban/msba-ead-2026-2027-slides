@@ -43,8 +43,8 @@ from statsmodels.tsa.stattools import kpss
 warnings.filterwarnings("ignore")
 HERE = Path(__file__).resolve().parent
 H, K, SEASON = 7, 10, 7          # horizon in days, folds, weekly season
-ORIGIN = "2011-04-30"            # slides 2 and 5: the last training day of the drawn forecasts
-SANDY = "2012-10-27"             # slides 11 and 12: the last training day before the hurricane week
+ORIGIN = "2011-04-30"            # the last training day of every drawn forecast
+SANDY = "2012-10-27"             # the last training day before the hurricane week
 
 
 # --- forecasts ----------------------------------------------------------------------
@@ -163,23 +163,33 @@ def bike(d: pd.DataFrame) -> dict:
     out = pd.DataFrame({"rentals": d.rentals})
     out.index = out.index.strftime("%Y-%m-%d")
     out.to_csv(HERE / "bike.csv", index_label="date")
-    # slide 2: the four simple forecasts, two weeks from ORIGIN
+    # the four simple forecasts, two weeks from ORIGIN
     tr = y.loc[:ORIGIN]
     simple = {k: [round(float(v), 1) for v in f(tr, 14)]
               for k, f in (("mean", f_mean), ("naive", f_naive), ("snaive", f_snaive), ("drift", f_drift))}
-    # slide 5: three ETS forms on the same history, their point forecasts only
+    # three ETS forms on the same history, their point forecasts only
     ets = {}
     for key, args in (("ANN", ("add", None, False, None)), ("AAN", ("add", "add", False, None)),
                       ("AAA", ("add", "add", False, "add"))):
         ets[key] = [round(float(v), 1) for v in ets_fit(tr, *args).forecast(14)]
-    # slides 11 and 12: the hurricane week, forecast by the last value
+    # what ARIMA's orders do to a forecast: the same history, 42 days ahead, each order fitted
+    arima = {}
+    for key, order, trend, seas in (("000c", (0, 0, 0), "c", (0, 0, 0, 0)), ("100c", (1, 0, 0), "c", (0, 0, 0, 0)),
+                                    ("010", (0, 1, 0), "n", (0, 0, 0, 0)), ("010d", (0, 1, 0), "t", (0, 0, 0, 0)),
+                                    ("110", (1, 1, 0), "n", (0, 0, 0, 0)), ("011", (0, 1, 1), "n", (0, 0, 0, 0)),
+                                    ("000s010", (0, 0, 0), "n", (0, 1, 0, SEASON)),
+                                    ("011s011", (0, 1, 1), "n", (0, 1, 1, SEASON))):
+        m = ARIMA(tr.to_numpy(), order=order, trend=trend, seasonal_order=seas).fit()
+        arima[key] = {"forecast": [round(float(v), 1) for v in m.forecast(42)],
+                      "params": {k: round(float(v), 3) for k, v in zip(m.param_names, m.params)}}
+    # the hurricane week, forecast by the last value
     tr2 = y.loc[:SANDY]
     te = y.loc[SANDY:].iloc[1:8]
     e = te.to_numpy() - tr2.iloc[-1]
     steps = np.abs(np.diff(tr2.to_numpy()))
     return {
         "days": len(d), "first": str(d.index.min().date()), "last": str(d.index.max().date()),
-        "origin": ORIGIN, "simple": simple, "ets": ets,
+        "origin": ORIGIN, "simple": simple, "ets": ets, "arima": arima,
         "sandy": {"origin": SANDY, "last": int(tr2.iloc[-1]), "train_days": len(tr2),
                   "days": [str(t.date()) for t in te.index], "actual": [int(v) for v in te],
                   "abs_error": [int(round(abs(v))) for v in e],
@@ -222,7 +232,7 @@ def main(src: Path, dj: Path) -> int:
     (HERE / "numbers.json").write_text(json.dumps(numbers, indent=1) + "\n", encoding="utf-8")
     for k, v in numbers.items():
         print(k, {a: (b if not isinstance(b, dict) else {c: e for c, e in b.items() if c != "folds_mase"})
-                  for a, b in v.items() if not (k == "bike" and a in ("simple", "ets", "sandy"))})
+                  for a, b in v.items() if not (k == "bike" and a in ("simple", "ets", "arima", "sandy"))})
     return 0
 
 

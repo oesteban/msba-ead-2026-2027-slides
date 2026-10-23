@@ -21,7 +21,7 @@
 <text x="70" y="250" font-size="19" font-weight="normal" text-anchor="start" fill="#1c2e36">the random walk: its forecast is the last value</text>
 </g>
 <g data-step="3">
-<text x="40" y="320" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36">AutoARIMA: it chooses the differences, tries the other orders, keeps the lowest AICc</text>
+<text x="40" y="320" font-size="18" font-weight="bold" text-anchor="start" fill="#1c2e36">AutoARIMA: tests set d, then it keeps the p and q with the lowest AICc, the AIC for short series</text>
 <rect class="accent-a-light-fill accent-stroke" x="40" y="340" width="135" height="46" rx="6" fill="#8cb3cf" stroke="#00609c" stroke-width="2"/>
 <text x="107" y="370" font-size="18" font-weight="bold" text-anchor="middle" fill="#1c2e36">(0,1,0)</text>
 <rect x="195" y="340" width="135" height="46" rx="6" fill="#ffffff" stroke="#9aa4a8" stroke-width="1.2"/>
