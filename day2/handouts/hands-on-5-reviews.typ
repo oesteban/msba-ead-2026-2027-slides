@@ -8,9 +8,8 @@
 // logistic regression on TF-IDF with five folds grouped by film, reads it at
 // the care team's threshold of 0.2 and reads its heaviest terms. From
 // panel 4 the group scores Pang and Lee's reviews with its
-// model, counts its errors at the same costs as on IMDb, then decides.
-// Dataiku's Sentiment Analysis plugin fails on the course server (its code
-// environment lacks fasttext, 23.10.2026), so the sheet does not use it. The flow follows the previous teacher's 2025 lab.
+// model and with Dataiku's sentiment plugin, counts each one's errors at the
+// same costs, then decides. The flow follows the previous teacher's 2025 lab.
 //
 // The data: imdb-reviews.csv (a subset of Maas et al. 2011) and
 // polarity-reviews.csv (Pang and Lee 2004, polarity dataset v2.0), whose
@@ -22,8 +21,9 @@
 // variables, Sentiment analysis) and the previous teacher's 2025 captures of
 // the course server. AUTHORING.md F1: to be run on the course server and
 // corrected before printing, in particular whether Simplify text keeps "not",
-// whether DSS takes 1 as the positive class and where the K-fold group column
-// is set. Server: DSS 15.0.0. Verified on:
+// whether DSS takes 1 as the positive class, where the K-fold group column is
+// set, and the plugin's output column. The plugin failed on 23.10.2026 for want
+// of fasttext; C. Gaspoz fixed its code environment the same day. Server: DSS 15.0.0. Verified on:
 // DSS ____ , __.__.2026.
 //
 // Handed out, kept by the group, never collected: it carries no name.
@@ -40,8 +40,8 @@
 *The case.* A streaming service receives more reviews than its care team can
 read. The team wants the unhappy ones first: missing an unhappy review costs it
 four times as much as reading a happy one by mistake. Can a model trained on
-2,000 labelled reviews pick the reviews to read? And does it do as well on
-2,000 reviews from another source?
+2,000 labelled reviews pick the reviews to read? And would Dataiku's ready-made
+sentiment plugin do as well, on 2,000 reviews from another source?
 
 #v(4pt)
 
@@ -136,25 +136,25 @@ four times as much as reading a happy one by mistake. Can a model trained on
 
 #v(5pt)
 
-#panel("4 · Score reviews from another collection")[
+#panel("4 · Score new reviews with your model and with the plugin")[
   #step(1, "Prepare the new reviews alike")[Upload `polarity-reviews.csv`; copy the Prepare recipe of step 1 onto it, so that it gets its own `TextSimple`; *Run*.]
   #v(2pt)
   #step(2, "Score them with your model")[In the analysis: #dss("Deploy"). On the prepared polarity reviews: #dss("+ Recipe", "Score") with that model, then *Run*. Is the threshold applied 0.2? #rule(1.4cm)]
   #v(2pt)
-  #step(3, "Count its errors")[On the scored dataset, a Prepare step *Formula* into `cell`: `if(prediction == 1, if(unhappy == 1, "TP", "FP"), if(unhappy == 1, "FN", "TN"))`; then count the values of `cell`.]
+  #step(3, "Score them with the plugin")[On `polarity-reviews.csv`, the raw `Text`: #dss("+ Recipe", "Plugins", "Sentiment Analysis"), then *Run*.]
+  #v(2pt)
+  #step(4, "Count each one's errors")[On each scored dataset, a Prepare step *Formula* into `cell`, such as `if(prediction == 1, if(unhappy == 1, "TP", "FP"), if(unhappy == 1, "FN", "TN"))`, with the plugin's own output column for its rows; then count the values of `cell`.]
   #table(
-    columns: (1.6fr, 1fr, 1fr, 1fr, 1fr, 1.3fr, 1.5fr), inset: 4pt, stroke: hair,
-    [*reviews*], [*TP*], [*FP*], [*FN*], [*TN*], [*cost 4 × FN + FP*], [*cost per 100 reviews*],
-    [IMDb (step 3.2, 0.2)], [], [], [], [], [], [],
-    [Pang and Lee], [], [], [], [], [], [],
+    columns: (1.6fr, 1fr, 1fr, 1fr, 1fr, 1.6fr), inset: 4pt, stroke: hair,
+    [*scorer*], [*TP*], [*FP*], [*FN*], [*TN*], [*cost 4 × FN + FP*],
+    [your model], [], [], [], [], [],
+    [the plugin], [], [], [], [], [],
   )
-  Does your model carry to the other collection? What differs between the two (data card)?
-  #writing(1)
 ]
 
 #v(5pt)
 
 #panel("5 · Decide")[
-  Would you give your model to the care team, and at which threshold? What would you measure first on the team's own reviews before it goes live?
+  Which scorer would you give the care team, your model or the plugin, and why? What would you measure first on the team's own reviews before it goes live?
   #writing(2)
 ]
