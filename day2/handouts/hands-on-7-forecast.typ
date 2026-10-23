@@ -91,7 +91,7 @@ same days.
 #v(5pt)
 
 #panel("Step 1 · Set up the forecast")[
-  #step(1, "Open a forecasting analysis")[On the dated Dow Jones dataset of Hands-on 6: #dss("Lab", "Time Series Forecasting"), target `Close`, time variable `Date`, a single time series; *Create*.]
+  #step(1, "Open a forecasting analysis")[On the Dow Jones dataset uploaded in Hands-on 6: #dss("Lab", "Time Series Forecasting"), target `Close`, time variable `Date`, a single time series; *Create*.]
   #v(2pt)
   #step(2, "Set the step and the horizon")[#dss("Design", "General settings"): *Time step* `1` *Day*; *Forecast horizon* `7`; *Skipped time steps in evaluation* `0`.]
   #v(2pt)
@@ -128,7 +128,7 @@ same days.
 #v(5pt)
 
 #panel("4 · Run the same session on the casual riders")[
-  #step(1, "Open the riders' forecast")[On `bike-rentals.csv` (parse `Date` as in Hands-on 6 if needed): #dss("Lab", "Time Series Forecasting"), target `Casual`, time variable `Date`; the settings of steps 1.2 to 1.4.]
+  #step(1, "Open the riders' forecast")[On the bike rentals dataset uploaded in Hands-on 6: #dss("Lab", "Time Series Forecasting"), target `Casual`, time variable `Date`; the settings of steps 1.2 to 1.4.]
   #v(2pt)
   #step(2, "Train the baselines and ETS")[#dss("Design", "Algorithms"): *Trivial identity*, *Seasonal naive* (season length `7`) and *ETS*; *Train*.]
   #table(
