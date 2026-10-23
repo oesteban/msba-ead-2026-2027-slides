@@ -133,7 +133,7 @@ def ets() -> str:
              ("ETS(A,A,A)", "a trend and a weekly season", "AAA"))
     panels = [forecast_panel(10 + i * 330, 50, 320, 300, t, s, hist, b["ets"][k], (0, 7200), ticks)
               for i, (t, s, k) in enumerate(names)]
-    key = [label(500, 26, "the letters: error, trend, season; N none, A additive, M multiplicative", size=16,
+    key = [label(500, 26, "the letters: error A or M; trend N, A or damped; season N, A or M (N none, A additive, M multiplicative)", size=16,
                  anchor="middle", fill=INK)]
     aic = [text(500, 392, "The form is chosen by the AIC: a score that rewards the fit and charges each parameter",
                 size=18, weight="bold", fill=INK)]
