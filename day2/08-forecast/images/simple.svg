@@ -8,6 +8,7 @@
 <rect x="10" y="8" width="480" height="222" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
 <text x="30" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">The mean</text>
 <text x="30" y="62" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">of every day so far</text>
+<text class="accent-fill" x="472" y="42" font-size="18" font-weight="bold" text-anchor="end" fill="#00609c">ŷ<tspan baseline-shift='sub' font-size='14'>T+h</tspan> = ȳ</text>
 <line x1="70" y1="74" x2="70" y2="192" stroke="#9aa4a8" stroke-width="1.2"/>
 <line x1="64" y1="192.0" x2="70" y2="192.0" stroke="#9aa4a8" stroke-width="1.2"/>
 <text x="60" y="197.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
@@ -23,6 +24,7 @@
 <rect x="510" y="8" width="480" height="222" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
 <text x="530" y="40" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">The last value</text>
 <text x="530" y="62" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">the naive forecast</text>
+<text class="accent-fill" x="972" y="42" font-size="18" font-weight="bold" text-anchor="end" fill="#00609c">ŷ<tspan baseline-shift='sub' font-size='14'>T+h</tspan> = y<tspan baseline-shift='sub' font-size='14'>T</tspan></text>
 <line x1="570" y1="74" x2="570" y2="192" stroke="#9aa4a8" stroke-width="1.2"/>
 <line x1="564" y1="192.0" x2="570" y2="192.0" stroke="#9aa4a8" stroke-width="1.2"/>
 <text x="560" y="197.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
@@ -38,6 +40,7 @@
 <rect x="10" y="240" width="480" height="222" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
 <text x="30" y="272" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">The same day a week before</text>
 <text x="30" y="294" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">the seasonal naive forecast</text>
+<text class="accent-fill" x="472" y="274" font-size="18" font-weight="bold" text-anchor="end" fill="#00609c">ŷ<tspan baseline-shift='sub' font-size='14'>T+h</tspan> = y<tspan baseline-shift='sub' font-size='14'>T+h−7</tspan></text>
 <line x1="70" y1="306" x2="70" y2="424" stroke="#9aa4a8" stroke-width="1.2"/>
 <line x1="64" y1="424.0" x2="70" y2="424.0" stroke="#9aa4a8" stroke-width="1.2"/>
 <text x="60" y="429.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>
@@ -53,6 +56,7 @@
 <rect x="510" y="240" width="480" height="222" rx="8" fill="#f4f6f7" stroke="#c9cfd2" stroke-width="1.2"/>
 <text x="530" y="272" font-size="19" font-weight="bold" text-anchor="start" fill="#1c2e36">The drift line</text>
 <text x="530" y="294" font-size="15" font-weight="normal" text-anchor="start" fill="#556268">first day to last, extended</text>
+<text class="accent-fill" x="972" y="274" font-size="18" font-weight="bold" text-anchor="end" fill="#00609c">ŷ<tspan baseline-shift='sub' font-size='14'>T+h</tspan> = y<tspan baseline-shift='sub' font-size='14'>T</tspan> + h (y<tspan baseline-shift='sub' font-size='14'>T</tspan> − y<tspan baseline-shift='sub' font-size='14'>1</tspan>) / (T − 1)</text>
 <line x1="570" y1="306" x2="570" y2="424" stroke="#9aa4a8" stroke-width="1.2"/>
 <line x1="564" y1="424.0" x2="570" y2="424.0" stroke="#9aa4a8" stroke-width="1.2"/>
 <text x="560" y="429.0" font-size="13" font-weight="normal" text-anchor="end" fill="#556268">0</text>

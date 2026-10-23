@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" font-family="Inter, Arimo, Helvetica, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 460" font-family="Inter, Arimo, Helvetica, sans-serif">
 <!-- The weights simple exponential smoothing gives the last twelve days, α(1 - α)^k, for α = 0.8 and 0.2 (R. J. Hyndman and G. Athanasopoulos 2021, section 8.1). Drawn by Oscar Esteban, CC BY 4.0. -->
 <defs>
 <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c2e36"/></marker>
@@ -51,6 +51,7 @@
 <text x="279.1666666666667" y="369.0" font-size="14" font-weight="normal" text-anchor="middle" fill="#556268">11 days before</text>
 </g>
 <g data-step="3">
-<text x="500" y="400" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">α = 1: all the weight on the last day, the naive forecast;   α near 0: almost equal weights, close to the mean</text>
+<text class="accent-fill" x="500" y="400" font-size="24" font-weight="bold" text-anchor="middle" fill="#00609c">ŷ<tspan baseline-shift='sub' font-size='14'>T+1</tspan> = α y<tspan baseline-shift='sub' font-size='14'>T</tspan> + α(1 − α) y<tspan baseline-shift='sub' font-size='14'>T−1</tspan> + α(1 − α)² y<tspan baseline-shift='sub' font-size='14'>T−2</tspan> + …</text>
+<text x="500" y="442" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">α = 1: all the weight on the last day, the naive forecast;   α near 0: almost equal weights, close to the mean</text>
 </g>
 </svg>
