@@ -121,8 +121,10 @@ same days.
     [AutoARIMA], [], [], [],
     [ETS], [], [], [],
   )
-  #step(3, "Read AutoARIMA's orders")[On the AutoARIMA model: #dss("Model information", "ARIMA orders").]
-  p, d, q: #rule(2.4cm) #h(8pt) P, D, Q: #rule(2.4cm) #h(8pt) which simple forecast is that? #rule(3.2cm)
+  #step(3, "Read what AutoARIMA chose")[On the AutoARIMA model: #dss("Model information", "ARIMA orders"). As on slide 9 of *Forecasting a time series*: *d* counts the differences, *p* the past values and *q* the past forecast errors the model uses; *P*, *D* and *Q* are the same three for the weekly season.]
+  p, d, q: #rule(2.4cm) #h(8pt) P, D, Q: #rule(2.4cm)
+
+  With these orders, what does AutoARIMA forecast for tomorrow's close, and which baseline of step 2 forecasts the same? #rule(4.6cm)
 ]
 
 #v(5pt)
