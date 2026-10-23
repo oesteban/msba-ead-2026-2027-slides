@@ -97,36 +97,37 @@ def simple() -> str:
 
 # --- Part 2 -------------------------------------------------------------------------
 def weights() -> str:
-    """Exponential smoothing's weights: falling with age, faster when alpha is large; then its formula."""
-    W, H = 1000, 460
+    """Exponential smoothing's forecast as a weighted average of past days, the weights falling with age."""
+    W, H = 1000, 486
     out = []
-    for i, a in enumerate((0.8, 0.2)):
-        y0 = 30 + i * 175
+    for i, (a, colour, cls) in enumerate(((0.8, INK, ""), (0.2, ACCENT, "accent-fill"))):
+        y0 = 50 + i * 175
         fr = Frame(250, y0 + 20, 700, 120, (-0.5, 11.5), (0, 0.85))
-        g = [text(30, y0 + 70, f"α = {a}", size=24, weight="bold", anchor="start"),
+        g = [text(30, y0 + 70, f"α = {a}", size=24, weight="bold", anchor="start", fill=colour, cls=cls),
              label(30, y0 + 98, "the weight of each past day", size=15),
              line(fr.x0, fr.y(0), fr.x0 + fr.w, fr.y(0), color=GREY_INK, w=1.2, marker="")]
         for k in range(12):
             wgt = a * (1 - a) ** k
             x = fr.x(11 - k)
-            g.append(rect(x - 20, fr.y(wgt), 40, max(fr.y(0) - fr.y(wgt), 1), fill=ACCENT, stroke=None, rx=2,
-                          cls="accent-fill"))
+            g.append(rect(x - 20, fr.y(wgt), 40, max(fr.y(0) - fr.y(wgt), 1), fill=colour, stroke=None, rx=2,
+                          cls=cls))
             if k < 4:
                 g.append(text(x, fr.y(wgt) - 8, f"{wgt:.2f}", size=14, fill=INK))
         g += [label(fr.x(11), fr.y(0) + 24, "the last day", size=14, anchor="middle"),
               label(fr.x(0), fr.y(0) + 24, "11 days before", size=14, anchor="middle")]
         out.append(g)
-    ends = [text(500, 400, f"ŷ{sub('T+1')} = α y{sub('T')} + α(1 − α) y{sub('T−1')} + α(1 − α)² y{sub('T−2')} + …",
+    out[0].insert(0, label(30, 18, "tomorrow's forecast: a weighted average of the past days", size=15))
+    ends = [text(500, 428, f"ŷ{sub('T+1')} = α y{sub('T')} + α(1 − α) y{sub('T−1')} + α(1 − α)² y{sub('T−2')} + …",
                  size=24, weight="bold", fill=ACCENT, cls="accent-fill"),
-            text(500, 442, "α = 1: all the weight on the last day, the naive forecast;   α near 0: almost equal "
-                 "weights, close to the mean", size=17, fill=INK)]
+            text(500, 470, "α, the smoothing parameter: the last day's weight. α = 1 gives the last value; "
+                 "α near 0, almost the mean", size=17, fill=INK)]
     return svg(W, H, [step(1, out[0]), step(2, out[1]), step(3, ends)],
                "The weights simple exponential smoothing gives the last twelve days, α(1 - α)^k, for α = 0.8 and 0.2 "
                "(R. J. Hyndman and G. Athanasopoulos 2021, section 8.1). Drawn by " + LICENCE)
 
 
 def smooth() -> str:
-    """Exponential smoothing's level on the rentals: a running level that moves a fraction alpha toward each day."""
+    """Exponential smoothing's level on the rentals: each day, a weighted average of the day and the level before."""
     W, H = 1000, 470
     b = N["bike"]
     i = DATES.index(b["origin"])
@@ -135,7 +136,7 @@ def smooth() -> str:
     for a in (0.8, 0.2):
         lv, out = y[0], []
         for v in y:
-            lv = lv + a * (v - lv)
+            lv = a * v + (1 - a) * lv
             out.append(lv)
         levels[a] = out
     n, f = 42, 14
@@ -151,10 +152,10 @@ def smooth() -> str:
              text(fr.x(n + f - 1), fr.y(lv[-1]) + dy, f"α = {a}: forecast {fmt(lv[-1])}", size=17, weight="bold",
                   anchor="end", fill=colour, cls=cls.replace("stroke", "fill"))]
         lines.append(g)
-    eq = [text(500, 400, f"ℓ{sub('t')} = ℓ{sub('t−1')} + α (y{sub('t')} − ℓ{sub('t−1')});   the forecast: "
+    eq = [text(500, 400, f"ℓ{sub('t')} = α y{sub('t')} + (1 − α) ℓ{sub('t−1')};   the forecast: "
                          f"ŷ{sub('T+h')} = ℓ{sub('T')}", size=24, weight="bold", fill=ACCENT, cls="accent-fill"),
-          text(500, 440, "ℓ: the level;  α, the smoothing parameter, between 0 and 1: how far the level moves "
-                         "toward each new value", size=17, fill=INK)]
+          text(500, 440, "ℓ, the level: the new day weighs α and the level before it 1 − α, the same α as "
+                         "the weights", size=17, fill=INK)]
     return svg(W, H, [step(1, base), step(2, lines[0]), step(3, lines[1]), step(4, eq)],
                f"Daily rentals to {b['origin']} (grey, the last six weeks shown), their exponentially smoothed level "
                "for α = 0.8 and 0.2, started at the first day, and each level's flat forecast two weeks ahead (R. J. "

@@ -299,31 +299,31 @@ class: stepwise-svg, vcenter
 # Exponential smoothing
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/smooth.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Six weeks of daily rentals to 30 April 2011, their smoothed level for alpha 0.8, which chases each day, and for alpha 0.2, which moves slowly, each with its flat forecast; then the update formula"></object></div>
-.step-5.lead.big.center[Exponential smoothing moves a running level part way toward each new value.]
+<div class="step-1"><object type="image/svg+xml" data="images/weights.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Tomorrow's forecast as a weighted average of past days: the weights of the last twelve days for alpha 0.8, in dark, and 0.2, in blue, falling with age; then the formula and what alpha is"></object></div>
+.step-4.lead.big.center[Exponential smoothing averages all past days, the recent ones weighing more.]
 ]
 
-.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 8.1; S. Makridakis et al. (2018), section 5. Data: H. Fanaee-T (2013), UCI, .lic[CC BY 4.0].]
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 8.1; S. Makridakis et al. (2018), section 5.]
 
 ???
 
-**Exponential smoothing moves a running level part of the way toward each new value.** A day's rentals are the series' level plus that day's noise, from rain to holidays, and a forecast wants the level. The mean keeps every old day; the last value keeps today's noise. Smoothing keeps a level ℓ instead: each day, it moves a fraction α of the way toward the new value, and the forecast for every day ahead is the last level. With α = 0.8 the level chases each day and forecasts 5,146; with α = 0.2 it moves slowly, ignores most of the noise, and forecasts 4,230. The idea came from inventory control in the 1950s: Brown forecast the demand for thousands of items in navy shipyards, and a running level needs only one number per item. How much does each past day count in that level?
+**Exponential smoothing averages all past days, the recent ones weighing more.** A day's rentals are the series' level plus that day's noise, and a forecast wants the level. The mean keeps every old day, the winter's included; the last value keeps only today, noise and all. Exponential smoothing forecasts tomorrow with a weighted average of all past days. The last day weighs α, the smoothing parameter, between 0 and 1; each day further back weighs 1 − α times the day after it. The weights fall exponentially with age, hence the name. With α = 0.8, the last day takes 80% of the weight; with α = 0.2, older days still count. At α = 1, the forecast is the last value; near 0, almost the mean. Brown used it in the 1950s to forecast the demand for thousands of items in navy shipyards. Must each of those forecasts weigh every past day again?
 
 
 ---
 class: stepwise-svg, vcenter
-# Weights that fall with age
+# The smoothed level
 
 .fullw[
-<div class="step-1"><object type="image/svg+xml" data="images/weights.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="The weights of the last twelve days for alpha 0.8 and 0.2: they fall with age, faster for the larger alpha; then the formula of the forecast as a weighted sum of past values"></object></div>
-.step-4.lead.big.center[The level is a weighted average of past days, whose weights fall with age.]
+<div class="step-1"><object type="image/svg+xml" data="images/smooth.svg" style="width: 100%; display: block; margin: 0 auto; pointer-events: none;" aria-label="Six weeks of daily rentals to 30 April 2011, their smoothed level for alpha 0.8, in dark, which chases each day, and for alpha 0.2, in blue, which moves slowly, each with its flat forecast; then the update formula with the same alpha"></object></div>
+.step-5.lead.big.center[Each day's level is a weighted average of that day's value and the level before.]
 ]
 
-.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 8.1.]
+.footnote[R. J. Hyndman and G. Athanasopoulos (2021), section 8.1. Data: H. Fanaee-T (2013), UCI, .lic[CC BY 4.0].]
 
 ???
 
-**The level is a weighted average of all past days, whose weights fall with age.** Unroll the update, and the last day weighs α, the day before α(1 − α), the one before α(1 − α)², each day further back multiplied again by 1 − α: the weights fall exponentially, which gives the method its name. With α = 0.8, the last day takes 80% of the weight and a week ago almost nothing; with α = 0.2, old days still count. At α = 1, all the weight is on the last day: the naive forecast. With α near 0, the weights are almost equal: close to the mean. The method fits α to the series, choosing the value whose one-step forecasts missed least in the past. But its forecast is a flat line: what about a series with a trend, or a weekly season?
+**Each day's level is a weighted average of that day's value and the level before.** The forecast needs no sum over every past day. Smoothing keeps one number, the level ℓ, and updates it daily: the new value weighs α, the level before 1 − α, with the α of the weights. The level before held every earlier day, so each update multiplies the old days once more by 1 − α: that is why the weights fall with age. On the rentals, with α = 0.8 the level chases each day and ends at 5,146; with α = 0.2 it moves slowly and ends at 4,230. The forecast for every day ahead is the last level, one number per item. The method fits α to the series, the value whose one-step forecasts missed least. But the forecast is a flat line: what about a trend, or a weekly season?
 
 
 ---

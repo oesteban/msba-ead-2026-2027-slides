@@ -24,10 +24,10 @@
 <g data-step="3">
 <polyline class="accent-stroke" points="80.0,238.7 96.2,242.5 112.4,240.0 128.5,243.1 144.7,247.9 160.9,248.7 177.1,246.8 193.3,252.4 209.5,253.9 225.6,251.5 241.8,257.6 258.0,261.1 274.2,259.1 290.4,257.2 306.5,246.9 322.7,239.8 338.9,245.9 355.1,241.8 371.3,235.5 387.5,245.3 403.6,244.4 419.8,239.8 436.0,232.1 452.2,237.6 468.4,240.9 484.5,233.6 500.7,229.1 516.9,246.2 533.1,233.7 549.3,226.5 565.5,222.7 581.6,213.1 597.8,203.3 614.0,217.6 630.2,208.2 646.4,199.3 662.5,193.3 678.7,185.5 694.9,184.0 711.1,181.1 727.3,174.0 743.5,162.0" fill="none" stroke="#00609c" stroke-width="3" stroke-linejoin="round"/>
 <polyline class="accent-stroke" points="759.6,162.0 775.8,162.0 792.0,162.0 808.2,162.0 824.4,162.0 840.5,162.0 856.7,162.0 872.9,162.0 889.1,162.0 905.3,162.0 921.5,162.0 937.6,162.0 953.8,162.0 970.0,162.0" fill="none" stroke="#00609c" stroke-width="3" stroke-linejoin="round" stroke-dasharray="8 5"/>
-<text class="accent-fill" x="970.0" y="188.02054419483494" font-size="17" font-weight="bold" text-anchor="end" fill="#00609c">α = 0.2: forecast 4,230</text>
+<text class="accent-fill" x="970.0" y="188.02054419483488" font-size="17" font-weight="bold" text-anchor="end" fill="#00609c">α = 0.2: forecast 4,230</text>
 </g>
 <g data-step="4">
-<text class="accent-fill" x="500" y="400" font-size="24" font-weight="bold" text-anchor="middle" fill="#00609c">ℓ<tspan baseline-shift='sub' font-size='14'>t</tspan> = ℓ<tspan baseline-shift='sub' font-size='14'>t−1</tspan> + α (y<tspan baseline-shift='sub' font-size='14'>t</tspan> − ℓ<tspan baseline-shift='sub' font-size='14'>t−1</tspan>);   the forecast: ŷ<tspan baseline-shift='sub' font-size='14'>T+h</tspan> = ℓ<tspan baseline-shift='sub' font-size='14'>T</tspan></text>
-<text x="500" y="440" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">ℓ: the level;  α, the smoothing parameter, between 0 and 1: how far the level moves toward each new value</text>
+<text class="accent-fill" x="500" y="400" font-size="24" font-weight="bold" text-anchor="middle" fill="#00609c">ℓ<tspan baseline-shift='sub' font-size='14'>t</tspan> = α y<tspan baseline-shift='sub' font-size='14'>t</tspan> + (1 − α) ℓ<tspan baseline-shift='sub' font-size='14'>t−1</tspan>;   the forecast: ŷ<tspan baseline-shift='sub' font-size='14'>T+h</tspan> = ℓ<tspan baseline-shift='sub' font-size='14'>T</tspan></text>
+<text x="500" y="440" font-size="17" font-weight="normal" text-anchor="middle" fill="#1c2e36">ℓ, the level: the new day weighs α and the level before it 1 − α, the same α as the weights</text>
 </g>
 </svg>
